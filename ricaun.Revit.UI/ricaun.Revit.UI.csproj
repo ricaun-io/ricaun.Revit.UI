@@ -53,7 +53,7 @@
     <Otherwise>
       <PropertyGroup>
         <RevitVersion>2017</RevitVersion>
-        <TargetFramework>net47</TargetFramework>
+        <TargetFramework>net46</TargetFramework>
       </PropertyGroup>
     </Otherwise>
   </Choose>

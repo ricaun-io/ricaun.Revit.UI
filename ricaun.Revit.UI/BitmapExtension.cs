@@ -75,5 +75,17 @@ namespace ricaun.Revit.UI
         {
             return new TransformedBitmap(bitmapSource, new ScaleTransform(scale, scale));
         }
+
+        /// <summary>
+        /// Scale <paramref name="imageSource"/>
+        /// </summary>
+        /// <param name="imageSource"></param>
+        /// <param name="scale"></param>
+        /// <returns></returns>
+        public static BitmapSource Scale(this ImageSource imageSource, double scale)
+        {
+            return new TransformedBitmap(imageSource as BitmapSource, new ScaleTransform(scale, scale));
+        }
+
     }
 }
