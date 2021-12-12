@@ -146,38 +146,42 @@ namespace ricaun.Revit.UI
         /// <summary>
         /// CreateSplitButton
         /// </summary>
-        /// <param name="targetPanel"></param>
+        /// <param name="ribbonPanel"></param>
         /// <param name="targetPushButtons"></param>
         /// <returns></returns>
-        public static SplitButton CreateSplitButton(this RibbonPanel targetPanel, IList<PushButtonData> targetPushButtons)
+        public static SplitButton CreateSplitButton(this RibbonPanel ribbonPanel, IList<PushButtonData> targetPushButtons)
         {
-            return targetPanel.CreateSplitButton(null, targetPushButtons);
+            return ribbonPanel.CreateSplitButton(null, targetPushButtons);
         }
 
         /// <summary>
         /// CreateSplitButton
         /// </summary>
-        /// <param name="targetPanel"></param>
-        /// <param name="targetName"></param>
+        /// <param name="ribbonPanel"></param>
+        /// <param name="targetText"></param>
         /// <param name="targetPushButtons"></param>
         /// <returns></returns>
-        public static SplitButton CreateSplitButton(this RibbonPanel targetPanel, string targetName, IList<PushButtonData> targetPushButtons)
+        public static SplitButton CreateSplitButton(this RibbonPanel ribbonPanel, string targetText, IList<PushButtonData> targetPushButtons)
         {
             SplitButton currentSplitButton = null;
             if (targetPushButtons.Count > 0)
             {
-                if (targetName == null) targetName = targetPushButtons.FirstOrDefault().Text;
-                try
+                if (targetText == null) targetText = targetPushButtons.FirstOrDefault().Text;
+                var targetName = targetText;
+
+                while (verifyNameExclusive(ribbonPanel, targetName))
                 {
-                    currentSplitButton = targetPanel.AddItem(new SplitButtonData(targetName, targetName)) as SplitButton;
+                    targetName = SafeButtonName(targetText);
                 }
-                catch
-                {
-                    currentSplitButton = targetPanel.AddItem(new SplitButtonData(SafeButtonName(targetName), targetName)) as SplitButton;
-                }
+
+                currentSplitButton = ribbonPanel.AddItem(new SplitButtonData(targetName, targetText)) as SplitButton;
 
                 foreach (PushButtonData currentPushButton in targetPushButtons)
                 {
+                    while (verifyNameExclusive(currentSplitButton, currentPushButton.Name))
+                    {
+                        currentPushButton.Name = SafeButtonName(targetText);
+                    }
                     currentSplitButton.AddPushButton(currentPushButton);
                 }
             }
@@ -223,6 +227,10 @@ namespace ricaun.Revit.UI
 
                 foreach (PushButtonData currentPushButton in targetPushButtons)
                 {
+                    while (verifyNameExclusive(currentPulldownButton, currentPushButton.Name))
+                    {
+                        currentPushButton.Name = SafeButtonName(targetText);
+                    }
                     currentPulldownButton.AddPushButton(currentPushButton);
                 }
             }
