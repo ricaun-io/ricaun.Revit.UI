@@ -33,6 +33,16 @@ namespace ricaun.Revit.UI.Example.Revit
                 ribbonPanel.NewPushButtonData<Commands.Command>(),
                 ribbonPanel.NewPushButtonData<Commands.Command>() });
 
+            ribbonPanel.AddStackedItems(
+                ribbonPanel.NewPushButtonData<Commands.Command>("Item1"),
+                ribbonPanel.NewPushButtonData<Commands.Command>("Item2"));
+
+            ribbonPanel.AddStackedItems(
+                ribbonPanel.NewPushButtonData<Commands.Command>("1"),
+                ribbonPanel.NewPushButtonData<Commands.Command>("2"),
+                ribbonPanel.NewPushButtonData<Commands.Command>("3"));
+
+
             foreach (var item in ribbonPanel.GetItems())
             {
                 if (item is PushButton pushButton)

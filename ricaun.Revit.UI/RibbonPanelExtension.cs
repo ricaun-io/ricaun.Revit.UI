@@ -87,13 +87,14 @@ namespace ricaun.Revit.UI
             string targetName = commandType.Name;
             string targetText = commandType.Name;
 
+            if (text != null) targetText = text;
+
             while (verifyNameExclusive(ribbonPanel, targetName))
             {
                 targetName = SafeButtonName(targetText);
             }
 
             PushButtonData currentBtn = new PushButtonData(targetName, targetText, currentDll, fullname);
-            if (text != null) currentBtn.Text = text;
             return currentBtn;
         }
         /// <summary>
@@ -242,7 +243,7 @@ namespace ricaun.Revit.UI
 
         private static string SafeButtonName(string buttonName)
         {
-            return $"{buttonName} {System.DateTime.Now.Ticks}";
+            return $"{buttonName}_{System.DateTime.Now.Ticks}";
         }
 
         private static string SafeRibbonPanelName(string panelName)
