@@ -76,15 +76,16 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <PackageId>ricaun.Revit.UI</PackageId>
-    <Version>0.0.1</Version>
-    <ProjectGuid>{2064ba4d-5527-41e9-8b76-0cbfefa35900}</ProjectGuid>
+    <PackageId>ricaun.Revit.UI.Example</PackageId>
+    <Version>1.0.0</Version>
+    <ProjectGuid>{f736f68f-7101-4640-9093-8715f88ccb95}</ProjectGuid>
   </PropertyGroup>
 
   <PropertyGroup>
     <PackageAssemblyVersion>.$(Version)</PackageAssemblyVersion>
   </PropertyGroup>
   <PropertyGroup Condition="$(Configuration.Contains('Debug'))">
+    <Version>$(Version).$([System.DateTime]::Now.ToString('ffff'))</Version>
     <PackageAssemblyVersion>.Dev.$(Version)</PackageAssemblyVersion>
   </PropertyGroup>
 
@@ -101,46 +102,41 @@
     <Copyright>Copyright © $(CopyrightYears) $(Company)</Copyright>
   </PropertyGroup>
 
-  <PropertyGroup>
-    <GitHubRepositoryOwner>ricaun-io</GitHubRepositoryOwner>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <PackageProjectUrl>https://github.com/$(GitHubRepositoryOwner)/$(PackageId)</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/$(GitHubRepositoryOwner)/$(PackageId)</RepositoryUrl>
-    <RepositoryType>github</RepositoryType>
-    <PackageIcon>icon.png</PackageIcon>
-    <PackageIconUrl />
-  </PropertyGroup>
-
-  <PropertyGroup Condition="!$(Configuration.Contains('Debug'))">
-    <DocumentationFile>$(OutputPath)\$(AssemblyName).xml</DocumentationFile>
-  </PropertyGroup>
-
   <ItemGroup>
-    <None Include="..\README.md">
-      <Pack>True</Pack>
-      <PackagePath></PackagePath>
-      <Visible>false</Visible>
-    </None>
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="..\LICENSE">
-      <Pack>True</Pack>
-      <PackagePath></PackagePath>
-      <Visible>false</Visible>
-    </None>
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="Resources\icon.png">
-      <Pack>True</Pack>
-      <PackagePath></PackagePath>
-    </None>
+    <None Include="FodyWeavers.xml" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="9.0.1" IncludeAssets="build; compile" PrivateAssets="All" />
+    <PackageReference Include="PropertyChanged.Fody" Version="2.5.9.0" IncludeAssets="build; compile" PrivateAssets="All" />
     <PackageReference Include="Revit_All_Main_Versions_API_x64" Version="$(RevitVersion).*" IncludeAssets="build; compile" PrivateAssets="All" />
+  </ItemGroup>
+
+  <!-- Costura.Fody -->
+  <PropertyGroup>
+    <DisableFody Condition="$(Configuration.Contains('Debug'))">true</DisableFody>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Costura.Fody" Version="3.1.0.0" IncludeAssets="build; compile" PrivateAssets="All" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ricaun.Revit.UI\ricaun.Revit.UI.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Proprieties\Resource.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resource.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Proprieties\Resource.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resource.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
 
 </Project>
