@@ -82,19 +82,22 @@ namespace ricaun.Revit.UI
         public static PushButtonData NewPushButtonData<TExternalCommand>(this RibbonPanel ribbonPanel, string text = null) where TExternalCommand : class, IExternalCommand, new()
         {
             var commandType = typeof(TExternalCommand);
-            var currentDll = commandType.Assembly.Location;
-            string fullname = commandType.FullName;
-            string targetName = commandType.Name;
-            string targetText = commandType.Name;
+            var targetName = commandType.Name;
+            var targetText = commandType.Name;
+            var location = commandType.Assembly.Location;
+            var fullName = commandType.FullName;
 
-            if (text != null) targetText = text;
+            if (text != null && text != "") targetText = text;
 
             while (verifyNameExclusive(ribbonPanel, targetName))
             {
                 targetName = SafeButtonName(targetText);
             }
 
-            PushButtonData currentBtn = new PushButtonData(targetName, targetText, currentDll, fullname);
+            PushButtonData currentBtn = new PushButtonData(targetName, targetText, location, fullName);
+
+            if (text != null) currentBtn.Text = text;
+
             return currentBtn;
         }
         /// <summary>
@@ -123,8 +126,8 @@ namespace ricaun.Revit.UI
         /// <returns></returns>
         public static PushButton AddPushButton<TExternalCommand>(this RibbonPanel ribbonPanel, string text = null) where TExternalCommand : class, IExternalCommand, new()
         {
-            PushButton currentBtn = ribbonPanel.AddItem(ribbonPanel.NewPushButtonData<TExternalCommand>(text)) as PushButton;
-            return currentBtn;
+            PushButton pushButton = ribbonPanel.AddItem(ribbonPanel.NewPushButtonData<TExternalCommand>(text)) as PushButton;
+            return pushButton;
         }
         /// <summary>
         /// AddPushButton
@@ -136,9 +139,9 @@ namespace ricaun.Revit.UI
         /// <returns></returns>
         public static PushButton AddPushButton<TExternalCommand, TAvailability>(this RibbonPanel ribbonPanel, string text = null) where TExternalCommand : class, IExternalCommand, new() where TAvailability : class, IExternalCommandAvailability, new()
         {
-            PushButton currentBtn = ribbonPanel.AddPushButton<TExternalCommand>(text);
-            currentBtn.AvailabilityClassName = typeof(TAvailability).FullName;
-            return currentBtn;
+            PushButton pushButton = ribbonPanel.AddPushButton<TExternalCommand>(text);
+            pushButton.AvailabilityClassName = typeof(TAvailability).FullName;
+            return pushButton;
         }
         #endregion
 
@@ -241,11 +244,21 @@ namespace ricaun.Revit.UI
 
         #region private
 
+        /// <summary>
+        /// Safe Button Name
+        /// </summary>
+        /// <param name="buttonName"></param>
+        /// <returns></returns>
         private static string SafeButtonName(string buttonName)
         {
             return $"{buttonName}_{System.DateTime.Now.Ticks}";
         }
 
+        /// <summary>
+        /// Safe Ribbon Panel Name
+        /// </summary>
+        /// <param name="panelName"></param>
+        /// <returns></returns>
         private static string SafeRibbonPanelName(string panelName)
         {
             return $"{System.DateTime.Now.Ticks}%{panelName}";
