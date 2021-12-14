@@ -33,15 +33,29 @@ namespace ricaun.Revit.UI.Example.Revit
                 ribbonPanel.NewPushButtonData<Commands.Command>(),
                 ribbonPanel.NewPushButtonData<Commands.Command>() });
 
-            ribbonPanel.AddStackedItems(
+            ribbonPanel.AddPushButton<Commands.Command>("");
+
+            var items = ribbonPanel.AddStackedItems(
                 ribbonPanel.NewPushButtonData<Commands.Command>("Item1"),
                 ribbonPanel.NewPushButtonData<Commands.Command>("Item2"));
 
-            ribbonPanel.AddStackedItems(
+            foreach (var item in items)
+            {
+                var ri = item.GetRibbonItem();
+                ri.ShowText = false;
+                ri.Size = Autodesk.Windows.RibbonItemSize.Large;
+            }
+
+            var item3s = ribbonPanel.AddStackedItems(
                 ribbonPanel.NewPushButtonData<Commands.Command>("1"),
                 ribbonPanel.NewPushButtonData<Commands.Command>("2"),
                 ribbonPanel.NewPushButtonData<Commands.Command>("3"));
 
+            foreach (var item in item3s)
+            {
+                var ri = item.GetRibbonItem();
+                ri.ShowText = false;
+            }
 
             foreach (var item in ribbonPanel.GetItems())
             {

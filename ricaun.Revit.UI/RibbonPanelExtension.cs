@@ -96,7 +96,7 @@ namespace ricaun.Revit.UI
 
             PushButtonData currentBtn = new PushButtonData(targetName, targetText, location, fullName);
 
-            if (text != null) currentBtn.Text = text;
+            if (text == "") currentBtn.Text = "-";
 
             return currentBtn;
         }
@@ -240,6 +240,15 @@ namespace ricaun.Revit.UI
             }
             return currentPulldownButton;
         }
+        #endregion
+
+        #region AddStackedItems
+        /*
+        public static IList<RibbonItem> AddStackedItems(IList<RibbonItemData> items)
+        {
+
+        }*/
+
         #endregion
 
         #region private
