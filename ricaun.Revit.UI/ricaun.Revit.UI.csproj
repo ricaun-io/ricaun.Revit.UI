@@ -77,7 +77,7 @@
 
   <PropertyGroup>
     <PackageId>ricaun.Revit.UI</PackageId>
-    <Version>0.0.1</Version>
+    <Version>0.0.2</Version>
     <ProjectGuid>{2064ba4d-5527-41e9-8b76-0cbfefa35900}</ProjectGuid>
   </PropertyGroup>
 
@@ -87,10 +87,6 @@
   <PropertyGroup Condition="$(Configuration.Contains('Debug'))">
     <Revision>$([MSBuild]::Divide($([System.DateTime]::get_Now().get_TimeOfDay().get_TotalSeconds()), 4).ToString('F0'))</Revision>
     <Version>$(Version).$(Revision)</Version>
-    <!--
-    <Version>$(Version).$([System.DateTime]::Now.ToString('ddmm'))</Version>
-    <Deterministic>false</Deterministic>
-    -->
     <PackageAssemblyVersion>.Dev.$(Version)</PackageAssemblyVersion>
   </PropertyGroup>
 
