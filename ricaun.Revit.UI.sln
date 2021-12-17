@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31911.196
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ricaun.Revit.UI", "ricaun.Revit.UI\ricaun.Revit.UI.csproj", "{2064BA4D-5527-41E9-8B76-0CBFEFA35900}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ricaun.Revit.UI", "ricaun.Revit.UI\ricaun.Revit.UI.csproj", "{2064BA4D-5527-41E9-8B76-0CBFEFA35900}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Project", "Project", "{A81D2950-B5CB-4CDB-B7FE-9132C730C8CC}"
 	ProjectSection(SolutionItems) = preProject
@@ -11,7 +11,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Project", "Project", "{A81D
 		README.md = README.md
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Build", "Build\Build.csproj", "{DBD6BDAC-EC17-4B9F-B3CD-9E58CD582F61}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Build", "Build\Build.csproj", "{DBD6BDAC-EC17-4B9F-B3CD-9E58CD582F61}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ricaun.Revit.UI.Example", "ricaun.Revit.UI.Example\ricaun.Revit.UI.Example.csproj", "{F736F68F-7101-4640-9093-8715F88CCB95}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -24,9 +26,11 @@ Global
 		{2064BA4D-5527-41E9-8B76-0CBFEFA35900}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2064BA4D-5527-41E9-8B76-0CBFEFA35900}.Release|Any CPU.Build.0 = Release|Any CPU
 		{DBD6BDAC-EC17-4B9F-B3CD-9E58CD582F61}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{DBD6BDAC-EC17-4B9F-B3CD-9E58CD582F61}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DBD6BDAC-EC17-4B9F-B3CD-9E58CD582F61}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{DBD6BDAC-EC17-4B9F-B3CD-9E58CD582F61}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F736F68F-7101-4640-9093-8715F88CCB95}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F736F68F-7101-4640-9093-8715F88CCB95}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F736F68F-7101-4640-9093-8715F88CCB95}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F736F68F-7101-4640-9093-8715F88CCB95}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

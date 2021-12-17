@@ -1,6 +1,7 @@
 ﻿using Autodesk.Revit.UI;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 
 namespace ricaun.Revit.UI
 {
@@ -81,11 +82,22 @@ namespace ricaun.Revit.UI
         public static PushButtonData NewPushButtonData<TExternalCommand>(this RibbonPanel ribbonPanel, string text = null) where TExternalCommand : class, IExternalCommand, new()
         {
             var commandType = typeof(TExternalCommand);
-            var currentDll = commandType.Assembly.Location;
-            string fullname = commandType.FullName;
-            string targetName = commandType.Name;
-            PushButtonData currentBtn = new PushButtonData(targetName, targetName, currentDll, fullname);
-            if (text != null) currentBtn.Text = text;
+            var targetName = commandType.Name;
+            var targetText = commandType.Name;
+            var location = commandType.Assembly.Location;
+            var fullName = commandType.FullName;
+
+            if (text != null && text != "") targetText = text;
+
+            while (verifyNameExclusive(ribbonPanel, targetName))
+            {
+                targetName = SafeButtonName(targetText);
+            }
+
+            PushButtonData currentBtn = new PushButtonData(targetName, targetText, location, fullName);
+
+            if (text == "") currentBtn.Text = "-";
+
             return currentBtn;
         }
         /// <summary>
@@ -114,8 +126,8 @@ namespace ricaun.Revit.UI
         /// <returns></returns>
         public static PushButton AddPushButton<TExternalCommand>(this RibbonPanel ribbonPanel, string text = null) where TExternalCommand : class, IExternalCommand, new()
         {
-            PushButton currentBtn = ribbonPanel.AddItem(ribbonPanel.NewPushButtonData<TExternalCommand>(text)) as PushButton;
-            return currentBtn;
+            PushButton pushButton = ribbonPanel.AddItem(ribbonPanel.NewPushButtonData<TExternalCommand>(text)) as PushButton;
+            return pushButton;
         }
         /// <summary>
         /// AddPushButton
@@ -127,9 +139,9 @@ namespace ricaun.Revit.UI
         /// <returns></returns>
         public static PushButton AddPushButton<TExternalCommand, TAvailability>(this RibbonPanel ribbonPanel, string text = null) where TExternalCommand : class, IExternalCommand, new() where TAvailability : class, IExternalCommandAvailability, new()
         {
-            PushButton currentBtn = ribbonPanel.AddPushButton<TExternalCommand>(text);
-            currentBtn.AvailabilityClassName = typeof(TAvailability).FullName;
-            return currentBtn;
+            PushButton pushButton = ribbonPanel.AddPushButton<TExternalCommand>(text);
+            pushButton.AvailabilityClassName = typeof(TAvailability).FullName;
+            return pushButton;
         }
         #endregion
 
@@ -138,38 +150,42 @@ namespace ricaun.Revit.UI
         /// <summary>
         /// CreateSplitButton
         /// </summary>
-        /// <param name="targetPanel"></param>
+        /// <param name="ribbonPanel"></param>
         /// <param name="targetPushButtons"></param>
         /// <returns></returns>
-        public static SplitButton CreateSplitButton(this RibbonPanel targetPanel, IList<PushButtonData> targetPushButtons)
+        public static SplitButton CreateSplitButton(this RibbonPanel ribbonPanel, IList<PushButtonData> targetPushButtons)
         {
-            return targetPanel.CreateSplitButton(null, targetPushButtons);
+            return ribbonPanel.CreateSplitButton(null, targetPushButtons);
         }
 
         /// <summary>
         /// CreateSplitButton
         /// </summary>
-        /// <param name="targetPanel"></param>
-        /// <param name="targetName"></param>
+        /// <param name="ribbonPanel"></param>
+        /// <param name="targetText"></param>
         /// <param name="targetPushButtons"></param>
         /// <returns></returns>
-        public static SplitButton CreateSplitButton(this RibbonPanel targetPanel, string targetName, IList<PushButtonData> targetPushButtons)
+        public static SplitButton CreateSplitButton(this RibbonPanel ribbonPanel, string targetText, IList<PushButtonData> targetPushButtons)
         {
             SplitButton currentSplitButton = null;
             if (targetPushButtons.Count > 0)
             {
-                if (targetName == null) targetName = targetPushButtons.FirstOrDefault().Name;
-                try
+                if (targetText == null) targetText = targetPushButtons.FirstOrDefault().Text;
+                var targetName = targetText;
+
+                while (verifyNameExclusive(ribbonPanel, targetName))
                 {
-                    currentSplitButton = targetPanel.AddItem(new SplitButtonData(targetName, targetName)) as SplitButton;
+                    targetName = SafeButtonName(targetText);
                 }
-                catch
-                {
-                    currentSplitButton = targetPanel.AddItem(new SplitButtonData(SafeButtonName(targetName), targetName)) as SplitButton;
-                }
+
+                currentSplitButton = ribbonPanel.AddItem(new SplitButtonData(targetName, targetText)) as SplitButton;
 
                 foreach (PushButtonData currentPushButton in targetPushButtons)
                 {
+                    while (verifyNameExclusive(currentSplitButton, currentPushButton.Name))
+                    {
+                        currentPushButton.Name = SafeButtonName(targetText);
+                    }
                     currentSplitButton.AddPushButton(currentPushButton);
                 }
             }
@@ -183,37 +199,42 @@ namespace ricaun.Revit.UI
         /// <summary>
         /// CreatePulldownButton
         /// </summary>
-        /// <param name="targetPanel"></param>
+        /// <param name="ribbonPanel"></param>
         /// <param name="targetPushButtons"></param>
         /// <returns></returns>
-        public static PulldownButton CreatePulldownButton(this RibbonPanel targetPanel, IList<PushButtonData> targetPushButtons)
+        public static PulldownButton CreatePulldownButton(this RibbonPanel ribbonPanel, IList<PushButtonData> targetPushButtons)
         {
-            return targetPanel.CreatePulldownButton(null, targetPushButtons);
+            return ribbonPanel.CreatePulldownButton(null, targetPushButtons);
         }
 
         /// <summary>
         /// CreatePulldownButton
         /// </summary>
-        /// <param name="targetPanel"></param>
-        /// <param name="targetName"></param>
+        /// <param name="ribbonPanel"></param>
+        /// <param name="targetText"></param>
         /// <param name="targetPushButtons"></param>
         /// <returns></returns>
-        public static PulldownButton CreatePulldownButton(this RibbonPanel targetPanel, string targetName, IList<PushButtonData> targetPushButtons)
+        public static PulldownButton CreatePulldownButton(this RibbonPanel ribbonPanel, string targetText, IList<PushButtonData> targetPushButtons)
         {
             PulldownButton currentPulldownButton = null;
             if (targetPushButtons.Count > 0)
             {
-                if (targetName == null) targetName = targetPushButtons.FirstOrDefault().Name;
-                try
+                if (targetText == null) targetText = targetPushButtons.FirstOrDefault().Text;
+                var targetName = targetText;
+
+                while (verifyNameExclusive(ribbonPanel, targetName))
                 {
-                    currentPulldownButton = targetPanel.AddItem(new PulldownButtonData(targetName, targetName)) as PulldownButton;
+                    targetName = SafeButtonName(targetText);
                 }
-                catch
-                {
-                    currentPulldownButton = targetPanel.AddItem(new PulldownButtonData(SafeButtonName(targetName), targetName)) as PulldownButton;
-                }
+
+                currentPulldownButton = ribbonPanel.AddItem(new PulldownButtonData(targetName, targetText)) as PulldownButton;
+
                 foreach (PushButtonData currentPushButton in targetPushButtons)
                 {
+                    while (verifyNameExclusive(currentPulldownButton, currentPushButton.Name))
+                    {
+                        currentPushButton.Name = SafeButtonName(targetText);
+                    }
                     currentPulldownButton.AddPushButton(currentPushButton);
                 }
             }
@@ -221,16 +242,55 @@ namespace ricaun.Revit.UI
         }
         #endregion
 
+        #region AddStackedItems
+        /*
+        public static IList<RibbonItem> AddStackedItems(IList<RibbonItemData> items)
+        {
+
+        }*/
+
+        #endregion
+
         #region private
 
+        /// <summary>
+        /// Safe Button Name
+        /// </summary>
+        /// <param name="buttonName"></param>
+        /// <returns></returns>
         private static string SafeButtonName(string buttonName)
         {
-            return $"{buttonName} {System.DateTime.Now.Ticks}";
+            return $"{buttonName}_{System.DateTime.Now.Ticks}";
         }
 
+        /// <summary>
+        /// Safe Ribbon Panel Name
+        /// </summary>
+        /// <param name="panelName"></param>
+        /// <returns></returns>
         private static string SafeRibbonPanelName(string panelName)
         {
             return $"{System.DateTime.Now.Ticks}%{panelName}";
+        }
+
+        /// <summary>
+        /// Verify if Panel has Name
+        /// </summary>
+        /// <param name="ribbonPanel"></param>
+        /// <param name="name"></param>
+        /// <returns></returns>
+        private static bool verifyNameExclusive<T>(T ribbonPanel, string name)
+        {
+            var type = typeof(T);
+            try
+            {
+                type.GetMethod("verifyNameExclusive",
+                    BindingFlags.Instance | BindingFlags.NonPublic)
+                    ?.Invoke(ribbonPanel, new[] { name });
+                return false;
+            }
+            catch { }
+            return true;
         }
 
         #endregion
