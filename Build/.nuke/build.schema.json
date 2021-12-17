@@ -37,6 +37,12 @@
             "VSCode"
           ]
         },
+        "MainName": {
+          "type": "string"
+        },
+        "Name": {
+          "type": "string"
+        },
         "NoLogo": {
           "type": "boolean",
           "description": "Disables displaying the NUKE logo"
@@ -69,6 +75,7 @@
               "Build",
               "Clean",
               "Compile",
+              "CompileExample",
               "GitRelease",
               "Pack",
               "Release",
@@ -89,6 +96,7 @@
               "Build",
               "Clean",
               "Compile",
+              "CompileExample",
               "GitRelease",
               "Pack",
               "Release",
