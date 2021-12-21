@@ -58,10 +58,10 @@
     </Otherwise>
   </Choose>
 
-  <!-- Content -->
+  <!-- Release -->
   <PropertyGroup Condition="!$(Configuration.Contains('Debug'))">
     <Optimize>true</Optimize>
-    <OutputPath>bin\Content\$(RevitVersion)</OutputPath>
+    <OutputPath>bin\Release\$(RevitVersion)</OutputPath>
     <DefineConstants>Revit$(RevitVersion)</DefineConstants>
     <NoWarn>MSB3052</NoWarn>
     <DebugType>None</DebugType>
