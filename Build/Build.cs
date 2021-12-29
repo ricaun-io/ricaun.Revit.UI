@@ -6,6 +6,6 @@ using ricaun.Nuke.Components;
 [CheckBuildProjectConfigurations]
 class Build : NukeBuild, IPublishPack, ICompileExample
 {
-    string IHazExample.Folder => "Content";
+    // string IHazExample.Folder => "Release";
     public static int Main() => Execute<Build>(x => x.From<IPublishPack>().Build);
 }
