@@ -77,7 +77,7 @@
 
   <PropertyGroup>
     <PackageId>ricaun.Revit.UI</PackageId>
-    <Version>0.0.3</Version>
+    <Version>0.0.4</Version>
     <ProjectGuid>{2064ba4d-5527-41e9-8b76-0cbfefa35900}</ProjectGuid>
   </PropertyGroup>
 
