@@ -61,7 +61,7 @@
   <!-- Release -->
   <PropertyGroup Condition="!$(Configuration.Contains('Debug'))">
     <Optimize>true</Optimize>
-    <OutputPath>bin\Release\$(RevitVersion)</OutputPath>
+    <OutputPath>bin\Release\</OutputPath>
     <DefineConstants>Revit$(RevitVersion)</DefineConstants>
     <NoWarn>MSB3052</NoWarn>
     <DebugType>None</DebugType>
@@ -84,34 +84,9 @@
   <PropertyGroup>
     <PackageAssemblyVersion>.$(Version)</PackageAssemblyVersion>
   </PropertyGroup>
-
-  <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
-    <PropertyGroup>
-      <VersionSuffix>5</VersionSuffix>
-    </PropertyGroup>
-  </Target>
-
-  <Target Name="AfterBuild" >
-    <PropertyGroup>
-      <VersionSuffix>5</VersionSuffix>
-    </PropertyGroup>
-  </Target>
-
   <PropertyGroup Condition="$(Configuration.Contains('Debug'))">
     <Revision>$([MSBuild]::Divide($([System.DateTime]::get_Now().get_TimeOfDay().get_TotalSeconds()), 4).ToString('F0'))</Revision>
     <Version>$(Version).$(Revision)</Version>
-    <!--
-    
-    <Version>$(Version).$([System.DateTime]::UtcNow.ToString(mmff))</Version>
-    <Deterministic>False</Deterministic>
-    
-      <VersionSuffix>1.0.0.$([System.DateTime]::UtcNow.ToString(mmff))</VersionSuffix>
-  <AssemblyVersion Condition=" '$(VersionSuffix)' == '' ">0.0.0.1</AssemblyVersion>
-  <AssemblyVersion Condition=" '$(VersionSuffix)' != '' ">$(VersionSuffix)</AssemblyVersion>
-  <Version Condition=" '$(VersionSuffix)' == '' ">0.0.1.0</Version>
-  <Version Condition=" '$(VersionSuffix)' != '' ">$(VersionSuffix)</Version>
-    
-    -->
     <PackageAssemblyVersion>.Dev.$(Version)</PackageAssemblyVersion>
   </PropertyGroup>
 
