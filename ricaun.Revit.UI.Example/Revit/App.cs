@@ -12,7 +12,7 @@ namespace ricaun.Revit.UI.Example.Revit
         public Result OnStartup(UIControlledApplication application)
         {
             ribbonPanel = application.CreatePanel("Example");
-            ribbonPanel.AddPushButton<Commands.Command>();
+            var button = ribbonPanel.AddPushButton<Commands.Command>();
 
             ribbonPanel.CreatePulldownButton(new[] {
                 ribbonPanel.NewPushButtonData<Commands.Command>(),
@@ -84,6 +84,14 @@ namespace ricaun.Revit.UI.Example.Revit
                     }
                 }
             }
+
+            button.SetDescription(new RibbonDescription()
+            {
+                Text = "-",
+                LongDescription = "LongDescription",
+                ToolTip = "ToolTip",
+                LargeImage = Proprieties.Resource.icon.GetBitmapSource()
+            });
 
             return Result.Succeeded;
         }

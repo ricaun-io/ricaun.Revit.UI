@@ -270,7 +270,7 @@ namespace ricaun.Revit.UI
         /// <returns></returns>
         private static string SafeRibbonPanelName(string panelName)
         {
-            return $"{TickNumber}%{panelName}";
+            return $"{System.DateTime.Now.Ticks}%{panelName}";
         }
 
         /// <summary>
@@ -280,7 +280,7 @@ namespace ricaun.Revit.UI
         /// <summary>
         /// TickNumber ++ 
         /// </summary>
-        private static long TickNumber => _TickNumber++; // System.DateTime.Now.Ticks
+        private static long TickNumber => _TickNumber++;
 
         /// <summary>
         /// Verify if Panel has Name

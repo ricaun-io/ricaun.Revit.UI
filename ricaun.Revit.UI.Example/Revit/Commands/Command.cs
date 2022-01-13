@@ -14,7 +14,7 @@ namespace ricaun.Revit.UI.Example.Revit.Commands
 
             Console.WriteLine(typeof(Command).Assembly);
 
-            //System.Windows.MessageBox.Show(AutodeskExtension.GetAutodeskOwner(), $"Hello Revit\n{DateTime.Now}");
+            System.Windows.MessageBox.Show(AutodeskExtension.GetAutodeskOwner(), $"Hello Revit\n{DateTime.Now}");
 
             return Result.Succeeded;
         }
