@@ -16,7 +16,7 @@ namespace ricaun.Revit.UI
         /// </summary>
         /// <param name="ribbonItem"></param>
         /// <returns></returns>
-        public static string GetId(this RibbonItem ribbonItem)
+        private static string GetId(this RibbonItem ribbonItem)
         {
             var type = typeof(RibbonItem);
 
@@ -56,6 +56,37 @@ namespace ricaun.Revit.UI
                 if (tab.Id == tabId)
                 {
                     return tab;
+                }
+            }
+            return null;
+        }
+
+        /// <summary>
+        /// GetRibbonPanel
+        /// </summary>
+        /// <param name="ribbonPanel"></param>
+        /// <returns></returns>
+        public static Autodesk.Windows.RibbonPanel GetRibbonPanel(this RibbonPanel ribbonPanel)
+        {
+            return GetRibbonPanel(ribbonPanel.Name);
+        }
+
+        /// <summary>
+        /// GetRibbonPanel
+        /// </summary>
+        /// <param name="panelEndWithId"></param>
+        /// <returns></returns>
+        public static Autodesk.Windows.RibbonPanel GetRibbonPanel(string panelEndWithId)
+        {
+            var ribbon = Autodesk.Windows.ComponentManager.Ribbon;
+            foreach (Autodesk.Windows.RibbonTab tab in ribbon.Tabs)
+            {
+                foreach (Autodesk.Windows.RibbonPanel panel in tab.Panels)
+                {
+                    if (panel.Source.Id.EndsWith(panelEndWithId))
+                    {
+                        return panel;
+                    }
                 }
             }
             return null;

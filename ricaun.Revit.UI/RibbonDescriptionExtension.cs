@@ -56,10 +56,18 @@ namespace ricaun.Revit.UI
             foreach (var ribbonItem in ribbonPanel.GetItems())
             {
                 ribbonItems.Add(ribbonItem);
-                if (ribbonItem is SplitButton splitButton)
-                    ribbonItems.AddRange(splitButton.GetItems());
                 if (ribbonItem is PulldownButton pulldownButton)
                     ribbonItems.AddRange(pulldownButton.GetItems());
+                if (ribbonItem is SplitButton splitButton)
+                    ribbonItems.AddRange(splitButton.GetItems());
+                if (ribbonItem is ToggleButton) { }
+                if (ribbonItem is RadioButtonGroup radioButtonGroup)
+                {
+                    ribbonItems.AddRange(radioButtonGroup.GetItems());
+                }
+                if (ribbonItem is ComboBoxMember) { }
+                if (ribbonItem is ComboBox) { }
+                if (ribbonItem is TextBox) { }
             }
             return ribbonItems;
         }

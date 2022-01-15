@@ -84,8 +84,8 @@ namespace ricaun.Revit.UI
             var commandType = typeof(TExternalCommand);
             var targetName = commandType.Name;
             var targetText = commandType.Name;
-            var location = commandType.Assembly.Location;
-            var fullName = commandType.FullName;
+            var assemblyName = commandType.Assembly.Location;
+            var className = commandType.FullName;
 
             if (text != null && text != "") targetText = text;
 
@@ -94,7 +94,7 @@ namespace ricaun.Revit.UI
                 targetName = SafeButtonName(targetText);
             }
 
-            PushButtonData currentBtn = new PushButtonData(targetName, targetText, location, fullName);
+            PushButtonData currentBtn = new PushButtonData(targetName, targetText, assemblyName, className);
 
             if (text == "") currentBtn.Text = "-";
 
