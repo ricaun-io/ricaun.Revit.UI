@@ -12,7 +12,10 @@ namespace ricaun.Revit.UI.Example.Revit.Commands
         {
             UIApplication uiapp = commandData.Application;
 
+            //new Services.ReflectionService().GetFields<RibbonPanel>();
             Console.WriteLine(typeof(Command).Assembly);
+            //new Services.ReflectionService().GetMethods<RibbonPanel>();
+
 
             System.Windows.MessageBox.Show(AutodeskExtension.GetAutodeskOwner(), $"Hello Revit\n{DateTime.Now}");
 

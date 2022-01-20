@@ -60,14 +60,27 @@ namespace ricaun.Revit.UI
         }
 
         /// <summary>
-        /// Close Setting Visible off
+        /// Remove RibbonPanel from Tab
+        /// </summary>
+        /// <param name="ribbonPanel"></param>
+        /// <returns></returns>
+        public static RibbonPanel Remove(this RibbonPanel ribbonPanel)
+        {
+            ribbonPanel.Visible = false;
+            ribbonPanel.Enabled = false;
+            var panel = ribbonPanel.GetRibbonPanel();
+            panel.Tab.Panels.Remove(panel);
+            return ribbonPanel;
+        }
+
+        /// <summary>
+        /// Remove RibbonPanel from Tab
         /// </summary>
         /// <param name="ribbonPanel"></param>
         /// <returns></returns>
         public static RibbonPanel Close(this RibbonPanel ribbonPanel)
         {
-            ribbonPanel.Visible = false;
-            return ribbonPanel;
+            return ribbonPanel.Remove();
         }
         #endregion
 
