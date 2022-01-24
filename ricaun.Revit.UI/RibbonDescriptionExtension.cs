@@ -7,39 +7,74 @@ using System.Windows.Media;
 
 namespace ricaun.Revit.UI
 {
+    /// <summary>
+    /// RibbonSettings
+    /// </summary>
     public class RibbonSettings
     {
-        internal readonly Dictionary<string, List<RibbonDescription>> valuePairs;
+        private readonly Dictionary<string, List<RibbonDescription>> nameRibbonDescriptions;
 
+        /// <summary>
+        /// RibbonSettings
+        /// </summary>
         public RibbonSettings()
         {
-            valuePairs = new Dictionary<string, List<RibbonDescription>>();
+            nameRibbonDescriptions = new Dictionary<string, List<RibbonDescription>>();
         }
 
+        /// <summary>
+        /// Get Value
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="ribbonDescriptions"></param>
+        /// <returns></returns>
+        public bool TryGetValue(string name, out List<RibbonDescription> ribbonDescriptions)
+        {
+            return nameRibbonDescriptions.TryGetValue(name, out ribbonDescriptions);
+        }
+
+        /// <summary>
+        /// Add
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="ribbonDescriptions"></param>
         public void Add<T>(params RibbonDescription[] ribbonDescriptions)
         {
             var name = typeof(T).Name;
             Add(name, ribbonDescriptions);
         }
 
+        /// <summary>
+        /// Add
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="ribbonDescription"></param>
         public void Add(string name, RibbonDescription ribbonDescription)
         {
-            if (valuePairs.TryGetValue(name, out List<RibbonDescription> value))
+            if (nameRibbonDescriptions.TryGetValue(name, out List<RibbonDescription> value))
             {
                 value.Add(ribbonDescription);
                 return;
             }
-            valuePairs[name] = new List<RibbonDescription>();
-            valuePairs[name].Add(ribbonDescription);
+            nameRibbonDescriptions[name] = new List<RibbonDescription>();
+            nameRibbonDescriptions[name].Add(ribbonDescription);
         }
 
+        /// <summary>
+        /// Add
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="ribbonDescriptions"></param>
         public void Add(string name, params RibbonDescription[] ribbonDescriptions)
         {
             foreach (var ribbonDescription in ribbonDescriptions)
                 Add(name, ribbonDescription);
         }
 
-        public int Count => valuePairs.Count;
+        /// <summary>
+        /// Get Count
+        /// </summary>
+        public int Count => nameRibbonDescriptions.Count;
     }
 
     /// <summary>
@@ -47,6 +82,10 @@ namespace ricaun.Revit.UI
     /// </summary>
     public class RibbonDescription
     {
+        /// <summary>
+        /// RibbonDescription with LanguageType
+        /// </summary>
+        /// <param name="LanguageType"></param>
         public RibbonDescription(LanguageType LanguageType = LanguageType.Unknown)
         {
             this.LanguageType = LanguageType;
@@ -91,8 +130,12 @@ namespace ricaun.Revit.UI
     /// </summary>
     public static class RibbonDescriptionExtension
     {
-
-
+        /// <summary>
+        /// Update RibbonPanel RibbonSettings
+        /// </summary>
+        /// <param name="ribbonPanel"></param>
+        /// <param name="setting"></param>
+        /// <returns></returns>
         public static RibbonPanel UpdateRibbonDescription(this RibbonPanel ribbonPanel, Action<RibbonSettings> setting)
         {
             RibbonSettings ribbonSettings = new RibbonSettings();
@@ -100,12 +143,21 @@ namespace ricaun.Revit.UI
 
             var language = LanguageExtension.GetLanguageType();
 
+            if (ribbonSettings.TryGetValue("", out List<RibbonDescription> valueDefault))
+            {
+                foreach (var item in ribbonPanel.GetRibbonItems())
+                {
+                    item.UpdateRibbonDescription(valueDefault.First());
+                    item.UpdateRibbonDescription(valueDefault.FirstOrDefault(v => v.LanguageType == language));
+                }
+            }
+
             foreach (var item in ribbonPanel.GetRibbonItems())
             {
-                if (ribbonSettings.valuePairs.TryGetValue(item.Name, out List<RibbonDescription> value))
+                if (ribbonSettings.TryGetValue(item.Name, out List<RibbonDescription> value))
                 {
-                    item.SetDescription(value.First());
-                    item.SetDescription(value.FirstOrDefault(v => v.LanguageType == language));
+                    item.UpdateRibbonDescription(value.First());
+                    item.UpdateRibbonDescription(value.FirstOrDefault(v => v.LanguageType == language));
                 }
             }
 
@@ -141,36 +193,26 @@ namespace ricaun.Revit.UI
 
 
         /// <summary>
-        /// Set Description
+        /// Update RibbonDescription
         /// </summary>
         /// <param name="ribbonItem"></param>
         /// <param name="description"></param>
         /// <returns></returns>
-        public static RibbonItem SetDescription(this RibbonItem ribbonItem, RibbonDescription description)
+        public static RibbonItem UpdateRibbonDescription(this RibbonItem ribbonItem, RibbonDescription description)
         {
             if (description == null)
                 return ribbonItem;
 
             ribbonItem.SetText(description.Text);
-
-            if (description.ToolTip != null)
-                ribbonItem.ToolTip = description.ToolTip;
-
-            if (description.LongDescription != null)
-                ribbonItem.LongDescription = description.LongDescription;
-
-            if (description.ToolTipImage != null)
-                ribbonItem.ToolTipImage = description.ToolTipImage;
-
+            ribbonItem.SetToolTip(description.ToolTip);
+            ribbonItem.SetLongDescription(description.LongDescription);
+            ribbonItem.SetToolTipImage(description.ToolTipImage);
             ribbonItem.SetContextualHelp(description.Help);
 
             if (ribbonItem is RibbonButton ribbonButton)
             {
-                if (description.LargeImage != null)
-                    ribbonButton.LargeImage = description.LargeImage;
-
-                if (description.Image != null)
-                    ribbonButton.Image = description.Image;
+                ribbonButton.SetImage(description.Image);
+                ribbonButton.SetLargeImage(description.LargeImage);
             }
             return ribbonItem;
         }
@@ -234,6 +276,82 @@ namespace ricaun.Revit.UI
             return ribbonItem;
         }
 
+        /// <summary>
+        /// Set RibbonItem ToolTip
+        /// </summary>
+        /// <param name="ribbonItem"></param>
+        /// <param name="toolTip"></param>
+        /// <returns></returns>
+        public static RibbonItem SetToolTip(this RibbonItem ribbonItem, string toolTip)
+        {
+            if (toolTip != null)
+                ribbonItem.ToolTip = toolTip;
+
+            return ribbonItem;
+        }
+
+        /// <summary>
+        /// Set RibbonItem LongDescription
+        /// </summary>
+        /// <param name="ribbonItem"></param>
+        /// <param name="longDescription"></param>
+        /// <returns></returns>
+        public static RibbonItem SetLongDescription(this RibbonItem ribbonItem, string longDescription)
+        {
+            if (longDescription != null)
+                ribbonItem.LongDescription = longDescription;
+
+            return ribbonItem;
+        }
+
+        /// <summary>
+        /// Set RibbonItem ToolTipImage
+        /// </summary>
+        /// <param name="ribbonItem"></param>
+        /// <param name="toolTipImage"></param>
+        /// <returns></returns>
+        public static RibbonItem SetToolTipImage(this RibbonItem ribbonItem, ImageSource toolTipImage)
+        {
+            if (toolTipImage != null)
+                ribbonItem.ToolTipImage = toolTipImage;
+
+            return ribbonItem;
+        }
+
+        #endregion
+
+        #region Set RibbonButton
+        /// <summary>
+        /// Set RibbonButton Image
+        /// </summary>
+        /// <param name="ribbonButton"></param>
+        /// <param name="image"></param>
+        /// <returns></returns>
+        public static RibbonButton SetImage(this RibbonButton ribbonButton, ImageSource image)
+        {
+            if (image != null)
+                ribbonButton.Image = image;
+
+            return ribbonButton;
+        }
+
+        /// <summary>
+        /// Set RibbonButton LargeImage
+        /// </summary>
+        /// <param name="ribbonButton"></param>
+        /// <param name="largeImage"></param>
+        /// <returns></returns>
+        public static RibbonButton SetLargeImage(this RibbonButton ribbonButton, ImageSource largeImage)
+        {
+            if (largeImage != null)
+            {
+                ribbonButton.LargeImage = largeImage;
+                if (ribbonButton.Image == null)
+                    ribbonButton.Image = largeImage.Scale(0.5);
+            }
+
+            return ribbonButton;
+        }
         #endregion
 
         #region ContextualHelp

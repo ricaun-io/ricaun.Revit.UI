@@ -40,7 +40,7 @@ namespace ricaun.Revit.UI.Example.Revit
                 ribbonPanel.NewPushButtonData<Commands.Command>(),
                 ribbonPanel.NewPushButtonData<Commands.Command>() });
 
-            ribbonPanel.AddPushButton<Commands.Command>("");
+            var button2 = ribbonPanel.AddPushButton<Commands.Command>("");
 
             var items = ribbonPanel.AddStackedItems(
                 ribbonPanel.NewPushButtonData<Commands.Command>("Item1"),
@@ -48,9 +48,8 @@ namespace ricaun.Revit.UI.Example.Revit
 
             foreach (var item in items)
             {
-                var ri = item.GetRibbonItem();
-                ri.ShowText = false;
-                ri.Size = Autodesk.Windows.RibbonItemSize.Large;
+                item.SetItemSize();
+                item.SetText();
             }
 
             var item3s = ribbonPanel.AddStackedItems(
@@ -60,23 +59,22 @@ namespace ricaun.Revit.UI.Example.Revit
 
             foreach (var item in item3s)
             {
-                var ri = item.GetRibbonItem();
-                ri.ShowText = false;
+                item.SetText();
             }
-
+            /*
             foreach (var item in ribbonPanel.GetItems())
             {
                 if (item is PushButton pushButton)
                 {
-                    pushButton.LargeImage = Proprieties.Resource.icon.GetBitmapSource();
-                    pushButton.Image = Proprieties.Resource.icon.GetBitmapSource().Scale(0.5);
-                    pushButton.ToolTipImage = Proprieties.Resource.icon.GetBitmapSource().Scale(2);
+                    pushButton.LargeImage = Proprieties.Resource.LargeImage.GetBitmapSource();
+                    pushButton.Image = Proprieties.Resource.LargeImage.GetBitmapSource().Scale(0.5);
+                    pushButton.ToolTipImage = Proprieties.Resource.LargeImage.GetBitmapSource().Scale(2);
                 }
                 if (item is PulldownButton pulldownButton)
                 {
-                    pulldownButton.LargeImage = Proprieties.Resource.icon.GetBitmapSource();
-                    pulldownButton.Image = Proprieties.Resource.icon.GetBitmapSource().Scale(0.5);
-                    pulldownButton.ToolTipImage = Proprieties.Resource.icon.GetBitmapSource().Scale(2);
+                    pulldownButton.LargeImage = Proprieties.Resource.LargeImage.GetBitmapSource();
+                    pulldownButton.Image = Proprieties.Resource.LargeImage.GetBitmapSource().Scale(0.5);
+                    pulldownButton.ToolTipImage = Proprieties.Resource.LargeImage.GetBitmapSource().Scale(2);
                 }
                 if (item is SplitButton splitButton)
                 {
@@ -84,25 +82,17 @@ namespace ricaun.Revit.UI.Example.Revit
                     {
                         if (i is PushButton pb)
                         {
-                            pb.LargeImage = Proprieties.Resource.icon.GetBitmapSource();
-                            pb.Image = Proprieties.Resource.icon.GetBitmapSource().Scale(0.5);
-                            pb.ToolTipImage = Proprieties.Resource.icon.GetBitmapSource().Scale(2);
+                            pb.LargeImage = Proprieties.Resource.LargeImage.GetBitmapSource();
+                            pb.Image = Proprieties.Resource.LargeImage.GetBitmapSource().Scale(0.5);
+                            pb.ToolTipImage = Proprieties.Resource.LargeImage.GetBitmapSource().Scale(2);
                         }
                     }
                 }
             }
-
-            button.SetDescription(new RibbonDescription()
-            {
-                Text = "-",
-                LongDescription = "LongDescription",
-                ToolTip = "ToolTip",
-                LargeImage = Proprieties.Resource.icon.GetBitmapSource()
-            });
+            */
 
             ribbonPanel.GetRibbonPanel().Tab.SetOrderPanels();
             var ric = ribbonPanel.GetRibbonPanel().Tab.Panels.ToList().FirstOrDefault(e => e.Source.Title == "ricaun");
-            ric?.MoveRibbonPanel();
             ric?.MoveRibbonPanel();
 
             foreach (var item in ribbonPanel.GetRibbonItems())
@@ -112,14 +102,21 @@ namespace ricaun.Revit.UI.Example.Revit
 
             ribbonPanel.UpdateRibbonDescription(setting =>
             {
+                setting.Add("",
+                    new RibbonDescription()
+                    {
+                        LargeImage = Proprieties.Resource.LargeImage.GetBitmapSource(),
+                        Help = "https://ricaun.com"
+                    }
+                );
+
                 setting.Add<Commands.Command>(
                     new RibbonDescription()
                     {
                         Text = "Hello",
                         ToolTip = "This is a Tool Tip",
                         LongDescription = "This is a Long Description",
-                        Image = Proprieties.Resource.icon.GetBitmapSource().Scale(0.5),
-                        LargeImage = Proprieties.Resource.icon.GetBitmapSource(),
+                        LargeImage = Proprieties.Resource.LargeImage.GetBitmapSource(),
                         Help = "https://ricaun.com"
                     },
                     new RibbonDescription(LanguageType.Brazilian_Portuguese)
