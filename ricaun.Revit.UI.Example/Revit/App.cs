@@ -1,5 +1,6 @@
 using Autodesk.Revit.DB;
 using Autodesk.Revit.UI;
+using Autodesk.Revit.ApplicationServices;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,7 +21,7 @@ namespace ricaun.Revit.UI.Example.Revit
             ribbonPanel = application.CreatePanel(TabName, PanelName);
             var button = ribbonPanel.AddPushButton<Commands.Command>();
 
-            ribbonPanel.CreatePulldownButton(new[] {
+            ribbonPanel.CreatePulldownButton("PulldownButton", new[] {
                 ribbonPanel.NewPushButtonData<Commands.Command>(),
                 ribbonPanel.NewPushButtonData<Commands.Command>(),
                 ribbonPanel.NewPushButtonData<Commands.Command>(),
@@ -29,7 +30,7 @@ namespace ricaun.Revit.UI.Example.Revit
                 ribbonPanel.NewPushButtonData<Commands.Command>(),
                 ribbonPanel.NewPushButtonData<Commands.Command>() });
 
-            ribbonPanel.CreateSplitButton(new[] {
+            ribbonPanel.CreateSplitButton("SplitButton", new[] {
                 ribbonPanel.NewPushButtonData<Commands.Command>(),
                 ribbonPanel.NewPushButtonData<Commands.Command>(),
                 ribbonPanel.NewPushButtonData<Commands.Command>(),
@@ -108,6 +109,39 @@ namespace ricaun.Revit.UI.Example.Revit
             {
                 //Console.WriteLine($"{item} {item.Name}");
             }
+
+            ribbonPanel.UpdateRibbonDescription(setting =>
+            {
+                setting.Add<Commands.Command>(
+                    new RibbonDescription()
+                    {
+                        Text = "Hello",
+                        ToolTip = "This is a Tool Tip",
+                        LongDescription = "This is a Long Description",
+                        Image = Proprieties.Resource.icon.GetBitmapSource().Scale(0.5),
+                        LargeImage = Proprieties.Resource.icon.GetBitmapSource(),
+                        Help = "https://ricaun.com"
+                    },
+                    new RibbonDescription(LanguageType.Brazilian_Portuguese)
+                    {
+                        Text = "Ola",
+                        ToolTip = "Este é um Tool Tip",
+                        LongDescription = "Este é um Long Description",
+                    }
+                );
+
+                setting.Add("PulldownButton", new RibbonDescription()
+                {
+                    Text = "PulldownButton",
+                    Help = "https://ricaun.com"
+                });
+
+                setting.Add("SplitButton", new RibbonDescription()
+                {
+                    Text = "SplitButton",
+                    Help = "https://ricaun.com"
+                });
+            });
 
             return Result.Succeeded;
         }
