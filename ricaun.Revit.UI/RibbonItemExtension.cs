@@ -88,34 +88,6 @@ namespace ricaun.Revit.UI
         /// <summary>
         /// GetRibbonPanel
         /// </summary>
-        /// <param name="panelEndWithId"></param>
-        /// <returns></returns>
-        public static Autodesk.Windows.RibbonPanel GetRibbonPanel(string panelEndWithId, string panelTitle)
-        {
-            if (panelEndWithId == null) return null;
-            if (panelTitle == null) return null;
-
-            var ribbon = Autodesk.Windows.ComponentManager.Ribbon;
-            foreach (Autodesk.Windows.RibbonTab tab in ribbon.Tabs)
-            {
-                foreach (Autodesk.Windows.RibbonPanel panel in tab.Panels)
-                {
-                    var id = panel.Source.Id;
-                    var title = panel.Source.Title;
-                    if (id == null) continue;
-                    if (title == null) continue;
-                    if (id.EndsWith(panelEndWithId) && title.EndsWith(panelTitle))
-                    {
-                        return panel;
-                    }
-                }
-            }
-            return null;
-        }
-
-        /// <summary>
-        /// GetRibbonPanel
-        /// </summary>
         /// <param name="tabId"></param>
         /// <param name="panelEndWithId"></param>
         /// <returns></returns>
