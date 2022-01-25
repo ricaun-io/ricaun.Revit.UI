@@ -8,8 +8,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Add SetImage / SetLongDescription
 - Add UpdateRibbonDescription
 - Add RibbonDescription
-
-## [0.0.5] / 2022-01-20
+-- [0.0.5] / 2022-01-20
 - Add Move RibbonPanelTo
 - Add Remove RibbonTab
 - Add `GetRibbonPanel` using `m_RibbonPanel`
