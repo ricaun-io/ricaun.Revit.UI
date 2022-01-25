@@ -60,14 +60,27 @@ namespace ricaun.Revit.UI
         }
 
         /// <summary>
-        /// Close Setting Visible off
+        /// Remove RibbonPanel from Tab
+        /// </summary>
+        /// <param name="ribbonPanel"></param>
+        /// <returns></returns>
+        public static RibbonPanel Remove(this RibbonPanel ribbonPanel)
+        {
+            ribbonPanel.Visible = false;
+            ribbonPanel.Enabled = false;
+            var panel = ribbonPanel.GetRibbonPanel();
+            panel.Tab.Panels.Remove(panel);
+            return ribbonPanel;
+        }
+
+        /// <summary>
+        /// Remove RibbonPanel from Tab
         /// </summary>
         /// <param name="ribbonPanel"></param>
         /// <returns></returns>
         public static RibbonPanel Close(this RibbonPanel ribbonPanel)
         {
-            ribbonPanel.Visible = false;
-            return ribbonPanel;
+            return ribbonPanel.Remove();
         }
         #endregion
 
@@ -84,8 +97,8 @@ namespace ricaun.Revit.UI
             var commandType = typeof(TExternalCommand);
             var targetName = commandType.Name;
             var targetText = commandType.Name;
-            var location = commandType.Assembly.Location;
-            var fullName = commandType.FullName;
+            var assemblyName = commandType.Assembly.Location;
+            var className = commandType.FullName;
 
             if (text != null && text != "") targetText = text;
 
@@ -94,7 +107,7 @@ namespace ricaun.Revit.UI
                 targetName = SafeButtonName(targetText);
             }
 
-            PushButtonData currentBtn = new PushButtonData(targetName, targetText, location, fullName);
+            PushButtonData currentBtn = new PushButtonData(targetName, targetText, assemblyName, className);
 
             if (text == "") currentBtn.Text = "-";
 
@@ -270,7 +283,7 @@ namespace ricaun.Revit.UI
         /// <returns></returns>
         private static string SafeRibbonPanelName(string panelName)
         {
-            return $"{TickNumber}%{panelName}";
+            return $"{System.DateTime.Now.Ticks + TickNumber}%{panelName}";
         }
 
         /// <summary>
@@ -280,7 +293,7 @@ namespace ricaun.Revit.UI
         /// <summary>
         /// TickNumber ++ 
         /// </summary>
-        private static long TickNumber => _TickNumber++; // System.DateTime.Now.Ticks
+        private static long TickNumber => _TickNumber++;
 
         /// <summary>
         /// Verify if Panel has Name

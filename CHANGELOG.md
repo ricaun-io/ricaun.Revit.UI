@@ -4,6 +4,22 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [0.0.5] / 2022-01-24
+- Add SetImage / SetLongDescription
+- Add UpdateRibbonDescription
+- Add RibbonDescription
+-- [0.0.5] / 2022-01-20
+- Add Move RibbonPanelTo
+- Add Remove RibbonTab
+- Add `GetRibbonPanel` using `m_RibbonPanel`
+- Remove Panel
+- Add OrderPanels
+- Clear Code
+- Change to Now.Tick
+- Add ConsoleAttribute
+- Add RibbonItem Set
+- Add RibbonDescriptionExtension
+
 ## [0.0.4] / 2022-01-12
 - Add NugetApiUrl & NugetApiKey
 - Update Readme

@@ -16,7 +16,7 @@ namespace ricaun.Revit.UI
         /// </summary>
         /// <param name="ribbonItem"></param>
         /// <returns></returns>
-        public static string GetId(this RibbonItem ribbonItem)
+        private static string GetId(this RibbonItem ribbonItem)
         {
             var type = typeof(RibbonItem);
 
@@ -44,6 +44,30 @@ namespace ricaun.Revit.UI
         }
 
         /// <summary>
+        /// GetRibbonPanel
+        /// </summary>
+        /// <param name="ribbonPanel"></param>
+        /// <returns></returns>
+        public static Autodesk.Windows.RibbonPanel GetRibbonPanel(this RibbonPanel ribbonPanel)
+        {
+            var type = typeof(RibbonPanel);
+            var _ribbonPanel = type.GetField("m_RibbonPanel",
+                BindingFlags.Instance | BindingFlags.NonPublic)
+                ?.GetValue(ribbonPanel) as Autodesk.Windows.RibbonPanel;
+            return _ribbonPanel;
+        }
+
+        /// <summary>
+        /// GetRibbonTab
+        /// </summary>
+        /// <param name="ribbonPanel"></param>
+        /// <returns></returns>
+        public static Autodesk.Windows.RibbonTab GetRibbonTab(this RibbonPanel ribbonPanel)
+        {
+            return ribbonPanel.GetRibbonPanel().Tab;
+        }
+
+        /// <summary>
         /// GetRibbonTab
         /// </summary>
         /// <param name="tabId"></param>
@@ -64,10 +88,38 @@ namespace ricaun.Revit.UI
         /// <summary>
         /// GetRibbonPanel
         /// </summary>
+        /// <param name="panelEndWithId"></param>
+        /// <returns></returns>
+        public static Autodesk.Windows.RibbonPanel GetRibbonPanel(string panelEndWithId, string panelTitle)
+        {
+            if (panelEndWithId == null) return null;
+            if (panelTitle == null) return null;
+
+            var ribbon = Autodesk.Windows.ComponentManager.Ribbon;
+            foreach (Autodesk.Windows.RibbonTab tab in ribbon.Tabs)
+            {
+                foreach (Autodesk.Windows.RibbonPanel panel in tab.Panels)
+                {
+                    var id = panel.Source.Id;
+                    var title = panel.Source.Title;
+                    if (id == null) continue;
+                    if (title == null) continue;
+                    if (id.EndsWith(panelEndWithId) && title.EndsWith(panelTitle))
+                    {
+                        return panel;
+                    }
+                }
+            }
+            return null;
+        }
+
+        /// <summary>
+        /// GetRibbonPanel
+        /// </summary>
         /// <param name="tabId"></param>
         /// <param name="panelEndWithId"></param>
         /// <returns></returns>
-        public static Autodesk.Windows.RibbonPanel GetRibbonPanel(string tabId, string panelEndWithId)
+        public static Autodesk.Windows.RibbonPanel GetTabRibbonPanel(string tabId, string panelEndWithId)
         {
             var ribbon = Autodesk.Windows.ComponentManager.Ribbon;
             foreach (Autodesk.Windows.RibbonTab tab in ribbon.Tabs)
@@ -156,5 +208,67 @@ namespace ricaun.Revit.UI
             }
             return false;
         }
+
+        #region Autodesk.Windows.RibbonTab
+
+        #region Order
+
+        /// <summary>
+        /// MoveRibbonPanel to Position
+        /// </summary>
+        /// <param name="ribbonPanel"></param>
+        /// <param name="newIndex"></param>
+        public static void MoveRibbonPanel(this Autodesk.Windows.RibbonPanel ribbonPanel, int newIndex = 0)
+        {
+            var ribbonTab = ribbonPanel.Tab;
+            var panels = ribbonTab.Panels;
+            var length = panels.Count;
+            for (int i = 0; i < length; i++)
+            {
+                if (i == newIndex) continue;
+                if (panels[i] == ribbonPanel)
+                {
+                    ribbonTab.Panels.Move(i, newIndex);
+                    return;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Set Order of Panels by Title
+        /// </summary>
+        /// <param name="ribbonTab"></param>
+        public static void SetOrderPanels(this Autodesk.Windows.RibbonTab ribbonTab)
+        {
+            var order = ribbonTab.Panels.OrderBy(e => e.Source.Title).ToList();
+            var length = order.Count;
+            if (length <= 1) return;
+            for (int i = 0; i < length; i++)
+            {
+                var o = order[i];
+                for (int j = i; j < length; j++)
+                {
+                    if (j == i) continue;
+                    if (o == ribbonTab.Panels[j])
+                    {
+                        ribbonTab.Panels.Move(j, i);
+                    }
+                }
+            }
+        }
+
+        #endregion
+
+        /// <summary>
+        /// Remove Tab
+        /// </summary>
+        /// <param name="ribbonTab"></param>
+        public static void Remove(this Autodesk.Windows.RibbonTab ribbonTab)
+        {
+            var ribbon = Autodesk.Windows.ComponentManager.Ribbon;
+            ribbon.Tabs.Remove(ribbonTab);
+        }
+
+        #endregion
     }
 }
