@@ -68,6 +68,10 @@ namespace ricaun.Revit.UI
         {
             ribbonPanel.Visible = false;
             ribbonPanel.Enabled = false;
+
+            foreach (var ribbonItem in ribbonPanel.GetRibbonItems())
+                ribbonItem.GetRibbonItem().RemoveQuickAccessToolBar();
+
             var panel = ribbonPanel.GetRibbonPanel();
             panel.Tab.Panels.Remove(panel);
             return ribbonPanel;
