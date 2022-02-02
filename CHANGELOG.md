@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [0.0.6] / 2022-02-02
+- Update Readme
+- Add Icons8 on Example
 - Change SetImage and SetLargeImage to RibbonItem
 - Fix RemoveQuickAccessToolBar on `Remove` RibbonPanel
 - Add GetName `Type`

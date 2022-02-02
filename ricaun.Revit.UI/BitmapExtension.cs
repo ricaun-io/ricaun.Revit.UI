@@ -55,13 +55,16 @@ namespace ricaun.Revit.UI
         }
 
         /// <summary>
-        /// Transform string base64 to BitmapSource
+        /// Transform string base64 or Uri to BitmapSource
         /// </summary>
-        /// <param name="base64"></param>
+        /// <param name="base64orUri"></param>
         /// <returns></returns>
-        public static BitmapSource GetBitmapSource(this string base64)
+        public static BitmapSource GetBitmapSource(this string base64orUri)
         {
-            var image = System.Drawing.Bitmap.FromStream(new MemoryStream(Convert.FromBase64String(base64)));
+            if (base64orUri.StartsWith("http"))
+                return new BitmapImage(new Uri(base64orUri));
+
+            var image = System.Drawing.Bitmap.FromStream(new MemoryStream(Convert.FromBase64String(base64orUri)));
             return image.GetBitmapSource();
         }
 

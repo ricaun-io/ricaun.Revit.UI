@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Media;
+using System.Windows.Media.Imaging;
 
 namespace ricaun.Revit.UI.Example.Revit
 {
@@ -19,7 +20,8 @@ namespace ricaun.Revit.UI.Example.Revit
         public Result OnStartup(UIControlledApplication application)
         {
             ribbonPanel = application.CreatePanel(TabName, PanelName);
-            var button = ribbonPanel.AddPushButton<Commands.Command>();
+
+            ribbonPanel.AddPushButton<Commands.Command>();
 
             ribbonPanel.CreatePulldownButton("PulldownButton", new[] {
                 ribbonPanel.NewPushButtonData<Commands.Command<int>>(),
@@ -29,42 +31,22 @@ namespace ricaun.Revit.UI.Example.Revit
             });
 
             ribbonPanel.CreateSplitButton("SplitButton", new[] {
-                ribbonPanel.NewPushButtonData<Commands.Command>(),
-                ribbonPanel.NewPushButtonData<Commands.Command>(),
-                ribbonPanel.NewPushButtonData<Commands.Command>(),
-                ribbonPanel.NewPushButtonData<Commands.Command>(),
-                ribbonPanel.NewPushButtonData<Commands.Command>(),
-                ribbonPanel.NewPushButtonData<Commands.Command>(),
-                ribbonPanel.NewPushButtonData<Commands.Command>(),
-                ribbonPanel.NewPushButtonData<Commands.Command>()
+                ribbonPanel.NewPushButtonData<Commands.Command<int>>(),
+                ribbonPanel.NewPushButtonData<Commands.Command<double>>(),
+                ribbonPanel.NewPushButtonData<Commands.Command<bool>>(),
+                ribbonPanel.NewPushButtonData<Commands.Command<string>>()
             });
 
-            var button2 = ribbonPanel.AddPushButton<Commands.Command>("");
+            ribbonPanel.AddPushButton<Commands.Command<Commands.Command>>();
 
-            var items = ribbonPanel.AddStackedItems(
-                ribbonPanel.NewPushButtonData<Commands.Command>("Item1"),
-                ribbonPanel.NewPushButtonData<Commands.Command>("Item2"));
+            ribbonPanel.AddStackedItems(
+                ribbonPanel.NewPushButtonData<Commands.Command<UIApplication>>(),
+                ribbonPanel.NewPushButtonData<Commands.Command<Document>>());
 
-            foreach (var item in items)
-            {
-                item.SetItemSize();
-                item.SetText();
-            }
-
-            var t = typeof(Commands.Command);
-
-            ribbonPanel.NewPushButtonData(t, "1");
-
-            var item3s = ribbonPanel.AddStackedItems(
-                ribbonPanel.NewPushButtonData<Commands.Command>("1"),
-                ribbonPanel.NewPushButtonData<Commands.Command>("2"),
-                ribbonPanel.NewPushButtonData<Commands.Command>("3"));
-
-            foreach (var item in item3s)
-            {
-                item.SetText();
-                item.GetRibbonItem().AddQuickAccessToolBar();
-            }
+            ribbonPanel.AddStackedItems(
+                ribbonPanel.NewPushButtonData<Commands.Command<RibbonItem>>(),
+                ribbonPanel.NewPushButtonData<Commands.Command<RibbonButton>>(),
+                ribbonPanel.NewPushButtonData<Commands.Command<RibbonPanel>>());
 
             OrderPanelAndMove(ribbonPanel);
 
@@ -78,7 +60,6 @@ namespace ricaun.Revit.UI.Example.Revit
                 setting.AddDefault(
                     new RibbonDescription()
                     {
-                        LargeImage = Proprieties.Resource.LargeImage.GetBitmapSource(),
                         Help = "https://ricaun.com"
                     }
                 );
@@ -86,6 +67,10 @@ namespace ricaun.Revit.UI.Example.Revit
                 setting.Add<Commands.Command>(
                     new RibbonDescription()
                     {
+                        LargeImage = Proprieties.Resource.LargeImage.GetBitmapSource(),
+                        //LargeImage = @"https://img.icons8.com/small/32/000000/unchecked-circle.png".GetBitmapSource(),
+                        //LargeImage = @"https://img.icons8.com/small/32/000000/checked--v1.png".GetBitmapSource(),
+                        //LargeImage = @"https://img.icons8.com/small/32/000000/cancel--v1.png".GetBitmapSource(),
                         Text = "Hello",
                         ToolTip = "This is a Tool Tip",
                         LongDescription = "This is a Long Description",
@@ -98,10 +83,19 @@ namespace ricaun.Revit.UI.Example.Revit
                     }
                 );
 
+                setting.Add<Commands.Command<Commands.Command>>(
+                    new RibbonDescription()
+                    {
+                        Text = "Ok",
+                        LargeImage = @"https://img.icons8.com/small/32/000000/ok.png".GetBitmapSource()
+                    }
+                );
+
                 setting.Add<Commands.Command<int>>(
                     new RibbonDescription()
                     {
                         Text = "int",
+                        LargeImage = @"https://img.icons8.com/small/32/000000/document.png".GetBitmapSource()
                     }
                 );
 
@@ -109,10 +103,7 @@ namespace ricaun.Revit.UI.Example.Revit
                     new RibbonDescription()
                     {
                         Text = "double",
-                        Action = (ribbonItem) =>
-                        {
-                            ribbonItem.SetLargeImage(Proprieties.Resource.LargeImage.GetBitmapSource().Scale(0.5));
-                        }
+                        LargeImage = @"https://img.icons8.com/small/32/000000/file.png".GetBitmapSource()
                     }
                 );
 
@@ -120,32 +111,80 @@ namespace ricaun.Revit.UI.Example.Revit
                     new RibbonDescription()
                     {
                         Text = "bool",
-                        Action = (ribbonItem) =>
-                        {
-                            ribbonItem.SetShowImage();
-                        }
+                        LargeImage = @"https://img.icons8.com/small/32/000000/support.png".GetBitmapSource()
                     }
                 );
 
                 setting.Add<Commands.Command<string>>(
                     new RibbonDescription()
                     {
-                        Action = (ribbonItem) =>
-                        {
-                            ribbonItem.GetRibbonItem().LargeImage = null;
-                        }
+                        Text = "text",
+                        LargeImage = @"https://img.icons8.com/small/32/000000/settings.png".GetBitmapSource()
                     }
                 );
 
                 setting.Add("PulldownButton", new RibbonDescription()
                 {
-                    Text = "PulldownButton",
+                    Text = "Menu",
+                    LargeImage = @"https://img.icons8.com/small/32/000000/about.png".GetBitmapSource()
                 });
 
-                setting.Add("SplitButton", new RibbonDescription()
+
+                setting.Add<Commands.Command<UIApplication>>(new RibbonDescription()
                 {
-                    Text = "SplitButton",
+                    Text = "UIApplication",
+                    LargeImage = @"https://img.icons8.com/small/32/000000/restart.png".GetBitmapSource(),
+                    Action = (ribbonItem) =>
+                    {
+                        ribbonItem.SetItemSize();
+                        ribbonItem.SetShowText();
+                    }
                 });
+
+                setting.Add<Commands.Command<Document>>(new RibbonDescription()
+                {
+                    Text = "Document",
+                    LargeImage = @"https://img.icons8.com/small/32/000000/music.png".GetBitmapSource(),
+                    Action = (ribbonItem) =>
+                    {
+                        ribbonItem.SetItemSize();
+                        ribbonItem.SetShowText();
+                    }
+                });
+
+                setting.Add<Commands.Command<RibbonItem>>(new RibbonDescription()
+                {
+                    Text = "RibbonItem",
+                    LargeImage = @"https://img.icons8.com/small/32/000000/home.png".GetBitmapSource(),
+                    Action = (ribbonItem) =>
+                    {
+                        ribbonItem.GetRibbonItem().AddQuickAccessToolBar();
+                        ribbonItem.SetShowText();
+                    }
+                });
+
+                setting.Add<Commands.Command<RibbonButton>>(new RibbonDescription()
+                {
+                    Text = "RibbonButton",
+                    LargeImage = @"https://img.icons8.com/small/32/000000/menu.png".GetBitmapSource(),
+                    Action = (ribbonItem) =>
+                    {
+                        ribbonItem.GetRibbonItem().AddQuickAccessToolBar();
+                        ribbonItem.SetShowText();
+                    }
+                });
+
+                setting.Add<Commands.Command<RibbonPanel>>(new RibbonDescription()
+                {
+                    Text = "RibbonPanel",
+                    LargeImage = @"https://img.icons8.com/small/32/000000/info.png".GetBitmapSource(),
+                    Action = (ribbonItem) =>
+                    {
+                        ribbonItem.GetRibbonItem().AddQuickAccessToolBar();
+                        ribbonItem.SetShowText();
+                    }
+                });
+
             });
 
             return Result.Succeeded;
