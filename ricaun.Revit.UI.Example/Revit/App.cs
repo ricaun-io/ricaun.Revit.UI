@@ -22,13 +22,12 @@ namespace ricaun.Revit.UI.Example.Revit
             var button = ribbonPanel.AddPushButton<Commands.Command>();
 
             ribbonPanel.CreatePulldownButton("PulldownButton", new[] {
-                ribbonPanel.NewPushButtonData<Commands.Command>(),
-                ribbonPanel.NewPushButtonData<Commands.Command>(),
-                ribbonPanel.NewPushButtonData<Commands.Command>(),
-                ribbonPanel.NewPushButtonData<Commands.Command>(),
-                ribbonPanel.NewPushButtonData<Commands.Command>(),
-                ribbonPanel.NewPushButtonData<Commands.Command>(),
-                ribbonPanel.NewPushButtonData<Commands.Command>() });
+                ribbonPanel.NewPushButtonData<Commands.Command<int>>(),
+                ribbonPanel.NewPushButtonData<Commands.Command<double>>(),
+                ribbonPanel.NewPushButtonData<Commands.Command<bool>>(),
+                ribbonPanel.NewPushButtonData<Commands.Command<string>>(),
+                ribbonPanel.NewPushButtonData<Commands.Command<Action>>()
+            });
 
             ribbonPanel.CreateSplitButton("SplitButton", new[] {
                 ribbonPanel.NewPushButtonData<Commands.Command>(),
@@ -51,6 +50,10 @@ namespace ricaun.Revit.UI.Example.Revit
                 item.SetItemSize();
                 item.SetText();
             }
+
+            var t = typeof(Commands.Command);
+
+            ribbonPanel.NewPushButtonData(t, "1");
 
             var item3s = ribbonPanel.AddStackedItems(
                 ribbonPanel.NewPushButtonData<Commands.Command>("1"),
@@ -122,6 +125,45 @@ namespace ricaun.Revit.UI.Example.Revit
                         Text = "Ola",
                         ToolTip = "Este é um Tool Tip",
                         LongDescription = "Este é um Long Description",
+                    }
+                );
+
+                setting.Add<Commands.Command<int>>(
+                    new RibbonDescription()
+                    {
+                        Text = "int",
+                        Action = (ribbonItem) => { ribbonItem.SetShowImage(); }
+                    }
+                );
+
+                setting.Add<Commands.Command<double>>(
+                    new RibbonDescription()
+                    {
+                        Text = "double",
+                        Action = (ribbonItem) => { ribbonItem.SetShowImage(); }
+                    }
+                );
+
+                setting.Add<Commands.Command<bool>>(
+                    new RibbonDescription()
+                    {
+                        Text = "bool",
+                        Action = (ribbonItem) => { ribbonItem.SetShowImage(); }
+                    }
+                );
+
+                setting.Add<Commands.Command<string>>(
+                    new RibbonDescription()
+                    {
+                        Text = "string",
+                        Action = (ribbonItem) => { ribbonItem.SetShowImage(); }
+                    }
+                );
+
+                setting.Add<Commands.Command<Action>>(
+                    new RibbonDescription()
+                    {
+                        Action = (ribbonItem) => { ribbonItem.SetShowImage(); }
                     }
                 );
 

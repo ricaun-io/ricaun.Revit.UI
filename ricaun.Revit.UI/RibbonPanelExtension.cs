@@ -1,4 +1,5 @@
 ﻿using Autodesk.Revit.UI;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -91,15 +92,13 @@ namespace ricaun.Revit.UI
         /// <summary>
         /// NewPushButtonData
         /// </summary>
-        /// <typeparam name="TExternalCommand"></typeparam>
         /// <param name="ribbonPanel"></param>
         /// <param name="text"></param>
         /// <returns></returns>
-        public static PushButtonData NewPushButtonData<TExternalCommand>(this RibbonPanel ribbonPanel, string text = null) where TExternalCommand : class, IExternalCommand, new()
+        public static PushButtonData NewPushButtonData(this RibbonPanel ribbonPanel, Type commandType, string text = null)
         {
-            var commandType = typeof(TExternalCommand);
-            var targetName = commandType.Name;
-            var targetText = commandType.Name;
+            var targetName = commandType.GetName();
+            var targetText = targetName;
             var assemblyName = commandType.Assembly.Location;
             var className = commandType.FullName;
 
@@ -115,6 +114,19 @@ namespace ricaun.Revit.UI
             if (text == "") currentBtn.Text = "-";
 
             return currentBtn;
+        }
+
+        /// <summary>
+        /// NewPushButtonData
+        /// </summary>
+        /// <typeparam name="TExternalCommand"></typeparam>
+        /// <param name="ribbonPanel"></param>
+        /// <param name="text"></param>
+        /// <returns></returns>
+        public static PushButtonData NewPushButtonData<TExternalCommand>(this RibbonPanel ribbonPanel, string text = null) where TExternalCommand : class, IExternalCommand, new()
+        {
+            var commandType = typeof(TExternalCommand);
+            return ribbonPanel.NewPushButtonData(commandType, text);
         }
         /// <summary>
         /// NewPushButtonData

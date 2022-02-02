@@ -67,7 +67,7 @@ namespace ricaun.Revit.UI
         /// <param name="ribbonDescriptions"></param>
         public void Add<T>(params RibbonDescription[] ribbonDescriptions)
         {
-            var name = typeof(T).Name;
+            var name = typeof(T).GetName();
             Add(name, ribbonDescriptions);
         }
 
@@ -262,6 +262,19 @@ namespace ricaun.Revit.UI
         public static TRibbonItem SetShowText<TRibbonItem>(this TRibbonItem ribbonItem, bool showText = false) where TRibbonItem : RibbonItem
         {
             ribbonItem.GetRibbonItem().ShowText = showText;
+            return ribbonItem;
+        }
+
+        /// <summary>
+        /// Enable / Disable Show Image
+        /// </summary>
+        /// <typeparam name="TRibbonItem">RibbonItem</typeparam>
+        /// <param name="ribbonItem"></param>
+        /// <param name="showImage"></param>
+        /// <returns></returns>
+        public static TRibbonItem SetShowImage<TRibbonItem>(this TRibbonItem ribbonItem, bool showImage = false) where TRibbonItem : RibbonItem
+        {
+            ribbonItem.GetRibbonItem().ShowImage = showImage;
             return ribbonItem;
         }
 
