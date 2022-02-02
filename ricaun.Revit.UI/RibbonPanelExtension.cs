@@ -93,6 +93,7 @@ namespace ricaun.Revit.UI
         /// NewPushButtonData
         /// </summary>
         /// <param name="ribbonPanel"></param>
+        /// <param name="commandType"></param>
         /// <param name="text"></param>
         /// <returns></returns>
         public static PushButtonData NewPushButtonData(this RibbonPanel ribbonPanel, Type commandType, string text = null)

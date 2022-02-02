@@ -74,7 +74,6 @@ namespace ricaun.Revit.UI
         /// <summary>
         /// Add Default
         /// </summary>
-        /// <param name="name"></param>
         /// <param name="ribbonDescriptions"></param>
         public void AddDefault(params RibbonDescription[] ribbonDescriptions)
         {

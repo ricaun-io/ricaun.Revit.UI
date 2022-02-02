@@ -1,11 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ricaun.Revit.UI
 {
+    /// <summary>
+    /// TypeExtension
+    /// </summary>
     public static class TypeExtension
     {
         /// <summary>
