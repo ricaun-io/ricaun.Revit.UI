@@ -26,9 +26,6 @@ namespace ricaun.Revit.UI.Example.Revit.Commands
             UIApplication uiapp = commandData.Application;
 
             var t = typeof(T);
-            Console.WriteLine(t.GetName());
-            Console.WriteLine(this.GetType().GetName());
-            Console.WriteLine(this.GetType());
 
             System.Windows.MessageBox.Show(AutodeskExtension.GetAutodeskOwner(), $"Hello Revit\n{DateTime.Now}\n{t}");
 

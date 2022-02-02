@@ -66,36 +66,6 @@ namespace ricaun.Revit.UI.Example.Revit
                 item.GetRibbonItem().AddQuickAccessToolBar();
             }
 
-            /*
-            foreach (var item in ribbonPanel.GetItems())
-            {
-                if (item is PushButton pushButton)
-                {
-                    pushButton.LargeImage = Proprieties.Resource.LargeImage.GetBitmapSource();
-                    pushButton.Image = Proprieties.Resource.LargeImage.GetBitmapSource().Scale(0.5);
-                    pushButton.ToolTipImage = Proprieties.Resource.LargeImage.GetBitmapSource().Scale(2);
-                }
-                if (item is PulldownButton pulldownButton)
-                {
-                    pulldownButton.LargeImage = Proprieties.Resource.LargeImage.GetBitmapSource();
-                    pulldownButton.Image = Proprieties.Resource.LargeImage.GetBitmapSource().Scale(0.5);
-                    pulldownButton.ToolTipImage = Proprieties.Resource.LargeImage.GetBitmapSource().Scale(2);
-                }
-                if (item is SplitButton splitButton)
-                {
-                    foreach (var i in splitButton.GetItems())
-                    {
-                        if (i is PushButton pb)
-                        {
-                            pb.LargeImage = Proprieties.Resource.LargeImage.GetBitmapSource();
-                            pb.Image = Proprieties.Resource.LargeImage.GetBitmapSource().Scale(0.5);
-                            pb.ToolTipImage = Proprieties.Resource.LargeImage.GetBitmapSource().Scale(2);
-                        }
-                    }
-                }
-            }
-            */
-
             OrderPanelAndMove(ribbonPanel);
 
             foreach (var item in ribbonPanel.GetRibbonItems())
