@@ -4,6 +4,27 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [0.0.6] / 2022-02-02
+- Special Icons8 class
+- Update Example Version
+- Add Icon / InstallationFiles
+- Add More Icons
+- Update Readme
+- Update `GetBitmapSource` base64orUri
+- Add Icons8 on Example
+- Change SetImage and SetLargeImage to RibbonItem
+- Fix RemoveQuickAccessToolBar on `Remove` RibbonPanel
+- Add GetName `Type`
+- Add SetShowImage
+- Add Action on `RibbonDescription`
+- Add TRibbonButton on `RibbonDescriptionExtension`
+- Add TRibbonItem on `RibbonDescriptionExtension`
+- 2022-01-31
+- Remove QuickAccessToolBar when Remove RibbonPanel
+- Add QuickAccessToolBarExtension
+- 2022-01-25
+- Add GetRibbonTabs
+
 ## [0.0.5] / 2022-01-24
 - Add SetImage / SetLongDescription
 - Add UpdateRibbonDescription

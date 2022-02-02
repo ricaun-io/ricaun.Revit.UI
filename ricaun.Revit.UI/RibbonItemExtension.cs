@@ -86,6 +86,16 @@ namespace ricaun.Revit.UI
         }
 
         /// <summary>
+        /// Get GetRibbonTabs
+        /// </summary>
+        /// <returns></returns>
+        public static IList<Autodesk.Windows.RibbonTab> GetRibbonTabs()
+        {
+            var ribbon = Autodesk.Windows.ComponentManager.Ribbon;
+            return ribbon.Tabs;
+        }
+
+        /// <summary>
         /// GetRibbonPanel
         /// </summary>
         /// <param name="tabId"></param>

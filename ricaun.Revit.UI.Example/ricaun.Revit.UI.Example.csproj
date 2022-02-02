@@ -77,12 +77,12 @@
 
   <PropertyGroup>
     <PackageId>ricaun.Revit.UI.Example</PackageId>
-    <Version>1.0.0</Version>
+    <Version>1.0.6</Version>
     <ProjectGuid>{f736f68f-7101-4640-9093-8715f88ccb95}</ProjectGuid>
   </PropertyGroup>
 
   <PropertyGroup>
-    <PackageAssemblyVersion>.$(Version)</PackageAssemblyVersion>
+    <PackageAssemblyVersion></PackageAssemblyVersion>
   </PropertyGroup>
   <PropertyGroup Condition="$(Configuration.Contains('Debug'))">
     <Revision>$([MSBuild]::Divide($([System.DateTime]::get_Now().get_TimeOfDay().get_TotalSeconds()), 4).ToString('F0'))</Revision>
@@ -102,6 +102,13 @@
     <Product>$(PackageId)</Product>
     <Copyright>Copyright © $(CopyrightYears) $(Company)</Copyright>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="InstallationFiles\**" />
+    <EmbeddedResource Remove="InstallationFiles\**" />
+    <None Remove="InstallationFiles\**" />
+    <Page Remove="InstallationFiles\**" />
+  </ItemGroup>
 
   <ItemGroup>
     <None Include="FodyWeavers.xml" />
