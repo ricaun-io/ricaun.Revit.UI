@@ -225,11 +225,8 @@ namespace ricaun.Revit.UI
             ribbonItem.SetToolTipImage(description.ToolTipImage);
             ribbonItem.SetContextualHelp(description.Help);
 
-            if (ribbonItem is RibbonButton ribbonButton)
-            {
-                ribbonButton.SetImage(description.Image);
-                ribbonButton.SetLargeImage(description.LargeImage);
-            }
+            ribbonItem.SetImage(description.Image);
+            ribbonItem.SetLargeImage(description.LargeImage);
 
             description.Action?.Invoke(ribbonItem);
 
@@ -360,35 +357,39 @@ namespace ricaun.Revit.UI
         /// <summary>
         /// Set RibbonButton Image
         /// </summary>
-        /// <typeparam name="TRibbonButton">RibbonButton</typeparam>
-        /// <param name="ribbonButton"></param>
+        /// <typeparam name="TRibbonItem">RibbonButton</typeparam>
+        /// <param name="ribbonItem"></param>
         /// <param name="image"></param>
         /// <returns></returns>
-        public static TRibbonButton SetImage<TRibbonButton>(this TRibbonButton ribbonButton, ImageSource image) where TRibbonButton : RibbonButton
+        public static TRibbonItem SetImage<TRibbonItem>(this TRibbonItem ribbonItem, ImageSource image) where TRibbonItem : RibbonItem
         {
             if (image != null)
-                ribbonButton.Image = image;
+                if (ribbonItem is RibbonButton ribbonButton)
+                    ribbonButton.Image = image;
 
-            return ribbonButton;
+            return ribbonItem;
         }
 
         /// <summary>
         /// Set RibbonButton LargeImage
         /// </summary>
-        /// <typeparam name="TRibbonButton">RibbonButton</typeparam>
-        /// <param name="ribbonButton"></param>
+        /// <typeparam name="TRibbonItem">RibbonButton</typeparam>
+        /// <param name="ribbonItem"></param>
         /// <param name="largeImage"></param>
         /// <returns></returns>
-        public static TRibbonButton SetLargeImage<TRibbonButton>(this TRibbonButton ribbonButton, ImageSource largeImage) where TRibbonButton : RibbonButton
+        public static TRibbonItem SetLargeImage<TRibbonItem>(this TRibbonItem ribbonItem, ImageSource largeImage) where TRibbonItem : RibbonItem
         {
             if (largeImage != null)
             {
-                ribbonButton.LargeImage = largeImage;
-                if (ribbonButton.Image == null)
-                    ribbonButton.Image = largeImage.Scale(0.5);
+                if (ribbonItem is RibbonButton ribbonButton)
+                {
+                    ribbonButton.LargeImage = largeImage;
+                    if (ribbonButton.Image == null)
+                        ribbonButton.Image = largeImage.Scale(0.5);
+                }
             }
 
-            return ribbonButton;
+            return ribbonItem;
         }
         #endregion
 

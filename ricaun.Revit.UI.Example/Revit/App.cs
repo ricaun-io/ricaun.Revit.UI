@@ -25,8 +25,7 @@ namespace ricaun.Revit.UI.Example.Revit
                 ribbonPanel.NewPushButtonData<Commands.Command<int>>(),
                 ribbonPanel.NewPushButtonData<Commands.Command<double>>(),
                 ribbonPanel.NewPushButtonData<Commands.Command<bool>>(),
-                ribbonPanel.NewPushButtonData<Commands.Command<string>>(),
-                ribbonPanel.NewPushButtonData<Commands.Command<Action>>()
+                ribbonPanel.NewPushButtonData<Commands.Command<string>>()
             });
 
             ribbonPanel.CreateSplitButton("SplitButton", new[] {
@@ -37,7 +36,8 @@ namespace ricaun.Revit.UI.Example.Revit
                 ribbonPanel.NewPushButtonData<Commands.Command>(),
                 ribbonPanel.NewPushButtonData<Commands.Command>(),
                 ribbonPanel.NewPushButtonData<Commands.Command>(),
-                ribbonPanel.NewPushButtonData<Commands.Command>() });
+                ribbonPanel.NewPushButtonData<Commands.Command>()
+            });
 
             var button2 = ribbonPanel.AddPushButton<Commands.Command>("");
 
@@ -139,6 +139,10 @@ namespace ricaun.Revit.UI.Example.Revit
                     new RibbonDescription()
                     {
                         Text = "double",
+                        Action = (ribbonItem) =>
+                        {
+                            ribbonItem.SetLargeImage(Proprieties.Resource.LargeImage.GetBitmapSource().Scale(0.5));
+                        }
                     }
                 );
 
@@ -146,20 +150,20 @@ namespace ricaun.Revit.UI.Example.Revit
                     new RibbonDescription()
                     {
                         Text = "bool",
+                        Action = (ribbonItem) =>
+                        {
+                            ribbonItem.SetShowImage();
+                        }
                     }
                 );
 
                 setting.Add<Commands.Command<string>>(
                     new RibbonDescription()
                     {
-                        Text = "string",
-                    }
-                );
-
-                setting.Add<Commands.Command<Action>>(
-                    new RibbonDescription()
-                    {
-                        Action = (ribbonItem) => { ribbonItem.SetShowImage(); }
+                        Action = (ribbonItem) =>
+                        {
+                            ribbonItem.GetRibbonItem().LargeImage = null;
+                        }
                     }
                 );
 
