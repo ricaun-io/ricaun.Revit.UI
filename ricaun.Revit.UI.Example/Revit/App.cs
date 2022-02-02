@@ -60,7 +60,9 @@ namespace ricaun.Revit.UI.Example.Revit
             foreach (var item in item3s)
             {
                 item.SetText();
+                item.GetRibbonItem().AddQuickAccessToolBar();
             }
+
             /*
             foreach (var item in ribbonPanel.GetItems())
             {
@@ -91,9 +93,7 @@ namespace ricaun.Revit.UI.Example.Revit
             }
             */
 
-            ribbonPanel.GetRibbonPanel().Tab.SetOrderPanels();
-            var ric = ribbonPanel.GetRibbonPanel().Tab.Panels.ToList().FirstOrDefault(e => e.Source.Title == "ricaun");
-            ric?.MoveRibbonPanel();
+            OrderPanelAndMove(ribbonPanel);
 
             foreach (var item in ribbonPanel.GetRibbonItems())
             {
@@ -102,7 +102,7 @@ namespace ricaun.Revit.UI.Example.Revit
 
             ribbonPanel.UpdateRibbonDescription(setting =>
             {
-                setting.Add("",
+                setting.AddDefault(
                     new RibbonDescription()
                     {
                         LargeImage = Proprieties.Resource.LargeImage.GetBitmapSource(),
@@ -116,8 +116,6 @@ namespace ricaun.Revit.UI.Example.Revit
                         Text = "Hello",
                         ToolTip = "This is a Tool Tip",
                         LongDescription = "This is a Long Description",
-                        LargeImage = Proprieties.Resource.LargeImage.GetBitmapSource(),
-                        Help = "https://ricaun.com"
                     },
                     new RibbonDescription(LanguageType.Brazilian_Portuguese)
                     {
@@ -130,13 +128,11 @@ namespace ricaun.Revit.UI.Example.Revit
                 setting.Add("PulldownButton", new RibbonDescription()
                 {
                     Text = "PulldownButton",
-                    Help = "https://ricaun.com"
                 });
 
                 setting.Add("SplitButton", new RibbonDescription()
                 {
                     Text = "SplitButton",
-                    Help = "https://ricaun.com"
                 });
             });
 
@@ -147,6 +143,13 @@ namespace ricaun.Revit.UI.Example.Revit
         {
             ribbonPanel.Close();
             return Result.Succeeded;
+        }
+
+        private void OrderPanelAndMove(RibbonPanel ribbonPanel)
+        {
+            ribbonPanel.GetRibbonPanel().Tab.SetOrderPanels();
+            var ric = ribbonPanel.GetRibbonPanel().Tab.Panels.ToList().FirstOrDefault(e => e.Source.Title == "ricaun");
+            ric?.MoveRibbonPanel();
         }
     }
 }

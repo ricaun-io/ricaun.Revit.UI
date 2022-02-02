@@ -4,7 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-## [0.0.6] / 2022-01-31
+## [0.0.6] / 2022-02-02
+- Add Action on `RibbonDescription`
+- Add TRibbonButton on `RibbonDescriptionExtension`
+- Add TRibbonItem on `RibbonDescriptionExtension`
+- 2022-01-31
 - Remove QuickAccessToolBar when Remove RibbonPanel
 - Add QuickAccessToolBarExtension
 - 2022-01-25

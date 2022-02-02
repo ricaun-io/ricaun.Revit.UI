@@ -49,7 +49,6 @@ namespace ricaun.Revit.UI
             }
             catch
             {
-                //ribbonManager = application.GetRibbonPanels(tabName).FirstOrDefault(r => r.Name.StartsWith(panelName) && r.Visible);
                 if (ribbonManager == null)
                 {
                     ribbonManager = application.CreateRibbonPanel(tabName, SafeRibbonPanelName(panelName));

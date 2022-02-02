@@ -36,17 +36,6 @@ namespace ricaun.Revit.UI
         /// <summary>
         /// Add
         /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="ribbonDescriptions"></param>
-        public void Add<T>(params RibbonDescription[] ribbonDescriptions)
-        {
-            var name = typeof(T).Name;
-            Add(name, ribbonDescriptions);
-        }
-
-        /// <summary>
-        /// Add
-        /// </summary>
         /// <param name="name"></param>
         /// <param name="ribbonDescription"></param>
         public void Add(string name, RibbonDescription ribbonDescription)
@@ -69,6 +58,28 @@ namespace ricaun.Revit.UI
         {
             foreach (var ribbonDescription in ribbonDescriptions)
                 Add(name, ribbonDescription);
+        }
+
+        /// <summary>
+        /// Add
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="ribbonDescriptions"></param>
+        public void Add<T>(params RibbonDescription[] ribbonDescriptions)
+        {
+            var name = typeof(T).Name;
+            Add(name, ribbonDescriptions);
+        }
+
+        /// <summary>
+        /// Add Default
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="ribbonDescriptions"></param>
+        public void AddDefault(params RibbonDescription[] ribbonDescriptions)
+        {
+            foreach (var ribbonDescription in ribbonDescriptions)
+                Add("", ribbonDescription);
         }
 
         /// <summary>
@@ -123,6 +134,10 @@ namespace ricaun.Revit.UI
         /// ToolTipImage
         /// </summary>
         public ImageSource ToolTipImage { get; set; }
+        /// <summary>
+        /// Action
+        /// </summary>
+        public Action<RibbonItem> Action { get; set; }
     }
 
     /// <summary>
@@ -195,10 +210,11 @@ namespace ricaun.Revit.UI
         /// <summary>
         /// Update RibbonDescription
         /// </summary>
+        /// <typeparam name="TRibbonItem">RibbonItem</typeparam>
         /// <param name="ribbonItem"></param>
         /// <param name="description"></param>
         /// <returns></returns>
-        public static RibbonItem UpdateRibbonDescription(this RibbonItem ribbonItem, RibbonDescription description)
+        public static TRibbonItem UpdateRibbonDescription<TRibbonItem>(this TRibbonItem ribbonItem, RibbonDescription description) where TRibbonItem : RibbonItem
         {
             if (description == null)
                 return ribbonItem;
@@ -214,19 +230,21 @@ namespace ricaun.Revit.UI
                 ribbonButton.SetImage(description.Image);
                 ribbonButton.SetLargeImage(description.LargeImage);
             }
+
+            description.Action?.Invoke(ribbonItem);
+
             return ribbonItem;
         }
 
         #region Set RibbonItem
-
-
         /// <summary>
         /// Sets the contextual help bound with this RibbonItem.
         /// </summary>
+        /// <typeparam name="TRibbonItem">RibbonItem</typeparam>
         /// <param name="ribbonItem"></param>
         /// <param name="helpPath"></param>
         /// <returns></returns>
-        public static RibbonItem SetContextualHelp(this RibbonItem ribbonItem, string helpPath)
+        public static TRibbonItem SetContextualHelp<TRibbonItem>(this TRibbonItem ribbonItem, string helpPath) where TRibbonItem : RibbonItem
         {
             if (helpPath != null)
                 ribbonItem.SetContextualHelp(GetContextualHelp(helpPath));
@@ -237,10 +255,11 @@ namespace ricaun.Revit.UI
         /// <summary>
         /// Enable / Disable Show Text
         /// </summary>
+        /// <typeparam name="TRibbonItem">RibbonItem</typeparam>
         /// <param name="ribbonItem"></param>
         /// <param name="showText"></param>
         /// <returns></returns>
-        public static RibbonItem SetShowText(this RibbonItem ribbonItem, bool showText = false)
+        public static TRibbonItem SetShowText<TRibbonItem>(this TRibbonItem ribbonItem, bool showText = false) where TRibbonItem : RibbonItem
         {
             ribbonItem.GetRibbonItem().ShowText = showText;
             return ribbonItem;
@@ -249,10 +268,11 @@ namespace ricaun.Revit.UI
         /// <summary>
         /// Set RibbonItemSize
         /// </summary>
+        /// <typeparam name="TRibbonItem">RibbonItem</typeparam>
         /// <param name="ribbonItem"></param>
         /// <param name="itemSize"></param>
         /// <returns></returns>
-        public static RibbonItem SetItemSize(this RibbonItem ribbonItem, Autodesk.Windows.RibbonItemSize itemSize = Autodesk.Windows.RibbonItemSize.Large)
+        public static TRibbonItem SetItemSize<TRibbonItem>(this TRibbonItem ribbonItem, Autodesk.Windows.RibbonItemSize itemSize = Autodesk.Windows.RibbonItemSize.Large) where TRibbonItem : RibbonItem
         {
             ribbonItem.GetRibbonItem().Size = itemSize;
             return ribbonItem;
@@ -261,10 +281,11 @@ namespace ricaun.Revit.UI
         /// <summary>
         /// Set RibbonItem Text
         /// </summary>
+        /// <typeparam name="TRibbonItem">RibbonItem</typeparam>
         /// <param name="ribbonItem"></param>
         /// <param name="text"></param>
         /// <returns></returns>
-        public static RibbonItem SetText(this RibbonItem ribbonItem, string text = "")
+        public static TRibbonItem SetText<TRibbonItem>(this TRibbonItem ribbonItem, string text = "") where TRibbonItem : RibbonItem
         {
             if (text == null)
                 return ribbonItem;
@@ -279,10 +300,11 @@ namespace ricaun.Revit.UI
         /// <summary>
         /// Set RibbonItem ToolTip
         /// </summary>
+        /// <typeparam name="TRibbonItem">RibbonItem</typeparam>
         /// <param name="ribbonItem"></param>
         /// <param name="toolTip"></param>
         /// <returns></returns>
-        public static RibbonItem SetToolTip(this RibbonItem ribbonItem, string toolTip)
+        public static TRibbonItem SetToolTip<TRibbonItem>(this TRibbonItem ribbonItem, string toolTip) where TRibbonItem : RibbonItem
         {
             if (toolTip != null)
                 ribbonItem.ToolTip = toolTip;
@@ -293,10 +315,11 @@ namespace ricaun.Revit.UI
         /// <summary>
         /// Set RibbonItem LongDescription
         /// </summary>
+        /// <typeparam name="TRibbonItem">RibbonItem</typeparam>
         /// <param name="ribbonItem"></param>
         /// <param name="longDescription"></param>
         /// <returns></returns>
-        public static RibbonItem SetLongDescription(this RibbonItem ribbonItem, string longDescription)
+        public static TRibbonItem SetLongDescription<TRibbonItem>(this TRibbonItem ribbonItem, string longDescription) where TRibbonItem : RibbonItem
         {
             if (longDescription != null)
                 ribbonItem.LongDescription = longDescription;
@@ -307,27 +330,28 @@ namespace ricaun.Revit.UI
         /// <summary>
         /// Set RibbonItem ToolTipImage
         /// </summary>
+        /// <typeparam name="TRibbonItem">RibbonItem</typeparam>
         /// <param name="ribbonItem"></param>
         /// <param name="toolTipImage"></param>
         /// <returns></returns>
-        public static RibbonItem SetToolTipImage(this RibbonItem ribbonItem, ImageSource toolTipImage)
+        public static TRibbonItem SetToolTipImage<TRibbonItem>(this TRibbonItem ribbonItem, ImageSource toolTipImage) where TRibbonItem : RibbonItem
         {
             if (toolTipImage != null)
                 ribbonItem.ToolTipImage = toolTipImage;
 
             return ribbonItem;
         }
-
         #endregion
 
         #region Set RibbonButton
         /// <summary>
         /// Set RibbonButton Image
         /// </summary>
+        /// <typeparam name="TRibbonButton">RibbonButton</typeparam>
         /// <param name="ribbonButton"></param>
         /// <param name="image"></param>
         /// <returns></returns>
-        public static RibbonButton SetImage(this RibbonButton ribbonButton, ImageSource image)
+        public static TRibbonButton SetImage<TRibbonButton>(this TRibbonButton ribbonButton, ImageSource image) where TRibbonButton : RibbonButton
         {
             if (image != null)
                 ribbonButton.Image = image;
@@ -338,10 +362,11 @@ namespace ricaun.Revit.UI
         /// <summary>
         /// Set RibbonButton LargeImage
         /// </summary>
+        /// <typeparam name="TRibbonButton">RibbonButton</typeparam>
         /// <param name="ribbonButton"></param>
         /// <param name="largeImage"></param>
         /// <returns></returns>
-        public static RibbonButton SetLargeImage(this RibbonButton ribbonButton, ImageSource largeImage)
+        public static TRibbonButton SetLargeImage<TRibbonButton>(this TRibbonButton ribbonButton, ImageSource largeImage) where TRibbonButton : RibbonButton
         {
             if (largeImage != null)
             {
