@@ -14,11 +14,14 @@ namespace ricaun.Revit.UI
         /// <summary>
         /// Remove RibbonItem from QuickAccessToolBar
         /// </summary>
-        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="TRibbonItem"></typeparam>
         /// <param name="ribbonItem"></param>
         /// <returns></returns>
-        public static T RemoveQuickAccessToolBar<T>(this T ribbonItem) where T : RibbonItem
+        public static TRibbonItem RemoveQuickAccessToolBar<TRibbonItem>(this TRibbonItem ribbonItem) where TRibbonItem : RibbonItem
         {
+            if (ribbonItem == null)
+                return ribbonItem;
+
             var ri = ComponentManager.QuickAccessToolBar.Items
                 .FirstOrDefault(e => e.Id == ribbonItem.Id);
 
@@ -31,11 +34,14 @@ namespace ricaun.Revit.UI
         /// <summary>
         /// Add RibbonItem to QuickAccessToolBar
         /// </summary>
-        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="TRibbonItem"></typeparam>
         /// <param name="ribbonItem"></param>
         /// <returns></returns>
-        public static T AddQuickAccessToolBar<T>(this T ribbonItem) where T : RibbonItem
+        public static TRibbonItem AddQuickAccessToolBar<TRibbonItem>(this TRibbonItem ribbonItem) where TRibbonItem : RibbonItem
         {
+            if (ribbonItem == null)
+                return ribbonItem;
+
             var ri = ComponentManager.QuickAccessToolBar.Items
                 .FirstOrDefault(e => e.Id == ribbonItem.Id);
 

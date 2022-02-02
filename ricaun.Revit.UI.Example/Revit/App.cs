@@ -132,7 +132,6 @@ namespace ricaun.Revit.UI.Example.Revit
                     new RibbonDescription()
                     {
                         Text = "int",
-                        Action = (ribbonItem) => { ribbonItem.SetShowImage(); }
                     }
                 );
 
@@ -140,7 +139,6 @@ namespace ricaun.Revit.UI.Example.Revit
                     new RibbonDescription()
                     {
                         Text = "double",
-                        Action = (ribbonItem) => { ribbonItem.SetShowImage(); }
                     }
                 );
 
@@ -148,7 +146,6 @@ namespace ricaun.Revit.UI.Example.Revit
                     new RibbonDescription()
                     {
                         Text = "bool",
-                        Action = (ribbonItem) => { ribbonItem.SetShowImage(); }
                     }
                 );
 
@@ -156,7 +153,6 @@ namespace ricaun.Revit.UI.Example.Revit
                     new RibbonDescription()
                     {
                         Text = "string",
-                        Action = (ribbonItem) => { ribbonItem.SetShowImage(); }
                     }
                 );
 
