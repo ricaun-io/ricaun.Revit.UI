@@ -3,6 +3,7 @@ using Autodesk.Revit.UI;
 using Autodesk.Revit.ApplicationServices;
 using System;
 using System.Linq;
+using ricaun.Revit.UI.Example.Proprieties;
 
 namespace ricaun.Revit.UI.Example.Revit
 {
@@ -80,7 +81,7 @@ namespace ricaun.Revit.UI.Example.Revit
                 setting.Add<Commands.Command>(
                     new RibbonDescription()
                     {
-                        LargeImage = Proprieties.Resource.LargeImage.GetBitmapSource(),
+                        LargeImage = Resource.LargeImage.GetBitmapSource(),
                         Text = "Hello",
                         ToolTip = "This is a Tool Tip",
                         LongDescription = "This is a Long Description",
@@ -97,7 +98,7 @@ namespace ricaun.Revit.UI.Example.Revit
                     new RibbonDescription()
                     {
                         Text = "Ok",
-                        LargeImage = @"https://img.icons8.com/small/32/000000/ok.png".GetBitmapSource()
+                        LargeImage = Icons8.Ok
                     }
                 );
 
@@ -105,7 +106,7 @@ namespace ricaun.Revit.UI.Example.Revit
                     new RibbonDescription()
                     {
                         Text = "int",
-                        LargeImage = @"https://img.icons8.com/small/32/000000/document.png".GetBitmapSource()
+                        LargeImage = Icons8.Document
                     }
                 );
 
@@ -113,7 +114,7 @@ namespace ricaun.Revit.UI.Example.Revit
                     new RibbonDescription()
                     {
                         Text = "double",
-                        LargeImage = @"https://img.icons8.com/small/32/000000/file.png".GetBitmapSource()
+                        LargeImage = Icons8.File
                     }
                 );
 
@@ -121,7 +122,7 @@ namespace ricaun.Revit.UI.Example.Revit
                     new RibbonDescription()
                     {
                         Text = "bool",
-                        LargeImage = @"https://img.icons8.com/small/32/000000/support.png".GetBitmapSource()
+                        LargeImage = Icons8.Support
                     }
                 );
 
@@ -129,21 +130,21 @@ namespace ricaun.Revit.UI.Example.Revit
                     new RibbonDescription()
                     {
                         Text = "text",
-                        LargeImage = @"https://img.icons8.com/small/32/000000/settings.png".GetBitmapSource()
+                        LargeImage = Icons8.Settings
                     }
                 );
 
                 setting.Add("PulldownButton", new RibbonDescription()
                 {
                     Text = "Menu",
-                    LargeImage = @"https://img.icons8.com/small/32/000000/about.png".GetBitmapSource()
+                    LargeImage = Icons8.About
                 });
 
 
                 setting.Add<Commands.Command<UIApplication>>(new RibbonDescription()
                 {
                     Text = "UIApplication",
-                    LargeImage = @"https://img.icons8.com/small/32/000000/restart.png".GetBitmapSource(),
+                    LargeImage = Icons8.Restart,
                     Action = (ribbonItem) =>
                     {
                         ribbonItem.SetItemSize();
@@ -154,7 +155,7 @@ namespace ricaun.Revit.UI.Example.Revit
                 setting.Add<Commands.Command<UIDocument>>(new RibbonDescription()
                 {
                     Text = "UIDocument",
-                    LargeImage = @"https://img.icons8.com/small/32/000000/filter.png".GetBitmapSource(),
+                    LargeImage = Icons8.Filter,
                     Action = (ribbonItem) =>
                     {
                         ribbonItem.SetItemSize();
@@ -165,7 +166,7 @@ namespace ricaun.Revit.UI.Example.Revit
                 setting.Add<Commands.Command<Application>>(new RibbonDescription()
                 {
                     Text = "Application",
-                    LargeImage = @"https://img.icons8.com/small/32/000000/search.png".GetBitmapSource(),
+                    LargeImage = Icons8.Search,
                     Action = (ribbonItem) =>
                     {
                         ribbonItem.SetItemSize();
@@ -176,7 +177,7 @@ namespace ricaun.Revit.UI.Example.Revit
                 setting.Add<Commands.Command<Document>>(new RibbonDescription()
                 {
                     Text = "Document",
-                    LargeImage = @"https://img.icons8.com/small/32/000000/trash.png".GetBitmapSource(),
+                    LargeImage = Icons8.Trash,
                     Action = (ribbonItem) =>
                     {
                         ribbonItem.SetItemSize();
@@ -187,7 +188,7 @@ namespace ricaun.Revit.UI.Example.Revit
                 setting.Add<Commands.Command<RibbonItem>>(new RibbonDescription()
                 {
                     Text = "RibbonItem",
-                    LargeImage = @"https://img.icons8.com/small/32/000000/home.png".GetBitmapSource(),
+                    LargeImage = Icons8.Home,
                     Action = (ribbonItem) =>
                     {
                         ribbonItem.GetRibbonItem().AddQuickAccessToolBar();
@@ -198,7 +199,7 @@ namespace ricaun.Revit.UI.Example.Revit
                 setting.Add<Commands.Command<RibbonButton>>(new RibbonDescription()
                 {
                     Text = "RibbonButton",
-                    LargeImage = @"https://img.icons8.com/small/32/000000/menu.png".GetBitmapSource(),
+                    LargeImage = Icons8.Menu,
                     Action = (ribbonItem) =>
                     {
                         ribbonItem.GetRibbonItem().AddQuickAccessToolBar();
@@ -209,7 +210,7 @@ namespace ricaun.Revit.UI.Example.Revit
                 setting.Add<Commands.Command<RibbonPanel>>(new RibbonDescription()
                 {
                     Text = "RibbonPanel",
-                    LargeImage = @"https://img.icons8.com/small/32/000000/info.png".GetBitmapSource(),
+                    LargeImage = Icons8.Info,
                     Action = (ribbonItem) =>
                     {
                         ribbonItem.GetRibbonItem().AddQuickAccessToolBar();
@@ -220,7 +221,7 @@ namespace ricaun.Revit.UI.Example.Revit
                 setting.Add<Commands.Command<Element>>(new RibbonDescription()
                 {
                     Text = "Element",
-                    LargeImage = @"https://img.icons8.com/small/32/000000/unchecked-circle.png".GetBitmapSource(),
+                    LargeImage = Icons8.Circled,
                     Action = (ribbonItem) =>
                     {
                         ribbonItem.SetShowText();
@@ -230,7 +231,7 @@ namespace ricaun.Revit.UI.Example.Revit
                 setting.Add<Commands.Command<ElementType>>(new RibbonDescription()
                 {
                     Text = "ElementType",
-                    LargeImage = @"https://img.icons8.com/small/32/000000/checked.png".GetBitmapSource(),
+                    LargeImage = Icons8.Checked,
                     Action = (ribbonItem) =>
                     {
                         ribbonItem.SetShowText();
@@ -240,7 +241,7 @@ namespace ricaun.Revit.UI.Example.Revit
                 setting.Add<Commands.Command<ElementArray>>(new RibbonDescription()
                 {
                     Text = "ElementArray",
-                    LargeImage = @"https://img.icons8.com/small/32/000000/cancel.png".GetBitmapSource(),
+                    LargeImage = Icons8.Cancel,
                     Action = (ribbonItem) =>
                     {
                         ribbonItem.SetShowText();

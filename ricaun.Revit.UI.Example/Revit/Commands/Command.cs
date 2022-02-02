@@ -12,8 +12,6 @@ namespace ricaun.Revit.UI.Example.Revit.Commands
         {
             UIApplication uiapp = commandData.Application;
 
-            System.Windows.MessageBox.Show(AutodeskExtension.GetAutodeskOwner(), $"Hello Revit\n{DateTime.Now}");
-
             return Result.Succeeded;
         }
     }
