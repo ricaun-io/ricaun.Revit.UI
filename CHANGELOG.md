@@ -6,6 +6,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [0.0.6] / 2022-02-02
 - Update Readme
+- Update `GetBitmapSource` base64orUri
 - Add Icons8 on Example
 - Change SetImage and SetLargeImage to RibbonItem
 - Fix RemoveQuickAccessToolBar on `Remove` RibbonPanel
