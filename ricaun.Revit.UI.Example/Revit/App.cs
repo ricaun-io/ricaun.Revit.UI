@@ -2,11 +2,7 @@ using Autodesk.Revit.DB;
 using Autodesk.Revit.UI;
 using Autodesk.Revit.ApplicationServices;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
 
 namespace ricaun.Revit.UI.Example.Revit
 {
@@ -41,7 +37,12 @@ namespace ricaun.Revit.UI.Example.Revit
 
             ribbonPanel.AddStackedItems(
                 ribbonPanel.NewPushButtonData<Commands.Command<UIApplication>>(),
+                ribbonPanel.NewPushButtonData<Commands.Command<UIDocument>>());
+
+            ribbonPanel.AddStackedItems(
+                ribbonPanel.NewPushButtonData<Commands.Command<Application>>(),
                 ribbonPanel.NewPushButtonData<Commands.Command<Document>>());
+
 
             ribbonPanel.AddStackedItems(
                 ribbonPanel.NewPushButtonData<Commands.Command<RibbonItem>>(),
@@ -150,10 +151,32 @@ namespace ricaun.Revit.UI.Example.Revit
                     }
                 });
 
+                setting.Add<Commands.Command<UIDocument>>(new RibbonDescription()
+                {
+                    Text = "UIDocument",
+                    LargeImage = @"https://img.icons8.com/small/32/000000/filter.png".GetBitmapSource(),
+                    Action = (ribbonItem) =>
+                    {
+                        ribbonItem.SetItemSize();
+                        ribbonItem.SetShowText();
+                    }
+                });
+
+                setting.Add<Commands.Command<Application>>(new RibbonDescription()
+                {
+                    Text = "Application",
+                    LargeImage = @"https://img.icons8.com/small/32/000000/search.png".GetBitmapSource(),
+                    Action = (ribbonItem) =>
+                    {
+                        ribbonItem.SetItemSize();
+                        ribbonItem.SetShowText();
+                    }
+                });
+
                 setting.Add<Commands.Command<Document>>(new RibbonDescription()
                 {
                     Text = "Document",
-                    LargeImage = @"https://img.icons8.com/small/32/000000/music.png".GetBitmapSource(),
+                    LargeImage = @"https://img.icons8.com/small/32/000000/trash.png".GetBitmapSource(),
                     Action = (ribbonItem) =>
                     {
                         ribbonItem.SetItemSize();
@@ -207,7 +230,7 @@ namespace ricaun.Revit.UI.Example.Revit
                 setting.Add<Commands.Command<ElementType>>(new RibbonDescription()
                 {
                     Text = "ElementType",
-                    LargeImage = @"https://img.icons8.com/small/32/000000/checked--v1.png".GetBitmapSource(),
+                    LargeImage = @"https://img.icons8.com/small/32/000000/checked.png".GetBitmapSource(),
                     Action = (ribbonItem) =>
                     {
                         ribbonItem.SetShowText();
@@ -217,7 +240,7 @@ namespace ricaun.Revit.UI.Example.Revit
                 setting.Add<Commands.Command<ElementArray>>(new RibbonDescription()
                 {
                     Text = "ElementArray",
-                    LargeImage = @"https://img.icons8.com/small/32/000000/cancel--v1.png".GetBitmapSource(),
+                    LargeImage = @"https://img.icons8.com/small/32/000000/cancel.png".GetBitmapSource(),
                     Action = (ribbonItem) =>
                     {
                         ribbonItem.SetShowText();
