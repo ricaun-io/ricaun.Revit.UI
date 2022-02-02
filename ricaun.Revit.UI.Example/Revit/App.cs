@@ -48,6 +48,11 @@ namespace ricaun.Revit.UI.Example.Revit
                 ribbonPanel.NewPushButtonData<Commands.Command<RibbonButton>>(),
                 ribbonPanel.NewPushButtonData<Commands.Command<RibbonPanel>>());
 
+            ribbonPanel.AddStackedItems(
+                ribbonPanel.NewPushButtonData<Commands.Command<Element>>(),
+                ribbonPanel.NewPushButtonData<Commands.Command<ElementType>>(),
+                ribbonPanel.NewPushButtonData<Commands.Command<ElementArray>>());
+
             OrderPanelAndMove(ribbonPanel);
 
             foreach (var item in ribbonPanel.GetRibbonItems())
@@ -55,6 +60,13 @@ namespace ricaun.Revit.UI.Example.Revit
                 //Console.WriteLine($"{item} {item.Name}");
             }
 
+            UpdateRibbonDescription(ribbonPanel);
+
+            return Result.Succeeded;
+        }
+
+        private void UpdateRibbonDescription(RibbonPanel ribbonPanel)
+        {
             ribbonPanel.UpdateRibbonDescription(setting =>
             {
                 setting.AddDefault(
@@ -68,9 +80,6 @@ namespace ricaun.Revit.UI.Example.Revit
                     new RibbonDescription()
                     {
                         LargeImage = Proprieties.Resource.LargeImage.GetBitmapSource(),
-                        //LargeImage = @"https://img.icons8.com/small/32/000000/unchecked-circle.png".GetBitmapSource(),
-                        //LargeImage = @"https://img.icons8.com/small/32/000000/checked--v1.png".GetBitmapSource(),
-                        //LargeImage = @"https://img.icons8.com/small/32/000000/cancel--v1.png".GetBitmapSource(),
                         Text = "Hello",
                         ToolTip = "This is a Tool Tip",
                         LongDescription = "This is a Long Description",
@@ -185,9 +194,37 @@ namespace ricaun.Revit.UI.Example.Revit
                     }
                 });
 
-            });
+                setting.Add<Commands.Command<Element>>(new RibbonDescription()
+                {
+                    Text = "Element",
+                    LargeImage = @"https://img.icons8.com/small/32/000000/unchecked-circle.png".GetBitmapSource(),
+                    Action = (ribbonItem) =>
+                    {
+                        ribbonItem.SetShowText();
+                    }
+                });
 
-            return Result.Succeeded;
+                setting.Add<Commands.Command<ElementType>>(new RibbonDescription()
+                {
+                    Text = "ElementType",
+                    LargeImage = @"https://img.icons8.com/small/32/000000/checked--v1.png".GetBitmapSource(),
+                    Action = (ribbonItem) =>
+                    {
+                        ribbonItem.SetShowText();
+                    }
+                });
+
+                setting.Add<Commands.Command<ElementArray>>(new RibbonDescription()
+                {
+                    Text = "ElementArray",
+                    LargeImage = @"https://img.icons8.com/small/32/000000/cancel--v1.png".GetBitmapSource(),
+                    Action = (ribbonItem) =>
+                    {
+                        ribbonItem.SetShowText();
+                    }
+                });
+
+            });
         }
 
         public Result OnShutdown(UIControlledApplication application)

@@ -89,6 +89,5 @@ namespace ricaun.Revit.UI
         {
             return new TransformedBitmap(imageSource as BitmapSource, new ScaleTransform(scale, scale));
         }
-
     }
 }
