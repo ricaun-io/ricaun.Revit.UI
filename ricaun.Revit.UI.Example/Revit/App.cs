@@ -98,7 +98,13 @@ namespace ricaun.Revit.UI.Example.Revit
                     new RibbonDescription()
                     {
                         Text = "Ok",
-                        LargeImage = Icons8.Ok
+                        ToolTip = "This Button gonna be Removed",
+                        LargeImage = Icons8.Ok,
+                        Action = (ribbonItem) =>
+                        {
+                            var ri = ribbonItem.GetRibbonItem() as Autodesk.Windows.RibbonButton;
+                            ri.MouseLeft += (s, e) => { ribbonPanel.Remove(ribbonItem); };
+                        }
                     }
                 );
 

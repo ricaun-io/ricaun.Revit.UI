@@ -60,6 +60,19 @@ namespace ricaun.Revit.UI
         }
 
         /// <summary>
+        /// Remove <paramref name="ribbonItem"/> from <paramref name="ribbonPanel"/>
+        /// </summary>
+        /// <param name="ribbonPanel"></param>
+        /// <param name="ribbonItem"></param>
+        /// <returns></returns>
+        public static RibbonPanel Remove(this RibbonPanel ribbonPanel, RibbonItem ribbonItem)
+        {
+            ribbonItem.GetRibbonItem().RemoveQuickAccessToolBar();
+            ribbonPanel.GetRibbonPanel().Source.Items.Remove(ribbonItem.GetRibbonItem());
+            return ribbonPanel;
+        }
+
+        /// <summary>
         /// Remove RibbonPanel from Tab
         /// </summary>
         /// <param name="ribbonPanel"></param>
