@@ -34,7 +34,8 @@ namespace ricaun.Revit.UI
         /// <returns></returns>
         public static TRibbonItem SetShowText<TRibbonItem>(this TRibbonItem ribbonItem, bool showText = false) where TRibbonItem : RibbonItem
         {
-            ribbonItem.GetRibbonItem().ShowText = showText;
+            if (ribbonItem.GetRibbonItem() != null)
+                ribbonItem.GetRibbonItem().ShowText = showText;
             return ribbonItem;
         }
 
@@ -47,7 +48,8 @@ namespace ricaun.Revit.UI
         /// <returns></returns>
         public static TRibbonItem SetShowImage<TRibbonItem>(this TRibbonItem ribbonItem, bool showImage = false) where TRibbonItem : RibbonItem
         {
-            ribbonItem.GetRibbonItem().ShowImage = showImage;
+            if (ribbonItem.GetRibbonItem() != null)
+                ribbonItem.GetRibbonItem().ShowImage = showImage;
             return ribbonItem;
         }
 
@@ -60,7 +62,8 @@ namespace ricaun.Revit.UI
         /// <returns></returns>
         public static TRibbonItem SetItemSize<TRibbonItem>(this TRibbonItem ribbonItem, Autodesk.Windows.RibbonItemSize itemSize = Autodesk.Windows.RibbonItemSize.Large) where TRibbonItem : RibbonItem
         {
-            ribbonItem.GetRibbonItem().Size = itemSize;
+            if (ribbonItem.GetRibbonItem() != null)
+                ribbonItem.GetRibbonItem().Size = itemSize;
             return ribbonItem;
         }
 

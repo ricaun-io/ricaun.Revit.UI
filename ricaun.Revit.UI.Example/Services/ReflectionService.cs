@@ -33,5 +33,14 @@ namespace ricaun.Revit.UI.Example.Services
             }
         }
 
+        public TResult GetResult<T, TResult>(T obj, string methodName)
+        {
+            var type = typeof(T);
+            var method = type.GetMethod(methodName,
+                BindingFlags.Static | BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public);
+
+            return (TResult)method?.Invoke(obj, null);
+        }
+
     }
 }

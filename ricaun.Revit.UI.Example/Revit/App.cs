@@ -20,7 +20,7 @@ namespace ricaun.Revit.UI.Example.Revit
 
             ribbonPanel.AddPushButton<Commands.Command>();
 
-            ribbonPanel.CreatePulldownButton("T",
+            var down = ribbonPanel.CreatePulldownButton("T",
                 ribbonPanel.NewPushButtonData<Commands.Command<Edge>>()
                     .SetText("1")
                     .SetToolTip("One")
@@ -39,18 +39,23 @@ namespace ricaun.Revit.UI.Example.Revit
             )
             //.SetLargeImage(@"pack://application:,,,/UIFrameworkRes;component/Ribbon/images/system_electrical_circuit_power_create.ico".GetBitmapSource())
             .SetLargeImage(string.Format(@"https://ricaun.com/img/icon2.ico?teste={0}", DateTime.Now).GetBitmapSource())
-            .SetToolTip("T")
-            .GetRibbonItem().AddQuickAccessToolBar();
+            .SetToolTip("T");
+
+            down.GetRibbonItem().AddQuickAccessToolBar();
+
+            ribbonPanel.Remove(down.GetItems()[0]);
+
 
             ribbonPanel.AddPushButton<Commands.Command<Color>>()
                 .SetLargeImage(string.Format(@"https://ricaun.com/img/icon32.ico?teste={0}", DateTime.Now).GetBitmapSource())
                 .SetText("Y")
                 .GetRibbonItem().AddQuickAccessToolBar();
 
-            ribbonPanel.AddPushButton<Commands.Command<Color>>()
+            var color = ribbonPanel.AddPushButton<Commands.Command<Color>>()
                 .SetLargeImage(string.Format(@"https://ricaun.com/img/AppIcon.ico?teste={0}", DateTime.Now).GetBitmapSource())
                 .SetText("Y")
                 .GetRibbonItem().AddQuickAccessToolBar();
+
 
             ribbonPanel.CreatePulldownButton("PulldownButton",
                  ribbonPanel.NewPushButtonData<Commands.Command<int>>(),
@@ -91,7 +96,7 @@ namespace ricaun.Revit.UI.Example.Revit
 
             foreach (var item in ribbonPanel.GetRibbonItems())
             {
-                //Console.WriteLine($"{item} {item.Name}");
+                //Console.WriteLine($"{item} {item.Name} {item.GetRibbonItem()}");
             }
 
             UpdateRibbonDescription(ribbonPanel);

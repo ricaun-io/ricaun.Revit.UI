@@ -11,6 +11,7 @@ TODO:
 - Add Remove RibbonItem From RibbonPanel
 
 ## [0.0.7] / 2022-02-07
+- Remove RibbonItem from RibbonPanel - Include Split/Down/Stacked
 - Test Online Icons Scale
 - Test Scale
 - Test IsDownloading Icon

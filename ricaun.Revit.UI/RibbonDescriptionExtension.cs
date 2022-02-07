@@ -179,34 +179,6 @@ namespace ricaun.Revit.UI
         }
 
         /// <summary>
-        /// Get Each RibbonItem
-        /// </summary>
-        /// <param name="ribbonPanel"></param>
-        /// <returns></returns>
-        public static IList<RibbonItem> GetRibbonItems(this RibbonPanel ribbonPanel)
-        {
-            var ribbonItems = new List<RibbonItem>();
-            foreach (var ribbonItem in ribbonPanel.GetItems())
-            {
-                ribbonItems.Add(ribbonItem);
-                if (ribbonItem is PulldownButton pulldownButton)
-                    ribbonItems.AddRange(pulldownButton.GetItems());
-                if (ribbonItem is SplitButton splitButton)
-                    ribbonItems.AddRange(splitButton.GetItems());
-                if (ribbonItem is ToggleButton) { }
-                if (ribbonItem is RadioButtonGroup radioButtonGroup)
-                {
-                    ribbonItems.AddRange(radioButtonGroup.GetItems());
-                }
-                if (ribbonItem is ComboBoxMember) { }
-                if (ribbonItem is ComboBox) { }
-                if (ribbonItem is TextBox) { }
-            }
-            return ribbonItems;
-        }
-
-
-        /// <summary>
         /// Update RibbonDescription
         /// </summary>
         /// <typeparam name="TRibbonItem">RibbonItem</typeparam>

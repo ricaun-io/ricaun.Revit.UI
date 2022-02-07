@@ -99,6 +99,7 @@ namespace ricaun.Revit.UI
         /// </summary>
         /// <param name="imageSource"></param>
         /// <param name="width"></param>
+        /// <param name="action"></param>
         /// <returns></returns>
         public static TImageSource GetBitmapFrame<TImageSource>(this TImageSource imageSource, int width = 16, Action<TImageSource> action = null) where TImageSource : ImageSource
         {
