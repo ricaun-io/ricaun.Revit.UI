@@ -159,9 +159,13 @@ namespace ricaun.Revit.UI
             {
                 if (ribbonItem is RibbonButton ribbonButton)
                 {
-                    ribbonButton.LargeImage = largeImage;
+                    ribbonButton.LargeImage = largeImage.GetBitmapFrame(32);
                     if (ribbonButton.Image == null)
-                        ribbonButton.Image = largeImage.Scale(0.5);
+                    {
+                        ribbonButton.Image = largeImage.GetBitmapFrame(16);
+                        if (ribbonButton.Image.Width != 16)
+                            ribbonButton.Image = ribbonButton.Image.Scale(16 / ribbonButton.Image.Width);
+                    }
                 }
             }
 

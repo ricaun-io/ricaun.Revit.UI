@@ -20,30 +20,38 @@ namespace ricaun.Revit.UI.Example.Revit
 
             ribbonPanel.AddPushButton<Commands.Command>();
 
-            ribbonPanel.CreatePulldownButton("Teste", new[] {
-                ribbonPanel.NewPushButtonData<Commands.Command<int>>()
-                .SetLargeImage(Icons8.Cancel),
-                ribbonPanel.NewPushButtonData<Commands.Command<double>>()
-                .SetLargeImage(Icons8.Cancel),
-                ribbonPanel.NewPushButtonData<Commands.Command<bool>>()
-                .SetLargeImage(Icons8.Cancel),
-                ribbonPanel.NewPushButtonData<Commands.Command<string>>()
-                .SetLargeImage(Icons8.Cancel)
-            });
+            ribbonPanel.CreatePulldownButton("T",
+                ribbonPanel.NewPushButtonData<Commands.Command<Edge>>()
+                    .SetText("1")
+                    .SetToolTip("One")
+                    .SetLongDescription("The One")
+                    .SetLargeImage(Icons8.Document.Scale(0.5))
+                    .SetToolTipImage(Icons8.Document),
+                ribbonPanel.NewPushButtonData<Commands.Command<EdgeArray>>()
+                    .SetText("2")
+                    .SetLargeImage(Icons8.Document.Scale(0.5)),
+                ribbonPanel.NewPushButtonData<Commands.Command<EdgeArrayArray>>()
+                    .SetText("3")
+                    .SetLargeImage(Icons8.Document.Scale(0.5)),
+                ribbonPanel.NewPushButtonData<Commands.Command<EdgeArrayArrayIterator>>()
+                    .SetText("4")
+                    .SetLargeImage(Icons8.Document.Scale(0.5))
+            ).SetLargeImage(@"pack://application:,,,/UIFrameworkRes;component/Ribbon/images/system_electrical_circuit_power_create.ico".GetBitmapSource())
+            .SetToolTip("T");
 
-            ribbonPanel.CreatePulldownButton("PulldownButton", new[] {
+            ribbonPanel.CreatePulldownButton("PulldownButton",
                 ribbonPanel.NewPushButtonData<Commands.Command<int>>(),
                 ribbonPanel.NewPushButtonData<Commands.Command<double>>(),
                 ribbonPanel.NewPushButtonData<Commands.Command<bool>>(),
                 ribbonPanel.NewPushButtonData<Commands.Command<string>>()
-            });
+            );
 
-            ribbonPanel.CreateSplitButton("SplitButton", new[] {
+            ribbonPanel.CreateSplitButton("SplitButton",
                 ribbonPanel.NewPushButtonData<Commands.Command<int>>(),
                 ribbonPanel.NewPushButtonData<Commands.Command<double>>(),
                 ribbonPanel.NewPushButtonData<Commands.Command<bool>>(),
                 ribbonPanel.NewPushButtonData<Commands.Command<string>>()
-            });
+            );
 
             ribbonPanel.AddPushButton<Commands.Command<Commands.Command>>();
 

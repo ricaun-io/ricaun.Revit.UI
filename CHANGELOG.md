@@ -11,6 +11,10 @@ TODO:
 - Add Remove RibbonItem From RibbonPanel
 
 ## [0.0.7] / 2022-02-07
+- Icon Select Frame
+- Teste PushButtonData Set Proprieties
+- Change CreatePulldownButton to params
+- Change CreateSplitButton to params
 - Add RibbonHelpExtension
 - Add RibbonItemDataExtension
 - Clear Code - Remove not used stuff

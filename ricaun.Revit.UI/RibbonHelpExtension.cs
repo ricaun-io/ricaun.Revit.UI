@@ -2,6 +2,9 @@
 
 namespace ricaun.Revit.UI
 {
+    /// <summary>
+    /// RibbonHelpExtension
+    /// </summary>
     public static class RibbonHelpExtension
     {
         #region ContextualHelp

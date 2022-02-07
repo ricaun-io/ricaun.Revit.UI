@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Linq;
 using System.Windows;
 using System.Windows.Interop;
 using System.Windows.Media;
@@ -35,12 +36,10 @@ namespace ricaun.Revit.UI
         /// <returns></returns>
         public static BitmapSource GetBitmapSource(this System.Drawing.Icon icon)
         {
-            var bitmapSource = Imaging.CreateBitmapSourceFromHIcon(
-                icon.ToBitmap().GetHicon(),
-                Int32Rect.Empty,
-                BitmapSizeOptions.FromEmptyOptions());
-
-            return bitmapSource;
+            var stream = new MemoryStream();
+            icon.Save(stream);
+            var decoder = BitmapDecoder.Create(stream, BitmapCreateOptions.None, BitmapCacheOption.Default);
+            return decoder.Frames[0];
         }
 
         /// <summary>
@@ -64,6 +63,12 @@ namespace ricaun.Revit.UI
             if (base64orUri.StartsWith("http"))
                 return new BitmapImage(new Uri(base64orUri));
 
+            if (base64orUri.StartsWith("pack") || base64orUri.StartsWith("http"))
+            {
+                var decoder = BitmapDecoder.Create(new Uri(base64orUri), BitmapCreateOptions.None, BitmapCacheOption.Default);
+                return decoder.Frames[0];
+            }
+
             var image = System.Drawing.Bitmap.FromStream(new MemoryStream(Convert.FromBase64String(base64orUri)));
             return image.GetBitmapSource();
         }
@@ -85,9 +90,28 @@ namespace ricaun.Revit.UI
         /// <param name="imageSource"></param>
         /// <param name="scale"></param>
         /// <returns></returns>
-        public static BitmapSource Scale(this ImageSource imageSource, double scale)
+        public static ImageSource Scale(this ImageSource imageSource, double scale)
         {
-            return new TransformedBitmap(imageSource as BitmapSource, new ScaleTransform(scale, scale));
+            if (imageSource is BitmapSource bitmapSource)
+                return bitmapSource.Scale(scale);
+            return imageSource;
+        }
+
+        /// <summary>
+        /// GetBitmapFrame with Width Equal or Scale
+        /// </summary>
+        /// <param name="imageSource"></param>
+        /// <param name="width"></param>
+        /// <returns></returns>
+        public static TImageSource GetBitmapFrame<TImageSource>(this TImageSource imageSource, int width = 16) where TImageSource : ImageSource
+        {
+            if (imageSource is BitmapFrame bitmapFrame)
+            {
+                var frames = bitmapFrame.Decoder.Frames;
+                var frame = frames.FirstOrDefault(e => e.Width == width);
+                if (frame != null) return frame as TImageSource;
+            }
+            return imageSource;
         }
     }
 }
