@@ -100,7 +100,7 @@ namespace ricaun.Revit.UI
         /// <param name="imageSource"></param>
         /// <param name="width"></param>
         /// <returns></returns>
-        public static TImageSource GetBitmapFrame<TImageSource>(this TImageSource imageSource, int width = 16, Action<BitmapFrame> action = null) where TImageSource : ImageSource
+        public static TImageSource GetBitmapFrame<TImageSource>(this TImageSource imageSource, int width = 16, Action<TImageSource> action = null) where TImageSource : ImageSource
         {
             if (imageSource is BitmapFrame bitmapFrame)
             {
@@ -110,14 +110,26 @@ namespace ricaun.Revit.UI
                     {
                         var frames = bitmapFrame.Decoder.Frames;
                         var frame = frames.FirstOrDefault(e => e.Width == width);
-                        action?.Invoke(frame);
+
+                        if (frame != null)
+                            imageSource = frame as TImageSource;
+
+                        action?.Invoke(imageSource);
                     };
                 }
 
                 var frames = bitmapFrame.Decoder.Frames;
                 var frame = frames.FirstOrDefault(e => e.Width == width);
-                if (frame != null) return frame as TImageSource;
+
+                if (frame != null)
+                    imageSource = frame as TImageSource;
             }
+
+            if (imageSource.Width > width)
+            {
+                return imageSource.Scale(width / imageSource.Width) as TImageSource;
+            }
+
             return imageSource;
         }
     }
