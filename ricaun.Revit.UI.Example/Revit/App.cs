@@ -20,6 +20,17 @@ namespace ricaun.Revit.UI.Example.Revit
 
             ribbonPanel.AddPushButton<Commands.Command>();
 
+            ribbonPanel.CreatePulldownButton("Teste", new[] {
+                ribbonPanel.NewPushButtonData<Commands.Command<int>>()
+                .SetLargeImage(Icons8.Cancel),
+                ribbonPanel.NewPushButtonData<Commands.Command<double>>()
+                .SetLargeImage(Icons8.Cancel),
+                ribbonPanel.NewPushButtonData<Commands.Command<bool>>()
+                .SetLargeImage(Icons8.Cancel),
+                ribbonPanel.NewPushButtonData<Commands.Command<string>>()
+                .SetLargeImage(Icons8.Cancel)
+            });
+
             ribbonPanel.CreatePulldownButton("PulldownButton", new[] {
                 ribbonPanel.NewPushButtonData<Commands.Command<int>>(),
                 ribbonPanel.NewPushButtonData<Commands.Command<double>>(),
