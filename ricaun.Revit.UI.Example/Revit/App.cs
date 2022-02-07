@@ -36,8 +36,11 @@ namespace ricaun.Revit.UI.Example.Revit
                 ribbonPanel.NewPushButtonData<Commands.Command<EdgeArrayArrayIterator>>()
                     .SetText("4")
                     .SetLargeImage(Icons8.Document.Scale(0.5))
-            ).SetLargeImage(@"pack://application:,,,/UIFrameworkRes;component/Ribbon/images/system_electrical_circuit_power_create.ico".GetBitmapSource())
-            .SetToolTip("T");
+            )
+            //.SetLargeImage(@"pack://application:,,,/UIFrameworkRes;component/Ribbon/images/system_electrical_circuit_power_create.ico".GetBitmapSource())
+            .SetLargeImage(string.Format(@"https://ricaun.com/img/icon2.ico?teste={0}", DateTime.Now).GetBitmapSource())
+            .SetToolTip("T")
+            .GetRibbonItem().AddQuickAccessToolBar();
 
             ribbonPanel.CreatePulldownButton("PulldownButton",
                 ribbonPanel.NewPushButtonData<Commands.Command<int>>(),

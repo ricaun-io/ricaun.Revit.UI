@@ -162,9 +162,11 @@ namespace ricaun.Revit.UI
                     ribbonButton.LargeImage = largeImage.GetBitmapFrame(32);
                     if (ribbonButton.Image == null)
                     {
-                        ribbonButton.Image = largeImage.GetBitmapFrame(16);
-                        if (ribbonButton.Image.Width != 16)
+                        ribbonButton.Image = largeImage.GetBitmapFrame(16, (frame) => { ribbonButton.Image = frame; });
+                        if (ribbonButton.Image.Width != 1 && ribbonButton.Image.Width != 16)
+                        {
                             ribbonButton.Image = ribbonButton.Image.Scale(16 / ribbonButton.Image.Width);
+                        }
                     }
                 }
             }

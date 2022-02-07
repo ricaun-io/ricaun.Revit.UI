@@ -11,6 +11,7 @@ TODO:
 - Add Remove RibbonItem From RibbonPanel
 
 ## [0.0.7] / 2022-02-07
+- Teste IsDownloading Icon
 - Icon Select Frame
 - Teste PushButtonData Set Proprieties
 - Change CreatePulldownButton to params

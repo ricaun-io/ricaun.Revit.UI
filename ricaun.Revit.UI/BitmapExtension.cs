@@ -60,9 +60,6 @@ namespace ricaun.Revit.UI
         /// <returns></returns>
         public static BitmapSource GetBitmapSource(this string base64orUri)
         {
-            if (base64orUri.StartsWith("http"))
-                return new BitmapImage(new Uri(base64orUri));
-
             if (base64orUri.StartsWith("pack") || base64orUri.StartsWith("http"))
             {
                 var decoder = BitmapDecoder.Create(new Uri(base64orUri), BitmapCreateOptions.None, BitmapCacheOption.Default);
@@ -103,10 +100,20 @@ namespace ricaun.Revit.UI
         /// <param name="imageSource"></param>
         /// <param name="width"></param>
         /// <returns></returns>
-        public static TImageSource GetBitmapFrame<TImageSource>(this TImageSource imageSource, int width = 16) where TImageSource : ImageSource
+        public static TImageSource GetBitmapFrame<TImageSource>(this TImageSource imageSource, int width = 16, Action<BitmapFrame> action = null) where TImageSource : ImageSource
         {
             if (imageSource is BitmapFrame bitmapFrame)
             {
+                if (bitmapFrame.IsDownloading)
+                {
+                    bitmapFrame.DownloadCompleted += (s, e) =>
+                    {
+                        var frames = bitmapFrame.Decoder.Frames;
+                        var frame = frames.FirstOrDefault(e => e.Width == width);
+                        action?.Invoke(frame);
+                    };
+                }
+
                 var frames = bitmapFrame.Decoder.Frames;
                 var frame = frames.FirstOrDefault(e => e.Width == width);
                 if (frame != null) return frame as TImageSource;
