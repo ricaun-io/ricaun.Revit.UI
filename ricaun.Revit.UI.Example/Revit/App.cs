@@ -38,31 +38,17 @@ namespace ricaun.Revit.UI.Example.Revit
                     .SetLargeImage(Icons8.Document.Scale(0.5))
             )
             //.SetLargeImage(@"pack://application:,,,/UIFrameworkRes;component/Ribbon/images/system_electrical_circuit_power_create.ico".GetBitmapSource())
-            .SetLargeImage(string.Format(@"https://ricaun.com/img/icon2.ico?teste={0}", DateTime.Now).GetBitmapSource())
+            //.SetLargeImage(string.Format(@"https://ricaun.com/img/icon2.ico?teste={0}", DateTime.Now).GetBitmapSource())
             .SetToolTip("T");
 
-            down.GetRibbonItem().AddQuickAccessToolBar();
-
-            ribbonPanel.Remove(down.GetItems()[0]);
-
-
-            ribbonPanel.AddPushButton<Commands.Command<Color>>()
-                .SetLargeImage(string.Format(@"https://ricaun.com/img/icon32.ico?teste={0}", DateTime.Now).GetBitmapSource())
-                .SetText("Y")
-                .GetRibbonItem().AddQuickAccessToolBar();
-
-            var color = ribbonPanel.AddPushButton<Commands.Command<Color>>()
-                .SetLargeImage(string.Format(@"https://ricaun.com/img/AppIcon.ico?teste={0}", DateTime.Now).GetBitmapSource())
-                .SetText("Y")
-                .GetRibbonItem().AddQuickAccessToolBar();
-
+            ribbonPanel.Remove(down);
 
             ribbonPanel.CreatePulldownButton("PulldownButton",
-                 ribbonPanel.NewPushButtonData<Commands.Command<int>>(),
-                 ribbonPanel.NewPushButtonData<Commands.Command<double>>(),
-                 ribbonPanel.NewPushButtonData<Commands.Command<bool>>(),
-                 ribbonPanel.NewPushButtonData<Commands.Command<string>>()
-             );
+                     ribbonPanel.NewPushButtonData<Commands.Command<int>>(),
+                     ribbonPanel.NewPushButtonData<Commands.Command<double>>(),
+                     ribbonPanel.NewPushButtonData<Commands.Command<bool>>(),
+                     ribbonPanel.NewPushButtonData<Commands.Command<string>>()
+                 );
 
             ribbonPanel.CreateSplitButton("SplitButton",
                 ribbonPanel.NewPushButtonData<Commands.Command<int>>(),
@@ -92,6 +78,44 @@ namespace ricaun.Revit.UI.Example.Revit
                 ribbonPanel.NewPushButtonData<Commands.Command<ElementType>>(),
                 ribbonPanel.NewPushButtonData<Commands.Command<ElementArray>>());
 
+            ribbonPanel.AddSlideOut();
+
+            ribbonPanel.AddPushButton<Commands.Command<Point>>()
+                .SetLargeImage(Pack.Power)
+                .SetText("Power")
+                .AddQuickAccessToolBar();
+
+            ribbonPanel.AddPushButton<Commands.Command<Point>>()
+                    .SetLargeImage(Pack.Data)
+                    .SetText("Data")
+                    .AddQuickAccessToolBar();
+
+            ribbonPanel.AddPushButton<Commands.Command<Point>>()
+                    .SetLargeImage(Pack.Communication)
+                    .SetText("Communication")
+                    .AddQuickAccessToolBar();
+
+            ribbonPanel.AddPushButton<Commands.Command<Point>>()
+                    .SetLargeImage(Pack.Alarm)
+                    .SetText("Alarm")
+                    .AddQuickAccessToolBar();
+
+            ribbonPanel.AddPushButton<Commands.Command<Point>>()
+                    .SetLargeImage(Pack.Nurce)
+                    .SetText("Nurce")
+                    .AddQuickAccessToolBar();
+
+            ribbonPanel.AddPushButton<Commands.Command<Point>>()
+                    .SetLargeImage(Pack.Security)
+                    .SetText("Security")
+                    .AddQuickAccessToolBar();
+
+            ribbonPanel.AddPushButton<Commands.Command<Point>>()
+                    .SetLargeImage(Pack.Telephone)
+                    .SetText("Telephone")
+                    .AddQuickAccessToolBar();
+
+
             OrderPanelAndMove(ribbonPanel);
 
             foreach (var item in ribbonPanel.GetRibbonItems())
@@ -119,7 +143,7 @@ namespace ricaun.Revit.UI.Example.Revit
                     new RibbonDescription()
                     {
                         LargeImage = Resource.LargeImage.GetBitmapSource(),
-                        Text = "Hello",
+                        Text = "ricaun",
                         ToolTip = "This is a Tool Tip",
                         LongDescription = "This is a Long Description",
                     },
@@ -296,7 +320,7 @@ namespace ricaun.Revit.UI.Example.Revit
 
         public Result OnShutdown(UIControlledApplication application)
         {
-            ribbonPanel.Close();
+            ribbonPanel.Remove(true);
             return Result.Succeeded;
         }
 

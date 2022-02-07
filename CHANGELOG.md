@@ -11,6 +11,8 @@ TODO:
 - Add Remove RibbonItem From RibbonPanel
 
 ## [0.0.7] / 2022-02-07
+- Add QuickAccessToolBar on Autodesk.Revit.UI.RibbonItem
+- Add Pack UIFrameworkRes Reference
 - Remove RibbonItem from RibbonPanel - Include Split/Down/Stacked
 - Test Online Icons Scale
 - Test Scale

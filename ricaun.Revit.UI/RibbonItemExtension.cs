@@ -8,7 +8,6 @@ namespace ricaun.Revit.UI
     /// </summary>
     public static class RibbonItemExtension
     {
-
         #region Set RibbonItem
         /// <summary>
         /// Sets the contextual help bound with this RibbonItem.
@@ -168,6 +167,32 @@ namespace ricaun.Revit.UI
                 }
             }
 
+            return ribbonItem;
+        }
+        #endregion
+
+        #region QuickAccessToolBar
+        /// <summary>
+        /// Add RibbonItem to QuickAccessToolBar
+        /// </summary>
+        /// <typeparam name="TRibbonItem"></typeparam>
+        /// <param name="ribbonItem"></param>
+        /// <returns></returns>
+        public static TRibbonItem AddQuickAccessToolBar<TRibbonItem>(this TRibbonItem ribbonItem) where TRibbonItem : RibbonItem
+        {
+            ribbonItem.GetRibbonItem()?.AddQuickAccessToolBar();
+            return ribbonItem;
+        }
+
+        /// <summary>
+        /// Add RibbonItem to QuickAccessToolBar
+        /// </summary>
+        /// <typeparam name="TRibbonItem"></typeparam>
+        /// <param name="ribbonItem"></param>
+        /// <returns></returns>
+        public static TRibbonItem RemoveQuickAccessToolBar<TRibbonItem>(this TRibbonItem ribbonItem) where TRibbonItem : RibbonItem
+        {
+            ribbonItem.GetRibbonItem()?.RemoveQuickAccessToolBar();
             return ribbonItem;
         }
         #endregion

@@ -64,10 +64,11 @@ namespace ricaun.Revit.UI
         /// </summary>
         /// <param name="ribbonPanel"></param>
         /// <returns></returns>
-        public static RibbonPanel Remove(this RibbonPanel ribbonPanel)
+        public static RibbonPanel Remove(this RibbonPanel ribbonPanel, bool removeQuickAccessToolBar = false)
         {
-            foreach (var ribbonItem in ribbonPanel.GetRibbonItems())
-                ribbonItem.GetRibbonItem().RemoveQuickAccessToolBar();
+            if (removeQuickAccessToolBar)
+                foreach (var ribbonItem in ribbonPanel.GetRibbonItems())
+                    ribbonItem.GetRibbonItem().RemoveQuickAccessToolBar();
 
             ribbonPanel.Visible = false;
             ribbonPanel.Enabled = false;
@@ -77,6 +78,7 @@ namespace ricaun.Revit.UI
             return ribbonPanel;
         }
 
+        [Obsolete("Close is deprecated, please use Remove instead.")]
         /// <summary>
         /// Remove RibbonPanel from Tab
         /// </summary>
@@ -129,7 +131,6 @@ namespace ricaun.Revit.UI
             var aRibbonItem = ribbonItem.GetRibbonItem();
             var aRibbonPanel = ribbonPanel.GetRibbonPanel();
 
-            aRibbonItem.RemoveQuickAccessToolBar();
             aRibbonPanel.Source.Items.Remove(aRibbonItem);
 
             foreach (var item in aRibbonPanel.Source.Items)
