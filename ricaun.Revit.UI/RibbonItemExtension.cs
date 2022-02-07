@@ -141,7 +141,7 @@ namespace ricaun.Revit.UI
         {
             if (image != null)
                 if (ribbonItem is RibbonButton ribbonButton)
-                    ribbonButton.Image = image;
+                    ribbonButton.Image = image.GetBitmapFrame(16, (frame) => { ribbonButton.Image = frame; });
 
             return ribbonItem;
         }
@@ -159,11 +159,9 @@ namespace ricaun.Revit.UI
             {
                 if (ribbonItem is RibbonButton ribbonButton)
                 {
-                    ribbonButton.LargeImage = largeImage.GetBitmapFrame(32);
+                    ribbonButton.LargeImage = largeImage.GetBitmapFrame(32, (frame) => { ribbonButton.LargeImage = frame; });
                     if (ribbonButton.Image == null)
-                    {
-                        ribbonButton.Image = largeImage.GetBitmapFrame(16, (frame) => { ribbonButton.Image = frame; });
-                    }
+                        ribbonButton.SetImage(ribbonButton.LargeImage);
                 }
             }
 

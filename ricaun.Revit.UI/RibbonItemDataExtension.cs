@@ -8,12 +8,11 @@ namespace ricaun.Revit.UI
     /// </summary>
     public static class RibbonItemDataExtension
     {
-
         #region Set RibbonItemData
         /// <summary>
-        /// Sets the contextual help bound with this RibbonItem.
+        /// Sets the contextual help bound with this RibbonItemData.
         /// </summary>
-        /// <typeparam name="TRibbonItem">RibbonItem</typeparam>
+        /// <typeparam name="TRibbonItem">RibbonItemData</typeparam>
         /// <param name="ribbonItem"></param>
         /// <param name="helpPath"></param>
         /// <returns></returns>
@@ -26,9 +25,9 @@ namespace ricaun.Revit.UI
         }
 
         /// <summary>
-        /// Set RibbonItem ToolTip
+        /// Set RibbonItemData ToolTip
         /// </summary>
-        /// <typeparam name="TRibbonItem">RibbonItem</typeparam>
+        /// <typeparam name="TRibbonItem">RibbonItemData</typeparam>
         /// <param name="ribbonItem"></param>
         /// <param name="toolTip"></param>
         /// <returns></returns>
@@ -41,9 +40,9 @@ namespace ricaun.Revit.UI
         }
 
         /// <summary>
-        /// Set RibbonItem LongDescription
+        /// Set RibbonItemData LongDescription
         /// </summary>
-        /// <typeparam name="TRibbonItem">RibbonItem</typeparam>
+        /// <typeparam name="TRibbonItem">RibbonItemData</typeparam>
         /// <param name="ribbonItem"></param>
         /// <param name="longDescription"></param>
         /// <returns></returns>
@@ -56,9 +55,9 @@ namespace ricaun.Revit.UI
         }
 
         /// <summary>
-        /// Set RibbonItem ToolTipImage
+        /// Set RibbonItemData ToolTipImage
         /// </summary>
-        /// <typeparam name="TRibbonItem">RibbonItem</typeparam>
+        /// <typeparam name="TRibbonItem">RibbonItemData</typeparam>
         /// <param name="ribbonItem"></param>
         /// <param name="toolTipImage"></param>
         /// <returns></returns>
@@ -75,9 +74,9 @@ namespace ricaun.Revit.UI
 
 
         /// <summary>
-        /// Set RibbonItem Text
+        /// Set ButtonData Text
         /// </summary>
-        /// <typeparam name="TRibbonItem">RibbonItem</typeparam>
+        /// <typeparam name="TRibbonItem">ButtonData</typeparam>
         /// <param name="ribbonItem"></param>
         /// <param name="text"></param>
         /// <returns></returns>
@@ -94,9 +93,9 @@ namespace ricaun.Revit.UI
 
 
         /// <summary>
-        /// Set RibbonButton Image
+        /// Set ButtonData Image
         /// </summary>
-        /// <typeparam name="TRibbonItem">RibbonButton</typeparam>
+        /// <typeparam name="TRibbonItem">ButtonData</typeparam>
         /// <param name="ribbonItem"></param>
         /// <param name="image"></param>
         /// <returns></returns>
@@ -104,15 +103,15 @@ namespace ricaun.Revit.UI
         {
             if (image != null)
                 if (ribbonItem is ButtonData ribbonButton)
-                    ribbonButton.Image = image;
+                    ribbonButton.Image = image.GetBitmapFrame(16, (frame) => { ribbonButton.Image = frame; });
 
             return ribbonItem;
         }
 
         /// <summary>
-        /// Set RibbonButton LargeImage
+        /// Set ButtonData LargeImage
         /// </summary>
-        /// <typeparam name="TRibbonItem">RibbonButton</typeparam>
+        /// <typeparam name="TRibbonItem">ButtonData</typeparam>
         /// <param name="ribbonItem"></param>
         /// <param name="largeImage"></param>
         /// <returns></returns>
@@ -122,13 +121,9 @@ namespace ricaun.Revit.UI
             {
                 if (ribbonItem is ButtonData ribbonButton)
                 {
-                    ribbonButton.LargeImage = largeImage.GetBitmapFrame(32);
+                    ribbonButton.LargeImage = largeImage.GetBitmapFrame(32, (frame) => { ribbonButton.LargeImage = frame; });
                     if (ribbonButton.Image == null)
-                    {
-                        ribbonButton.Image = largeImage.GetBitmapFrame(16);
-                        if (ribbonButton.Image.Width != 16)
-                            ribbonButton.Image = ribbonButton.Image.Scale(16 / ribbonButton.Image.Width);
-                    }
+                        ribbonButton.SetImage(ribbonButton.LargeImage);
                 }
             }
 

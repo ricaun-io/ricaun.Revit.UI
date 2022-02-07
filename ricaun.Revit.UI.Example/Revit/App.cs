@@ -42,12 +42,22 @@ namespace ricaun.Revit.UI.Example.Revit
             .SetToolTip("T")
             .GetRibbonItem().AddQuickAccessToolBar();
 
+            ribbonPanel.AddPushButton<Commands.Command<Color>>()
+                .SetLargeImage(string.Format(@"https://ricaun.com/img/icon32.ico?teste={0}", DateTime.Now).GetBitmapSource())
+                .SetText("Y")
+                .GetRibbonItem().AddQuickAccessToolBar();
+
+            ribbonPanel.AddPushButton<Commands.Command<Color>>()
+                .SetLargeImage(string.Format(@"https://ricaun.com/img/AppIcon.ico?teste={0}", DateTime.Now).GetBitmapSource())
+                .SetText("Y")
+                .GetRibbonItem().AddQuickAccessToolBar();
+
             ribbonPanel.CreatePulldownButton("PulldownButton",
-                ribbonPanel.NewPushButtonData<Commands.Command<int>>(),
-                ribbonPanel.NewPushButtonData<Commands.Command<double>>(),
-                ribbonPanel.NewPushButtonData<Commands.Command<bool>>(),
-                ribbonPanel.NewPushButtonData<Commands.Command<string>>()
-            );
+                 ribbonPanel.NewPushButtonData<Commands.Command<int>>(),
+                 ribbonPanel.NewPushButtonData<Commands.Command<double>>(),
+                 ribbonPanel.NewPushButtonData<Commands.Command<bool>>(),
+                 ribbonPanel.NewPushButtonData<Commands.Command<string>>()
+             );
 
             ribbonPanel.CreateSplitButton("SplitButton",
                 ribbonPanel.NewPushButtonData<Commands.Command<int>>(),

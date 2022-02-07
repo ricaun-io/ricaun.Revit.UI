@@ -114,6 +114,9 @@ namespace ricaun.Revit.UI
                         if (frame != null)
                             imageSource = frame as TImageSource;
 
+                        if (imageSource.Width > width)
+                            imageSource = imageSource.Scale(width / imageSource.Width) as TImageSource;
+
                         action?.Invoke(imageSource);
                     };
                 }
@@ -126,9 +129,7 @@ namespace ricaun.Revit.UI
             }
 
             if (imageSource.Width > width)
-            {
-                return imageSource.Scale(width / imageSource.Width) as TImageSource;
-            }
+                imageSource = imageSource.Scale(width / imageSource.Width) as TImageSource;
 
             return imageSource;
         }
