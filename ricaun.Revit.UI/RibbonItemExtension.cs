@@ -135,6 +135,30 @@ namespace ricaun.Revit.UI
         /// <summary>
         /// Set RibbonButton Image
         /// </summary>
+        /// <typeparam name="TRibbonItem"></typeparam>
+        /// <param name="ribbonItem"></param>
+        /// <param name="image"></param>
+        /// <returns></returns>
+        public static TRibbonItem SetImage<TRibbonItem>(this TRibbonItem ribbonItem, string image) where TRibbonItem : RibbonItem
+        {
+            return ribbonItem.SetImage(image.GetBitmapSource());
+        }
+
+        /// <summary>
+        /// Set RibbonButton LargeImage
+        /// </summary>
+        /// <typeparam name="TRibbonItem"></typeparam>
+        /// <param name="ribbonItem"></param>
+        /// <param name="largeImage"></param>
+        /// <returns></returns>
+        public static TRibbonItem SetLargeImage<TRibbonItem>(this TRibbonItem ribbonItem, string largeImage) where TRibbonItem : RibbonItem
+        {
+            return ribbonItem.SetLargeImage(largeImage.GetBitmapSource());
+        }
+
+        /// <summary>
+        /// Set RibbonButton Image
+        /// </summary>
         /// <typeparam name="TRibbonItem">RibbonButton</typeparam>
         /// <param name="ribbonItem"></param>
         /// <param name="image"></param>

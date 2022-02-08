@@ -60,14 +60,23 @@ namespace ricaun.Revit.UI
         /// <returns></returns>
         public static BitmapSource GetBitmapSource(this string base64orUri)
         {
-            if (base64orUri.StartsWith("pack") || base64orUri.StartsWith("http"))
+            try
             {
-                var decoder = BitmapDecoder.Create(new Uri(base64orUri), BitmapCreateOptions.None, BitmapCacheOption.Default);
+                var uri = new Uri(base64orUri, UriKind.RelativeOrAbsolute);
+                var decoder = BitmapDecoder.Create(uri, BitmapCreateOptions.None, BitmapCacheOption.Default);
                 return decoder.Frames[0];
             }
+            catch { }
 
-            var image = System.Drawing.Bitmap.FromStream(new MemoryStream(Convert.FromBase64String(base64orUri)));
-            return image.GetBitmapSource();
+            try
+            {
+                var convert = Convert.FromBase64String(base64orUri);
+                var image = System.Drawing.Bitmap.FromStream(new MemoryStream(convert));
+                return image.GetBitmapSource();
+            }
+            catch { }
+
+            return null;
         }
 
         /// <summary>

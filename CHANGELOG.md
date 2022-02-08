@@ -4,13 +4,8 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-TODO:
-- Add PushButtonData, RibbonItemData SetImage / Description / Othes
-- Add pack component BitmapSource
-- Add Icon selector size with BitmapDecoder
-- Add Remove RibbonItem From RibbonPanel
-
 ## [0.0.7] / 2022-02-07
+- Add string on SetImage / SetLargeImage
 - Add QuickAccessToolBar on Autodesk.Revit.UI.RibbonItem
 - Add Pack UIFrameworkRes Reference
 - Remove RibbonItem from RibbonPanel - Include Split/Down/Stacked
@@ -26,6 +21,10 @@ TODO:
 - Clear Code - Remove not used stuff
 - Add RibbonUtilExtension
 - Add RibbonTabExtension
+- TODO: Add PushButtonData, RibbonItemData SetImage / Description / Othes : DONE
+- TODO: Add pack component BitmapSource : DONE
+- TODO: Add Icon selector size with BitmapDecoder : DONE
+- TODO: Add Remove RibbonItem From RibbonPanel : DONE
 - 2022-02-03
 - Add Remove RibbonItem on the Panel
 

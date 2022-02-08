@@ -71,8 +71,6 @@ namespace ricaun.Revit.UI
         #endregion
 
         #region Set ButtonData
-
-
         /// <summary>
         /// Set ButtonData Text
         /// </summary>
@@ -91,6 +89,29 @@ namespace ricaun.Revit.UI
             return ribbonItem;
         }
 
+        /// <summary>
+        /// Set ButtonData Image
+        /// </summary>
+        /// <typeparam name="TRibbonItem"></typeparam>
+        /// <param name="ribbonItem"></param>
+        /// <param name="image"></param>
+        /// <returns></returns>
+        public static TRibbonItem SetImage<TRibbonItem>(this TRibbonItem ribbonItem, string image) where TRibbonItem : RibbonItemData
+        {
+            return ribbonItem.SetImage(image.GetBitmapSource());
+        }
+
+        /// <summary>
+        /// Set ButtonData LargeImage
+        /// </summary>
+        /// <typeparam name="TRibbonItem"></typeparam>
+        /// <param name="ribbonItem"></param>
+        /// <param name="largeImage"></param>
+        /// <returns></returns>
+        public static TRibbonItem SetLargeImage<TRibbonItem>(this TRibbonItem ribbonItem, string largeImage) where TRibbonItem : RibbonItemData
+        {
+            return ribbonItem.SetLargeImage(largeImage.GetBitmapSource());
+        }
 
         /// <summary>
         /// Set ButtonData Image
