@@ -4,9 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-## [0.0.7] / 2022-02-07
+## [0.0.7] / 2022-02-08
+- Update xml documetation
 - Fix AutoSelect base64 or uri
 - Add string on SetImage / SetLargeImage
+- 2022-02-07
 - Add QuickAccessToolBar on Autodesk.Revit.UI.RibbonItem
 - Add Pack UIFrameworkRes Reference
 - Remove RibbonItem from RibbonPanel - Include Split/Down/Stacked

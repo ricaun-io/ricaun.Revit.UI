@@ -63,6 +63,7 @@ namespace ricaun.Revit.UI
         /// Remove RibbonPanel from Tab
         /// </summary>
         /// <param name="ribbonPanel"></param>
+        /// <param name="removeQuickAccessToolBar"></param>
         /// <returns></returns>
         public static RibbonPanel Remove(this RibbonPanel ribbonPanel, bool removeQuickAccessToolBar = false)
         {
@@ -78,12 +79,12 @@ namespace ricaun.Revit.UI
             return ribbonPanel;
         }
 
-        [Obsolete("Close is deprecated, please use Remove instead.")]
         /// <summary>
         /// Remove RibbonPanel from Tab
         /// </summary>
         /// <param name="ribbonPanel"></param>
         /// <returns></returns>
+        [Obsolete("Close is deprecated, please use Remove instead.")]
         public static RibbonPanel Close(this RibbonPanel ribbonPanel)
         {
             return ribbonPanel.Remove();
