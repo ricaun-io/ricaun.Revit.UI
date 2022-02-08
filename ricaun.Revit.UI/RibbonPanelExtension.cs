@@ -63,11 +63,13 @@ namespace ricaun.Revit.UI
         /// Remove RibbonPanel from Tab
         /// </summary>
         /// <param name="ribbonPanel"></param>
+        /// <param name="removeQuickAccessToolBar"></param>
         /// <returns></returns>
-        public static RibbonPanel Remove(this RibbonPanel ribbonPanel)
+        public static RibbonPanel Remove(this RibbonPanel ribbonPanel, bool removeQuickAccessToolBar = false)
         {
-            foreach (var ribbonItem in ribbonPanel.GetRibbonItems())
-                ribbonItem.GetRibbonItem().RemoveQuickAccessToolBar();
+            if (removeQuickAccessToolBar)
+                foreach (var ribbonItem in ribbonPanel.GetRibbonItems())
+                    ribbonItem.GetRibbonItem().RemoveQuickAccessToolBar();
 
             ribbonPanel.Visible = false;
             ribbonPanel.Enabled = false;
@@ -82,9 +84,65 @@ namespace ricaun.Revit.UI
         /// </summary>
         /// <param name="ribbonPanel"></param>
         /// <returns></returns>
+        [Obsolete("Close is deprecated, please use Remove instead.")]
         public static RibbonPanel Close(this RibbonPanel ribbonPanel)
         {
             return ribbonPanel.Remove();
+        }
+        #endregion
+
+        #region RibbonItems
+
+        /// <summary>
+        /// Get Each RibbonItem
+        /// </summary>
+        /// <param name="ribbonPanel"></param>
+        /// <returns></returns>
+        public static IList<RibbonItem> GetRibbonItems(this RibbonPanel ribbonPanel)
+        {
+            var ribbonItems = new List<RibbonItem>();
+            foreach (var ribbonItem in ribbonPanel.GetItems())
+            {
+                ribbonItems.Add(ribbonItem);
+                if (ribbonItem is PulldownButton pulldownButton)
+                    ribbonItems.AddRange(pulldownButton.GetItems());
+                if (ribbonItem is SplitButton splitButton)
+                    ribbonItems.AddRange(splitButton.GetItems());
+                if (ribbonItem is ToggleButton) { }
+                if (ribbonItem is RadioButtonGroup radioButtonGroup)
+                {
+                    ribbonItems.AddRange(radioButtonGroup.GetItems());
+                }
+                if (ribbonItem is ComboBoxMember) { }
+                if (ribbonItem is ComboBox) { }
+                if (ribbonItem is TextBox) { }
+            }
+            return ribbonItems;
+        }
+
+
+        /// <summary>
+        /// Remove <paramref name="ribbonItem"/> from <paramref name="ribbonPanel"/>
+        /// </summary>
+        /// <param name="ribbonPanel"></param>
+        /// <param name="ribbonItem"></param>
+        /// <returns></returns>
+        public static RibbonPanel Remove(this RibbonPanel ribbonPanel, RibbonItem ribbonItem)
+        {
+            var aRibbonItem = ribbonItem.GetRibbonItem();
+            var aRibbonPanel = ribbonPanel.GetRibbonPanel();
+
+            aRibbonPanel.Source.Items.Remove(aRibbonItem);
+
+            foreach (var item in aRibbonPanel.Source.Items)
+            {
+                if (item is Autodesk.Windows.RibbonListButton ribbonListButton)
+                    ribbonListButton.Items?.Remove(aRibbonItem);
+                if (item is Autodesk.Windows.RibbonRowPanel ribbonRowPanel)
+                    ribbonRowPanel.Items?.Remove(aRibbonItem);
+            }
+
+            return ribbonPanel;
         }
         #endregion
 
@@ -145,7 +203,7 @@ namespace ricaun.Revit.UI
         }
         #endregion
 
-        #region 
+        #region AddPushButton
         /// <summary>
         /// AddPushButton
         /// </summary>
@@ -182,7 +240,7 @@ namespace ricaun.Revit.UI
         /// <param name="ribbonPanel"></param>
         /// <param name="targetPushButtons"></param>
         /// <returns></returns>
-        public static SplitButton CreateSplitButton(this RibbonPanel ribbonPanel, IList<PushButtonData> targetPushButtons)
+        public static SplitButton CreateSplitButton(this RibbonPanel ribbonPanel, params PushButtonData[] targetPushButtons)
         {
             return ribbonPanel.CreateSplitButton(null, targetPushButtons);
         }
@@ -194,10 +252,10 @@ namespace ricaun.Revit.UI
         /// <param name="targetText"></param>
         /// <param name="targetPushButtons"></param>
         /// <returns></returns>
-        public static SplitButton CreateSplitButton(this RibbonPanel ribbonPanel, string targetText, IList<PushButtonData> targetPushButtons)
+        public static SplitButton CreateSplitButton(this RibbonPanel ribbonPanel, string targetText, params PushButtonData[] targetPushButtons)
         {
             SplitButton currentSplitButton = null;
-            if (targetPushButtons.Count > 0)
+            if (targetPushButtons.Any())
             {
                 if (targetText == null) targetText = targetPushButtons.FirstOrDefault().Text;
                 var targetName = targetText;
@@ -231,7 +289,7 @@ namespace ricaun.Revit.UI
         /// <param name="ribbonPanel"></param>
         /// <param name="targetPushButtons"></param>
         /// <returns></returns>
-        public static PulldownButton CreatePulldownButton(this RibbonPanel ribbonPanel, IList<PushButtonData> targetPushButtons)
+        public static PulldownButton CreatePulldownButton(this RibbonPanel ribbonPanel, params PushButtonData[] targetPushButtons)
         {
             return ribbonPanel.CreatePulldownButton(null, targetPushButtons);
         }
@@ -243,10 +301,10 @@ namespace ricaun.Revit.UI
         /// <param name="targetText"></param>
         /// <param name="targetPushButtons"></param>
         /// <returns></returns>
-        public static PulldownButton CreatePulldownButton(this RibbonPanel ribbonPanel, string targetText, IList<PushButtonData> targetPushButtons)
+        public static PulldownButton CreatePulldownButton(this RibbonPanel ribbonPanel, string targetText, params PushButtonData[] targetPushButtons)
         {
             PulldownButton currentPulldownButton = null;
-            if (targetPushButtons.Count > 0)
+            if (targetPushButtons.Any())
             {
                 if (targetText == null) targetText = targetPushButtons.FirstOrDefault().Text;
                 var targetName = targetText;
@@ -269,15 +327,6 @@ namespace ricaun.Revit.UI
             }
             return currentPulldownButton;
         }
-        #endregion
-
-        #region AddStackedItems
-        /*
-        public static IList<RibbonItem> AddStackedItems(IList<RibbonItemData> items)
-        {
-
-        }*/
-
         #endregion
 
         #region private

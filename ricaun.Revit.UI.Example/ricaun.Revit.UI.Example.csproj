@@ -111,6 +111,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="Resources\icon.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Include="FodyWeavers.xml" />
   </ItemGroup>
 
@@ -129,6 +133,9 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ricaun.Revit.UI\ricaun.Revit.UI.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\icon.png" />
   </ItemGroup>
 
   <ItemGroup>

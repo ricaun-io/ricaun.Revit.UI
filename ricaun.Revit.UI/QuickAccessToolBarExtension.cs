@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Autodesk.Windows;
 using System.Linq;
-using System.Text;
-using Autodesk.Windows;
 
 namespace ricaun.Revit.UI
 {
