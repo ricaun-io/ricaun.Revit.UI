@@ -5,6 +5,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [0.0.7] / 2022-02-07
+- Fix AutoSelect base64 or uri
 - Add string on SetImage / SetLargeImage
 - Add QuickAccessToolBar on Autodesk.Revit.UI.RibbonItem
 - Add Pack UIFrameworkRes Reference
