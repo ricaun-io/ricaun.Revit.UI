@@ -120,6 +120,10 @@ namespace ricaun.Revit.UI.Example.Revit
                     .SetText("Telephone")
                     .AddQuickAccessToolBar();
 
+            var sw = ribbonPanel.AddPushButton<Commands.Command<Point>, Commands.Availability.AvailableOnAnyDocument>()
+                    .SetLargeImage(Pack.Switch)
+                    .SetText("Switch")
+                    .AddQuickAccessToolBar();
 
             OrderPanelAndMove(ribbonPanel);
 
