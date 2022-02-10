@@ -333,6 +333,46 @@ namespace ricaun.Revit.UI
         #endregion
 
         #region ComboBox
+
+        public static ComboBox AddItems(this ComboBox comboBox, params ComboBoxMemberData[] comboBoxMemberDatas)
+        {
+            foreach (var comboBoxMemberData in comboBoxMemberDatas)
+            {
+                while (verifyNameExclusive(comboBox, comboBoxMemberData.Name))
+                    comboBoxMemberData.Name = SafeButtonName(comboBox.Name);
+
+                comboBox.AddItem(comboBoxMemberData);
+            }
+            return comboBox;
+        }
+
+        public static ComboBoxMemberData SetGroup(this ComboBoxMemberData comboBoxMemberData, string groupName)
+        {
+            comboBoxMemberData.GroupName = groupName;
+            return comboBoxMemberData;
+        }
+
+
+        public static ComboBoxMemberData NewComboBoxMemberData(this RibbonPanel ribbonPanel, string targetName)
+        {
+            if (targetName.Trim() == string.Empty)
+                targetName = "-";
+
+            var comboBoxMemberData = new ComboBoxMemberData(targetName, targetName);
+            while (verifyNameExclusive(ribbonPanel, comboBoxMemberData.Name))
+                comboBoxMemberData.Name = SafeButtonName(targetName);
+
+            return comboBoxMemberData;
+        }
+
+        public static ComboBoxData NewComboBoxData(this RibbonPanel ribbonPanel, string targetName)
+        {
+            while (verifyNameExclusive(ribbonPanel, targetName))
+                targetName = SafeButtonName(targetName);
+
+            return new ComboBoxData(targetName);
+        }
+
         public static ComboBox CreateComboBox(this RibbonPanel ribbonPanel, string targetText, params ComboBoxMemberData[] comboBoxMemberDatas)
         {
             ComboBox comboBox = null;
@@ -341,19 +381,13 @@ namespace ricaun.Revit.UI
                 if (targetText == null) targetText = comboBoxMemberDatas.FirstOrDefault().Text;
                 var targetName = targetText;
 
-                while (verifyNameExclusive(ribbonPanel, targetName))
-                {
-                    targetName = SafeButtonName(targetText);
-                }
-
-                comboBox = ribbonPanel.AddItem(new ComboBoxData(targetName)) as ComboBox;
+                comboBox = ribbonPanel.AddItem(ribbonPanel.NewComboBoxData(targetName)) as ComboBox;
 
                 foreach (var comboBoxMemberData in comboBoxMemberDatas)
                 {
                     while (verifyNameExclusive(comboBox, comboBoxMemberData.Name))
-                    {
                         comboBoxMemberData.Name = SafeButtonName(targetText);
-                    }
+
                     comboBox.AddItem(comboBoxMemberData);
                 }
             }

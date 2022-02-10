@@ -84,11 +84,12 @@ namespace ricaun.Revit.UI.Example.Revit
                 ribbonPanel.NewPushButtonData<Commands.Command<ElementType>>(),
                 ribbonPanel.NewPushButtonData<Commands.Command<ElementArray>>());
 
-
-
-            AddComboBox(ribbonPanel, "Combo");
-
             ribbonPanel.AddSlideOut();
+
+            ribbonPanel.AddStackedItems(
+                ribbonPanel.NewComboBoxData("A"),
+                ribbonPanel.NewComboBoxData("B"),
+                ribbonPanel.NewComboBoxData("C"));
 
             ribbonPanel.AddPushButton<Commands.Command<Point>>()
                 .SetLargeImage(Pack.Power)
@@ -338,6 +339,69 @@ namespace ricaun.Revit.UI.Example.Revit
                     }
                 });
 
+                setting.Add("A", new RibbonDescription()
+                {
+                    Text = "A",
+                    Action = (ribbonItem) =>
+                    {
+                        if (ribbonItem is ComboBox combo)
+                        {
+                            combo.AddItems(
+                               ribbonPanel.NewComboBoxMemberData("1"),
+                               ribbonPanel.NewComboBoxMemberData("2"),
+                               ribbonPanel.NewComboBoxMemberData("3"),
+                               ribbonPanel.NewComboBoxMemberData("4"),
+                               ribbonPanel.NewComboBoxMemberData("5"),
+                               ribbonPanel.NewComboBoxMemberData("6")
+                               );
+                        }
+                    }
+                });
+
+                setting.Add("B", new RibbonDescription()
+                {
+                    Text = "B",
+                    Action = (ribbonItem) =>
+                    {
+                        if (ribbonItem is ComboBox combo)
+                        {
+                            combo.AddItems(
+                                ribbonPanel.NewComboBoxMemberData("1")
+                                    .SetText("One")
+                                    .SetImage(Icons8.Document)
+                                    .SetToolTip("One")
+                                    .SetToolTipImage(Icons8.Document)
+                                    .SetLongDescription("One"),
+                                ribbonPanel.NewComboBoxMemberData("2")
+                                    .SetGroup("G1")
+                                    .SetImage(Icons8.Document),
+                                ribbonPanel.NewComboBoxMemberData("3")
+                                    .SetGroup("G2")
+                                    .SetImage(Icons8.Document)
+                            );
+                        }
+                    }
+                });
+
+                setting.Add("C", new RibbonDescription()
+                {
+                    Text = "C",
+                    Action = (ribbonItem) =>
+                    {
+                        if (ribbonItem is ComboBox combo)
+                        {
+                            combo.AddItems(
+                                ribbonPanel.NewComboBoxMemberData("A"),
+                                ribbonPanel.NewComboBoxMemberData("B"),
+                                ribbonPanel.NewComboBoxMemberData("C"),
+                                ribbonPanel.NewComboBoxMemberData("D"),
+                                ribbonPanel.NewComboBoxMemberData("E"),
+                                ribbonPanel.NewComboBoxMemberData("F")
+                            );
+
+                        }
+                    }
+                });
 
             });
         }
@@ -351,33 +415,27 @@ namespace ricaun.Revit.UI.Example.Revit
         public ComboBox AddComboBox(RibbonPanel ribbonPanel, string name, params ComboBoxMemberData[] comboBoxMemberDatas)
         {
 
-            var c = ribbonPanel.CreateComboBox(name,
-                new ComboBoxMemberData("name", "text") { LongDescription = "123" },
-                new ComboBoxMemberData("name", "text2"));
-
-
-
             //c.SetImage(Proprieties.Icons8.Document.GetBitmapFrame());
             //c.GetRibbonItem().Width = 32;
             //Console.WriteLine(c.GetRibbonItem().Width);
 
-            var rvtRibbonCombo = c.GetRibbonItem() as UIFramework.RvtRibbonCombo;
+            //var rvtRibbonCombo = c.GetRibbonItem() as UIFramework.RvtRibbonCombo;
 
-            rvtRibbonCombo.IsTextSearchEnabled = true;
-            var binding = new System.Windows.Data.Binding();
-            //binding.Source = new List<TextModel>() { new TextModel("Test") };
-            binding.Source = new List<Autodesk.Windows.RibbonItem>() { new Autodesk.Windows.RibbonItem() {
-                Text = "hi", Image = Proprieties.Icons8.Document.GetBitmapFrame() } };
-            //binding.Path = "";
-            rvtRibbonCombo.ItemsBinding = binding;
-            //rvtRibbonCombo.IsEditable = true;
-            rvtRibbonCombo.CurrentChanged += (s, e) =>
-            {
-                Console.WriteLine(e.NewValue);
-                Console.WriteLine(e.OldValue);
-            };
+            //rvtRibbonCombo.IsTextSearchEnabled = true;
+            //var binding = new System.Windows.Data.Binding();
+            ////binding.Source = new List<TextModel>() { new TextModel("Test") };
+            //binding.Source = new List<Autodesk.Windows.RibbonItem>() { new Autodesk.Windows.RibbonItem() {
+            //    Text = "hi", Image = Proprieties.Icons8.Document.GetBitmapFrame() } };
+            ////binding.Path = "";
+            //rvtRibbonCombo.ItemsBinding = binding;
+            ////rvtRibbonCombo.IsEditable = true;
+            //rvtRibbonCombo.CurrentChanged += (s, e) =>
+            //{
+            //    Console.WriteLine(e.NewValue);
+            //    Console.WriteLine(e.OldValue);
+            //};
 
-            return c;
+
 
             ComboBoxData comboBoxData = new ComboBoxData(name)
                 .SetImage(Proprieties.Icons8.Menu.GetBitmapFrame());
