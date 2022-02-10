@@ -83,6 +83,10 @@ namespace ricaun.Revit.UI.Example.Revit
                 ribbonPanel.NewPushButtonData<Commands.Command<ElementType>>(),
                 ribbonPanel.NewPushButtonData<Commands.Command<ElementArray>>());
 
+
+
+            AddComboBox(ribbonPanel, "Combo");
+
             ribbonPanel.AddSlideOut();
 
             ribbonPanel.AddPushButton<Commands.Command<Point>>()
@@ -324,6 +328,16 @@ namespace ricaun.Revit.UI.Example.Revit
                     }
                 });
 
+                setting.Add("Combo", new RibbonDescription()
+                {
+                    Text = "Combo",
+                    Action = (ribbonItem) =>
+                    {
+
+                    }
+                });
+
+
             });
         }
 
@@ -331,6 +345,43 @@ namespace ricaun.Revit.UI.Example.Revit
         {
             ribbonPanel.Remove(true);
             return Result.Succeeded;
+        }
+
+        public ComboBox AddComboBox(RibbonPanel ribbonPanel, string name, params ComboBoxMemberData[] comboBoxMemberDatas)
+        {
+
+            var c = ribbonPanel.CreateComboBox(name,
+                new ComboBoxMemberData("name", "text") { LongDescription = "123" },
+                new ComboBoxMemberData("name", "text2"));
+
+
+
+            //c.SetImage(Proprieties.Icons8.Document.GetBitmapFrame());
+            //c.GetRibbonItem().Width = 32;
+            Console.WriteLine(c.GetRibbonItem().Width);
+
+            var rvtRibbonCombo = c.GetRibbonItem() as UIFramework.RvtRibbonCombo;
+
+            rvtRibbonCombo.IsTextSearchEnabled = true;
+            //rvtRibbonCombo.IsEditable = true;
+
+
+            return c;
+
+            ComboBoxData comboBoxData = new ComboBoxData(name)
+                .SetImage(Proprieties.Icons8.Menu.GetBitmapFrame());
+
+            var comboBox = ribbonPanel.AddItem(comboBoxData) as ComboBox;
+            if (comboBoxMemberDatas.Count() > 0)
+                comboBox.AddItems(comboBoxMemberDatas);
+
+            var d = new ComboBoxMemberData("name", "text");
+            comboBox.AddItem(d);
+            comboBox.AddItem(d);
+
+            comboBox.SetImage(Proprieties.Icons8.Document.GetBitmapFrame());
+
+            return comboBox;
         }
 
         private void OrderPanelAndMove(RibbonPanel ribbonPanel)

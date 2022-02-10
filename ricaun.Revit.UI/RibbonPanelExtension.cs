@@ -114,7 +114,10 @@ namespace ricaun.Revit.UI
                     ribbonItems.AddRange(radioButtonGroup.GetItems());
                 }
                 if (ribbonItem is ComboBoxMember) { }
-                if (ribbonItem is ComboBox) { }
+                if (ribbonItem is ComboBox comboBox)
+                {
+                    ribbonItems.AddRange(comboBox.GetItems());
+                }
                 if (ribbonItem is TextBox) { }
             }
             return ribbonItems;
@@ -326,6 +329,35 @@ namespace ricaun.Revit.UI
                 }
             }
             return currentPulldownButton;
+        }
+        #endregion
+
+        #region ComboBox
+        public static ComboBox CreateComboBox(this RibbonPanel ribbonPanel, string targetText, params ComboBoxMemberData[] comboBoxMemberDatas)
+        {
+            ComboBox comboBox = null;
+            if (comboBoxMemberDatas.Any())
+            {
+                if (targetText == null) targetText = comboBoxMemberDatas.FirstOrDefault().Text;
+                var targetName = targetText;
+
+                while (verifyNameExclusive(ribbonPanel, targetName))
+                {
+                    targetName = SafeButtonName(targetText);
+                }
+
+                comboBox = ribbonPanel.AddItem(new ComboBoxData(targetName)) as ComboBox;
+
+                foreach (var comboBoxMemberData in comboBoxMemberDatas)
+                {
+                    while (verifyNameExclusive(comboBox, comboBoxMemberData.Name))
+                    {
+                        comboBoxMemberData.Name = SafeButtonName(targetText);
+                    }
+                    comboBox.AddItem(comboBoxMemberData);
+                }
+            }
+            return comboBox;
         }
         #endregion
 
