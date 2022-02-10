@@ -333,6 +333,19 @@ namespace ricaun.Revit.UI
         #endregion
 
         #region ComboBox
+        public static ComboBox CreateComboBox(this RibbonPanel ribbonPanel, string targetText, params ComboBoxMemberData[] comboBoxMemberDatas)
+        {
+            ComboBox comboBox = null;
+            if (comboBoxMemberDatas.Any())
+            {
+                if (targetText == null) targetText = comboBoxMemberDatas.FirstOrDefault().Text;
+                var targetName = targetText;
+
+                comboBox = ribbonPanel.AddItem(ribbonPanel.NewComboBoxData(targetName)) as ComboBox;
+                comboBox.AddItems(comboBoxMemberDatas);
+            }
+            return comboBox;
+        }
 
         public static ComboBox AddItems(this ComboBox comboBox, params ComboBoxMemberData[] comboBoxMemberDatas)
         {
@@ -346,13 +359,22 @@ namespace ricaun.Revit.UI
             return comboBox;
         }
 
-        public static ComboBoxMemberData SetGroup(this ComboBoxMemberData comboBoxMemberData, string groupName)
+        #region ComboBoxData
+        public static ComboBoxData NewComboBoxData(this RibbonPanel ribbonPanel, string targetName)
+        {
+            while (verifyNameExclusive(ribbonPanel, targetName))
+                targetName = SafeButtonName(targetName);
+
+            return new ComboBoxData(targetName);
+        }
+        #endregion
+
+        #region ComboBoxMemberData
+        public static ComboBoxMemberData SetGroupName(this ComboBoxMemberData comboBoxMemberData, string groupName)
         {
             comboBoxMemberData.GroupName = groupName;
             return comboBoxMemberData;
         }
-
-
         public static ComboBoxMemberData NewComboBoxMemberData(this RibbonPanel ribbonPanel, string targetName)
         {
             if (targetName.Trim() == string.Empty)
@@ -364,35 +386,8 @@ namespace ricaun.Revit.UI
 
             return comboBoxMemberData;
         }
+        #endregion
 
-        public static ComboBoxData NewComboBoxData(this RibbonPanel ribbonPanel, string targetName)
-        {
-            while (verifyNameExclusive(ribbonPanel, targetName))
-                targetName = SafeButtonName(targetName);
-
-            return new ComboBoxData(targetName);
-        }
-
-        public static ComboBox CreateComboBox(this RibbonPanel ribbonPanel, string targetText, params ComboBoxMemberData[] comboBoxMemberDatas)
-        {
-            ComboBox comboBox = null;
-            if (comboBoxMemberDatas.Any())
-            {
-                if (targetText == null) targetText = comboBoxMemberDatas.FirstOrDefault().Text;
-                var targetName = targetText;
-
-                comboBox = ribbonPanel.AddItem(ribbonPanel.NewComboBoxData(targetName)) as ComboBox;
-
-                foreach (var comboBoxMemberData in comboBoxMemberDatas)
-                {
-                    while (verifyNameExclusive(comboBox, comboBoxMemberData.Name))
-                        comboBoxMemberData.Name = SafeButtonName(targetText);
-
-                    comboBox.AddItem(comboBoxMemberData);
-                }
-            }
-            return comboBox;
-        }
         #endregion
 
         #region private

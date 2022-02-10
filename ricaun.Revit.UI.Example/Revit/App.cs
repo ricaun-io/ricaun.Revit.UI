@@ -330,15 +330,6 @@ namespace ricaun.Revit.UI.Example.Revit
                     }
                 });
 
-                setting.Add("Combo", new RibbonDescription()
-                {
-                    Text = "Combo",
-                    Action = (ribbonItem) =>
-                    {
-
-                    }
-                });
-
                 setting.Add("A", new RibbonDescription()
                 {
                     Text = "A",
@@ -373,10 +364,10 @@ namespace ricaun.Revit.UI.Example.Revit
                                     .SetToolTipImage(Icons8.Document)
                                     .SetLongDescription("One"),
                                 ribbonPanel.NewComboBoxMemberData("2")
-                                    .SetGroup("G1")
+                                    .SetGroupName("G1")
                                     .SetImage(Icons8.Document),
                                 ribbonPanel.NewComboBoxMemberData("3")
-                                    .SetGroup("G2")
+                                    .SetGroupName("G2")
                                     .SetImage(Icons8.Document)
                             );
                         }
@@ -398,7 +389,6 @@ namespace ricaun.Revit.UI.Example.Revit
                                 ribbonPanel.NewComboBoxMemberData("E"),
                                 ribbonPanel.NewComboBoxMemberData("F")
                             );
-
                         }
                     }
                 });
@@ -434,7 +424,6 @@ namespace ricaun.Revit.UI.Example.Revit
             //    Console.WriteLine(e.NewValue);
             //    Console.WriteLine(e.OldValue);
             //};
-
 
 
             ComboBoxData comboBoxData = new ComboBoxData(name)
