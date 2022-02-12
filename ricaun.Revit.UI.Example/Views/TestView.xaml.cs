@@ -24,6 +24,8 @@ namespace ricaun.Revit.UI.Example.Views
             {
                 if (e.Key == System.Windows.Input.Key.Escape) Close();
                 if (e.Key == System.Windows.Input.Key.Up) Models.TestViewModel.TestModel.Text += "2";
+                if (e.Key == System.Windows.Input.Key.Down)
+                    Console.WriteLine(UIFramework.ControlHelper.IsEnabled(Revit.App.PushButton.GetRibbonItem()));
             };
         }
         #endregion

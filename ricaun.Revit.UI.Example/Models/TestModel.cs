@@ -1,13 +1,12 @@
 ﻿using System;
+using System.Windows.Input;
 
 namespace ricaun.Revit.UI.Example.Models
 {
-    public static class TestViewModel
-    {
-        public static TestModel TestModel = new TestModel();
-    }
     public class TestModel : NotifyPropertyBase
     {
         public string Text { get; set; }
+
+        public ICommand CommandTest { get; set; }
     }
 }

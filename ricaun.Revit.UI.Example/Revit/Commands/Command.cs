@@ -14,6 +14,8 @@ namespace ricaun.Revit.UI.Example.Revit.Commands
 
             new Views.TestView().Show();
 
+
+
             return Result.Succeeded;
         }
     }

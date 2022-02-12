@@ -119,9 +119,9 @@
     <PackageReference Include="PropertyChanged.Fody" Version="3.4.0" IncludeAssets="compile; build" PrivateAssets="all" />
   </ItemGroup>
   <PropertyGroup>
-    <WeaverConfiguration >
+    <WeaverConfiguration>
       <Weavers>
-        <PropertyChanged/>
+        <PropertyChanged />
       </Weavers>
     </WeaverConfiguration>
   </PropertyGroup>

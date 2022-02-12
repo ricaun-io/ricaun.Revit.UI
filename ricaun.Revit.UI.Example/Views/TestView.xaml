@@ -9,8 +9,9 @@
 	>
 
     <Grid Background="WhiteSmoke">
-        <Grid Margin="15">
+        <StackPanel Margin="15">
             <TextBlock Text="{Binding Text}"></TextBlock>
-        </Grid>
+            <Button Command="{Binding CommandTest}">Test</Button>
+        </StackPanel>
     </Grid>
 </Window>

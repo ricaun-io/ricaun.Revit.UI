@@ -16,21 +16,40 @@ namespace ricaun.Revit.UI.Example.Revit
         private const string TabName = "ricaun";
         private const string PanelName = "Example";
         private static RibbonPanel ribbonPanel;
+        public static PushButton PushButton;
 
         public Result OnStartup(UIControlledApplication application)
         {
             ribbonPanel = application.CreatePanel(TabName, PanelName);
 
             var button = ribbonPanel.AddPushButton<Commands.Command>();
-
+            PushButton = button;
             //////////////////////////////////////////// 
+            ///
             var ri = button.GetRibbonItem() as Autodesk.Windows.RibbonButton;
-            var task = Task.Run(async () =>
+            Models.TestViewModel.TestModel.CommandTest = new Views.RelayCommand(() =>
             {
-                for (int i = 0; i < 10; i++)
+                Console.WriteLine("Hello");
+            },
+            () =>
+            {
+                //Autodesk.Windows.ComponentManager.ApplicationMenu.ExitButton
+                return UIFramework.ControlHelper.IsEnabled(ri);
+            });
+            Console.WriteLine($"{UIFramework.ControlHelper.IsEnabled(ri)} {UIFramework.RibbonGlobalHandler.Command.CanExecute(ri)}");
+
+
+            ri.PropertyChanged += (s, e) =>
+            {
+                //Console.WriteLine(e.PropertyName);
+            };
+
+            Task.Run(async () =>
+            {
+                for (int i = 0; i < 100; i++)
                 {
                     await Task.Delay(1000);
-                    Console.WriteLine(ri.CommandHandler.CanExecute(ri));
+                    Console.WriteLine($"{UIFramework.ControlHelper.IsEnabled(ri)} {UIFramework.RibbonGlobalHandler.Command.CanExecute(ri)}");
                     Models.TestViewModel.TestModel.Text += ".";
                 }
             });
