@@ -12,6 +12,8 @@ namespace ricaun.Revit.UI.Example.Revit.Commands
         {
             UIApplication uiapp = commandData.Application;
 
+            new Views.TestView().Show();
+
             return Result.Succeeded;
         }
     }

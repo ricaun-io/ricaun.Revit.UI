@@ -6,6 +6,7 @@ using System.Linq;
 using ricaun.Revit.UI.Example.Proprieties;
 using System.Windows.Media;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace ricaun.Revit.UI.Example.Revit
 {
@@ -20,7 +21,22 @@ namespace ricaun.Revit.UI.Example.Revit
         {
             ribbonPanel = application.CreatePanel(TabName, PanelName);
 
-            ribbonPanel.AddPushButton<Commands.Command>();
+            var button = ribbonPanel.AddPushButton<Commands.Command>();
+
+            //////////////////////////////////////////// 
+            var ri = button.GetRibbonItem() as Autodesk.Windows.RibbonButton;
+            var task = Task.Run(async () =>
+            {
+                for (int i = 0; i < 10; i++)
+                {
+                    await Task.Delay(1000);
+                    Console.WriteLine(ri.CommandHandler.CanExecute(ri));
+                    Models.TestViewModel.TestModel.Text += ".";
+                }
+            });
+            //////////////////////////////////////////// 
+
+
 
             var down = ribbonPanel.CreatePulldownButton("T",
                 ribbonPanel.NewPushButtonData<Commands.Command<Edge>>()
@@ -424,7 +440,6 @@ namespace ricaun.Revit.UI.Example.Revit
             //    Console.WriteLine(e.NewValue);
             //    Console.WriteLine(e.OldValue);
             //};
-
 
             ComboBoxData comboBoxData = new ComboBoxData(name)
                 .SetImage(Proprieties.Icons8.Menu.GetBitmapFrame());
