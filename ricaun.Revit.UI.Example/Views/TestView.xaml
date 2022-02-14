@@ -5,14 +5,15 @@
 	xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
 	xmlns:local="clr-namespace:ricaun.Revit.UI.Example.Views"
+    Width="320" Height="240"
 	mc:Ignorable="d" 
 	>
 
     <Grid Background="WhiteSmoke">
         <StackPanel Margin="15">
-            <TextBlock Text="{Binding Text}"></TextBlock>
-            <Button Command="{Binding CommandTest}">Test</Button>
-            <Button Command="{Binding CommandTest2}">Test2</Button>
+            <TextBlock Text="{Binding Text}">?</TextBlock>
+            <Button Margin="0,8,0,0" Height="24" Command="{Binding CommandTest}">Write</Button>
+            <Button Margin="0,8,0,0" Height="24" Command="{Binding CommandTest2}">Clear</Button>
         </StackPanel>
     </Grid>
 </Window>
