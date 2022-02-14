@@ -82,6 +82,7 @@ namespace ricaun.Revit.UI
                 return ribbonItem.SetShowText(false);
 
             ribbonItem.ItemText = text;
+
             return ribbonItem;
         }
 
@@ -172,6 +173,9 @@ namespace ricaun.Revit.UI
 
             if (ribbonItem is ComboBox comboBox)
                 comboBox.Image = image.GetBitmapFrame(16, (frame) => { comboBox.Image = frame; });
+
+            if (ribbonItem is TextBox textBox)
+                textBox.Image = image.GetBitmapFrame(16, (frame) => { textBox.Image = frame; });
 
             return ribbonItem;
         }

@@ -69,26 +69,7 @@ namespace ricaun.Revit.UI.Example.Revit
                 return UIFramework.ControlHelper.IsEnabled(ri);
             });
 
-            var pulldown = ribbonPanel.CreatePulldownButton("T",
-                ribbonPanel.NewPushButtonData<Commands.Command<Edge>>()
-                    .SetText("1")
-                    .SetToolTip("One")
-                    .SetLongDescription("The One")
-                    .SetLargeImage(Icons8.Document.Scale(0.5))
-                    .SetToolTipImage(Icons8.Document),
-                ribbonPanel.NewPushButtonData<Commands.Command<EdgeArray>>()
-                    .SetText("2")
-                    .SetLargeImage(Icons8.Document.Scale(0.5)),
-                ribbonPanel.NewPushButtonData<Commands.Command<EdgeArrayArray>>()
-                    .SetText("3")
-                    .SetLargeImage(Icons8.Document.Scale(0.5)),
-                ribbonPanel.NewPushButtonData<Commands.Command<EdgeArrayArrayIterator>>()
-                    .SetText("4")
-                    .SetLargeImage(Icons8.Document.Scale(0.5))
-            )
-            .SetToolTip("T");
 
-            ribbonPanel.Remove(pulldown);
 
             ribbonPanel.AddPushButton<Commands.Command<Construction>>("-")
                 .SetLargeImage(GetBase64LargeImage());
@@ -131,6 +112,56 @@ namespace ricaun.Revit.UI.Example.Revit
                 ribbonPanel.NewPushButtonData<Commands.Command<ElementType>>(),
                 ribbonPanel.NewPushButtonData<Commands.Command<ElementArray>>());
 
+
+            ribbonPanel.AddSlideOut();
+
+            #region PulldownButton Remove
+            var pulldown = ribbonPanel.CreatePulldownButton("T",
+                ribbonPanel.NewPushButtonData<Commands.Command<Edge>>()
+                    .SetText("1")
+                    .SetToolTip("One")
+                    .SetLongDescription("The One")
+                    .SetLargeImage(Icons8.Document.Scale(0.5))
+                    .SetToolTipImage(Icons8.Document),
+                ribbonPanel.NewPushButtonData<Commands.Command<EdgeArray>>()
+                    .SetText("2")
+                    .SetLargeImage(Icons8.Document.Scale(0.5)),
+                ribbonPanel.NewPushButtonData<Commands.Command<EdgeArrayArray>>()
+                    .SetText("3")
+                    .SetLargeImage(Icons8.Document.Scale(0.5)),
+                ribbonPanel.NewPushButtonData<Commands.Command<EdgeArrayArrayIterator>>()
+                    .SetText("4")
+                    .SetLargeImage(Icons8.Document.Scale(0.5))
+            )
+            .SetToolTip("T");
+
+            ribbonPanel.Remove(pulldown);
+            #endregion
+
+            #region TextBox
+
+            var textBox = ribbonPanel.CreateTextBox("hi")
+                .SetSelectTextOnFocus()
+                .SetShowImageAsButton()
+                .SetPromptText("Search")
+                .SetValue("Search")
+                .SetImage(Icons8.Search);
+
+            textBox.EnterPressed += (s, e) =>
+            {
+                System.Windows.MessageBox.Show(textBox.Value.ToString());
+            };
+
+            ribbonPanel.AddStackedItems(
+                ribbonPanel.NewTextBoxData("T1")
+                    .SetImage(Icons8.Search),
+                ribbonPanel.NewTextBoxData("T2")
+                    .SetImage(Icons8.Search)
+                );
+
+            #endregion
+
+            #region CreateRadioButtonGroup
             var radio = ribbonPanel.CreateRadioButtonGroup("Radio",
                 ribbonPanel.NewToggleButtonData("R1")
                     .SetLargeImage(Icons8.Circled),
@@ -147,18 +178,32 @@ namespace ricaun.Revit.UI.Example.Revit
                 ribbonPanel.NewToggleButtonData("R5")
                 .SetLargeImage(Icons8.About)
                 );
+            #endregion
 
+            #region ComboBox
 
-            ribbonPanel.AddSlideOut();
+            var comboBox = ribbonPanel.CreateComboBox("ComboBox",
+                ribbonPanel.NewComboBoxMemberData("C1")
+                    .SetImage(Icons8.Restart),
+                ribbonPanel.NewComboBoxMemberData("C2")
+                    .SetImage(Icons8.Restart),
+                ribbonPanel.NewComboBoxMemberData("C3")
+                    .SetImage(Icons8.Restart)
+                );
 
-
+            comboBox.CurrentChanged += (s, e) =>
+            {
+                System.Windows.MessageBox.Show(comboBox.Current.Name);
+            };
 
 
             ribbonPanel.AddStackedItems(
                 ribbonPanel.NewComboBoxData("A"),
                 ribbonPanel.NewComboBoxData("B"),
                 ribbonPanel.NewComboBoxData("C"));
+            #endregion
 
+            #region Autodesk Icons Buttons
             ribbonPanel.AddPushButton<Commands.Command<Point>>()
                 .SetLargeImage(Pack.Power)
                 .SetText("Power")
@@ -198,6 +243,7 @@ namespace ricaun.Revit.UI.Example.Revit
                     .SetLargeImage(Pack.Switch)
                     .SetText("Switch")
                     .AddQuickAccessToolBar();
+            #endregion
 
             OrderPanelAndMove(ribbonPanel);
 
@@ -461,6 +507,32 @@ namespace ricaun.Revit.UI.Example.Revit
                     }
                 });
 
+                setting.Add("T1", new RibbonDescription()
+                {
+                    ToolTip = "TextBox1",
+                    LongDescription = "TextBox1",
+                    Action = (ribbonItem) =>
+                    {
+                        if (ribbonItem is TextBox box)
+                        {
+                            box.SetPromptText("T1");
+                        }
+                    }
+                });
+
+                setting.Add("T2", new RibbonDescription()
+                {
+                    ToolTip = "TextBox2",
+                    LongDescription = "TextBox2",
+                    Action = (ribbonItem) =>
+                    {
+                        if (ribbonItem is TextBox box)
+                        {
+                            box.SetPromptText("T2");
+                        }
+                    }
+                });
+
             });
         }
 
@@ -468,45 +540,6 @@ namespace ricaun.Revit.UI.Example.Revit
         {
             ribbonPanel.Remove(true);
             return Result.Succeeded;
-        }
-
-        public ComboBox AddComboBox(RibbonPanel ribbonPanel, string name, params ComboBoxMemberData[] comboBoxMemberDatas)
-        {
-
-            //c.SetImage(Proprieties.Icons8.Document.GetBitmapFrame());
-            //c.GetRibbonItem().Width = 32;
-            //Console.WriteLine(c.GetRibbonItem().Width);
-
-            //var rvtRibbonCombo = c.GetRibbonItem() as UIFramework.RvtRibbonCombo;
-
-            //rvtRibbonCombo.IsTextSearchEnabled = true;
-            //var binding = new System.Windows.Data.Binding();
-            ////binding.Source = new List<TextModel>() { new TextModel("Test") };
-            //binding.Source = new List<Autodesk.Windows.RibbonItem>() { new Autodesk.Windows.RibbonItem() {
-            //    Text = "hi", Image = Proprieties.Icons8.Document.GetBitmapFrame() } };
-            ////binding.Path = "";
-            //rvtRibbonCombo.ItemsBinding = binding;
-            ////rvtRibbonCombo.IsEditable = true;
-            //rvtRibbonCombo.CurrentChanged += (s, e) =>
-            //{
-            //    Console.WriteLine(e.NewValue);
-            //    Console.WriteLine(e.OldValue);
-            //};
-
-            ComboBoxData comboBoxData = new ComboBoxData(name)
-                .SetImage(Proprieties.Icons8.Menu.GetBitmapFrame());
-
-            var comboBox = ribbonPanel.AddItem(comboBoxData) as ComboBox;
-            if (comboBoxMemberDatas.Count() > 0)
-                comboBox.AddItems(comboBoxMemberDatas);
-
-            var d = new ComboBoxMemberData("name", "text");
-            comboBox.AddItem(d);
-            comboBox.AddItem(d);
-
-            comboBox.SetImage(Proprieties.Icons8.Document.GetBitmapFrame());
-
-            return comboBox;
         }
 
         private void OrderPanelAndMove(RibbonPanel ribbonPanel)
@@ -525,15 +558,6 @@ namespace ricaun.Revit.UI.Example.Revit
         {
             const string LargeImage = "iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAACQAAAAkABgV+WigAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAAPaSURBVFiFvZddbBRVGIaf+dnd2bp/dQu0paStho2kQVpNL0RDQ/WiCVZEozHGLImpvS0iBIxKkTRGEU29gVTlRgJBuRQ1xliLEGmDSa1EbWJtKy3VdmmVsmt3Z3/Gi+ngst2fmSHxTc7Fzvm+931nvzPnfEfAPHzANqAV2ATUAYHlub+BSeAHoB/4DLhhgbsoQsBxIAZoJkcM+BBYfzvCbuCI4FCSFoRzhwocBhSr4uuBy4BW0dGnBcPvaWKZ364JDbgIVJkVbwLmjOSKzuNa/SlNq33/muZr69IQJbsmpoB7c8XEPG/+JbBqRaAnSDDcy9qeSyj3bDH7MtmoQV+clYUMKMCZfOLZcNY1UXXgHGv2foq8qt6OibPo6wsAKWvyTWBHbkbZ/dtx1TWtYHJUhfA93Ino9pIYG0JLqWZNVANpYAD++wdCQJdZBgOC042/fR8174zibe0EIbeiBbGb5VIYGfsA2aoBA1J5NRUdfVQfGkQJbTaT4gEOGAZ8wDN2xbPhuruZqu4LrO76BDm4rlR4GPBKwBPFDDjXbcTd0GrehSDgrGnA29oBmQzqxPeQSeelBkYk9NrfV4gvPnqe+M8DuOoakQKVhcJW+pBduDc+gmfLTjLRedQrI/nCFiTgNWBtMbLUtd+50f8BqblxlNBmRMVj2ohY5ueO5h24N7SgTg6Tvj6bPZ0UgAhQYZpQ8eDftgf/Y/sRHC7TRgDQMkQvnGTh5B7Si3MAcxLQw637QXGOlEr8lwFigx8jBSpx1jSYNyAIOGs34d3aAYA6fkk2/eHm5XO6SweVgAwsYqUEZQEC2/fja9t1GyV4ifRiBOC6DEyYMiCIeB56jjufPYzkX2NNGFj6qZ+FEy+iXvkx+/G4jN5GNRdLVja0EAz34qxttCycnP2Nv06/TGzoTL7pERm9h3uhEEHg8Vcof7rHsjDA0uWvmD3SjpZMFAr5WkQ/HmOFIuTVd9kSB0jNTxUTjwFfiEAUOG1bxT5OAVHjM3wLSP6P4ip6/3HzOP4V6LXKoqlLaOqSHQPvAuPZBkA/nwfNMvwzfJbpvQ1M7w4RPX8CNM1s6kXgoPEj20AcvSWbKpatTg7zx6EWZt9uJxWZILUwTeRYmJnuB0iMlfQ/AzwF3FyZuVvxn8CjwHRuZiY6z/xHu7j6ajPx0W9XMCfGhpjpfpDIsZ25J56BKaANuFrKJeid8TlsXkxExaOVP3lQCz5/1Hj2HTntuBm4gNcFhxI1K5w7BIeSAN5Y5rKNSuAo+n5hVjwK9AEldzHBghEP+vV8K9AI1HPr9XwCGAa+AT5fNlES/wLKWXKx84783QAAAABJRU5ErkJggg==";
             return LargeImage;
-        }
-    }
-
-    internal class TextModel
-    {
-        public string Text { get; set; }
-        public TextModel(string text)
-        {
-            Text = text;
         }
     }
 }

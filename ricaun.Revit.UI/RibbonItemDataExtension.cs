@@ -136,6 +136,9 @@ namespace ricaun.Revit.UI
             else if (ribbonItem is ComboBoxMemberData comboBoxMemberData)
                 comboBoxMemberData.Image = image.GetBitmapFrame(16, (frame) => { comboBoxMemberData.Image = frame; });
 
+            else if (ribbonItem is TextBoxData textBoxData)
+                textBoxData.Image = image.GetBitmapFrame(16, (frame) => { textBoxData.Image = frame; });
+
             return ribbonItem;
         }
 
@@ -162,6 +165,9 @@ namespace ricaun.Revit.UI
 
             else if (ribbonItem is ComboBoxMemberData comboBoxMemberData)
                 comboBoxMemberData.SetImage(largeImage);
+
+            else if (ribbonItem is TextBoxData textBoxData)
+                textBoxData.SetImage(largeImage);
 
             return ribbonItem;
         }
