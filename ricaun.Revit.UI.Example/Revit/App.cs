@@ -29,29 +29,7 @@ namespace ricaun.Revit.UI.Example.Revit
 
             Models.TestViewModel.TestModel.CommandTest = new Views.RelayCommand(() =>
             {
-                Console.WriteLine("Hello");
-
-                foreach (var panel in modify.Panels)
-                {
-                    Console.WriteLine($"{panel.Source.Title} {panel.Source.Tag} {panel.Source.Id}");
-                    if (panel is UIFramework.RvtRibbonPanel p)
-                    {
-                        Console.WriteLine($"{UIFramework.ControlHelper.GetVisibleFilter(p)}");
-                    }
-
-                    Console.WriteLine($"{UIFramework.ControlHelper.GetVisibleFilter(panel.Source)}");
-                    foreach (var item in panel.Source.Items)
-                    {
-                        Console.WriteLine($"\t{item} {item.Tag} {UIFramework.ControlHelper.GetVisibleFilter(item)}");
-                        if (item is Autodesk.Windows.RibbonFoldPanel fold)
-                        {
-                            foreach (var i in fold.Items)
-                            {
-                                Console.WriteLine($"\t{i} {UIFramework.ControlHelper.GetVisibleFilter(i)}");
-                            }
-                        }
-                    }
-                }
+                Models.TestViewModel.TestModel.Text += ".";
             },
             () =>
             {
@@ -62,7 +40,7 @@ namespace ricaun.Revit.UI.Example.Revit
 
             Models.TestViewModel.TestModel.CommandTest2 = new Views.RelayCommand(() =>
             {
-                Console.WriteLine("Hello2");
+                Models.TestViewModel.TestModel.Text = "";
             },
             () =>
             {

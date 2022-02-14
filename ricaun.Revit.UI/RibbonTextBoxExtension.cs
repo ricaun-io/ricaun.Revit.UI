@@ -61,7 +61,7 @@ namespace ricaun.Revit.UI
         /// SetValue
         /// </summary>
         /// <param name="textBox"></param>
-        /// <param name="promptText"></param>
+        /// <param name="value"></param>
         /// <returns></returns>
         public static TextBox SetValue(this TextBox textBox, object value)
         {
