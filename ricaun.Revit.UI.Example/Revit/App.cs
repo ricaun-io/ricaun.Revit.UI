@@ -25,8 +25,6 @@ namespace ricaun.Revit.UI.Example.Revit
 
             var ri = button.GetRibbonItem() as Autodesk.Windows.RibbonButton;
 
-            var modify = RibbonTabExtension.GetRibbonTab("Modify");
-
             Models.TestViewModel.TestModel.CommandTest = new Views.RelayCommand(() =>
             {
                 Models.TestViewModel.TestModel.Text += ".";
@@ -36,8 +34,6 @@ namespace ricaun.Revit.UI.Example.Revit
                 return UIFramework.ControlHelper.IsEnabled(ri);
             });
 
-
-
             Models.TestViewModel.TestModel.CommandTest2 = new Views.RelayCommand(() =>
             {
                 Models.TestViewModel.TestModel.Text = "";
@@ -46,6 +42,7 @@ namespace ricaun.Revit.UI.Example.Revit
             {
                 return UIFramework.ControlHelper.IsEnabled(ri);
             });
+
 
 
 

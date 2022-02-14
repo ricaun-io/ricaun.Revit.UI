@@ -11,7 +11,7 @@
 
     <Grid Background="WhiteSmoke">
         <StackPanel Margin="15">
-            <TextBlock Text="{Binding Text}">?</TextBlock>
+            <TextBlock Text="{Binding Text}"></TextBlock>
             <Button Margin="0,8,0,0" Height="24" Command="{Binding CommandTest}">Write</Button>
             <Button Margin="0,8,0,0" Height="24" Command="{Binding CommandTest2}">Clear</Button>
         </StackPanel>
