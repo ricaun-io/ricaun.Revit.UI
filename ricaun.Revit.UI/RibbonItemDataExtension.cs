@@ -86,11 +86,14 @@ namespace ricaun.Revit.UI
             if (ribbonItem is ButtonData button)
                 button.Text = text;
 
+            if (ribbonItem is ComboBoxMemberData comboBoxMemberData)
+                comboBoxMemberData.Text = text;
+
             return ribbonItem;
         }
 
         /// <summary>
-        /// Set ButtonData Image
+        /// Set ButtonData/ComboBoxData Image
         /// </summary>
         /// <typeparam name="TRibbonItem"></typeparam>
         /// <param name="ribbonItem"></param>
@@ -102,7 +105,7 @@ namespace ricaun.Revit.UI
         }
 
         /// <summary>
-        /// Set ButtonData LargeImage
+        /// Set ButtonData/ComboBoxData LargeImage
         /// </summary>
         /// <typeparam name="TRibbonItem"></typeparam>
         /// <param name="ribbonItem"></param>
@@ -114,7 +117,7 @@ namespace ricaun.Revit.UI
         }
 
         /// <summary>
-        /// Set ButtonData Image
+        /// Set ButtonData/ComboBoxData Image
         /// </summary>
         /// <typeparam name="TRibbonItem">ButtonData</typeparam>
         /// <param name="ribbonItem"></param>
@@ -122,15 +125,25 @@ namespace ricaun.Revit.UI
         /// <returns></returns>
         public static TRibbonItem SetImage<TRibbonItem>(this TRibbonItem ribbonItem, ImageSource image) where TRibbonItem : RibbonItemData
         {
-            if (image != null)
-                if (ribbonItem is ButtonData ribbonButton)
-                    ribbonButton.Image = image.GetBitmapFrame(16, (frame) => { ribbonButton.Image = frame; });
+            if (image == null) return ribbonItem;
+
+            if (ribbonItem is ButtonData ribbonButton)
+                ribbonButton.Image = image.GetBitmapFrame(16, (frame) => { ribbonButton.Image = frame; });
+
+            else if (ribbonItem is ComboBoxData comboBox)
+                comboBox.Image = image.GetBitmapFrame(16, (frame) => { comboBox.Image = frame; });
+
+            else if (ribbonItem is ComboBoxMemberData comboBoxMemberData)
+                comboBoxMemberData.Image = image.GetBitmapFrame(16, (frame) => { comboBoxMemberData.Image = frame; });
+
+            else if (ribbonItem is TextBoxData textBoxData)
+                textBoxData.Image = image.GetBitmapFrame(16, (frame) => { textBoxData.Image = frame; });
 
             return ribbonItem;
         }
 
         /// <summary>
-        /// Set ButtonData LargeImage
+        /// Set ButtonData/ComboBoxData LargeImage
         /// </summary>
         /// <typeparam name="TRibbonItem">ButtonData</typeparam>
         /// <param name="ribbonItem"></param>
@@ -138,15 +151,23 @@ namespace ricaun.Revit.UI
         /// <returns></returns>
         public static TRibbonItem SetLargeImage<TRibbonItem>(this TRibbonItem ribbonItem, ImageSource largeImage) where TRibbonItem : RibbonItemData
         {
-            if (largeImage != null)
+            if (largeImage == null) return ribbonItem;
+
+            if (ribbonItem is ButtonData ribbonButton)
             {
-                if (ribbonItem is ButtonData ribbonButton)
-                {
-                    ribbonButton.LargeImage = largeImage.GetBitmapFrame(32, (frame) => { ribbonButton.LargeImage = frame; });
-                    if (ribbonButton.Image == null)
-                        ribbonButton.SetImage(ribbonButton.LargeImage);
-                }
+                ribbonButton.LargeImage = largeImage.GetBitmapFrame(32, (frame) => { ribbonButton.LargeImage = frame; });
+                if (ribbonButton.Image == null)
+                    ribbonButton.SetImage(ribbonButton.LargeImage);
             }
+
+            else if (ribbonItem is ComboBoxData comboBox)
+                comboBox.SetImage(largeImage);
+
+            else if (ribbonItem is ComboBoxMemberData comboBoxMemberData)
+                comboBoxMemberData.SetImage(largeImage);
+
+            else if (ribbonItem is TextBoxData textBoxData)
+                textBoxData.SetImage(largeImage);
 
             return ribbonItem;
         }

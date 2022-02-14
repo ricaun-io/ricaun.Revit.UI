@@ -5,6 +5,8 @@ using System;
 using System.Linq;
 using ricaun.Revit.UI.Example.Proprieties;
 using System.Windows.Media;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace ricaun.Revit.UI.Example.Revit
 {
@@ -19,28 +21,33 @@ namespace ricaun.Revit.UI.Example.Revit
         {
             ribbonPanel = application.CreatePanel(TabName, PanelName);
 
-            ribbonPanel.AddPushButton<Commands.Command>();
+            var button = ribbonPanel.AddPushButton<Commands.Command>();
 
-            var down = ribbonPanel.CreatePulldownButton("T",
-                ribbonPanel.NewPushButtonData<Commands.Command<Edge>>()
-                    .SetText("1")
-                    .SetToolTip("One")
-                    .SetLongDescription("The One")
-                    .SetLargeImage(Icons8.Document.Scale(0.5))
-                    .SetToolTipImage(Icons8.Document),
-                ribbonPanel.NewPushButtonData<Commands.Command<EdgeArray>>()
-                    .SetText("2")
-                    .SetLargeImage(Icons8.Document.Scale(0.5)),
-                ribbonPanel.NewPushButtonData<Commands.Command<EdgeArrayArray>>()
-                    .SetText("3")
-                    .SetLargeImage(Icons8.Document.Scale(0.5)),
-                ribbonPanel.NewPushButtonData<Commands.Command<EdgeArrayArrayIterator>>()
-                    .SetText("4")
-                    .SetLargeImage(Icons8.Document.Scale(0.5))
-            )
-            .SetToolTip("T");
+            var ri = button.GetRibbonItem() as Autodesk.Windows.RibbonButton;
 
-            ribbonPanel.Remove(down);
+            var modify = RibbonTabExtension.GetRibbonTab("Modify");
+
+            Models.TestViewModel.TestModel.CommandTest = new Views.RelayCommand(() =>
+            {
+                Models.TestViewModel.TestModel.Text += ".";
+            },
+            () =>
+            {
+                return UIFramework.ControlHelper.IsEnabled(ri);
+            });
+
+
+
+            Models.TestViewModel.TestModel.CommandTest2 = new Views.RelayCommand(() =>
+            {
+                Models.TestViewModel.TestModel.Text = "";
+            },
+            () =>
+            {
+                return UIFramework.ControlHelper.IsEnabled(ri);
+            });
+
+
 
             ribbonPanel.AddPushButton<Commands.Command<Construction>>("-")
                 .SetLargeImage(GetBase64LargeImage());
@@ -83,8 +90,98 @@ namespace ricaun.Revit.UI.Example.Revit
                 ribbonPanel.NewPushButtonData<Commands.Command<ElementType>>(),
                 ribbonPanel.NewPushButtonData<Commands.Command<ElementArray>>());
 
+
             ribbonPanel.AddSlideOut();
 
+            #region PulldownButton Remove
+            var pulldown = ribbonPanel.CreatePulldownButton("T",
+                ribbonPanel.NewPushButtonData<Commands.Command<Edge>>()
+                    .SetText("1")
+                    .SetToolTip("One")
+                    .SetLongDescription("The One")
+                    .SetLargeImage(Icons8.Document.Scale(0.5))
+                    .SetToolTipImage(Icons8.Document),
+                ribbonPanel.NewPushButtonData<Commands.Command<EdgeArray>>()
+                    .SetText("2")
+                    .SetLargeImage(Icons8.Document.Scale(0.5)),
+                ribbonPanel.NewPushButtonData<Commands.Command<EdgeArrayArray>>()
+                    .SetText("3")
+                    .SetLargeImage(Icons8.Document.Scale(0.5)),
+                ribbonPanel.NewPushButtonData<Commands.Command<EdgeArrayArrayIterator>>()
+                    .SetText("4")
+                    .SetLargeImage(Icons8.Document.Scale(0.5))
+            )
+            .SetToolTip("T");
+
+            ribbonPanel.Remove(pulldown);
+            #endregion
+
+            #region TextBox
+
+            var textBox = ribbonPanel.CreateTextBox("hi")
+                .SetSelectTextOnFocus()
+                .SetShowImageAsButton()
+                .SetPromptText("Search")
+                .SetValue("Search")
+                .SetImage(Icons8.Search);
+
+            textBox.EnterPressed += (s, e) =>
+            {
+                System.Windows.MessageBox.Show(textBox.Value.ToString());
+            };
+
+            ribbonPanel.AddStackedItems(
+                ribbonPanel.NewTextBoxData("T1")
+                    .SetImage(Icons8.Search),
+                ribbonPanel.NewTextBoxData("T2")
+                    .SetImage(Icons8.Search)
+                );
+
+            #endregion
+
+            #region CreateRadioButtonGroup
+            var radio = ribbonPanel.CreateRadioButtonGroup("Radio",
+                ribbonPanel.NewToggleButtonData("R1")
+                    .SetLargeImage(Icons8.Circled),
+                ribbonPanel.NewToggleButtonData("R2")
+                    .SetLargeImage(Icons8.Checked),
+                ribbonPanel.NewToggleButtonData("R3")
+                    .SetLargeImage(Icons8.Cancel),
+                ribbonPanel.NewToggleButtonData<Commands.Command<ToggleButtonData>>()
+                    .SetText("R4")
+                    .SetLargeImage(Icons8.Trash)
+            );
+
+            radio.AddItems(
+                ribbonPanel.NewToggleButtonData("R5")
+                .SetLargeImage(Icons8.About)
+                );
+            #endregion
+
+            #region ComboBox
+
+            var comboBox = ribbonPanel.CreateComboBox("ComboBox",
+                ribbonPanel.NewComboBoxMemberData("C1")
+                    .SetImage(Icons8.Restart),
+                ribbonPanel.NewComboBoxMemberData("C2")
+                    .SetImage(Icons8.Restart),
+                ribbonPanel.NewComboBoxMemberData("C3")
+                    .SetImage(Icons8.Restart)
+                );
+
+            comboBox.CurrentChanged += (s, e) =>
+            {
+                System.Windows.MessageBox.Show(comboBox.Current.Name);
+            };
+
+
+            ribbonPanel.AddStackedItems(
+                ribbonPanel.NewComboBoxData("A"),
+                ribbonPanel.NewComboBoxData("B"),
+                ribbonPanel.NewComboBoxData("C"));
+            #endregion
+
+            #region Autodesk Icons Buttons
             ribbonPanel.AddPushButton<Commands.Command<Point>>()
                 .SetLargeImage(Pack.Power)
                 .SetText("Power")
@@ -124,6 +221,7 @@ namespace ricaun.Revit.UI.Example.Revit
                     .SetLargeImage(Pack.Switch)
                     .SetText("Switch")
                     .AddQuickAccessToolBar();
+            #endregion
 
             OrderPanelAndMove(ribbonPanel);
 
@@ -321,6 +419,95 @@ namespace ricaun.Revit.UI.Example.Revit
                     Action = (ribbonItem) =>
                     {
                         ribbonItem.SetShowText();
+                    }
+                });
+
+                setting.Add("A", new RibbonDescription()
+                {
+                    Text = "A",
+                    Action = (ribbonItem) =>
+                    {
+                        if (ribbonItem is ComboBox combo)
+                        {
+                            combo.AddItems(
+                               ribbonPanel.NewComboBoxMemberData("1"),
+                               ribbonPanel.NewComboBoxMemberData("2"),
+                               ribbonPanel.NewComboBoxMemberData("3"),
+                               ribbonPanel.NewComboBoxMemberData("4"),
+                               ribbonPanel.NewComboBoxMemberData("5"),
+                               ribbonPanel.NewComboBoxMemberData("6")
+                               );
+                        }
+                    }
+                });
+
+                setting.Add("B", new RibbonDescription()
+                {
+                    Text = "B",
+                    Action = (ribbonItem) =>
+                    {
+                        if (ribbonItem is ComboBox combo)
+                        {
+                            combo.AddItems(
+                                ribbonPanel.NewComboBoxMemberData("1")
+                                    .SetText("One")
+                                    .SetImage(Icons8.Document)
+                                    .SetToolTip("One")
+                                    .SetToolTipImage(Icons8.Document)
+                                    .SetLongDescription("One"),
+                                ribbonPanel.NewComboBoxMemberData("2")
+                                    .SetGroupName("G1")
+                                    .SetImage(Icons8.Document),
+                                ribbonPanel.NewComboBoxMemberData("3")
+                                    .SetGroupName("G2")
+                                    .SetImage(Icons8.Document)
+                            );
+                        }
+                    }
+                });
+
+                setting.Add("C", new RibbonDescription()
+                {
+                    Text = "C",
+                    Action = (ribbonItem) =>
+                    {
+                        if (ribbonItem is ComboBox combo)
+                        {
+                            combo.AddItems(
+                                ribbonPanel.NewComboBoxMemberData("A"),
+                                ribbonPanel.NewComboBoxMemberData("B"),
+                                ribbonPanel.NewComboBoxMemberData("C"),
+                                ribbonPanel.NewComboBoxMemberData("D"),
+                                ribbonPanel.NewComboBoxMemberData("E"),
+                                ribbonPanel.NewComboBoxMemberData("F")
+                            );
+                        }
+                    }
+                });
+
+                setting.Add("T1", new RibbonDescription()
+                {
+                    ToolTip = "TextBox1",
+                    LongDescription = "TextBox1",
+                    Action = (ribbonItem) =>
+                    {
+                        if (ribbonItem is TextBox box)
+                        {
+                            box.SetPromptText("T1");
+                        }
+                    }
+                });
+
+                setting.Add("T2", new RibbonDescription()
+                {
+                    ToolTip = "TextBox2",
+                    LongDescription = "TextBox2",
+                    Action = (ribbonItem) =>
+                    {
+                        if (ribbonItem is TextBox box)
+                        {
+                            box.SetPromptText("T2");
+                        }
                     }
                 });
 

@@ -73,6 +73,8 @@ namespace ricaun.Revit.UI
             var ribbonTab = ribbonPanel.Tab;
             var panels = ribbonTab.Panels;
             var length = panels.Count;
+            if (newIndex < 0) newIndex = length - 1 + newIndex;
+            if (newIndex >= length) newIndex = length - 1;
             for (int i = 0; i < length; i++)
             {
                 if (i == newIndex) continue;
