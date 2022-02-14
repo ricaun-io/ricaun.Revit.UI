@@ -130,10 +130,10 @@ namespace ricaun.Revit.UI
             if (ribbonItem is ButtonData ribbonButton)
                 ribbonButton.Image = image.GetBitmapFrame(16, (frame) => { ribbonButton.Image = frame; });
 
-            if (ribbonItem is ComboBoxData comboBox)
+            else if (ribbonItem is ComboBoxData comboBox)
                 comboBox.Image = image.GetBitmapFrame(16, (frame) => { comboBox.Image = frame; });
 
-            if (ribbonItem is ComboBoxMemberData comboBoxMemberData)
+            else if (ribbonItem is ComboBoxMemberData comboBoxMemberData)
                 comboBoxMemberData.Image = image.GetBitmapFrame(16, (frame) => { comboBoxMemberData.Image = frame; });
 
             return ribbonItem;
@@ -157,10 +157,10 @@ namespace ricaun.Revit.UI
                     ribbonButton.SetImage(ribbonButton.LargeImage);
             }
 
-            if (ribbonItem is ComboBoxData comboBox)
+            else if (ribbonItem is ComboBoxData comboBox)
                 comboBox.SetImage(largeImage);
 
-            if (ribbonItem is ComboBoxMemberData comboBoxMemberData)
+            else if (ribbonItem is ComboBoxMemberData comboBoxMemberData)
                 comboBoxMemberData.SetImage(largeImage);
 
             return ribbonItem;

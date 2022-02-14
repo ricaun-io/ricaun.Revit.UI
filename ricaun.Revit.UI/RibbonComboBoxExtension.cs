@@ -25,7 +25,7 @@ namespace ricaun.Revit.UI
                 var targetName = targetText;
 
                 comboBox = ribbonPanel.AddItem(ribbonPanel.NewComboBoxData(targetName)) as ComboBox;
-                comboBox.AddItems(comboBoxMemberDatas);
+                AddItems(comboBox, comboBoxMemberDatas);
             }
             return comboBox;
         }

@@ -52,6 +52,5 @@ namespace ricaun.Revit.UI
             return currentPulldownButton;
         }
         #endregion
-
     }
 }

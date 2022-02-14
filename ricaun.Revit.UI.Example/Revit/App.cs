@@ -131,7 +131,28 @@ namespace ricaun.Revit.UI.Example.Revit
                 ribbonPanel.NewPushButtonData<Commands.Command<ElementType>>(),
                 ribbonPanel.NewPushButtonData<Commands.Command<ElementArray>>());
 
+            var radio = ribbonPanel.CreateRadioButtonGroup("Radio",
+                ribbonPanel.NewToggleButtonData("R1")
+                    .SetLargeImage(Icons8.Circled),
+                ribbonPanel.NewToggleButtonData("R2")
+                    .SetLargeImage(Icons8.Checked),
+                ribbonPanel.NewToggleButtonData("R3")
+                    .SetLargeImage(Icons8.Cancel),
+                ribbonPanel.NewToggleButtonData<Commands.Command<ToggleButtonData>>()
+                    .SetText("R4")
+                    .SetLargeImage(Icons8.Trash)
+            );
+
+            radio.AddItems(
+                ribbonPanel.NewToggleButtonData("R5")
+                .SetLargeImage(Icons8.About)
+                );
+
+
             ribbonPanel.AddSlideOut();
+
+
+
 
             ribbonPanel.AddStackedItems(
                 ribbonPanel.NewComboBoxData("A"),
