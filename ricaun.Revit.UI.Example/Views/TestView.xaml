@@ -12,6 +12,7 @@
         <StackPanel Margin="15">
             <TextBlock Text="{Binding Text}"></TextBlock>
             <Button Command="{Binding CommandTest}">Test</Button>
+            <Button Command="{Binding CommandTest2}">Test2</Button>
         </StackPanel>
     </Grid>
 </Window>

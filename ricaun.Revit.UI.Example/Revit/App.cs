@@ -16,48 +16,60 @@ namespace ricaun.Revit.UI.Example.Revit
         private const string TabName = "ricaun";
         private const string PanelName = "Example";
         private static RibbonPanel ribbonPanel;
-        public static PushButton PushButton;
 
         public Result OnStartup(UIControlledApplication application)
         {
             ribbonPanel = application.CreatePanel(TabName, PanelName);
 
             var button = ribbonPanel.AddPushButton<Commands.Command>();
-            PushButton = button;
-            //////////////////////////////////////////// 
-            ///
+
             var ri = button.GetRibbonItem() as Autodesk.Windows.RibbonButton;
+
+            var modify = RibbonTabExtension.GetRibbonTab("Modify");
+
             Models.TestViewModel.TestModel.CommandTest = new Views.RelayCommand(() =>
             {
                 Console.WriteLine("Hello");
+
+                foreach (var panel in modify.Panels)
+                {
+                    Console.WriteLine($"{panel.Source.Title} {panel.Source.Tag} {panel.Source.Id}");
+                    if (panel is UIFramework.RvtRibbonPanel p)
+                    {
+                        Console.WriteLine($"{UIFramework.ControlHelper.GetVisibleFilter(p)}");
+                    }
+
+                    Console.WriteLine($"{UIFramework.ControlHelper.GetVisibleFilter(panel.Source)}");
+                    foreach (var item in panel.Source.Items)
+                    {
+                        Console.WriteLine($"\t{item} {item.Tag} {UIFramework.ControlHelper.GetVisibleFilter(item)}");
+                        if (item is Autodesk.Windows.RibbonFoldPanel fold)
+                        {
+                            foreach (var i in fold.Items)
+                            {
+                                Console.WriteLine($"\t{i} {UIFramework.ControlHelper.GetVisibleFilter(i)}");
+                            }
+                        }
+                    }
+                }
             },
             () =>
             {
-                //Autodesk.Windows.ComponentManager.ApplicationMenu.ExitButton
                 return UIFramework.ControlHelper.IsEnabled(ri);
             });
-            Console.WriteLine($"{UIFramework.ControlHelper.IsEnabled(ri)} {UIFramework.RibbonGlobalHandler.Command.CanExecute(ri)}");
 
 
-            ri.PropertyChanged += (s, e) =>
+
+            Models.TestViewModel.TestModel.CommandTest2 = new Views.RelayCommand(() =>
             {
-                //Console.WriteLine(e.PropertyName);
-            };
-
-            Task.Run(async () =>
+                Console.WriteLine("Hello2");
+            },
+            () =>
             {
-                for (int i = 0; i < 100; i++)
-                {
-                    await Task.Delay(1000);
-                    Console.WriteLine($"{UIFramework.ControlHelper.IsEnabled(ri)} {UIFramework.RibbonGlobalHandler.Command.CanExecute(ri)}");
-                    Models.TestViewModel.TestModel.Text += ".";
-                }
+                return UIFramework.ControlHelper.IsEnabled(ri);
             });
-            //////////////////////////////////////////// 
 
-
-
-            var down = ribbonPanel.CreatePulldownButton("T",
+            var pulldown = ribbonPanel.CreatePulldownButton("T",
                 ribbonPanel.NewPushButtonData<Commands.Command<Edge>>()
                     .SetText("1")
                     .SetToolTip("One")
@@ -76,7 +88,7 @@ namespace ricaun.Revit.UI.Example.Revit
             )
             .SetToolTip("T");
 
-            ribbonPanel.Remove(down);
+            ribbonPanel.Remove(pulldown);
 
             ribbonPanel.AddPushButton<Commands.Command<Construction>>("-")
                 .SetLargeImage(GetBase64LargeImage());
