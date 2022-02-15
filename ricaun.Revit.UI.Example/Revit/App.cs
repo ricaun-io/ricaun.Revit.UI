@@ -43,9 +43,6 @@ namespace ricaun.Revit.UI.Example.Revit
                 return UIFramework.ControlHelper.IsEnabled(ri);
             });
 
-
-
-
             ribbonPanel.AddPushButton<Commands.Command<Construction>>("-")
                 .SetLargeImage(GetBase64LargeImage());
 
