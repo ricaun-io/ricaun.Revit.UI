@@ -1,7 +1,10 @@
 using Autodesk.Revit.Attributes;
 using Autodesk.Revit.DB;
 using Autodesk.Revit.UI;
+using Autodesk.Windows;
 using System;
+using System.Threading.Tasks;
+using System.Windows;
 
 namespace ricaun.Revit.UI.Example.Revit.Commands
 {
@@ -13,8 +16,6 @@ namespace ricaun.Revit.UI.Example.Revit.Commands
             UIApplication uiapp = commandData.Application;
 
             new Views.TestView().Show();
-
-
 
             return Result.Succeeded;
         }
@@ -29,7 +30,7 @@ namespace ricaun.Revit.UI.Example.Revit.Commands
 
             var t = typeof(T);
 
-            System.Windows.MessageBox.Show(AutodeskExtension.GetAutodeskOwner(), $"Hello Revit\n{DateTime.Now}\n{t}");
+            System.Windows.MessageBox.Show($"Hello Revit\n{DateTime.Now}\n{t}");
 
             return Result.Succeeded;
         }

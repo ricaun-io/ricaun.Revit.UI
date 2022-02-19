@@ -134,6 +134,10 @@
   <ItemGroup>
     <ProjectReference Include="..\ricaun.Revit.UI\ricaun.Revit.UI.csproj" />
   </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="System.Windows.Forms" />
+  </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\icon.png" />
   </ItemGroup>
