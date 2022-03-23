@@ -77,7 +77,7 @@
 
   <PropertyGroup>
     <PackageId>ricaun.Revit.UI.Example</PackageId>
-    <Version>1.0.8</Version>
+    <Version>1.0.9</Version>
     <ProjectGuid>{f736f68f-7101-4640-9093-8715f88ccb95}</ProjectGuid>
   </PropertyGroup>
 
@@ -104,13 +104,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="InstallationFiles\**" />
-    <EmbeddedResource Remove="InstallationFiles\**" />
-    <None Remove="InstallationFiles\**" />
-    <Page Remove="InstallationFiles\**" />
-  </ItemGroup>
-
-  <ItemGroup>
     <None Remove="Resources\icon.png" />
   </ItemGroup>
 
@@ -133,6 +126,10 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ricaun.Revit.UI\ricaun.Revit.UI.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\icon.png" />

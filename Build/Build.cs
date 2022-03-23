@@ -4,11 +4,9 @@ using ricaun.Nuke;
 using ricaun.Nuke.Components;
 
 [CheckBuildProjectConfigurations]
-class Build : NukeBuild, IPublishPack, ICompileExample, IRevitPackageBuilder
+class Build : NukeBuild, IPublishPack, IRevitPackageBuilder
 {
-    string IHazPackageBuilderProject.Name => this.From<IHazExample>().Name;
+    string IHazPackageBuilderProject.Name => "Example";
     string IHazRevitPackageBuilder.Application => "Revit.App";
-    bool IHazRevitPackageBuilder.NewVersions => true;
-    bool IHazExample.ReleaseExample => false;
     public static int Main() => Execute<Build>(x => x.From<IPublishPack>().Build);
 }
