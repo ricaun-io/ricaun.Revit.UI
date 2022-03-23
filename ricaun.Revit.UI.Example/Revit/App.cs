@@ -226,9 +226,21 @@ namespace ricaun.Revit.UI.Example.Revit
 
             UpdateRibbonDescription(ribbonPanel);
 
+            ribbonPanel2 = application.CreateOrSelectPanel(TabName, PanelName + "0");
+            //ribbonPanel2 = application.CreatePanel(TabName, PanelName);
+
+            var task = Task.Run(async () =>
+            {
+                for (int i = 0; i < 10; i++)
+                {
+                    await Task.Delay(1000);
+                    ribbonPanel2.Title = $"{PanelName}{i}";
+                }
+            });
+
             return Result.Succeeded;
         }
-
+        private static RibbonPanel ribbonPanel2;
         private void UpdateRibbonDescription(RibbonPanel ribbonPanel)
         {
             ribbonPanel.UpdateRibbonDescription(setting =>
@@ -510,14 +522,15 @@ namespace ricaun.Revit.UI.Example.Revit
 
         public Result OnShutdown(UIControlledApplication application)
         {
-            ribbonPanel.Remove(true);
+            ribbonPanel2?.Remove(true);
+            ribbonPanel?.Remove(true);
             return Result.Succeeded;
         }
 
         private void OrderPanelAndMove(RibbonPanel ribbonPanel)
         {
-            ribbonPanel.GetRibbonPanel().Tab.SetOrderPanels();
-            var ric = ribbonPanel.GetRibbonPanel().Tab.Panels.ToList().FirstOrDefault(e => e.Source.Title == "ricaun");
+            ribbonPanel.GetRibbonTab().SetOrderPanels();
+            var ric = ribbonPanel.GetRibbonTab().Panels.FirstOrDefault(e => e.Source.Title == "ricaun");
             ric?.MoveRibbonPanel();
         }
 

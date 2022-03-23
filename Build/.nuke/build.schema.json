@@ -47,8 +47,8 @@
         "MainName": {
           "type": "string"
         },
-        "Name": {
-          "type": "string"
+        "NewVersions": {
+          "type": "boolean"
         },
         "NoLogo": {
           "type": "boolean",
@@ -77,6 +77,15 @@
             "type": "string"
           }
         },
+        "ProjectNameFolder": {
+          "type": "boolean"
+        },
+        "ProjectVersionFolder": {
+          "type": "boolean"
+        },
+        "ReleaseBundle": {
+          "type": "boolean"
+        },
         "ReleasePackageBuilder": {
           "type": "boolean"
         },
@@ -101,7 +110,6 @@
               "Build",
               "Clean",
               "Compile",
-              "CompileExample",
               "GitRelease",
               "Pack",
               "PackageBuilder",
@@ -123,7 +131,6 @@
               "Build",
               "Clean",
               "Compile",
-              "CompileExample",
               "GitRelease",
               "Pack",
               "PackageBuilder",

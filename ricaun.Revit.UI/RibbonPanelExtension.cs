@@ -1,6 +1,7 @@
 ﻿using Autodesk.Revit.UI;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace ricaun.Revit.UI
 {
@@ -18,17 +19,31 @@ namespace ricaun.Revit.UI
         /// <returns></returns>
         public static RibbonPanel CreatePanel(this UIControlledApplication application, string panelName)
         {
-            RibbonPanel ribbonManager;
+            RibbonPanel ribbonPanel;
             try
             {
-                ribbonManager = application.CreateRibbonPanel(panelName);
+                ribbonPanel = application.CreateRibbonPanel(panelName);
             }
             catch
             {
-                ribbonManager = application.CreateRibbonPanel(RibbonSafeExtension.SafeRibbonPanelName(panelName));
-                ribbonManager.Title = panelName;
+                ribbonPanel = application.CreateRibbonPanel(RibbonSafeExtension.SafeRibbonPanelName(panelName));
+                ribbonPanel.Title = panelName;
             }
-            return ribbonManager;
+            return ribbonPanel;
+        }
+
+        /// <summary>
+        /// Create or Select RibbonPanel with Name EndsWith <paramref name="panelName"/>
+        /// </summary>
+        /// <param name="application"></param>
+        /// <param name="panelName"></param>
+        /// <returns></returns>
+        public static RibbonPanel CreateOrSelectPanel(this UIControlledApplication application, string panelName)
+        {
+            if (application.GetRibbonPanels().FirstOrDefault(p => p.IsSelect(panelName)) is RibbonPanel ribbonPanel)
+                return ribbonPanel;
+
+            return application.CreatePanel(panelName);
         }
 
         /// <summary>
@@ -40,21 +55,36 @@ namespace ricaun.Revit.UI
         /// <returns></returns>
         public static RibbonPanel CreatePanel(this UIControlledApplication application, string tabName, string panelName)
         {
-            RibbonPanel ribbonManager = null;
+            RibbonPanel ribbonPanel = null;
             try { application.CreateRibbonTab(tabName); } catch { }
             try
             {
-                ribbonManager = application.CreateRibbonPanel(tabName, panelName);
+                ribbonPanel = application.CreateRibbonPanel(tabName, panelName);
             }
             catch
             {
-                if (ribbonManager == null)
+                if (ribbonPanel == null)
                 {
-                    ribbonManager = application.CreateRibbonPanel(tabName, RibbonSafeExtension.SafeRibbonPanelName(panelName));
-                    ribbonManager.Title = panelName;
+                    ribbonPanel = application.CreateRibbonPanel(tabName, RibbonSafeExtension.SafeRibbonPanelName(panelName));
+                    ribbonPanel.Title = panelName;
                 }
             }
-            return ribbonManager;
+            return ribbonPanel;
+        }
+
+        /// <summary>
+        /// Create or Select RibbonPanel with Name EndWith <paramref name="panelName"/> on the <paramref name="tabName"/>
+        /// </summary>
+        /// <param name="application"></param>
+        /// <param name="tabName"></param>
+        /// <param name="panelName"></param>
+        /// <returns></returns>
+        public static RibbonPanel CreateOrSelectPanel(this UIControlledApplication application, string tabName, string panelName)
+        {
+            if (application.GetRibbonPanels(tabName).FirstOrDefault(p => p.IsSelect(panelName)) is RibbonPanel ribbonPanel)
+                return ribbonPanel;
+
+            return application.CreatePanel(tabName, panelName);
         }
 
         /// <summary>
@@ -86,6 +116,21 @@ namespace ricaun.Revit.UI
         public static RibbonPanel Close(this RibbonPanel ribbonPanel)
         {
             return ribbonPanel.Remove();
+        }
+
+        /// <summary>
+        /// Is RibbonTab contains <paramref name="ribbonPanel"/> 
+        /// </summary>
+        /// <param name="ribbonPanel"></param>
+        /// <returns></returns>
+        public static bool IsTabContains(this RibbonPanel ribbonPanel)
+        {
+            return ribbonPanel.GetRibbonTab().Panels.Contains(ribbonPanel.GetRibbonPanel());
+        }
+
+        private static bool IsSelect(this RibbonPanel ribbonPanel, string panelName)
+        {
+            return ribbonPanel.IsTabContains() && ribbonPanel.Name.EndsWith(panelName);
         }
         #endregion
 
