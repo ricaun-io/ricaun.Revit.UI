@@ -21,6 +21,9 @@ namespace ricaun.Revit.UI.Example.Revit
         {
             ribbonPanel = application.CreatePanel(TabName, PanelName);
 
+            ribbonPanel.AddPushButton<Commands.Command<Enum>>("Revit")
+                .SetLargeImage("/UIFrameworkRes;component/ribbon/images/revit.ico");
+
             var button = ribbonPanel.AddPushButton<Commands.Command>();
 
             var ri = button.GetRibbonItem() as Autodesk.Windows.RibbonButton;
