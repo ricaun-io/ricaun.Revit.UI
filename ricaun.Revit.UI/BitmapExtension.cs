@@ -70,6 +70,14 @@ namespace ricaun.Revit.UI
 
             try
             {
+                var uri = new Uri("pack://application:,,," + base64orUri, UriKind.RelativeOrAbsolute);
+                var decoder = BitmapDecoder.Create(uri, BitmapCreateOptions.None, BitmapCacheOption.Default);
+                return decoder.Frames[0];
+            }
+            catch { }
+
+            try
+            {
                 var convert = Convert.FromBase64String(base64orUri);
                 var image = System.Drawing.Bitmap.FromStream(new MemoryStream(convert));
                 return image.GetBitmapSource();
