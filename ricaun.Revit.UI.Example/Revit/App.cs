@@ -34,7 +34,7 @@ namespace ricaun.Revit.UI.Example.Revit
             },
             () =>
             {
-                return UIFramework.ControlHelper.IsEnabled(ri);
+                return Autodesk.Windows.ComponentManager.IsApplicationFrameEnabled && UIFramework.ControlHelper.IsEnabled(ri);
             });
 
             Models.TestViewModel.TestModel.CommandTest2 = new Views.RelayCommand(() =>
@@ -43,7 +43,7 @@ namespace ricaun.Revit.UI.Example.Revit
             },
             () =>
             {
-                return UIFramework.ControlHelper.IsEnabled(ri);
+                return Autodesk.Windows.ComponentManager.IsApplicationFrameEnabled && UIFramework.ControlHelper.IsEnabled(ri);
             });
 
             ribbonPanel.AddPushButton<Commands.Command<Construction>>("-")

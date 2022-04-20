@@ -11,11 +11,18 @@ namespace ricaun.Revit.UI.Example.Revit.Commands
     [Transaction(TransactionMode.Manual)]
     public class Command : IExternalCommand
     {
+        static Views.TestView testView;
         public Result Execute(ExternalCommandData commandData, ref string message, ElementSet elementSet)
         {
             UIApplication uiapp = commandData.Application;
 
-            new Views.TestView().Show();
+            if (testView == null)
+            {
+                testView = new Views.TestView();
+                testView.Show();
+                testView.Closed += (s, e) => { testView = null; };
+            }
+            testView.Activate();
 
             return Result.Succeeded;
         }
