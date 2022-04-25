@@ -59,7 +59,7 @@ namespace ricaun.Revit.UI
         public static bool Remove(this Autodesk.Windows.RibbonTab ribbonTab)
         {
             var ribbon = Autodesk.Windows.ComponentManager.Ribbon;
-            GetRibbonTabsDictionary().Remove(ribbonTab.Name);
+            GetRibbonTabsDictionary()?.Remove(ribbonTab.Name);
             return ribbon.Tabs.Remove(ribbonTab);
         }
         #endregion
