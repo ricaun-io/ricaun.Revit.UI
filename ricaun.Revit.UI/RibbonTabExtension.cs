@@ -52,13 +52,15 @@ namespace ricaun.Revit.UI
 
         #region Remove
         /// <summary>
-        /// Remove Tab
+        /// Remove Tab / Remove Revit Dictionary Name
         /// </summary>
         /// <param name="ribbonTab"></param>
-        public static void Remove(this Autodesk.Windows.RibbonTab ribbonTab)
+        /// <returns></returns>
+        public static bool Remove(this Autodesk.Windows.RibbonTab ribbonTab)
         {
             var ribbon = Autodesk.Windows.ComponentManager.Ribbon;
-            ribbon.Tabs.Remove(ribbonTab);
+            GetRibbonTabsDictionary().Remove(ribbonTab.Name);
+            return ribbon.Tabs.Remove(ribbonTab);
         }
         #endregion
 
@@ -109,6 +111,23 @@ namespace ricaun.Revit.UI
             }
         }
 
+        #endregion
+
+        #region Util
+        /// <summary>
+        /// GetRibbonTabsDictionary
+        /// </summary>
+        /// <returns></returns>
+        private static Dictionary<string, Dictionary<string, RibbonPanel>> GetRibbonTabsDictionary()
+        {
+            var type = typeof(UIApplication);
+
+            var ribbonItemDictionary = type.GetProperty("RibbonItemDictionary",
+                System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.NonPublic)
+                ?.GetValue(null);
+
+            return ribbonItemDictionary as Dictionary<string, Dictionary<string, RibbonPanel>>;
+        }
         #endregion
     }
 }
