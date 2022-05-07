@@ -34,7 +34,7 @@ namespace ricaun.Revit.UI.Example.Revit
             },
             () =>
             {
-                return UIFramework.ControlHelper.IsEnabled(ri);
+                return Autodesk.Windows.ComponentManager.IsApplicationFrameEnabled && UIFramework.ControlHelper.IsEnabled(ri);
             });
 
             Models.TestViewModel.TestModel.CommandTest2 = new Views.RelayCommand(() =>
@@ -43,7 +43,7 @@ namespace ricaun.Revit.UI.Example.Revit
             },
             () =>
             {
-                return UIFramework.ControlHelper.IsEnabled(ri);
+                return Autodesk.Windows.ComponentManager.IsApplicationFrameEnabled && UIFramework.ControlHelper.IsEnabled(ri);
             });
 
             ribbonPanel.AddPushButton<Commands.Command<Construction>>("-")
@@ -228,22 +228,34 @@ namespace ricaun.Revit.UI.Example.Revit
             }
 
             UpdateRibbonDescription(ribbonPanel);
+            AddNewPanelToMove(application);
 
-            ribbonPanel2 = application.CreateOrSelectPanel(TabName, PanelName + "0");
-            //ribbonPanel2 = application.CreatePanel(TabName, PanelName);
+            return Result.Succeeded;
+        }
+
+        private static RibbonPanel ribbonPanelMove;
+        private void AddNewPanelToMove(UIControlledApplication application)
+        {
+            ribbonPanelMove = application.CreateOrSelectPanel(TabName, PanelName + "0");
+            ribbonPanelMove.AddPushButton<Commands.Command>("Teste")
+                .SetLargeImage("/UIFrameworkRes;component/ribbon/images/revit.ico");
 
             var task = Task.Run(async () =>
             {
                 for (int i = 0; i < 10; i++)
                 {
                     await Task.Delay(1000);
-                    ribbonPanel2.Title = $"{PanelName}{i}";
+                    ribbonPanelMove.Title = $"{PanelName}{i}";
                 }
             });
 
-            return Result.Succeeded;
+            var ribbonPanelPanel = ribbonPanelMove.GetRibbonPanel();
+            ribbonPanelMove.Remove();
+            RibbonTabExtension.GetRibbonTab("Modify").Panels.Add(ribbonPanelPanel);
+            ribbonPanelMove.Visible = true;
+            ribbonPanelMove.Enabled = true;
         }
-        private static RibbonPanel ribbonPanel2;
+
         private void UpdateRibbonDescription(RibbonPanel ribbonPanel)
         {
             ribbonPanel.UpdateRibbonDescription(setting =>
@@ -525,10 +537,11 @@ namespace ricaun.Revit.UI.Example.Revit
 
         public Result OnShutdown(UIControlledApplication application)
         {
-            ribbonPanel2?.Remove(true);
+            ribbonPanelMove?.Remove(true);
             ribbonPanel?.Remove(true);
             return Result.Succeeded;
         }
+
 
         private void OrderPanelAndMove(RibbonPanel ribbonPanel)
         {
