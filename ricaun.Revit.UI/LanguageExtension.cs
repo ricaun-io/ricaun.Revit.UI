@@ -9,6 +9,61 @@ namespace ricaun.Revit.UI
     /// </summary>
     public static class LanguageExtension
     {
+        #region IsLanguage
+        /// <summary>
+        /// Is LanguageType == LanguageType.English_USA
+        /// </summary>
+        public static bool IsEnglish => GetLanguageType() == LanguageType.English_USA;
+        /// <summary>
+        /// Is LanguageType == LanguageType.German
+        /// </summary>
+        public static bool IsGerman => GetLanguageType() == LanguageType.German;
+        /// <summary>
+        /// Is LanguageType == LanguageType.Spanish
+        /// </summary>
+        public static bool IsSpanish => GetLanguageType() == LanguageType.Spanish;
+        /// <summary>
+        /// Is LanguageType == LanguageType.French
+        /// </summary>
+        public static bool IsFrench => GetLanguageType() == LanguageType.French;
+        /// <summary>
+        /// Is LanguageType == LanguageType.Dutch
+        /// </summary>
+        public static bool IsDutch => GetLanguageType() == LanguageType.Dutch;
+        /// <summary>
+        /// Is LanguageType == LanguageType.Chinese_Simplified
+        /// </summary>
+        public static bool IsChineseSimplified => GetLanguageType() == LanguageType.Chinese_Simplified;
+        /// <summary>
+        /// Is LanguageType == LanguageType.Chinese_Traditional
+        /// </summary>
+        public static bool IsChineseTraditional => GetLanguageType() == LanguageType.Chinese_Traditional;
+        /// <summary>
+        /// Is LanguageType == LanguageType.Korean
+        /// </summary>
+        public static bool IsKorean => GetLanguageType() == LanguageType.Korean;
+        /// <summary>
+        /// Is LanguageType == LanguageType.Russian
+        /// </summary>
+        public static bool IsRussian => GetLanguageType() == LanguageType.Russian;
+        /// <summary>
+        /// Is LanguageType == LanguageType.Czech
+        /// </summary>
+        public static bool IsCzech => GetLanguageType() == LanguageType.Czech;
+        /// <summary>
+        /// Is LanguageType == LanguageType.Polish
+        /// </summary>
+        public static bool IsPolish => GetLanguageType() == LanguageType.Polish;
+        /// <summary>
+        /// Is LanguageType == LanguageType.Hungarian
+        /// </summary>
+        public static bool IsHungarian => GetLanguageType() == LanguageType.Hungarian;
+        /// <summary>
+        /// Is LanguageType == LanguageType.Brazilian_Portuguese
+        /// </summary>
+        public static bool IsBrazilianPortuguese => GetLanguageType() == LanguageType.Brazilian_Portuguese;
+        #endregion
+
         /// <summary>
         /// Get Base LanguageType
         /// </summary>
