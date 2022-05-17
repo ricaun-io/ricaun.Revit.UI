@@ -30,6 +30,9 @@ namespace ricaun.Revit.UI
 
             PushButtonData currentBtn = new PushButtonData(targetName, targetText, assemblyName, className);
 
+            if (typeof(IExternalCommandAvailability).IsAssignableFrom(commandType))
+                currentBtn.AvailabilityClassName = commandType.FullName;
+
             if (text == "") currentBtn.Text = "-";
 
             return currentBtn;
