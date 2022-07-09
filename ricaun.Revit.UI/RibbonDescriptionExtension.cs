@@ -34,7 +34,7 @@ namespace ricaun.Revit.UI
         }
 
         /// <summary>
-        /// Add
+        /// Add <see cref="RibbonDescription"/>
         /// </summary>
         /// <param name="name"></param>
         /// <param name="ribbonDescription"></param>
@@ -50,7 +50,7 @@ namespace ricaun.Revit.UI
         }
 
         /// <summary>
-        /// Add
+        /// Add <see cref="RibbonDescription"/>
         /// </summary>
         /// <param name="name"></param>
         /// <param name="ribbonDescriptions"></param>
@@ -61,7 +61,7 @@ namespace ricaun.Revit.UI
         }
 
         /// <summary>
-        /// Add
+        /// Add <see cref="RibbonDescription"/>
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="ribbonDescriptions"></param>
@@ -69,6 +69,50 @@ namespace ricaun.Revit.UI
         {
             var name = typeof(T).GetName();
             Add(name, ribbonDescriptions);
+        }
+
+        /// <summary>
+        /// Add <see cref="RibbonDescription"/> Action
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="actionRibbonDescriptions"></param>
+        public void Add(string name, params Action<RibbonDescription>[] actionRibbonDescriptions)
+        {
+            foreach (var actionRibbonDescription in actionRibbonDescriptions)
+            {
+                var ribbonDescription = new RibbonDescription();
+                actionRibbonDescription?.Invoke(ribbonDescription);
+                Add(name, ribbonDescription);
+            }
+        }
+
+        /// <summary>
+        /// Add <see cref="RibbonDescription"/> Action
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="actionRibbonDescriptions"></param>
+        public void Add<T>(params Action<RibbonDescription>[] actionRibbonDescriptions)
+        {
+            foreach (var actionRibbonDescription in actionRibbonDescriptions)
+            {
+                var ribbonDescription = new RibbonDescription();
+                actionRibbonDescription?.Invoke(ribbonDescription);
+                Add<T>(ribbonDescription);
+            }
+        }
+
+        /// <summary>
+        /// Add Default
+        /// </summary>
+        /// <param name="actionRibbonDescriptions"></param>
+        public void AddDefault(params Action<RibbonDescription>[] actionRibbonDescriptions)
+        {
+            foreach (var actionRibbonDescription in actionRibbonDescriptions)
+            {
+                var ribbonDescription = new RibbonDescription();
+                actionRibbonDescription?.Invoke(ribbonDescription);
+                AddDefault(ribbonDescription);
+            }
         }
 
         /// <summary>
@@ -104,7 +148,7 @@ namespace ricaun.Revit.UI
         /// <summary>
         /// LanguageType
         /// </summary>
-        public LanguageType LanguageType { get; private set; }
+        public LanguageType LanguageType { get; set; }
         /// <summary>
         /// Text
         /// </summary>

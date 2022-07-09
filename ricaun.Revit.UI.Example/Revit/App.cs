@@ -267,19 +267,36 @@ namespace ricaun.Revit.UI.Example.Revit
                     }
                 );
 
+                //setting.Add<Commands.Command>(
+                //    new RibbonDescription()
+                //    {
+                //        LargeImage = Resource.LargeImage.GetBitmapSource(),
+                //        Text = "ricaun",
+                //        ToolTip = "This is a Tool Tip",
+                //        LongDescription = "This is a Long Description",
+                //    },
+                //    new RibbonDescription(LanguageType.Brazilian_Portuguese)
+                //    {
+                //        Text = "Ola",
+                //        ToolTip = "Este é um Tool Tip",
+                //        LongDescription = "Este é um Long Description",
+                //    }
+                //);
+
                 setting.Add<Commands.Command>(
-                    new RibbonDescription()
+                    (ribbon) =>
                     {
-                        LargeImage = Resource.LargeImage.GetBitmapSource(),
-                        Text = "ricaun",
-                        ToolTip = "This is a Tool Tip",
-                        LongDescription = "This is a Long Description",
+                        ribbon.LargeImage = Resource.LargeImage.GetBitmapSource();
+                        ribbon.Text = "ricaun";
+                        ribbon.ToolTip = "This is a Tool Tip";
+                        ribbon.LongDescription = "This is a Long Description";
                     },
-                    new RibbonDescription(LanguageType.Brazilian_Portuguese)
+                    (ribbon) =>
                     {
-                        Text = "Ola",
-                        ToolTip = "Este é um Tool Tip",
-                        LongDescription = "Este é um Long Description",
+                        ribbon.LanguageType = LanguageType.Brazilian_Portuguese;
+                        ribbon.Text = "Ola";
+                        ribbon.ToolTip = "Este é um Tool Tip";
+                        ribbon.LongDescription = "Este é um Long Description";
                     }
                 );
 
