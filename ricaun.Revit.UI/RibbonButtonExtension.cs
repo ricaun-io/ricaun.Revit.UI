@@ -66,6 +66,35 @@ namespace ricaun.Revit.UI
         }
         #endregion
 
+        #region CreatePushButton
+        /// <summary>
+        /// CreatePushButton
+        /// </summary>
+        /// <typeparam name="TExternalCommand"></typeparam>
+        /// <param name="ribbonPanel"></param>
+        /// <param name="text"></param>
+        /// <returns></returns>
+        public static PushButton CreatePushButton<TExternalCommand>(this RibbonPanel ribbonPanel, string text = null) where TExternalCommand : class, IExternalCommand, new()
+        {
+            PushButton pushButton = ribbonPanel.AddItem(ribbonPanel.NewPushButtonData<TExternalCommand>(text)) as PushButton;
+            return pushButton;
+        }
+        /// <summary>
+        /// CreatePushButton
+        /// </summary>
+        /// <typeparam name="TExternalCommand"></typeparam>
+        /// <typeparam name="TAvailability"></typeparam>
+        /// <param name="ribbonPanel"></param>
+        /// <param name="text"></param>
+        /// <returns></returns>
+        public static PushButton CreatePushButton<TExternalCommand, TAvailability>(this RibbonPanel ribbonPanel, string text = null) where TExternalCommand : class, IExternalCommand, new() where TAvailability : class, IExternalCommandAvailability, new()
+        {
+            PushButton pushButton = ribbonPanel.CreatePushButton<TExternalCommand>(text);
+            pushButton.AvailabilityClassName = typeof(TAvailability).FullName;
+            return pushButton;
+        }
+        #endregion
+
         #region AddPushButton
         /// <summary>
         /// AddPushButton
@@ -74,10 +103,10 @@ namespace ricaun.Revit.UI
         /// <param name="ribbonPanel"></param>
         /// <param name="text"></param>
         /// <returns></returns>
+        [Obsolete("AddPushButton is deprecated, please use CreatePushButton instead.")]
         public static PushButton AddPushButton<TExternalCommand>(this RibbonPanel ribbonPanel, string text = null) where TExternalCommand : class, IExternalCommand, new()
         {
-            PushButton pushButton = ribbonPanel.AddItem(ribbonPanel.NewPushButtonData<TExternalCommand>(text)) as PushButton;
-            return pushButton;
+            return ribbonPanel.CreatePushButton<TExternalCommand>(text);
         }
         /// <summary>
         /// AddPushButton
@@ -87,11 +116,10 @@ namespace ricaun.Revit.UI
         /// <param name="ribbonPanel"></param>
         /// <param name="text"></param>
         /// <returns></returns>
+        [Obsolete("AddPushButton is deprecated, please use CreatePushButton instead.")]
         public static PushButton AddPushButton<TExternalCommand, TAvailability>(this RibbonPanel ribbonPanel, string text = null) where TExternalCommand : class, IExternalCommand, new() where TAvailability : class, IExternalCommandAvailability, new()
         {
-            PushButton pushButton = ribbonPanel.AddPushButton<TExternalCommand>(text);
-            pushButton.AvailabilityClassName = typeof(TAvailability).FullName;
-            return pushButton;
+            return ribbonPanel.CreatePushButton<TExternalCommand, TAvailability>(text);
         }
         #endregion
     }

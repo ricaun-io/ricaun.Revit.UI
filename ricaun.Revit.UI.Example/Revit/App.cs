@@ -1,12 +1,12 @@
+using Autodesk.Revit.ApplicationServices;
 using Autodesk.Revit.DB;
 using Autodesk.Revit.UI;
-using Autodesk.Revit.ApplicationServices;
-using System;
-using System.Linq;
 using ricaun.Revit.UI.Example.Proprieties;
-using System.Windows.Media;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
+using System.Windows.Media;
 
 namespace ricaun.Revit.UI.Example.Revit
 {
@@ -21,10 +21,10 @@ namespace ricaun.Revit.UI.Example.Revit
         {
             ribbonPanel = application.CreatePanel(TabName, PanelName);
 
-            ribbonPanel.AddPushButton<Commands.CommandWithAvailability>("Revit")
+            ribbonPanel.CreatePushButton<Commands.CommandWithAvailability>("Revit")
                 .SetLargeImage("/UIFrameworkRes;component/ribbon/images/revit.ico");
 
-            var button = ribbonPanel.AddPushButton<Commands.Command>();
+            var button = ribbonPanel.CreatePushButton<Commands.Command>();
 
             var ri = button.GetRibbonItem() as Autodesk.Windows.RibbonButton;
 
@@ -46,10 +46,10 @@ namespace ricaun.Revit.UI.Example.Revit
                 return Autodesk.Windows.ComponentManager.IsApplicationFrameEnabled && UIFramework.ControlHelper.IsEnabled(ri);
             });
 
-            ribbonPanel.AddPushButton<Commands.Command<Construction>>("-")
+            ribbonPanel.CreatePushButton<Commands.Command<Construction>>("-")
                 .SetLargeImage(GetBase64LargeImage());
 
-            ribbonPanel.AddPushButton<Commands.Command<Construction>>("-")
+            ribbonPanel.CreatePushButton<Commands.Command<Construction>>("-")
                 .SetLargeImage(GetResourcesLargeImage());
 
             ribbonPanel.CreatePulldownButton("PulldownButton",
@@ -66,7 +66,7 @@ namespace ricaun.Revit.UI.Example.Revit
                 ribbonPanel.NewPushButtonData<Commands.Command<string>>()
             );
 
-            ribbonPanel.AddPushButton<Commands.Command<Commands.Command>>();
+            ribbonPanel.CreatePushButton<Commands.Command<Commands.Command>>();
 
             ribbonPanel.AddStackedItems(
                 ribbonPanel.NewPushButtonData<Commands.Command<UIApplication>>(),
@@ -179,42 +179,42 @@ namespace ricaun.Revit.UI.Example.Revit
             #endregion
 
             #region Autodesk Icons Buttons
-            ribbonPanel.AddPushButton<Commands.Command<Point>>()
+            ribbonPanel.CreatePushButton<Commands.Command<Point>>()
                 .SetLargeImage(Pack.Power)
                 .SetText("Power")
                 .AddQuickAccessToolBar();
 
-            ribbonPanel.AddPushButton<Commands.Command<Point>>()
+            ribbonPanel.CreatePushButton<Commands.Command<Point>>()
                     .SetLargeImage(Pack.Data)
                     .SetText("Data")
                     .AddQuickAccessToolBar();
 
-            ribbonPanel.AddPushButton<Commands.Command<Point>>()
+            ribbonPanel.CreatePushButton<Commands.Command<Point>>()
                     .SetLargeImage(Pack.Communication)
                     .SetText("Communication")
                     .AddQuickAccessToolBar();
 
-            ribbonPanel.AddPushButton<Commands.Command<Point>>()
+            ribbonPanel.CreatePushButton<Commands.Command<Point>>()
                     .SetLargeImage(Pack.Alarm)
                     .SetText("Alarm")
                     .AddQuickAccessToolBar();
 
-            ribbonPanel.AddPushButton<Commands.Command<Point>>()
+            ribbonPanel.CreatePushButton<Commands.Command<Point>>()
                     .SetLargeImage(Pack.Nurce)
                     .SetText("Nurce")
                     .AddQuickAccessToolBar();
 
-            ribbonPanel.AddPushButton<Commands.Command<Point>>()
+            ribbonPanel.CreatePushButton<Commands.Command<Point>>()
                     .SetLargeImage(Pack.Security)
                     .SetText("Security")
                     .AddQuickAccessToolBar();
 
-            ribbonPanel.AddPushButton<Commands.Command<Point>>()
+            ribbonPanel.CreatePushButton<Commands.Command<Point>>()
                     .SetLargeImage(Pack.Telephone)
                     .SetText("Telephone")
                     .AddQuickAccessToolBar();
 
-            var sw = ribbonPanel.AddPushButton<Commands.Command<Point>, Commands.Availability.AvailableOnAnyDocument>()
+            var sw = ribbonPanel.CreatePushButton<Commands.Command<Point>, Commands.Availability.AvailableOnAnyDocument>()
                     .SetLargeImage(Pack.Switch)
                     .SetText("Switch")
                     .AddQuickAccessToolBar();
@@ -237,7 +237,7 @@ namespace ricaun.Revit.UI.Example.Revit
         private void AddNewPanelToMove(UIControlledApplication application)
         {
             ribbonPanelMove = application.CreateOrSelectPanel(TabName, PanelName + "0");
-            ribbonPanelMove.AddPushButton<Commands.Command>("Teste")
+            ribbonPanelMove.CreatePushButton<Commands.Command>("Teste")
                 .SetLargeImage("/UIFrameworkRes;component/ribbon/images/revit.ico");
 
             var task = Task.Run(async () =>
@@ -267,19 +267,36 @@ namespace ricaun.Revit.UI.Example.Revit
                     }
                 );
 
+                //setting.Add<Commands.Command>(
+                //    new RibbonDescription()
+                //    {
+                //        LargeImage = Resource.LargeImage.GetBitmapSource(),
+                //        Text = "ricaun",
+                //        ToolTip = "This is a Tool Tip",
+                //        LongDescription = "This is a Long Description",
+                //    },
+                //    new RibbonDescription(LanguageType.Brazilian_Portuguese)
+                //    {
+                //        Text = "Ola",
+                //        ToolTip = "Este é um Tool Tip",
+                //        LongDescription = "Este é um Long Description",
+                //    }
+                //);
+
                 setting.Add<Commands.Command>(
-                    new RibbonDescription()
+                    (ribbon) =>
                     {
-                        LargeImage = Resource.LargeImage.GetBitmapSource(),
-                        Text = "ricaun",
-                        ToolTip = "This is a Tool Tip",
-                        LongDescription = "This is a Long Description",
+                        ribbon.LargeImage = Resource.LargeImage.GetBitmapSource();
+                        ribbon.Text = "ricaun";
+                        ribbon.ToolTip = "This is a Tool Tip";
+                        ribbon.LongDescription = "This is a Long Description";
                     },
-                    new RibbonDescription(LanguageType.Brazilian_Portuguese)
+                    (ribbon) =>
                     {
-                        Text = "Ola",
-                        ToolTip = "Este é um Tool Tip",
-                        LongDescription = "Este é um Long Description",
+                        ribbon.LanguageType = LanguageType.Brazilian_Portuguese;
+                        ribbon.Text = "Ola";
+                        ribbon.ToolTip = "Este é um Tool Tip";
+                        ribbon.LongDescription = "Este é um Long Description";
                     }
                 );
 
