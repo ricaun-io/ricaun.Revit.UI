@@ -47,6 +47,146 @@ public class App : IExternalApplication
 }
 ```
 
+### RibbonPanel Extension
+`RibbonPanelExtension` contains methods related to `Autodesk.Windows.RibbonPanel` and `Autodesk.Revit.UI.RibbonPanel`
+```C#
+UIControlledApplication application;
+RibbonPanel ribbonPanel = application.CreatePanel("PanelName");
+// application.CreatePanel("TabName", "PanelName");
+// application.CreateOrSelectPanel("PanelName");
+// application.CreateOrSelectPanel("TabName", "PanelName");
+```
+The method `GetRibbonItems` allow to select all `RibbonItem` concatenated on the `RibbonPanel`.
+```C#
+IList<RibbonItem> ribbonItems = ribbonPanel.GetRibbonItems();
+```
+The method `Remove` allow to remove the `RibbonPanel` from `Autodesk.Windows` UI.
+```C#
+ribbonPanel.Remove();
+```
+
+### RibbonButton Extension
+`RibbonButtonExtension` contains methods related to `PushButton` and `PushButtonData`
+```C#
+PushButton pushButton = ribbonPanel.CreatePushButton<IExternalCommand>();
+// PushButton pushButton = ribbonPanel.CreatePushButton<IExternalCommand>("ButtonName");
+// PushButton pushButton = ribbonPanel.CreatePushButton<IExternalCommand,IExternalCommandAvailability>();
+// PushButton pushButton = ribbonPanel.CreatePushButton<IExternalCommand,IExternalCommandAvailability>("ButtonName");
+```
+```C#
+PushButtonData pushButtonData = ribbonPanel.NewPushButtonData<IExternalCommand>();
+// PushButtonData pushButtonData = ribbonPanel.NewPushButtonData<IExternalCommand>("ButtonDataName");
+// PushButtonData pushButtonData = ribbonPanel.NewPushButtonData<IExternalCommand,IExternalCommandAvailability>();
+// PushButtonData pushButtonData = ribbonPanel.NewPushButtonData<IExternalCommand,IExternalCommandAvailability>("ButtonDataName");
+```
+
+### RibbonItem Extension
+`RibbonItemExtension` contains methods related to `RibbonItem`
+### RibbonItemData Extension
+`RibbonItemDataExtension` contains methods related to `RibbonItemData`
+
+### RibbonComboBox Extension
+`RibbonComboBoxExtension` contains methods related to `ComboBox`, `ComboBoxData`, and `ComboBoxMemberData`.
+```C#
+ComboBox comboBox = ribbonPanel.CreateComboBox("ComboBoxName");
+// ribbonPanel.CreateComboBox("ComboBoxName", ComboBoxMemberData, ComboBoxMemberData, ...);
+comboBox.AddItems(ComboBoxMemberData, ComboBoxMemberData, ...);
+```
+```C#
+ComboBoxData comboBoxData = ribbonPanel.NewComboBoxData("ComboBoxDataName");
+```
+```C#
+ComboBoxMemberData comboBoxMemberData = ribbonPanel.NewComboBoxMemberData("ComboBoxMemberDataName");
+comboBoxMemberData.SetGroupName("GroupName");
+```
+
+### RibbonPulldown Extension
+`PulldownButtonExtension` contains methods related to `PulldownButton`
+```C#
+PulldownButton pulldownButton = ribbonPanel.CreatePulldownButton();
+// ribbonPanel.CreatePulldownButton(PushButtonData, PushButtonData, ...);
+// ribbonPanel.CreatePulldownButton("PulldownButtonName");
+// ribbonPanel.CreatePulldownButton("PulldownButtonName", PushButtonData, PushButtonData, ...);
+```
+
+### RibbonRadio Extension
+`RibbonRadioExtension` contains methods related to `RadioButtonGroup`, `RadioButtonGroupData`, and `ToggleButtonData`
+```C#
+RadioButtonGroup radioButtonGroup = ribbonPanel.CreateRadioButtonGroup("RadioButtonGroupName");
+// ribbonPanel.CreateRadioButtonGroup("RadioButtonGroupName", ToggleButtonData, ToggleButtonData, ...);
+radioButtonGroup.AddItems(ToggleButtonData, ToggleButtonData, ...);
+```
+```C#
+RadioButtonGroupData radioButtonGroupData = ribbonPanel.NewRadioButtonGroupData("RadioButtonGroupDataName");
+```
+```C#
+ToggleButtonData ToggleButtonData = ribbonPanel.NewToggleButtonData("ToggleButtonDataName");
+// ribbonPanel.NewToggleButtonData<IExternalCommand>();
+// ribbonPanel.NewToggleButtonData<IExternalCommand>("ToggleButtonDataName");
+// ribbonPanel.NewToggleButtonData<IExternalCommand, IExternalCommandAvailability>();
+// ribbonPanel.NewToggleButtonData<IExternalCommand, IExternalCommandAvailability>("ToggleButtonDataName");
+```
+
+### RibbonSplit Extension
+`SplitButtonExtension` contains methods related to `SplitButton`
+```C#
+SplitButton splitButton = ribbonPanel.CreateSplitButton();
+// ribbonPanel.CreateSplitButton(PushButtonData, PushButtonData, ...);
+// ribbonPanel.CreateSplitButton("SplitButtonName");
+// ribbonPanel.CreateSplitButton("SplitButtonName", PushButtonData, PushButtonData, ...);
+```
+
+### RibbonTextBox Extension
+`RibbonTextBoxExtension` contains methods related to `TextBox` and `TextBoxData`
+```C#
+TextBox textBox = ribbonPanel.CreateTextBox("TextBoxName");
+textBox.SetValue("Value");
+textBox.SetPromptText("PromptText");
+textBox.SetShowImageAsButton(true);
+textBox.SetSelectTextOnFocus(true);
+```
+```C#
+TextBoxData textBoxData = ribbonPanel.NewTextBoxData("TextBoxNameData");
+```
+
+### RibbonUtil Extension
+`Autodesk.Revit.UI.RibbonItem` --> `Autodesk.Windows.RibbonItem`
+```C#
+Autodesk.Revit.UI.RibbonItem ribbonItem;
+Autodesk.Windows.RibbonItem awRibbonItem = ribbonItem.GetRibbonItem();
+```
+`Autodesk.Revit.UI.RibbonPanel` --> `Autodesk.Windows.RibbonPanel`
+```C#
+Autodesk.Revit.UI.RibbonPanel ribbonPanel;
+Autodesk.Windows.RibbonPanel awRibbonPanel = ribbonPanel.GetRibbonPanel();
+```
+
+### RibbonTab Extension
+`RibbonTabExtension` contains methods related to `Autodesk.Windows.RibbonTab`
+```C#
+Autodesk.Windows.RibbonTab awRibbonTab = ribbonPanel.GetRibbonTab();
+Autodesk.Windows.RibbonTab awRibbonTab = RibbonTabExtension.GetRibbonTab("TabId");
+IList<Autodesk.Windows.RibbonTab> awRibbonTabs = RibbonTabExtension.GetRibbonTabs();
+```
+The method `MoveRibbonPanel` and `SetOrderPanels` allow reorder the `RibbonPanel` in the `RibbonTab` UI.
+```C#
+ribbonPanel.MoveRibbonPanel(newIndex);
+ribbonPanel.SetOrderPanels();
+```
+The method `Remove` allow to remove the `RibbonTab` from `Autodesk.Windows` UI.
+```C#
+awRibbonTab.Remove();
+```
+
+### QuickAccessToolBar Extension
+`QuickAccessToolBarExtension` contains methods related to add and remove `Autodesk.Windows.RibbonItem` to the QuickAccessToolBar.
+```C#
+ribbonItem.AddQuickAccessToolBar();
+```
+```C#
+ribbonItem.RemoveQuickAccessToolBar();
+```
+
 ### Autodesk Extension
 The `SetAutodeskOwner()` method applies the `window` as an Autodesk owner.
 ```C#
@@ -94,111 +234,8 @@ LanguageType languageType = LanguageExtension.GetLanguageType();
 // LanguageExtension.IsBrazilianPortuguese;
 ```
 
-### QuickAccessToolBar Extension
-`QuickAccessToolBarExtension` contains methods related to add and remove `Autodesk.Windows.RibbonItem` to the QuickAccessToolBar.
-```C#
-ribbonItem.AddQuickAccessToolBar();
-```
-```C#
-ribbonItem.RemoveQuickAccessToolBar();
-```
-
-### RibbonButton Extension
-`RibbonButtonExtension` contains methods related to `PushButton` and `PushButtonData`
-```C#
-PushButton pushButton = ribbonPanel.CreatePushButton<IExternalCommand>();
-// PushButton pushButton = ribbonPanel.CreatePushButton<IExternalCommand>("ButtonName");
-// PushButton pushButton = ribbonPanel.CreatePushButton<IExternalCommand,IExternalCommandAvailability>();
-// PushButton pushButton = ribbonPanel.CreatePushButton<IExternalCommand,IExternalCommandAvailability>("ButtonName");
-```
-```C#
-PushButtonData pushButtonData = ribbonPanel.NewPushButtonData<IExternalCommand>();
-// PushButtonData pushButtonData = ribbonPanel.NewPushButtonData<IExternalCommand>("ButtonDataName");
-// PushButtonData pushButtonData = ribbonPanel.NewPushButtonData<IExternalCommand,IExternalCommandAvailability>();
-// PushButtonData pushButtonData = ribbonPanel.NewPushButtonData<IExternalCommand,IExternalCommandAvailability>("ButtonDataName");
-```
-
-### RibbonComboBox Extension
-`RibbonComboBoxExtension` contains methods related to `ComboBox`, `ComboBoxData`, and `ComboBoxMemberData`.
-```C#
-ComboBox comboBox = ribbonPanel.CreateComboBox("ComboBoxName");
-// ComboBox comboBox = ribbonPanel.CreateComboBox("ComboBoxName", ComboBoxMemberData, ComboBoxMemberData, ...);
-// comboBox.AddItems(ComboBoxMemberData, ComboBoxMemberData, ...);
-```
-```C#
-ComboBoxData comboBoxData = ribbonPanel.NewComboBoxData("ComboBoxDataName");
-```
-```C#
-ComboBoxMemberData comboBoxMemberData = ribbonPanel.NewComboBoxMemberData("ComboBoxMemberDataName");
-comboBoxMemberData.SetGroupName("GroupName");
-```
-
 ### Ribbon Description Extension
-### RibbonItemData Extension
-### RibbonItem Extension
-### RibbonPanel Extension
-### RibbonPulldown Extension
-`PulldownButtonExtension` contains methods related to `PulldownButton`
-```C#
-PulldownButton pulldownButton = ribbonPanel.CreatePulldownButton();
-// PulldownButton pulldownButton = ribbonPanel.CreatePulldownButton(PushButtonData, PushButtonData, ...);
-// PulldownButton pulldownButton = ribbonPanel.CreatePulldownButton("PulldownButtonName");
-// PulldownButton pulldownButton = ribbonPanel.CreatePulldownButton("PulldownButtonName", PushButtonData, PushButtonData, ...);
-```
-
-### RibbonRadio Extension
-`RibbonRadioExtension` contains methods related to `RadioButtonGroup`, `RadioButtonGroupData`, and `ToggleButtonData`
-```C#
-RadioButtonGroup radioButtonGroup = ribbonPanel.CreateRadioButtonGroup("RadioButtonGroupName");
-// RadioButtonGroup radioButtonGroup = ribbonPanel.CreateRadioButtonGroup("RadioButtonGroupName", ToggleButtonData, ToggleButtonData, ...);
-// radioButtonGroup.AddItems(ToggleButtonData, ToggleButtonData, ...);
-```
-```C#
-RadioButtonGroupData radioButtonGroupData = ribbonPanel.NewRadioButtonGroupData("RadioButtonGroupDataName");
-```
-```C#
-ToggleButtonData ToggleButtonData = ribbonPanel.NewToggleButtonData("ToggleButtonDataName");
-// ToggleButtonData ToggleButtonData = ribbonPanel.NewToggleButtonData<IExternalCommand>();
-// ToggleButtonData ToggleButtonData = ribbonPanel.NewToggleButtonData<IExternalCommand>("ToggleButtonDataName");
-// ToggleButtonData ToggleButtonData = ribbonPanel.NewToggleButtonData<IExternalCommand, IExternalCommandAvailability>();
-// ToggleButtonData ToggleButtonData = ribbonPanel.NewToggleButtonData<IExternalCommand, IExternalCommandAvailability>("ToggleButtonDataName");
-```
-
-### RibbonSplit Extension
-`SplitButtonExtension` contains methods related to `SplitButton`
-```C#
-SplitButton splitButton = ribbonPanel.CreateSplitButton();
-//SplitButton splitButton = ribbonPanel.CreateSplitButton(PushButtonData, PushButtonData, ...);
-//SplitButton splitButton = ribbonPanel.CreateSplitButton("SplitButtonName");
-//SplitButton splitButton = ribbonPanel.CreateSplitButton("SplitButtonName", PushButtonData, PushButtonData, ...);
-```
-
-### RibbonTab Extension
-### RibbonTextBox Extension
-`RibbonTextBoxExtension` contains methods related to `TextBox` and `TextBoxData`
-```C#
-TextBox textBox = ribbonPanel.CreateTextBox("TextBoxName");
-textBox.SetValue("Value");
-textBox.SetPromptText("PromptText");
-textBox.SetShowImageAsButton(true);
-textBox.SetSelectTextOnFocus(true);
-```
-```C#
-TextBoxData textBoxData = ribbonPanel.NewTextBoxData("TextBoxNameData");
-```
-
-### RibbonUtil Extension
-`Autodesk.Revit.UI.RibbonItem` --> `Autodesk.Windows.RibbonItem`
-```C#
-Autodesk.Revit.UI.RibbonItem ribbonItem;
-Autodesk.Windows.RibbonItem awRibbonItem = ribbonItem.GetRibbonItem();
-```
-`Autodesk.Revit.UI.RibbonPanel` --> `Autodesk.Windows.RibbonPanel`
-```C#
-Autodesk.Revit.UI.RibbonPanel ribbonPanel;
-Autodesk.Windows.RibbonPanel awRibbonPanel = ribbonPanel.GetRibbonPanel();
-```
-
+... Todo
 
 ## Release
 

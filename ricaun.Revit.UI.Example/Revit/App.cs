@@ -32,48 +32,6 @@ namespace ricaun.Revit.UI.Example.Revit
                     .SetLongDescription("Esta é uma descrição.");
             }
 
-            PulldownButton pulldownButton = ribbonPanel.CreatePulldownButton();
-            // PulldownButton pulldownButton = ribbonPanel.CreatePulldownButton(PushButtonData, PushButtonData, ...);
-            // PulldownButton pulldownButton = ribbonPanel.CreatePulldownButton("PulldownButtonName");
-            // PulldownButton pulldownButton = ribbonPanel.CreatePulldownButton("PulldownButtonName", PushButtonData, PushButtonData, ...);
-
-            SplitButton splitButton = ribbonPanel.CreateSplitButton();
-            //SplitButton splitButton = ribbonPanel.CreateSplitButton(PushButtonData, PushButtonData, ...);
-            //SplitButton splitButton = ribbonPanel.CreateSplitButton("SplitButtonName");
-            //SplitButton splitButton = ribbonPanel.CreateSplitButton("SplitButtonName", PushButtonData, PushButtonData, ...);
-
-            TextBox textBox = ribbonPanel.CreateTextBox("TextBoxName");
-            textBox.SetValue("Value");
-            textBox.SetPromptText("PromptText");
-            textBox.SetShowImageAsButton(true);
-            textBox.SetSelectTextOnFocus(true);
-
-            TextBoxData textBoxData = ribbonPanel.NewTextBoxData("TextBoxNameData");
-
-            ComboBox comboBox = ribbonPanel.CreateComboBox("ComboBoxName");
-            // ComboBox comboBox = ribbonPanel.CreateComboBox("ComboBoxName", ComboBoxMemberData, ComboBoxMemberData, ...);
-            // comboBox.AddItems(ComboBoxMemberData, ComboBoxMemberData, ...);
-
-            ComboBoxData comboBoxData = ribbonPanel.NewComboBoxData("ComboBoxDataName");
-
-            ComboBoxMemberData comboBoxMemberData = ribbonPanel.NewComboBoxMemberData("ComboBoxMemberDataName");
-            comboBoxMemberData.SetGroupName("GroupName");
-
-
-            RadioButtonGroup radioButtonGroup = ribbonPanel.CreateRadioButtonGroup("RadioButtonGroupName");
-            // RadioButtonGroup radioButtonGroup = ribbonPanel.CreateRadioButtonGroup("RadioButtonGroupName", ToggleButtonData, ToggleButtonData, ...);
-            // radioButtonGroup.AddItems(ToggleButtonData, ToggleButtonData, ...);
-
-            RadioButtonGroupData radioButtonGroupData = ribbonPanel.NewRadioButtonGroupData("RadioButtonGroupDataName");
-
-            ToggleButtonData ToggleButtonData = ribbonPanel.NewToggleButtonData("ToggleButtonDataName");
-            // ToggleButtonData ToggleButtonData = ribbonPanel.NewToggleButtonData<IExternalCommand>();
-            // ToggleButtonData ToggleButtonData = ribbonPanel.NewToggleButtonData<IExternalCommand>("ToggleButtonDataName");
-            // ToggleButtonData ToggleButtonData = ribbonPanel.NewToggleButtonData<IExternalCommand, IExternalCommandAvailability>();
-            // ToggleButtonData ToggleButtonData = ribbonPanel.NewToggleButtonData<IExternalCommand, IExternalCommandAvailability>("ToggleButtonDataName");
-
-
-
             return Result.Succeeded;
         }
 

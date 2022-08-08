@@ -118,12 +118,7 @@ namespace ricaun.Revit.UI
             return ribbonPanel.Remove();
         }
 
-        /// <summary>
-        /// Is RibbonTab contains <paramref name="ribbonPanel"/> 
-        /// </summary>
-        /// <param name="ribbonPanel"></param>
-        /// <returns></returns>
-        public static bool IsTabContains(this RibbonPanel ribbonPanel)
+        private static bool IsTabContains(this RibbonPanel ribbonPanel)
         {
             return ribbonPanel.GetRibbonTab().Panels.Contains(ribbonPanel.GetRibbonPanel());
         }
