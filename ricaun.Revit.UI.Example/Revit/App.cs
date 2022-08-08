@@ -1,6 +1,7 @@
 using Autodesk.Revit.ApplicationServices;
 using Autodesk.Revit.DB;
 using Autodesk.Revit.UI;
+using ricaun.Revit.UI;
 using ricaun.Revit.UI.Example.Proprieties;
 using System;
 using System.Collections.Generic;
@@ -10,6 +11,38 @@ using System.Windows.Media;
 
 namespace ricaun.Revit.UI.Example.Revit
 {
+    [ApplicationLoader]
+    public class AppExample : IExternalApplication
+    {
+        private static RibbonPanel ribbonPanel;
+        public Result OnStartup(UIControlledApplication application)
+        {
+            ribbonPanel = application.CreatePanel("PanelName");
+
+            var ribbonItem = ribbonPanel.CreatePushButton<Commands.Command>()
+                .SetText("Command")
+                .SetToolTip("This is a tooltip.")
+                .SetLongDescription("This is a description.")
+                .SetLargeImage("/UIFrameworkRes;component/ribbon/images/revit.ico");
+
+            if (LanguageExtension.IsBrazilianPortuguese)
+            {
+                ribbonItem.SetText("Comando")
+                    .SetToolTip("Esta é uma dica de ferramenta.")
+                    .SetLongDescription("Esta é uma descrição.");
+            }
+
+            return Result.Succeeded;
+        }
+
+        public Result OnShutdown(UIControlledApplication application)
+        {
+            ribbonPanel?.Remove();
+            return Result.Succeeded;
+        }
+    }
+
+
     [Console]
     public class App : IExternalApplication
     {

@@ -19,6 +19,7 @@ namespace ricaun.Revit.UI.Example.Revit.Commands
             if (testView == null)
             {
                 testView = new Views.TestView();
+                testView.SetAutodeskOwner();
                 testView.Show();
                 testView.Closed += (s, e) => { testView = null; };
             }

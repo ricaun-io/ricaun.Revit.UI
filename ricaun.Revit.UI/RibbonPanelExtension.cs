@@ -117,21 +117,6 @@ namespace ricaun.Revit.UI
         {
             return ribbonPanel.Remove();
         }
-
-        /// <summary>
-        /// Is RibbonTab contains <paramref name="ribbonPanel"/> 
-        /// </summary>
-        /// <param name="ribbonPanel"></param>
-        /// <returns></returns>
-        public static bool IsTabContains(this RibbonPanel ribbonPanel)
-        {
-            return ribbonPanel.GetRibbonTab().Panels.Contains(ribbonPanel.GetRibbonPanel());
-        }
-
-        private static bool IsSelect(this RibbonPanel ribbonPanel, string panelName)
-        {
-            return ribbonPanel.IsTabContains() && ribbonPanel.Name.EndsWith(panelName);
-        }
         #endregion
 
         #region RibbonItems
@@ -189,6 +174,18 @@ namespace ricaun.Revit.UI
             }
 
             return ribbonPanel;
+        }
+        #endregion
+
+        #region Utils Private
+        private static bool IsTabContains(this RibbonPanel ribbonPanel)
+        {
+            return ribbonPanel.GetRibbonTab().Panels.Contains(ribbonPanel.GetRibbonPanel());
+        }
+
+        private static bool IsSelect(this RibbonPanel ribbonPanel, string panelName)
+        {
+            return ribbonPanel.IsTabContains() && ribbonPanel.Name.EndsWith(panelName);
         }
         #endregion
     }

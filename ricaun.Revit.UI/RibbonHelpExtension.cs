@@ -13,7 +13,7 @@ namespace ricaun.Revit.UI
         /// </summary>
         /// <param name="helpPath"></param>
         /// <returns></returns>
-        public static ContextualHelp GetContextualHelp(string helpPath)
+        internal static ContextualHelp GetContextualHelp(string helpPath)
         {
             ContextualHelp contextHelp = null;
             try

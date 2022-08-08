@@ -53,6 +53,5 @@ namespace ricaun.Revit.UI
             return currentSplitButton;
         }
         #endregion
-
     }
 }

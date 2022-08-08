@@ -7,6 +7,7 @@ namespace ricaun.Revit.UI
     /// </summary>
     public static class RibbonTextBoxExtension
     {
+        #region TextBox
         /// <summary>
         /// CreateTextBox
         /// </summary>
@@ -17,9 +18,6 @@ namespace ricaun.Revit.UI
         {
             return ribbonPanel.AddItem(ribbonPanel.NewTextBoxData(targetName)) as TextBox;
         }
-
-        #region TextBox
-
 
         /// <summary>
         /// ShowImageAsButton

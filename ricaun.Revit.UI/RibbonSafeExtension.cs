@@ -12,7 +12,7 @@ namespace ricaun.Revit.UI
         /// </summary>
         /// <param name="buttonName"></param>
         /// <returns></returns>
-        public static string SafeButtonName(string buttonName)
+        internal static string SafeButtonName(string buttonName)
         {
             return $"{buttonName}_{TickNumber}";
         }
@@ -22,7 +22,7 @@ namespace ricaun.Revit.UI
         /// </summary>
         /// <param name="panelName"></param>
         /// <returns></returns>
-        public static string SafeRibbonPanelName(string panelName)
+        internal static string SafeRibbonPanelName(string panelName)
         {
             return $"{System.DateTime.Now.Ticks + TickNumber}%{panelName}";
         }
@@ -42,7 +42,7 @@ namespace ricaun.Revit.UI
         /// <param name="ribbonItem"></param>
         /// <param name="name"></param>
         /// <returns></returns>
-        public static bool VerifyNameExclusive<T>(T ribbonItem, string name)
+        internal static bool VerifyNameExclusive<T>(T ribbonItem, string name)
         {
             var type = typeof(T);
             try

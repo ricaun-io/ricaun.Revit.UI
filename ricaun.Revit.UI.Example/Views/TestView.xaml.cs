@@ -19,7 +19,6 @@ namespace ricaun.Revit.UI.Example.Views
             this.ShowInTaskbar = false;
             this.ResizeMode = ResizeMode.NoResize;
             this.WindowStartupLocation = WindowStartupLocation.CenterScreen;
-            new System.Windows.Interop.WindowInteropHelper(this) { Owner = Autodesk.Windows.ComponentManager.ApplicationWindow };
             this.PreviewKeyDown += (s, e) =>
             {
                 if (e.Key == System.Windows.Input.Key.Escape) Close();
