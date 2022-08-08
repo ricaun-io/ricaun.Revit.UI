@@ -1,5 +1,6 @@
 ﻿using Autodesk.Windows;
 using System;
+using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Interop;
 
@@ -11,12 +12,22 @@ namespace ricaun.Revit.UI
     public static class AutodeskExtension
     {
         /// <summary>
-        /// Set Autodesk.Windows as the Owner of the Window
+        /// Sets the foreground ActiveWindow.
+        /// </summary>
+        /// <param name="hWnd">The h WND.</param>
+        /// <returns></returns>
+        [DllImport("user32.dll")]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        static extern bool SetForegroundWindow(IntPtr hWnd);
+
+        /// <summary>
+        /// Set Autodesk.Windows as the Owner of the Window and Active Autodesk.Windows when Closed
         /// </summary>
         /// <param name="window"></param>
         public static void SetAutodeskOwner(this Window window)
         {
             new WindowInteropHelper(window) { Owner = ComponentManager.ApplicationWindow };
+            window.Closed += (s, e) => { SetForegroundWindow(ComponentManager.ApplicationWindow); };
         }
 
         /// <summary>

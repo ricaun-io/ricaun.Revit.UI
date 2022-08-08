@@ -8,4 +8,11 @@ namespace ricaun.Revit.UI
     public class ConsoleAttribute : Attribute
     {
     }
+
+    /// <summary>
+    /// ApplicationLoader Attribute for ricaun.ApplicationLoader
+    /// </summary>
+    public class ApplicationLoaderAttribute : Attribute
+    {
+    }
 }
