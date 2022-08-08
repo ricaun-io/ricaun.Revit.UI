@@ -28,14 +28,14 @@ namespace ricaun.Revit.UI
             while (RibbonSafeExtension.VerifyNameExclusive(ribbonPanel, targetName))
                 targetName = RibbonSafeExtension.SafeButtonName(targetText);
 
-            PushButtonData currentBtn = new PushButtonData(targetName, targetText, assemblyName, className);
+            PushButtonData buttonData = new PushButtonData(targetName, targetText, assemblyName, className);
 
             if (typeof(IExternalCommandAvailability).IsAssignableFrom(commandType))
-                currentBtn.AvailabilityClassName = commandType.FullName;
+                buttonData.AvailabilityClassName = commandType.FullName;
 
-            if (text == "") currentBtn.Text = "-";
+            if (text == "") buttonData.Text = "-";
 
-            return currentBtn;
+            return buttonData;
         }
 
         /// <summary>
@@ -60,9 +60,9 @@ namespace ricaun.Revit.UI
         /// <returns></returns>
         public static PushButtonData NewPushButtonData<TExternalCommand, TAvailability>(this RibbonPanel ribbonPanel, string text = null) where TExternalCommand : class, IExternalCommand, new() where TAvailability : class, IExternalCommandAvailability, new()
         {
-            PushButtonData currentBtn = ribbonPanel.NewPushButtonData<TExternalCommand>(text);
-            currentBtn.AvailabilityClassName = typeof(TAvailability).FullName;
-            return currentBtn;
+            PushButtonData buttonData = ribbonPanel.NewPushButtonData<TExternalCommand>(text);
+            buttonData.AvailabilityClassName = typeof(TAvailability).FullName;
+            return buttonData;
         }
         #endregion
 

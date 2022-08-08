@@ -9,6 +9,7 @@ namespace ricaun.Revit.UI
     /// </summary>
     public static class RibbonRadioExtension
     {
+        #region RadioButtonGroup
         /// <summary>
         /// CreateRadioButtonGroup
         /// </summary>
@@ -47,6 +48,7 @@ namespace ricaun.Revit.UI
             }
             return radioButtonGroup;
         }
+        #endregion
 
         #region ToggleButtonData
         /// <summary>
@@ -89,9 +91,9 @@ namespace ricaun.Revit.UI
         /// <returns></returns>
         public static ToggleButtonData NewToggleButtonData<TExternalCommand, TAvailability>(this RibbonPanel ribbonPanel, string text = null) where TExternalCommand : class, IExternalCommand, new() where TAvailability : class, IExternalCommandAvailability, new()
         {
-            var button = ribbonPanel.NewToggleButtonData<TExternalCommand>(text);
-            button.AvailabilityClassName = typeof(TAvailability).FullName;
-            return button;
+            var buttonData = ribbonPanel.NewToggleButtonData<TExternalCommand>(text);
+            buttonData.AvailabilityClassName = typeof(TAvailability).FullName;
+            return buttonData;
         }
 
         /// <summary>
@@ -113,11 +115,14 @@ namespace ricaun.Revit.UI
             while (RibbonSafeExtension.VerifyNameExclusive(ribbonPanel, targetName))
                 targetName = RibbonSafeExtension.SafeButtonName(targetText);
 
-            ToggleButtonData button = new ToggleButtonData(targetName, targetText, assemblyName, className);
+            ToggleButtonData buttonData = new ToggleButtonData(targetName, targetText, assemblyName, className);
 
-            if (text == "") button.Text = "-";
+            if (typeof(IExternalCommandAvailability).IsAssignableFrom(commandType))
+                buttonData.AvailabilityClassName = commandType.FullName;
 
-            return button;
+            if (text == "") buttonData.Text = "-";
+
+            return buttonData;
         }
 
         #endregion
@@ -142,6 +147,5 @@ namespace ricaun.Revit.UI
             return radioButtonGroupData;
         }
         #endregion
-
     }
 }
