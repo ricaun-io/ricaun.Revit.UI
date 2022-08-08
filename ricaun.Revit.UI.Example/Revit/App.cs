@@ -32,51 +32,6 @@ namespace ricaun.Revit.UI.Example.Revit
                     .SetLongDescription("Esta é uma descrição.");
             }
 
-            //var ribbonItem = ribbonPanel.CreatePushButton<Commands.Command>();
-            //ribbonItem.SetText("RibbonItemName");
-            //ribbonItem.SetToolTip("ToolTip");
-            //ribbonItem.SetLongDescription("LongDescription");
-            //ribbonItem.SetContextualHelp("ContextualHelpUrl");
-            //ribbonItem.SetItemSize();
-            //ribbonItem.SetShowText();
-            //ribbonItem.SetShowImage();
-            //ribbonItem.SetImage(ImageSource);
-            //ribbonItem.SetLargeImage(ImageSource);
-            //ribbonItem.SetToolTipImage(ImageSource);
-
-            //var ribbonItem = ribbonPanel
-            //    .CreatePushButton<Commands.Command>()
-            //    .SetText("RibbonItemName")
-            //    .SetToolTip("ToolTip")
-            //    .SetLongDescription("LongDescription")
-            //    .SetContextualHelp("ContextualHelpUrl")
-            //    .SetItemSize()
-            //    .SetShowText()
-            //    .SetShowImage()
-            //    .SetImage(ImageSource)
-            //    .SetLargeImage(ImageSource)
-            //    .SetToolTipImage(ImageSource);
-
-            //var ribbonItemData = ribbonPanel.NewPushButtonData<Commands.Command>();
-            //ribbonItemData.SetText("RibbonItemName");
-            //ribbonItemData.SetToolTip("ToolTip");
-            //ribbonItemData.SetLongDescription("LongDescription");
-            //ribbonItemData.SetContextualHelp("ContextualHelpUrl");
-            //ribbonItemData.SetImage(ImageSource);
-            //ribbonItemData.SetLargeImage(ImageSource);
-            //ribbonItemData.SetToolTipImage(ImageSource);
-
-            //var ribbonItemData = ribbonPanel
-            //    .NewPushButtonData<Commands.Command>()
-            //    .SetText("RibbonItemName")
-            //    .SetToolTip("ToolTip")
-            //    .SetLongDescription("LongDescription")
-            //    .SetContextualHelp("ContextualHelpUrl")
-            //    .SetImage(ImageSource)
-            //    .SetLargeImage(ImageSource)
-            //    .SetToolTipImage(ImageSource);
-
-
             return Result.Succeeded;
         }
 
