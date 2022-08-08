@@ -8,7 +8,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Features
 - Add `IExternalCommandAvailability` on `NewToggleButtonData` Command
 ### Updated
-- Update methods to `internal`
+- Update methods to `internal` and `private`
 
 ## [0.2.1] / 2022-08-08
 ### Updated
