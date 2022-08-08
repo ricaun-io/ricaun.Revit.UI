@@ -19,7 +19,7 @@ namespace ricaun.Revit.UI.Example.Revit
         {
             ribbonPanel = application.CreatePanel("PanelName");
 
-            var commandButton = ribbonPanel.CreatePushButton<Commands.Command>()
+            var ribbonItem = ribbonPanel.CreatePushButton<Commands.Command>()
                 .SetText("Command")
                 .SetToolTip("This is a tooltip.")
                 .SetLongDescription("This is a description.")
@@ -27,10 +27,55 @@ namespace ricaun.Revit.UI.Example.Revit
 
             if (LanguageExtension.IsBrazilianPortuguese)
             {
-                commandButton.SetText("Comando")
+                ribbonItem.SetText("Comando")
                     .SetToolTip("Esta é uma dica de ferramenta.")
                     .SetLongDescription("Esta é uma descrição.");
             }
+
+            //var ribbonItem = ribbonPanel.CreatePushButton<Commands.Command>();
+            //ribbonItem.SetText("RibbonItemName");
+            //ribbonItem.SetToolTip("ToolTip");
+            //ribbonItem.SetLongDescription("LongDescription");
+            //ribbonItem.SetContextualHelp("ContextualHelpUrl");
+            //ribbonItem.SetItemSize();
+            //ribbonItem.SetShowText();
+            //ribbonItem.SetShowImage();
+            //ribbonItem.SetImage(ImageSource);
+            //ribbonItem.SetLargeImage(ImageSource);
+            //ribbonItem.SetToolTipImage(ImageSource);
+
+            //var ribbonItem = ribbonPanel
+            //    .CreatePushButton<Commands.Command>()
+            //    .SetText("RibbonItemName")
+            //    .SetToolTip("ToolTip")
+            //    .SetLongDescription("LongDescription")
+            //    .SetContextualHelp("ContextualHelpUrl")
+            //    .SetItemSize()
+            //    .SetShowText()
+            //    .SetShowImage()
+            //    .SetImage(ImageSource)
+            //    .SetLargeImage(ImageSource)
+            //    .SetToolTipImage(ImageSource);
+
+            //var ribbonItemData = ribbonPanel.NewPushButtonData<Commands.Command>();
+            //ribbonItemData.SetText("RibbonItemName");
+            //ribbonItemData.SetToolTip("ToolTip");
+            //ribbonItemData.SetLongDescription("LongDescription");
+            //ribbonItemData.SetContextualHelp("ContextualHelpUrl");
+            //ribbonItemData.SetImage(ImageSource);
+            //ribbonItemData.SetLargeImage(ImageSource);
+            //ribbonItemData.SetToolTipImage(ImageSource);
+
+            //var ribbonItemData = ribbonPanel
+            //    .NewPushButtonData<Commands.Command>()
+            //    .SetText("RibbonItemName")
+            //    .SetToolTip("ToolTip")
+            //    .SetLongDescription("LongDescription")
+            //    .SetContextualHelp("ContextualHelpUrl")
+            //    .SetImage(ImageSource)
+            //    .SetLargeImage(ImageSource)
+            //    .SetToolTipImage(ImageSource);
+
 
             return Result.Succeeded;
         }

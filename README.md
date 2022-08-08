@@ -69,21 +69,72 @@ ribbonPanel.Remove();
 `RibbonButtonExtension` contains methods related to `PushButton` and `PushButtonData`
 ```C#
 PushButton pushButton = ribbonPanel.CreatePushButton<IExternalCommand>();
-// PushButton pushButton = ribbonPanel.CreatePushButton<IExternalCommand>("ButtonName");
-// PushButton pushButton = ribbonPanel.CreatePushButton<IExternalCommand,IExternalCommandAvailability>();
-// PushButton pushButton = ribbonPanel.CreatePushButton<IExternalCommand,IExternalCommandAvailability>("ButtonName");
+// ribbonPanel.CreatePushButton<IExternalCommand>("ButtonName");
+// ribbonPanel.CreatePushButton<IExternalCommand,IExternalCommandAvailability>();
+// ribbonPanel.CreatePushButton<IExternalCommand,IExternalCommandAvailability>("ButtonName");
 ```
 ```C#
 PushButtonData pushButtonData = ribbonPanel.NewPushButtonData<IExternalCommand>();
-// PushButtonData pushButtonData = ribbonPanel.NewPushButtonData<IExternalCommand>("ButtonDataName");
-// PushButtonData pushButtonData = ribbonPanel.NewPushButtonData<IExternalCommand,IExternalCommandAvailability>();
-// PushButtonData pushButtonData = ribbonPanel.NewPushButtonData<IExternalCommand,IExternalCommandAvailability>("ButtonDataName");
+// ribbonPanel.NewPushButtonData<IExternalCommand>("ButtonDataName");
+// ribbonPanel.NewPushButtonData<IExternalCommand,IExternalCommandAvailability>();
+// ribbonPanel.NewPushButtonData<IExternalCommand,IExternalCommandAvailability>("ButtonDataName");
 ```
 
 ### RibbonItem Extension
 `RibbonItemExtension` contains methods related to `RibbonItem`
+```C#
+var ribbonItem = ribbonPanel.CreatePushButton<Commands.Command>();
+ribbonItem.SetText("RibbonItemName");
+ribbonItem.SetToolTip("ToolTip");
+ribbonItem.SetLongDescription("LongDescription");
+ribbonItem.SetContextualHelp("ContextualHelpUrl");
+ribbonItem.SetItemSize();
+ribbonItem.SetShowText();
+ribbonItem.SetShowImage();
+ribbonItem.SetImage(ImageSource);
+ribbonItem.SetLargeImage(ImageSource);
+ribbonItem.SetToolTipImage(ImageSource);
+```
+or
+```C#
+var ribbonItem = ribbonPanel
+    .CreatePushButton<Commands.Command>()
+    .SetText("RibbonItemName")
+    .SetToolTip("ToolTip")
+    .SetLongDescription("LongDescription")
+    .SetContextualHelp("ContextualHelpUrl")
+    .SetItemSize()
+    .SetShowText()
+    .SetShowImage()
+    .SetImage(ImageSource)
+    .SetLargeImage(ImageSource)
+    .SetToolTipImage(ImageSource);
+```
+
 ### RibbonItemData Extension
 `RibbonItemDataExtension` contains methods related to `RibbonItemData`
+```C#
+var ribbonItemData = ribbonPanel.NewPushButtonData<Commands.Command>();
+ribbonItemData.SetText("RibbonItemName");
+ribbonItemData.SetToolTip("ToolTip");
+ribbonItemData.SetLongDescription("LongDescription");
+ribbonItemData.SetContextualHelp("ContextualHelpUrl");
+ribbonItemData.SetImage(ImageSource);
+ribbonItemData.SetLargeImage(ImageSource);
+ribbonItemData.SetToolTipImage(ImageSource);
+```
+or
+```C#
+var ribbonItemData = ribbonPanel
+    .NewPushButtonData<Commands.Command>()
+    .SetText("RibbonItemName")
+    .SetToolTip("ToolTip")
+    .SetLongDescription("LongDescription")
+    .SetContextualHelp("ContextualHelpUrl")
+    .SetImage(ImageSource)
+    .SetLargeImage(ImageSource)
+    .SetToolTipImage(ImageSource);
+```
 
 ### RibbonComboBox Extension
 `RibbonComboBoxExtension` contains methods related to `ComboBox`, `ComboBoxData`, and `ComboBoxMemberData`.
