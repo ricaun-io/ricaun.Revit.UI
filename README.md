@@ -8,6 +8,75 @@
 [![Develop](../../actions/workflows/Develop.yml/badge.svg)](../../actions)
 [![Release](https://img.shields.io/nuget/v/ricaun.Revit.UI?logo=nuget&label=release&color=blue)](https://www.nuget.org/packages/ricaun.Revit.UI)
 
+## Features
+
+### Autodesk Extension
+The `SetAutodeskOwner()` method applies the `window` as an Autodesk owner.
+```C#
+Window window = new MainWindow();
+window.SetAutodeskOwner();
+```
+
+### Bitmap Extension
+The `GetBitmapSource()` method transform `Bitmap`, `Icon`, `Image`, `base64orUriString` in `BitmapSource`.
+```C#
+System.Drawing.Bitmap bitmap;
+BitmapSource bitmapSource = bitmap.GetBitmapSource();
+```C#
+System.Drawing.Icon icon;
+BitmapSource bitmapSource = icon.GetBitmapSource();
+```C#
+System.Drawing.Image image;
+BitmapSource bitmapSource = image.GetBitmapSource();
+```C#
+string base64orUri;
+BitmapSource bitmapSource = base64orUri.GetBitmapSource();
+```
+
+### Language Extension
+The `LanguageExtension` contains methods related to the application language.
+```C#
+LanguageExtension.IsEnglish;
+LanguageExtension.IsSpanish;
+LanguageExtension.IsRussian;
+LanguageExtension.IsHungarian;
+LanguageExtension.IsDutch;
+LanguageExtension.IsFrench;
+LanguageExtension.IsGerman;
+LanguageExtension.IsSpanish;
+LanguageExtension.IsRussian;
+LanguageExtension.IsPolish;
+LanguageExtension.IsKorean;
+LanguageExtension.IsCzech;
+LanguageExtension.IsChineseSimplified;
+LanguageExtension.IsChineseTraditional;
+LanguageExtension.IsBrazilianPortuguese;
+```
+
+### QuickAccessToolBar Extension
+The `QuickAccessToolBarExtension` contains methods related to add and remove `Autodesk.Windows.RibbonItem` to the QuickAccessToolBar.
+```C#
+ribbonItem.AddQuickAccessToolBar();
+```
+```C#
+ribbonItem.RemoveQuickAccessToolBar();
+```
+
+### RibbonButton Extension
+### RibbonComboBox Extension
+### Ribbon Description Extension
+### Ribbon Help Extension
+### RibbonItemData Extension
+### RibbonItem Extension
+### RibbonPanel Extension
+### RibbonPulldown Extension
+### RibbonRadio Extension
+### RibbonSafe Extension
+### RibbonSplit Extension
+### RibbonTab Extension
+### RibbonTextBox Extension
+### RibbonUtil Extension
+
 ## Release
 
 * [Latest release](../../releases/latest)

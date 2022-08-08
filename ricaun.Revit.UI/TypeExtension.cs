@@ -12,7 +12,7 @@ namespace ricaun.Revit.UI
         /// </summary>
         /// <param name="type"></param>
         /// <returns></returns>
-        public static string GetName(this Type type)
+        internal static string GetName(this Type type)
         {
             var name = type.Name;
             if (type.IsGenericType)
