@@ -22,12 +22,15 @@ The `GetBitmapSource()` method transform `Bitmap`, `Icon`, `Image`, `base64orUri
 ```C#
 System.Drawing.Bitmap bitmap;
 BitmapSource bitmapSource = bitmap.GetBitmapSource();
+```
 ```C#
 System.Drawing.Icon icon;
 BitmapSource bitmapSource = icon.GetBitmapSource();
+```
 ```C#
 System.Drawing.Image image;
 BitmapSource bitmapSource = image.GetBitmapSource();
+```
 ```C#
 string base64orUri;
 BitmapSource bitmapSource = base64orUri.GetBitmapSource();
@@ -35,6 +38,9 @@ BitmapSource bitmapSource = base64orUri.GetBitmapSource();
 
 ### Language Extension
 The `LanguageExtension` contains methods related to the application language.
+```C#
+LanguageType languageType = LanguageExtension.GetLanguageType();
+```
 ```C#
 LanguageExtension.IsEnglish;
 LanguageExtension.IsSpanish;
