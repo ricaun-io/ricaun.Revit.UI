@@ -101,22 +101,6 @@ namespace ricaun.Revit.UI
         public static void SetOrderPanels(this Autodesk.Windows.RibbonTab ribbonTab)
         {
             ribbonTab.SetPanelsOrderByTitle();
-            //var length = ribbonTab.Panels.Count;
-            //if (length <= 1) return;
-
-            //var order = ribbonTab.Panels.OrderBy(e => ComparationOrderByTitle(e)).ToList();
-            //for (int i = 0; i < length; i++)
-            //{
-            //    var o = order[i];
-            //    for (int j = i; j < length; j++)
-            //    {
-            //        if (j == i) continue;
-            //        if (o == ribbonTab.Panels[j])
-            //        {
-            //            ribbonTab.Panels.Move(j, i);
-            //        }
-            //    }
-            //}
         }
 
         private static string ComparationOrderByTitle(Autodesk.Windows.RibbonPanel ribbonPanel)

@@ -223,10 +223,11 @@ Autodesk.Windows.RibbonTab awRibbonTab = ribbonPanel.GetRibbonTab();
 Autodesk.Windows.RibbonTab awRibbonTab = RibbonTabExtension.GetRibbonTab("TabId");
 IList<Autodesk.Windows.RibbonTab> awRibbonTabs = RibbonTabExtension.GetRibbonTabs();
 ```
-The method `SetOrderPanels` allow reorder the `RibbonPanel` in the `RibbonTab` UI.
+The method `SetPanelsOrderBy` and `SetPanelsOrderByTitle` allow reorder the `RibbonPanel` in the `RibbonTab` UI.
 ```C#
 Autodesk.Windows.RibbonTab awRibbonTab = ribbonPanel.GetRibbonTab();
-awRibbonTab.SetOrderPanels();
+awRibbonTab.SetPanelsOrderBy(e => e.Source.Title);
+awRibbonTab.SetPanelsOrderByTitle();
 ```
 The method `Remove` allow to remove the `RibbonTab` from `Autodesk.Windows` UI.
 ```C#
