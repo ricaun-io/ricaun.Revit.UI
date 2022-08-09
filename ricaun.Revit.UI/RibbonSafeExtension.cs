@@ -5,7 +5,7 @@ namespace ricaun.Revit.UI
     /// <summary>
     /// RibbonSaveExtension
     /// </summary>
-    public static class RibbonSafeExtension
+    internal static class RibbonSafeExtension
     {
         /// <summary>
         /// Safe Button Name
