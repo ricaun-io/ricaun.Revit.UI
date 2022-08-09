@@ -188,17 +188,13 @@ namespace ricaun.Revit.UI
             var ribbonTab = ribbonPanel.Tab;
             var panels = ribbonTab.Panels;
             var length = panels.Count;
-            if (newIndex < 0) newIndex = length - 1 + newIndex;
-            if (newIndex >= length) newIndex = length - 1;
-            for (int i = 0; i < length; i++)
-            {
-                if (i == newIndex) continue;
-                if (panels[i] == ribbonPanel)
-                {
-                    ribbonTab.Panels.Move(i, newIndex);
-                    return;
-                }
-            }
+            if (length <= 1) return;
+
+            var index = panels.IndexOf(ribbonPanel);
+            if (index == -1) return;
+
+            newIndex = Math.Max(0, Math.Min(length - 1, newIndex));
+            panels.Move(panels.IndexOf(ribbonPanel), newIndex);
         }
         #endregion
 
