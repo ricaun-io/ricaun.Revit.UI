@@ -177,6 +177,27 @@ namespace ricaun.Revit.UI
         }
         #endregion
 
+        #region MoveRibbonPanel
+        /// <summary>
+        /// MoveRibbonPanel to Position
+        /// </summary>
+        /// <param name="ribbonPanel"></param>
+        /// <param name="newIndex"></param>
+        public static void MoveRibbonPanel(this Autodesk.Windows.RibbonPanel ribbonPanel, int newIndex = 0)
+        {
+            var ribbonTab = ribbonPanel.Tab;
+            var panels = ribbonTab.Panels;
+            var length = panels.Count;
+            if (length <= 1) return;
+
+            var index = panels.IndexOf(ribbonPanel);
+            if (index == -1) return;
+
+            newIndex = Math.Max(0, Math.Min(length - 1, newIndex));
+            panels.Move(panels.IndexOf(ribbonPanel), newIndex);
+        }
+        #endregion
+
         #region Utils Private
         private static bool IsTabContains(this RibbonPanel ribbonPanel)
         {

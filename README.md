@@ -60,6 +60,10 @@ The method `GetRibbonItems` allow to select all `RibbonItem` concatenated on the
 ```C#
 IList<RibbonItem> ribbonItems = ribbonPanel.GetRibbonItems();
 ```
+The method `GetRibbonPanel` allow to select `Autodesk.Windows.RibbonPanel`.
+```C#
+Autodesk.Windows.RibbonPanel awRibbonPanel = ribbonPanel.GetRibbonPanel();
+```
 The method `Remove` allow to remove the `RibbonPanel` from `Autodesk.Windows` UI.
 ```C#
 ribbonPanel.Remove();
@@ -219,10 +223,11 @@ Autodesk.Windows.RibbonTab awRibbonTab = ribbonPanel.GetRibbonTab();
 Autodesk.Windows.RibbonTab awRibbonTab = RibbonTabExtension.GetRibbonTab("TabId");
 IList<Autodesk.Windows.RibbonTab> awRibbonTabs = RibbonTabExtension.GetRibbonTabs();
 ```
-The method `MoveRibbonPanel` and `SetOrderPanels` allow reorder the `RibbonPanel` in the `RibbonTab` UI.
+The method `SetPanelsOrderBy` and `SetPanelsOrderByTitle` allow reorder the `RibbonPanel` in the `RibbonTab` UI.
 ```C#
-ribbonPanel.MoveRibbonPanel(newIndex);
-ribbonPanel.SetOrderPanels();
+Autodesk.Windows.RibbonTab awRibbonTab = ribbonPanel.GetRibbonTab();
+awRibbonTab.SetPanelsOrderBy(e => e.Source.Title);
+awRibbonTab.SetPanelsOrderByTitle();
 ```
 The method `Remove` allow to remove the `RibbonTab` from `Autodesk.Windows` UI.
 ```C#

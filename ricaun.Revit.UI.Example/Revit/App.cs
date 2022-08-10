@@ -17,7 +17,7 @@ namespace ricaun.Revit.UI.Example.Revit
         private static RibbonPanel ribbonPanel;
         public Result OnStartup(UIControlledApplication application)
         {
-            ribbonPanel = application.CreatePanel("PanelName");
+            ribbonPanel = application.CreatePanel("ricaun", "ricaun");
 
             var ribbonItem = ribbonPanel.CreatePushButton<Commands.Command>()
                 .SetText("Command")
@@ -595,7 +595,7 @@ namespace ricaun.Revit.UI.Example.Revit
 
         private void OrderPanelAndMove(RibbonPanel ribbonPanel)
         {
-            ribbonPanel.GetRibbonTab().SetOrderPanels();
+            ribbonPanel.GetRibbonTab().SetPanelsOrderByTitle();
             var ric = ribbonPanel.GetRibbonTab().Panels.FirstOrDefault(e => e.Source.Title == "ricaun");
             ric?.MoveRibbonPanel();
         }

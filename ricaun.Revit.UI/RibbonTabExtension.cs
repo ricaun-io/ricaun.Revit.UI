@@ -1,4 +1,5 @@
 ﻿using Autodesk.Revit.UI;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -65,52 +66,47 @@ namespace ricaun.Revit.UI
         #endregion
 
         #region Order
+
         /// <summary>
-        /// MoveRibbonPanel to Position
+        /// Set Panels Order <paramref name="keySelector"/>
         /// </summary>
-        /// <param name="ribbonPanel"></param>
-        /// <param name="newIndex"></param>
-        public static void MoveRibbonPanel(this Autodesk.Windows.RibbonPanel ribbonPanel, int newIndex = 0)
+        /// <typeparam name="TKey"></typeparam>
+        /// <param name="ribbonTab"></param>
+        /// <param name="keySelector"></param>
+        /// <returns></returns>
+        public static Autodesk.Windows.RibbonTab SetPanelsOrderBy<TKey>(this Autodesk.Windows.RibbonTab ribbonTab, Func<Autodesk.Windows.RibbonPanel, TKey> keySelector)
         {
-            var ribbonTab = ribbonPanel.Tab;
-            var panels = ribbonTab.Panels;
-            var length = panels.Count;
-            if (newIndex < 0) newIndex = length - 1 + newIndex;
-            if (newIndex >= length) newIndex = length - 1;
-            for (int i = 0; i < length; i++)
-            {
-                if (i == newIndex) continue;
-                if (panels[i] == ribbonPanel)
-                {
-                    ribbonTab.Panels.Move(i, newIndex);
-                    return;
-                }
-            }
+            if (ribbonTab.Panels.Count <= 1)
+                return ribbonTab;
+
+            ribbonTab.Panels.OrderBy(keySelector);
+            return ribbonTab;
+        }
+
+        /// <summary>
+        /// Set Panels Order By Title
+        /// </summary>
+        /// <param name="ribbonTab"></param>
+        /// <returns></returns>
+        public static Autodesk.Windows.RibbonTab SetPanelsOrderByTitle(this Autodesk.Windows.RibbonTab ribbonTab)
+        {
+            return ribbonTab.SetPanelsOrderBy(ComparationOrderByTitle);
         }
 
         /// <summary>
         /// Set Order of Panels by Title
         /// </summary>
         /// <param name="ribbonTab"></param>
+        [Obsolete("This method gonna be removed, use SetPanelsOrderByTitle")]
         public static void SetOrderPanels(this Autodesk.Windows.RibbonTab ribbonTab)
         {
-            var order = ribbonTab.Panels.OrderBy(e => e.Source.Title).ToList();
-            var length = order.Count;
-            if (length <= 1) return;
-            for (int i = 0; i < length; i++)
-            {
-                var o = order[i];
-                for (int j = i; j < length; j++)
-                {
-                    if (j == i) continue;
-                    if (o == ribbonTab.Panels[j])
-                    {
-                        ribbonTab.Panels.Move(j, i);
-                    }
-                }
-            }
+            ribbonTab.SetPanelsOrderByTitle();
         }
 
+        private static string ComparationOrderByTitle(Autodesk.Windows.RibbonPanel ribbonPanel)
+        {
+            return ribbonPanel.Source.Title;
+        }
         #endregion
 
         #region Util

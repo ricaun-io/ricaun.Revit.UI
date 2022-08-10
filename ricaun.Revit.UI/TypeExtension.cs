@@ -5,7 +5,7 @@ namespace ricaun.Revit.UI
     /// <summary>
     /// TypeExtension
     /// </summary>
-    public static class TypeExtension
+    internal static class TypeExtension
     {
         /// <summary>
         /// Get Name of the <paramref name="type"/> with GenericArguments
