@@ -11,7 +11,7 @@ using System.Windows.Media;
 
 namespace ricaun.Revit.UI.Example.Revit
 {
-    [ApplicationLoader]
+    [AppLoader]
     public class AppExample : IExternalApplication
     {
         private static RibbonPanel ribbonPanel;
