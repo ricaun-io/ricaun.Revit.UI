@@ -5,7 +5,9 @@ namespace ricaun.Revit.UI.Example.Models
 {
     public class TestModel : NotifyPropertyBase
     {
-        public string Text { get; set; }
+        public string Text { get; set; } = "Test";
+        public string Title { get; set; } = "Title";
+        public object Icon { get; set; } = Proprieties.Icons8.Circled;
         public ICommand CommandTest { get; set; }
         public ICommand CommandTest2 { get; set; }
     }
