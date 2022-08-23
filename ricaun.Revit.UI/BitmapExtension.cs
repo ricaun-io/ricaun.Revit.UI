@@ -14,23 +14,28 @@ namespace ricaun.Revit.UI
     public static class BitmapExtension
     {
         /// <summary>
-        /// GetBitmapSource
+        /// Convert <paramref name="bitmap"/> to <seealso cref="BitmapSource"/>
         /// </summary>
         /// <param name="bitmap"></param>
         /// <returns></returns>
         public static BitmapSource GetBitmapSource(this System.Drawing.Bitmap bitmap)
         {
-            var bitmapSource = Imaging.CreateBitmapSourceFromHBitmap(
-                bitmap.GetHbitmap(),
-                IntPtr.Zero,
-                Int32Rect.Empty,
-                BitmapSizeOptions.FromEmptyOptions());
+            var data = bitmap.LockBits(
+                new System.Drawing.Rectangle(0, 0, bitmap.Width, bitmap.Height),
+                System.Drawing.Imaging.ImageLockMode.ReadOnly, bitmap.PixelFormat);
+
+            var bitmapSource = BitmapSource.Create(
+                data.Width, data.Height, 96.0, 96.0,
+                System.Windows.Media.PixelFormats.Bgra32, null,
+                data.Scan0, data.Stride * data.Height, data.Stride);
+
+            bitmap.UnlockBits(data);
 
             return bitmapSource;
         }
 
         /// <summary>
-        /// GetBitmapSource
+        /// Convert <paramref name="icon"/> to <seealso cref="BitmapSource"/>
         /// </summary>
         /// <param name="icon"></param>
         /// <returns></returns>
@@ -43,7 +48,7 @@ namespace ricaun.Revit.UI
         }
 
         /// <summary>
-        /// GetBitmapSource
+        /// Convert <paramref name="image"/> to <seealso cref="BitmapSource"/>
         /// </summary>
         /// <param name="image"></param>
         /// <returns></returns>
