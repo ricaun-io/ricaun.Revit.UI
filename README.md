@@ -12,10 +12,10 @@
 
 ## Features
 
-`ricaun.Revit.UI` package is design to work with the plugin [ApplicationLoader](https://ricaun.com/ApplicationLoader/) that allow loading Revit Applications on runtime.
+`ricaun.Revit.UI` package is design to work with the plugin [AppLoader](https://ricaun.com/AppLoader/) that allow loading Revit Applications on runtime.
 
 ```C#
-[ApplicationLoader]
+[AppLoader]
 public class App : IExternalApplication
 {
     private static RibbonPanel ribbonPanel;

@@ -15,11 +15,4 @@ namespace ricaun.Revit.UI
     public class AppLoaderAttribute : Attribute
     {
     }
-
-    /// <summary>
-    /// ApplicationLoader Attribute for ricaun.AppLoader
-    /// </summary>
-    public class ApplicationLoaderAttribute : Attribute
-    {
-    }
 }
