@@ -76,7 +76,7 @@
 
   <PropertyGroup>
     <PackageId>ricaun.Revit.UI</PackageId>
-    <Version>0.4.0</Version>
+    <Version>0.5.0</Version>
     <ProjectGuid>{2064ba4d-5527-41e9-8b76-0cbfefa35900}</ProjectGuid>
   </PropertyGroup>
 
@@ -145,6 +145,10 @@
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="*" IncludeAssets="build; compile" PrivateAssets="All" />
     <PackageReference Include="Revit_All_Main_Versions_API_x64" Version="$(RevitVersion).*" IncludeAssets="build; compile" PrivateAssets="All" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <InternalsVisibleTo Include="$(PackageId).Tests" />
   </ItemGroup>
 
 </Project>

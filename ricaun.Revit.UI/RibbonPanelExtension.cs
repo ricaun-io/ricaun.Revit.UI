@@ -108,6 +108,36 @@ namespace ricaun.Revit.UI
         }
 
         /// <summary>
+        /// Move RibbonPanel to RibbonTab with <paramref name="ribbonTabId"/>
+        /// <code>'Modify' | 'Add-Ins'</code>
+        /// </summary>
+        /// <param name="ribbonPanel"></param>
+        /// <param name="ribbonTabId"></param>
+        /// <returns></returns>
+        public static RibbonPanel MoveToRibbonTab(this RibbonPanel ribbonPanel, string ribbonTabId)
+        {
+            var ribbonTab = Autodesk.Windows.ComponentManager.Ribbon.FindTab(ribbonTabId);
+            return ribbonPanel.MoveToRibbonTab(ribbonTab);
+        }
+
+        /// <summary>
+        /// Move RibbonPanel to <paramref name="ribbonTab"/>
+        /// </summary>
+        /// <param name="ribbonPanel"></param>
+        /// <param name="ribbonTab"></param>
+        /// <returns></returns>
+        public static RibbonPanel MoveToRibbonTab(this RibbonPanel ribbonPanel, Autodesk.Windows.RibbonTab ribbonTab)
+        {
+            if (ribbonTab is not null)
+            {
+                var panel = ribbonPanel.GetRibbonPanel();
+                panel.Tab.Panels.Remove(panel);
+                ribbonTab.Panels.Add(panel);
+            }
+            return ribbonPanel;
+        }
+
+        /// <summary>
         /// Remove RibbonPanel from Tab
         /// </summary>
         /// <param name="ribbonPanel"></param>

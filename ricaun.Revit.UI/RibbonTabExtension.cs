@@ -11,7 +11,6 @@ namespace ricaun.Revit.UI
     public static class RibbonTabExtension
     {
         #region Select
-
         /// <summary>
         /// GetRibbonTab
         /// </summary>
@@ -25,19 +24,12 @@ namespace ricaun.Revit.UI
         /// <summary>
         /// GetRibbonTab
         /// </summary>
-        /// <param name="tabId"></param>
+        /// <param name="ribbonTabId"></param>
         /// <returns></returns>
-        public static Autodesk.Windows.RibbonTab GetRibbonTab(string tabId)
+        public static Autodesk.Windows.RibbonTab GetRibbonTab(string ribbonTabId)
         {
             var ribbon = Autodesk.Windows.ComponentManager.Ribbon;
-            foreach (Autodesk.Windows.RibbonTab tab in ribbon.Tabs)
-            {
-                if (tab.Id == tabId)
-                {
-                    return tab;
-                }
-            }
-            return null;
+            return ribbon.FindTab(ribbonTabId);
         }
 
         /// <summary>
