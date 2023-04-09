@@ -74,6 +74,7 @@ namespace ricaun.Revit.UI
             return targetName;
         }
 
+        #region NewPushButtonData
         /// <summary>
         /// NewPushButtonData
         /// </summary>
@@ -82,7 +83,7 @@ namespace ricaun.Revit.UI
         /// <param name="commandType"></param>
         /// <param name="text"></param>
         /// <returns></returns>
-        public static PushButtonData NewPushButtonData(object ribbonItem, Type commandType, string text = null)
+        internal static PushButtonData NewPushButtonData(object ribbonItem, Type commandType, string text = null)
         {
             var targetName = commandType.GetName();
             var targetText = targetName;
@@ -103,18 +104,34 @@ namespace ricaun.Revit.UI
             return buttonData;
         }
 
-        public static PushButtonData NewPushButtonData<TExternalCommand>(object ribbonItem, string text = null) where TExternalCommand : class, IExternalCommand, new()
+        /// <summary>
+        /// NewPushButtonData
+        /// </summary>
+        /// <typeparam name="TExternalCommand"></typeparam>
+        /// <param name="ribbonItem"></param>
+        /// <param name="text"></param>
+        /// <returns></returns>
+        internal static PushButtonData NewPushButtonData<TExternalCommand>(object ribbonItem, string text = null) where TExternalCommand : class, IExternalCommand, new()
         {
             var commandType = typeof(TExternalCommand);
             return RibbonSafeExtension.NewPushButtonData(ribbonItem, commandType, text);
         }
 
-        public static PushButtonData NewPushButtonData<TExternalCommand, TAvailability>(object ribbonItem, string text = null) where TExternalCommand : class, IExternalCommand, new() where TAvailability : class, IExternalCommandAvailability, new()
+        /// <summary>
+        /// NewPushButtonData
+        /// </summary>
+        /// <typeparam name="TExternalCommand"></typeparam>
+        /// <typeparam name="TAvailability"></typeparam>
+        /// <param name="ribbonItem"></param>
+        /// <param name="text"></param>
+        /// <returns></returns>
+        internal static PushButtonData NewPushButtonData<TExternalCommand, TAvailability>(object ribbonItem, string text = null) where TExternalCommand : class, IExternalCommand, new() where TAvailability : class, IExternalCommandAvailability, new()
         {
             PushButtonData buttonData = RibbonSafeExtension
                 .NewPushButtonData<TExternalCommand>(ribbonItem, text)
                 .SetAvailability<TAvailability>();
             return buttonData;
         }
+        #endregion
     }
 }
