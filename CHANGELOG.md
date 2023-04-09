@@ -11,8 +11,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - RibbonSplit - CreatePushButton, NewPushButtonData
 - RibbonPulldown - CreatePushButton, NewPushButtonData
 ### Utils
-- RibbonTabUtils - CreatePanel, RemovePanel
-- RibbonModifyUtils - CreatePanel, RemovePanel
+- RibbonTabUtils - CreateRibbonPanel, RemoveRibbonPanel
+- RibbonModifyUtils - CreateRibbonPanel, RemoveRibbonPanel
 ### Updated
 - Remove Obsolete AddPushButton/Close
 - Update RibbonButtonExtension - Add SetAvailability
@@ -21,6 +21,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Update RibbonRadio - AddItems to AddToggleButtons
 - Update NewPushButtonData<T> to work with PushButtonData and ToggleButtonData
 - Update Obsolete ConsoleAttribute
+- Update Remove RibbonPanel from internal RibbonTabsDictionary
+- Update CreatePanel uses Add-Ins
+### Tests
+- Add TestCreatePanel
 
 ## [0.4.0] / 2022-08-23
 ### Features

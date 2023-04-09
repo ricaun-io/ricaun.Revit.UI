@@ -82,7 +82,6 @@ namespace ricaun.Revit.UI
         /// <summary>
         /// NewPushButtonData
         /// </summary>
-        /// <typeparam name="T"></typeparam>
         /// <param name="ribbonItem"></param>
         /// <param name="commandType"></param>
         /// <param name="text"></param>

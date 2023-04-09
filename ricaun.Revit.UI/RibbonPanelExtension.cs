@@ -55,6 +55,9 @@ namespace ricaun.Revit.UI
         /// <returns></returns>
         public static RibbonPanel CreatePanel(this UIControlledApplication application, string tabName, string panelName)
         {
+            if (string.IsNullOrEmpty(tabName))
+                return application.CreatePanel(panelName);
+
             RibbonPanel ribbonPanel = null;
             try { application.CreateRibbonTab(tabName); } catch { }
             try
@@ -81,6 +84,9 @@ namespace ricaun.Revit.UI
         /// <returns></returns>
         public static RibbonPanel CreateOrSelectPanel(this UIControlledApplication application, string tabName, string panelName)
         {
+            if (string.IsNullOrEmpty(tabName))
+                return application.CreateOrSelectPanel(panelName);
+
             if (application.GetRibbonPanels(tabName).FirstOrDefault(p => p.IsSelect(panelName)) is RibbonPanel ribbonPanel)
                 return ribbonPanel;
 
@@ -102,8 +108,9 @@ namespace ricaun.Revit.UI
             ribbonPanel.Visible = false;
             ribbonPanel.Enabled = false;
 
-            var panel = ribbonPanel.GetRibbonPanel();
-            panel.Tab.Panels.Remove(panel);
+            ribbonPanel.GetRibbonTab().Remove(ribbonPanel.GetRibbonPanel());
+            //var panel = ribbonPanel.GetRibbonPanel();
+            //panel.Tab.Panels.Remove(panel);
             return ribbonPanel;
         }
 

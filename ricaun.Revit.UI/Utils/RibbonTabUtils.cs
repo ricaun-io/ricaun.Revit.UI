@@ -26,7 +26,7 @@ namespace ricaun.Revit.UI.Utils
         /// <param name="tab"></param>
         /// <param name="panelName"></param>
         /// <returns></returns>
-        public static Autodesk.Windows.RibbonPanel CreatePanel(this Autodesk.Windows.RibbonTab tab, string panelName)
+        public static Autodesk.Windows.RibbonPanel CreateRibbonPanel(this Autodesk.Windows.RibbonTab tab, string panelName)
         {
             var panel = new Autodesk.Windows.RibbonPanel
             {
@@ -48,7 +48,7 @@ namespace ricaun.Revit.UI.Utils
         /// <param name="tab"></param>
         /// <param name="panelName"></param>
         /// <returns></returns>
-        public static Autodesk.Windows.RibbonPanel RemovePanel(this Autodesk.Windows.RibbonTab tab, string panelName)
+        public static Autodesk.Windows.RibbonPanel RemoveRibbonPanel(this Autodesk.Windows.RibbonTab tab, string panelName)
         {
             var panel = tab.FindPanel(GetPanelId(panelName));
             if (panel is not null)

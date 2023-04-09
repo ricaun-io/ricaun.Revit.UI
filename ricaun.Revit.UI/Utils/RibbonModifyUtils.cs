@@ -17,9 +17,9 @@ namespace ricaun.Revit.UI.Utils
         /// <param name="panelName"></param>
         /// <param name="ribbonItems"></param>
         /// <returns></returns>
-        public static Autodesk.Windows.RibbonPanel CreatePanel(string panelName, params RibbonItem[] ribbonItems)
+        public static Autodesk.Windows.RibbonPanel CreateRibbonPanel(string panelName, params RibbonItem[] ribbonItems)
         {
-            var panel = CreatePanel(panelName, ribbonItems.Select(e => e.GetRibbonItem()).ToArray());
+            var panel = CreateRibbonPanel(panelName, ribbonItems.Select(e => e.GetRibbonItem()).ToArray());
             return panel;
         }
 
@@ -29,9 +29,9 @@ namespace ricaun.Revit.UI.Utils
         /// <param name="panelName"></param>
         /// <param name="ribbonItems"></param>
         /// <returns></returns>
-        public static Autodesk.Windows.RibbonPanel CreatePanel(string panelName, params Autodesk.Windows.RibbonItem[] ribbonItems)
+        public static Autodesk.Windows.RibbonPanel CreateRibbonPanel(string panelName, params Autodesk.Windows.RibbonItem[] ribbonItems)
         {
-            var panel = CreatePanel(panelName);
+            var panel = CreateRibbonPanel(panelName);
             foreach (var item in ribbonItems)
             {
                 panel.Source.Items.Add(item);
@@ -44,10 +44,10 @@ namespace ricaun.Revit.UI.Utils
         /// </summary>
         /// <param name="panelName"></param>
         /// <returns></returns>
-        public static Autodesk.Windows.RibbonPanel CreatePanel(string panelName)
+        public static Autodesk.Windows.RibbonPanel CreateRibbonPanel(string panelName)
         {
             var modifyTab = Autodesk.Windows.ComponentManager.Ribbon.FindTab(MODIFY_PANEL_ID);
-            var modifyPanel = modifyTab.CreatePanel(panelName);
+            var modifyPanel = modifyTab.CreateRibbonPanel(panelName);
             return modifyPanel;
         }
 
@@ -56,10 +56,10 @@ namespace ricaun.Revit.UI.Utils
         /// </summary>
         /// <param name="panelName"></param>
         /// <returns></returns>
-        public static Autodesk.Windows.RibbonPanel RemovePanel(string panelName)
+        public static Autodesk.Windows.RibbonPanel RemoveRibbonPanel(string panelName)
         {
             var modifyTab = Autodesk.Windows.ComponentManager.Ribbon.FindTab(MODIFY_PANEL_ID);
-            var modifyPanel = modifyTab.RemovePanel(panelName);
+            var modifyPanel = modifyTab.RemoveRibbonPanel(panelName);
             return modifyPanel;
         }
     }

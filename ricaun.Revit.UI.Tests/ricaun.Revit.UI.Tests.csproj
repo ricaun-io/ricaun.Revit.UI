@@ -1,0 +1,44 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Library</OutputType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <UseWPF>true</UseWPF>
+    <LangVersion>latest</LangVersion>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <ResolveAssemblyWarnOrErrorOnTargetArchitectureMismatch>None</ResolveAssemblyWarnOrErrorOnTargetArchitectureMismatch>
+    <Configurations>Debug;Release</Configurations>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <RevitVersion>2021</RevitVersion>
+    <TargetFramework>net48</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="NUnit" Version="3.13.3" />
+    <PackageReference Include="ricaun.RevitTest.TestAdapter" Version="*" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ricaun.Revit.UI\ricaun.Revit.UI.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Revit_All_Main_Versions_API_x64" Version="$(RevitVersion).*" IncludeAssets="build; compile" PrivateAssets="All" />
+  </ItemGroup>
+  <!-- Release -->
+  <ItemGroup Condition="!$(Configuration.Contains('Debug'))">
+    <AssemblyAttribute Include="System.Reflection.AssemblyMetadataAttribute">
+      <_Parameter1>NUnit.Open</_Parameter1>
+      <_Parameter2>true</_Parameter2>
+    </AssemblyAttribute>
+    <AssemblyAttribute Include="System.Reflection.AssemblyMetadataAttribute">
+      <_Parameter1>NUnit.Close</_Parameter1>
+      <_Parameter2>true</_Parameter2>
+    </AssemblyAttribute>
+  </ItemGroup>
+  <!--
+  -->
+
+</Project>

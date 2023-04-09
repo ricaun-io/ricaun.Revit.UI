@@ -52,9 +52,22 @@ namespace ricaun.Revit.UI
         public static bool Remove(this Autodesk.Windows.RibbonTab ribbonTab)
         {
             var ribbon = Autodesk.Windows.ComponentManager.Ribbon;
-            GetRibbonTabsDictionary()?.Remove(ribbonTab.Name);
+            GetRibbonTabsDictionary()?.Remove(ribbonTab.Id);
             return ribbon.Tabs.Remove(ribbonTab);
         }
+
+        /// <summary>
+        /// Remove RibbonPanel / Remove Revit Dictionary Name
+        /// </summary>
+        /// <param name="ribbonTab"></param>
+        /// <returns></returns>
+        public static bool Remove(this Autodesk.Windows.RibbonTab ribbonTab, Autodesk.Windows.RibbonPanel ribbonPanel)
+        {
+            var removed = ribbonTab.Panels.Remove(ribbonPanel);
+            GetRibbonTabsDictionary(ribbonTab)?.Remove(ribbonPanel.Source.Name);
+            return removed;
+        }
+
         #endregion
 
         #region Order
@@ -105,8 +118,29 @@ namespace ricaun.Revit.UI
         /// <summary>
         /// GetRibbonTabsDictionary
         /// </summary>
+        /// <param name="ribbonTab"></param>
         /// <returns></returns>
-        private static Dictionary<string, Dictionary<string, RibbonPanel>> GetRibbonTabsDictionary()
+        internal static Dictionary<string, RibbonPanel> GetRibbonTabsDictionary(Autodesk.Windows.RibbonTab ribbonTab)
+        {
+            return GetRibbonTabsDictionary(ribbonTab.Id);
+        }
+        /// <summary>
+        /// GetRibbonTabsDictionary
+        /// </summary>
+        /// <param name="ribbonTabId"></param>
+        /// <returns></returns>
+        internal static Dictionary<string, RibbonPanel> GetRibbonTabsDictionary(string ribbonTabId)
+        {
+            if (GetRibbonTabsDictionary().TryGetValue(ribbonTabId, out Dictionary<string, RibbonPanel> value))
+                return value;
+
+            return null;
+        }
+        /// <summary>
+        /// GetRibbonTabsDictionary
+        /// </summary>
+        /// <returns></returns>
+        internal static Dictionary<string, Dictionary<string, RibbonPanel>> GetRibbonTabsDictionary()
         {
             var type = typeof(UIApplication);
 
