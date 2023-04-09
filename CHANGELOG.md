@@ -14,12 +14,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - RibbonTabUtils - CreatePanel, RemovePanel
 - RibbonModifyUtils - CreatePanel, RemovePanel
 ### Updated
-- Remove Obsolete AddPushButton
+- Remove Obsolete AddPushButton/Close
 - Update RibbonButtonExtension - Add SetAvailability
 - Update RibbonSafeExtension - Base CreateButton/NewButton
 - Update all Ribbons with GenerateSafeButtonName
 - Update RibbonRadio - AddItems to AddToggleButtons
 - Update NewPushButtonData<T> to work with PushButtonData and ToggleButtonData
+- Update Obsolete ConsoleAttribute
 
 ## [0.4.0] / 2022-08-23
 ### Features

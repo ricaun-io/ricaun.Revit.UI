@@ -136,17 +136,6 @@ namespace ricaun.Revit.UI
             }
             return ribbonPanel;
         }
-
-        /// <summary>
-        /// Remove RibbonPanel from Tab
-        /// </summary>
-        /// <param name="ribbonPanel"></param>
-        /// <returns></returns>
-        [Obsolete("Close is deprecated, please use Remove instead.")]
-        public static RibbonPanel Close(this RibbonPanel ribbonPanel)
-        {
-            return ribbonPanel.Remove();
-        }
         #endregion
 
         #region RibbonItems
