@@ -40,8 +40,7 @@ namespace ricaun.Revit.UI
         {
             foreach (var comboBoxMemberData in comboBoxMemberDatas)
             {
-                while (RibbonSafeExtension.VerifyNameExclusive(comboBox, comboBoxMemberData.Name))
-                    comboBoxMemberData.Name = RibbonSafeExtension.SafeButtonName(comboBox.Name);
+                comboBoxMemberData.Name = RibbonSafeExtension.GenerateSafeButtonName(comboBox, comboBoxMemberData.Name, comboBox.Name);
 
                 comboBox.AddItem(comboBoxMemberData);
             }
@@ -57,8 +56,7 @@ namespace ricaun.Revit.UI
         /// <returns></returns>
         public static ComboBoxData NewComboBoxData(this RibbonPanel ribbonPanel, string targetName)
         {
-            while (RibbonSafeExtension.VerifyNameExclusive(ribbonPanel, targetName))
-                targetName = RibbonSafeExtension.SafeButtonName(targetName);
+            targetName = RibbonSafeExtension.GenerateSafeButtonName(ribbonPanel, targetName, targetName);
 
             return new ComboBoxData(targetName);
         }
@@ -88,8 +86,10 @@ namespace ricaun.Revit.UI
                 targetName = "-";
 
             var comboBoxMemberData = new ComboBoxMemberData(targetName, targetName);
-            while (RibbonSafeExtension.VerifyNameExclusive(ribbonPanel, comboBoxMemberData.Name))
-                comboBoxMemberData.Name = RibbonSafeExtension.SafeButtonName(targetName);
+
+            var targetText = targetName;
+
+            comboBoxMemberData.Name = RibbonSafeExtension.GenerateSafeButtonName(ribbonPanel, comboBoxMemberData.Name, targetText);
 
             return comboBoxMemberData;
         }

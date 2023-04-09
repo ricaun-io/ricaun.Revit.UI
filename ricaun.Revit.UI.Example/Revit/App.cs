@@ -183,7 +183,7 @@ namespace ricaun.Revit.UI.Example.Revit
                     .SetLargeImage(Icons8.Trash)
             );
 
-            radio.AddItems(
+            radio.AddToggleButtons(
                 ribbonPanel.NewToggleButtonData("R5")
                 .SetLargeImage(Icons8.About)
                 );

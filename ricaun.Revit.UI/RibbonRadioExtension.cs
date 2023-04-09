@@ -20,15 +20,18 @@ namespace ricaun.Revit.UI
         public static RadioButtonGroup CreateRadioButtonGroup(this RibbonPanel ribbonPanel, string targetText, params ToggleButtonData[] toggleButtonDatas)
         {
             RadioButtonGroup radioButtonGroup = null;
-            if (toggleButtonDatas.Any())
-            {
-                if (targetText == null) targetText = toggleButtonDatas.FirstOrDefault().Text;
-                var targetName = targetText;
 
-                radioButtonGroup = ribbonPanel.AddItem(ribbonPanel.NewRadioButtonGroupData(targetName)) as RadioButtonGroup;
-                AddItems(radioButtonGroup, toggleButtonDatas);
-            }
+            if (targetText == null)
+                targetText = toggleButtonDatas.FirstOrDefault().Text ?? nameof(RadioButtonGroup);
+
+            var targetName = targetText;
+
+            radioButtonGroup = ribbonPanel.AddItem(ribbonPanel.NewRadioButtonGroupData(targetName)) as RadioButtonGroup;
+
+            radioButtonGroup.AddToggleButtons(toggleButtonDatas);
+
             return radioButtonGroup;
+
         }
 
         /// <summary>
@@ -37,12 +40,13 @@ namespace ricaun.Revit.UI
         /// <param name="radioButtonGroup"></param>
         /// <param name="toggleButtonDatas"></param>
         /// <returns></returns>
-        public static RadioButtonGroup AddItems(this RadioButtonGroup radioButtonGroup, params ToggleButtonData[] toggleButtonDatas)
+        public static RadioButtonGroup AddToggleButtons(this RadioButtonGroup radioButtonGroup, params ToggleButtonData[] toggleButtonDatas)
         {
             foreach (var toggleButtonData in toggleButtonDatas)
             {
-                while (RibbonSafeExtension.VerifyNameExclusive(radioButtonGroup, toggleButtonData.Name))
-                    toggleButtonData.Name = RibbonSafeExtension.SafeButtonName(radioButtonGroup.Name);
+                var targetText = toggleButtonData.Name;
+
+                toggleButtonData.Name = RibbonSafeExtension.GenerateSafeButtonName(radioButtonGroup, toggleButtonData.Name, targetText);
 
                 radioButtonGroup.AddItem(toggleButtonData);
             }
@@ -62,8 +66,7 @@ namespace ricaun.Revit.UI
             if (targetName.Trim() == string.Empty)
                 targetName = "-";
 
-            while (RibbonSafeExtension.VerifyNameExclusive(ribbonPanel, targetName))
-                targetName = RibbonSafeExtension.SafeButtonName(targetName);
+            targetName = RibbonSafeExtension.GenerateSafeButtonName(ribbonPanel, targetName, targetName);
 
             return new ToggleButtonData(targetName, targetName);
         }
@@ -105,24 +108,7 @@ namespace ricaun.Revit.UI
         /// <returns></returns>
         public static ToggleButtonData NewToggleButtonData(this RibbonPanel ribbonPanel, Type commandType, string text = null)
         {
-            var targetName = commandType.GetName();
-            var targetText = targetName;
-            var assemblyName = commandType.Assembly.Location;
-            var className = commandType.FullName;
-
-            if (text != null && text != "") targetText = text;
-
-            while (RibbonSafeExtension.VerifyNameExclusive(ribbonPanel, targetName))
-                targetName = RibbonSafeExtension.SafeButtonName(targetText);
-
-            ToggleButtonData buttonData = new ToggleButtonData(targetName, targetText, assemblyName, className);
-
-            if (typeof(IExternalCommandAvailability).IsAssignableFrom(commandType))
-                buttonData.AvailabilityClassName = commandType.FullName;
-
-            if (text == "") buttonData.Text = "-";
-
-            return buttonData;
+            return RibbonSafeExtension.NewPushButtonData<ToggleButtonData>(ribbonPanel, commandType, text);
         }
 
         #endregion
@@ -141,8 +127,7 @@ namespace ricaun.Revit.UI
 
             var radioButtonGroupData = new RadioButtonGroupData(targetName);
 
-            while (RibbonSafeExtension.VerifyNameExclusive(ribbonPanel, radioButtonGroupData.Name))
-                radioButtonGroupData.Name = RibbonSafeExtension.SafeButtonName(targetName);
+            radioButtonGroupData.Name = RibbonSafeExtension.GenerateSafeButtonName(ribbonPanel, radioButtonGroupData.Name, targetName);
 
             return radioButtonGroupData;
         }

@@ -77,8 +77,7 @@ namespace ricaun.Revit.UI
         /// <returns></returns>
         public static TextBoxData NewTextBoxData(this RibbonPanel ribbonPanel, string targetName)
         {
-            while (RibbonSafeExtension.VerifyNameExclusive(ribbonPanel, targetName))
-                targetName = RibbonSafeExtension.SafeButtonName(targetName);
+            targetName = RibbonSafeExtension.GenerateSafeButtonName(ribbonPanel, targetName, targetName);
 
             return new TextBoxData(targetName);
         }

@@ -17,6 +17,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Remove Obsolete AddPushButton
 - Update RibbonButtonExtension - Add SetAvailability
 - Update RibbonSafeExtension - Base CreateButton/NewButton
+- Update all Ribbons with GenerateSafeButtonName
+- Update RibbonRadio - AddItems to AddToggleButtons
+- Update NewPushButtonData<T> to work with PushButtonData and ToggleButtonData
 
 ## [0.4.0] / 2022-08-23
 ### Features

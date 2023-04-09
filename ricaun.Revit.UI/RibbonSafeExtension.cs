@@ -67,10 +67,14 @@ namespace ricaun.Revit.UI
         /// <param name="targetName"></param>
         /// <param name="targetText"></param>
         /// <returns></returns>
-        internal static string GenerateSafeButtonName<T>(T ribbonItem, string targetName, string targetText) where T : class
+        internal static string GenerateSafeButtonName<T>(T ribbonItem, string targetName, string targetText = null) where T : class
         {
+            if (targetText == null)
+                targetText = targetName;
+
             while (RibbonSafeExtension.VerifyNameExclusive(ribbonItem, targetName))
                 targetName = RibbonSafeExtension.SafeButtonName(targetText);
+
             return targetName;
         }
 
@@ -85,6 +89,19 @@ namespace ricaun.Revit.UI
         /// <returns></returns>
         internal static PushButtonData NewPushButtonData(object ribbonItem, Type commandType, string text = null)
         {
+            return NewPushButtonData<PushButtonData>(ribbonItem, commandType, text);
+        }
+
+        /// <summary>
+        /// NewPushButtonData
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="ribbonItem"></param>
+        /// <param name="commandType"></param>
+        /// <param name="text"></param>
+        /// <returns></returns>
+        internal static T NewPushButtonData<T>(object ribbonItem, Type commandType, string text = null) where T : PushButtonData
+        {
             var targetName = commandType.GetName();
             var targetText = targetName;
             var assemblyName = commandType.Assembly.Location;
@@ -94,7 +111,9 @@ namespace ricaun.Revit.UI
 
             targetName = RibbonSafeExtension.GenerateSafeButtonName(ribbonItem, targetName, targetText);
 
-            PushButtonData buttonData = new PushButtonData(targetName, targetText, assemblyName, className);
+            // var buttonData = new PushButtonData(targetName, targetText, assemblyName, className);
+            // var buttonData = new ToggleButtonData(targetName, targetText, assemblyName, className);
+            var buttonData = (T)Activator.CreateInstance(typeof(T), targetName, targetText, assemblyName, className);
 
             if (typeof(IExternalCommandAvailability).IsAssignableFrom(commandType))
                 buttonData.AvailabilityClassName = commandType.FullName;
