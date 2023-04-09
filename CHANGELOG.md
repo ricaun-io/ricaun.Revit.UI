@@ -11,6 +11,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Utils
 - RibbonTabUtils - CreatePanel, RemovePanel
 - RibbonModifyUtils - CreatePanel, RemovePanel
+### Updated
+- Remove Obsolete AddPushButton
+- Update RibbonButtonExtension - Add SetAvailability
+- Update RibbonSafeExtension - Base CreateButton/NewButton
 
 ## [0.4.0] / 2022-08-23
 ### Features

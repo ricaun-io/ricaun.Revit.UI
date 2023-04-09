@@ -1,4 +1,6 @@
-﻿using System.Reflection;
+﻿using Autodesk.Revit.UI;
+using System;
+using System.Reflection;
 
 namespace ricaun.Revit.UI
 {
@@ -42,9 +44,10 @@ namespace ricaun.Revit.UI
         /// <param name="ribbonItem"></param>
         /// <param name="name"></param>
         /// <returns></returns>
-        internal static bool VerifyNameExclusive<T>(T ribbonItem, string name)
+        internal static bool VerifyNameExclusive<T>(T ribbonItem, string name) where T : class
         {
-            var type = typeof(T);
+            //var type = typeof(T);
+            var type = ribbonItem.GetType();
             try
             {
                 type.GetMethod("verifyNameExclusive",
@@ -54,6 +57,64 @@ namespace ricaun.Revit.UI
             }
             catch { }
             return true;
+        }
+
+        /// <summary>
+        /// Generate Safe Button Name
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="ribbonItem"></param>
+        /// <param name="targetName"></param>
+        /// <param name="targetText"></param>
+        /// <returns></returns>
+        internal static string GenerateSafeButtonName<T>(T ribbonItem, string targetName, string targetText) where T : class
+        {
+            while (RibbonSafeExtension.VerifyNameExclusive(ribbonItem, targetName))
+                targetName = RibbonSafeExtension.SafeButtonName(targetText);
+            return targetName;
+        }
+
+        /// <summary>
+        /// NewPushButtonData
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="ribbonItem"></param>
+        /// <param name="commandType"></param>
+        /// <param name="text"></param>
+        /// <returns></returns>
+        public static PushButtonData NewPushButtonData(object ribbonItem, Type commandType, string text = null)
+        {
+            var targetName = commandType.GetName();
+            var targetText = targetName;
+            var assemblyName = commandType.Assembly.Location;
+            var className = commandType.FullName;
+
+            if (text != null && text != "") targetText = text;
+
+            targetName = RibbonSafeExtension.GenerateSafeButtonName(ribbonItem, targetName, targetText);
+
+            PushButtonData buttonData = new PushButtonData(targetName, targetText, assemblyName, className);
+
+            if (typeof(IExternalCommandAvailability).IsAssignableFrom(commandType))
+                buttonData.AvailabilityClassName = commandType.FullName;
+
+            if (text == "") buttonData.Text = "-";
+
+            return buttonData;
+        }
+
+        public static PushButtonData NewPushButtonData<TExternalCommand>(object ribbonItem, string text = null) where TExternalCommand : class, IExternalCommand, new()
+        {
+            var commandType = typeof(TExternalCommand);
+            return RibbonSafeExtension.NewPushButtonData(ribbonItem, commandType, text);
+        }
+
+        public static PushButtonData NewPushButtonData<TExternalCommand, TAvailability>(object ribbonItem, string text = null) where TExternalCommand : class, IExternalCommand, new() where TAvailability : class, IExternalCommandAvailability, new()
+        {
+            PushButtonData buttonData = RibbonSafeExtension
+                .NewPushButtonData<TExternalCommand>(ribbonItem, text)
+                .SetAvailability<TAvailability>();
+            return buttonData;
         }
     }
 }

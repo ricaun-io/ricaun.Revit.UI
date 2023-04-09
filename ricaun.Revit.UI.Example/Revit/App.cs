@@ -274,16 +274,51 @@ namespace ricaun.Revit.UI.Example.Revit
             var button = ribbonPanelMove.CreatePushButton<Commands.Command>("Teste")
                 .SetLargeImage("/UIFrameworkRes;component/ribbon/images/revit.ico");
 
-            var ribbonItem = button.GetRibbonItem();
-            var modifyName = "Test";
-            ribbonItem.Text = modifyName;
+            var splitButtonWithButton = ribbonPanelMove.CreateSplitButton(
+                ribbonPanelMove.NewPushButtonData<Commands.Command>("Split"),
+                ribbonPanelMove.NewPushButtonData<Commands.Command>("Split"),
+                ribbonPanelMove.NewPushButtonData<Commands.Command>("Split"),
+                ribbonPanelMove.NewPushButtonData<Commands.Command>(),
+                ribbonPanelMove.NewPushButtonData<Commands.Command>());
 
-            RibbonModifyUtils.CreatePanel(modifyName, button);
-            RibbonModifyUtils.CreatePanel(modifyName,
-                 ribbonItem,
-                 ribbonItem.CreateCopy(),
-                 ribbonItem.CreateCopy((i) => { i.Text = ""; }),
-                 ribbonItem.CreateCopy((i) => { i.Size = Autodesk.Windows.RibbonItemSize.Standard; }));
+            var splitButton = ribbonPanelMove.CreateSplitButton();
+            var split = ribbonPanelMove.CreateSplitButton("Split");
+
+            for (int i = 0; i < 5; i++)
+            {
+                split.CreatePushButton<Commands.Command>()
+                    .SetLargeImage("/UIFrameworkRes;component/ribbon/images/revit.ico");
+                split.CreatePushButton<Commands.Command, Commands.Availability.AvailableOnAnyDocument>()
+                    .SetLargeImage("/UIFrameworkRes;component/ribbon/images/revit.ico");
+            }
+
+
+
+
+            //Console.WriteLine($">> {split}");
+
+            //var ribbonItem = button.GetRibbonItem();
+            //var modifyName = "Test";
+
+            ////RibbonModifyUtils.CreatePanel(modifyName, button);
+            //RibbonModifyUtils.CreatePanel(modifyName,
+            //     ribbonItem,
+            //     ribbonItem.CreateCopy(),
+            //     ribbonItem.CreateCopy((i) => { i.Text = ""; }),
+            //     ribbonItem.CreateCopy((i) => { i.Size = Autodesk.Windows.RibbonItemSize.Standard; }));
+
+            //var task = Task.Run(async () =>
+            //{
+            //    for (int i = 0; i < 10; i++)
+            //    {
+            //        await Task.Delay(1000);
+            //    }
+            //    UIFramework.RevitRibbonControl.RibbonControl.Dispatcher.Invoke(() =>
+            //    {
+            //        //RibbonModifyUtils.RemovePanel(modifyName);
+            //        RibbonModifyUtils.RemovePanel(modifyName);
+            //    });
+            //});
 
             var task = Task.Run(async () =>
             {
@@ -295,10 +330,9 @@ namespace ricaun.Revit.UI.Example.Revit
                 UIFramework.RevitRibbonControl.RibbonControl.Dispatcher.Invoke(() =>
                 {
                     ribbonPanelMove.MoveToRibbonTab("Add-Ins");
-                    RibbonModifyUtils.RemovePanel(modifyName);
-                    RibbonModifyUtils.RemovePanel(modifyName);
                 });
             });
+
 
             ribbonPanelMove.MoveToRibbonTab("Modify");
         }

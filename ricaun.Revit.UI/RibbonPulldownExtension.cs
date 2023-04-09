@@ -1,4 +1,5 @@
 ﻿using Autodesk.Revit.UI;
+using System;
 using System.Linq;
 
 namespace ricaun.Revit.UI
@@ -9,16 +10,15 @@ namespace ricaun.Revit.UI
     public static class RibbonPulldownExtension
     {
         #region PulldownButton
-
         /// <summary>
         /// CreatePulldownButton
         /// </summary>
         /// <param name="ribbonPanel"></param>
-        /// <param name="targetPushButtons"></param>
+        /// <param name="pushButtons"></param>
         /// <returns></returns>
-        public static PulldownButton CreatePulldownButton(this RibbonPanel ribbonPanel, params PushButtonData[] targetPushButtons)
+        public static PulldownButton CreatePulldownButton(this RibbonPanel ribbonPanel, params PushButtonData[] pushButtons)
         {
-            return ribbonPanel.CreatePulldownButton(null, targetPushButtons);
+            return ribbonPanel.CreatePulldownButton(null, pushButtons);
         }
 
         /// <summary>
@@ -26,30 +26,110 @@ namespace ricaun.Revit.UI
         /// </summary>
         /// <param name="ribbonPanel"></param>
         /// <param name="targetText"></param>
-        /// <param name="targetPushButtons"></param>
+        /// <param name="pushButtons"></param>
         /// <returns></returns>
-        public static PulldownButton CreatePulldownButton(this RibbonPanel ribbonPanel, string targetText, params PushButtonData[] targetPushButtons)
+        public static PulldownButton CreatePulldownButton(this RibbonPanel ribbonPanel, string targetText, params PushButtonData[] pushButtons)
         {
-            PulldownButton currentPulldownButton = null;
-            if (targetPushButtons.Any())
+            PulldownButton pulldownButton = null;
+
+            if (targetText is null)
+                targetText = pushButtons.FirstOrDefault()?.Text ?? nameof(PulldownButton);
+
+            var targetName = targetText;
+
+            targetName = RibbonSafeExtension.GenerateSafeButtonName(ribbonPanel, targetName, targetText);
+
+            pulldownButton = ribbonPanel.AddItem(new PulldownButtonData(targetName, targetText)) as PulldownButton;
+
+            pulldownButton.AddPushButtons(pushButtons);
+
+            return pulldownButton;
+        }
+
+        /// <summary>
+        /// AddPushButtons
+        /// </summary>
+        /// <param name="pulldownButton"></param>
+        /// <param name="pushButtons"></param>
+        /// <returns></returns>
+        public static PulldownButton AddPushButtons(this PulldownButton pulldownButton, params PushButtonData[] pushButtons)
+        {
+            var targetText = pulldownButton.ItemText;
+            foreach (PushButtonData pushButton in pushButtons)
             {
-                if (targetText == null) targetText = targetPushButtons.FirstOrDefault().Text;
-                var targetName = targetText;
+                pushButton.Name = RibbonSafeExtension.GenerateSafeButtonName(pulldownButton, pushButton.Name, targetText);
 
-                while (RibbonSafeExtension.VerifyNameExclusive(ribbonPanel, targetName))
-                    targetName = RibbonSafeExtension.SafeButtonName(targetText);
-
-                currentPulldownButton = ribbonPanel.AddItem(new PulldownButtonData(targetName, targetText)) as PulldownButton;
-
-                foreach (PushButtonData currentPushButton in targetPushButtons)
-                {
-                    while (RibbonSafeExtension.VerifyNameExclusive(currentPulldownButton, currentPushButton.Name))
-                        currentPushButton.Name = RibbonSafeExtension.SafeButtonName(targetText);
-
-                    currentPulldownButton.AddPushButton(currentPushButton);
-                }
+                pulldownButton.AddPushButton(pushButton);
             }
-            return currentPulldownButton;
+            return pulldownButton;
+        }
+        #endregion
+
+        #region CreatePushButton
+        /// <summary>
+        /// CreatePushButton
+        /// </summary>
+        /// <typeparam name="TExternalCommand"></typeparam>
+        /// <param name="pulldownButton"></param>
+        /// <param name="text"></param>
+        /// <returns></returns>
+        public static PushButton CreatePushButton<TExternalCommand>(this PulldownButton pulldownButton, string text = null) where TExternalCommand : class, IExternalCommand, new()
+        {
+            PushButton pushButton = pulldownButton.AddPushButton(pulldownButton.NewPushButtonData<TExternalCommand>(text)) as PushButton;
+            return pushButton;
+        }
+        /// <summary>
+        /// CreatePushButton
+        /// </summary>
+        /// <typeparam name="TExternalCommand"></typeparam>
+        /// <typeparam name="TAvailability"></typeparam>
+        /// <param name="pulldownButton"></param>
+        /// <param name="text"></param>
+        /// <returns></returns>
+        public static PushButton CreatePushButton<TExternalCommand, TAvailability>(this PulldownButton pulldownButton, string text = null) where TExternalCommand : class, IExternalCommand, new() where TAvailability : class, IExternalCommandAvailability, new()
+        {
+            PushButton pushButton = pulldownButton
+                .CreatePushButton<TExternalCommand>(text)
+                .SetAvailability<TAvailability>();
+
+            return pushButton;
+        }
+        #endregion
+
+        #region NewPushButtonData
+        /// <summary>
+        /// NewPushButtonData
+        /// </summary>
+        /// <param name="pulldownButton"></param>
+        /// <param name="commandType"></param>
+        /// <param name="text"></param>
+        /// <returns></returns>
+        public static PushButtonData NewPushButtonData(this PulldownButton pulldownButton, Type commandType, string text = null)
+        {
+            return RibbonSafeExtension.NewPushButtonData(pulldownButton, commandType, text);
+        }
+        /// <summary>
+        /// NewPushButtonData
+        /// </summary>
+        /// <typeparam name="TExternalCommand"></typeparam>
+        /// <param name="pulldownButton"></param>
+        /// <param name="text"></param>
+        /// <returns></returns>
+        public static PushButtonData NewPushButtonData<TExternalCommand>(this PulldownButton pulldownButton, string text = null) where TExternalCommand : class, IExternalCommand, new()
+        {
+            return RibbonSafeExtension.NewPushButtonData<TExternalCommand>(pulldownButton, text);
+        }
+        /// <summary>
+        /// NewPushButtonData
+        /// </summary>
+        /// <typeparam name="TExternalCommand"></typeparam>
+        /// <typeparam name="TAvailability"></typeparam>
+        /// <param name="pulldownButton"></param>
+        /// <param name="text"></param>
+        /// <returns></returns>
+        public static PushButtonData NewPushButtonData<TExternalCommand, TAvailability>(this PulldownButton pulldownButton, string text = null) where TExternalCommand : class, IExternalCommand, new() where TAvailability : class, IExternalCommandAvailability, new()
+        {
+            return RibbonSafeExtension.NewPushButtonData<TExternalCommand, TAvailability>(pulldownButton, text);
         }
         #endregion
     }
