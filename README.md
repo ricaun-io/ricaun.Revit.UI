@@ -84,6 +84,11 @@ PushButtonData pushButtonData = ribbonPanel.NewPushButtonData<IExternalCommand>(
 // ribbonPanel.NewPushButtonData<IExternalCommand,IExternalCommandAvailability>("ButtonDataName");
 ```
 
+```C#
+// pushButton.SetAvailability<IExternalCommandAvailability>();
+// pushButtonData.SetAvailability<IExternalCommandAvailability>();
+```
+
 ### RibbonItem Extension
 `RibbonItemExtension` contains methods related to `RibbonItem`
 ```C#
@@ -163,13 +168,26 @@ PulldownButton pulldownButton = ribbonPanel.CreatePulldownButton();
 // ribbonPanel.CreatePulldownButton("PulldownButtonName");
 // ribbonPanel.CreatePulldownButton("PulldownButtonName", PushButtonData, PushButtonData, ...);
 ```
+```C#
+PushButton pushButton = pulldownButton.CreatePushButton<IExternalCommand>();
+// pulldownButton.CreatePushButton<IExternalCommand>("ButtonName");
+// pulldownButton.CreatePushButton<IExternalCommand,IExternalCommandAvailability>();
+// pulldownButton.CreatePushButton<IExternalCommand,IExternalCommandAvailability>("ButtonName");
+```
+```C#
+PushButtonData pushButtonData = pulldownButton.NewPushButtonData<IExternalCommand>();
+// pulldownButton.NewPushButtonData<IExternalCommand>("ButtonDataName");
+// pulldownButton.NewPushButtonData<IExternalCommand,IExternalCommandAvailability>();
+// pulldownButton.NewPushButtonData<IExternalCommand,IExternalCommandAvailability>("ButtonDataName");
+pulldownButton.AddPushButtons(PushButtonData, PushButtonData, ...);
+```
 
 ### RibbonRadio Extension
 `RibbonRadioExtension` contains methods related to `RadioButtonGroup`, `RadioButtonGroupData`, and `ToggleButtonData`
 ```C#
 RadioButtonGroup radioButtonGroup = ribbonPanel.CreateRadioButtonGroup("RadioButtonGroupName");
 // ribbonPanel.CreateRadioButtonGroup("RadioButtonGroupName", ToggleButtonData, ToggleButtonData, ...);
-radioButtonGroup.AddItems(ToggleButtonData, ToggleButtonData, ...);
+radioButtonGroup.AddToggleButtons(ToggleButtonData, ToggleButtonData, ...);
 ```
 ```C#
 RadioButtonGroupData radioButtonGroupData = ribbonPanel.NewRadioButtonGroupData("RadioButtonGroupDataName");
@@ -189,6 +207,19 @@ SplitButton splitButton = ribbonPanel.CreateSplitButton();
 // ribbonPanel.CreateSplitButton(PushButtonData, PushButtonData, ...);
 // ribbonPanel.CreateSplitButton("SplitButtonName");
 // ribbonPanel.CreateSplitButton("SplitButtonName", PushButtonData, PushButtonData, ...);
+```
+```C#
+PushButton pushButton = splitButton.CreatePushButton<IExternalCommand>();
+// splitButton.CreatePushButton<IExternalCommand>("ButtonName");
+// splitButton.CreatePushButton<IExternalCommand,IExternalCommandAvailability>();
+// splitButton.CreatePushButton<IExternalCommand,IExternalCommandAvailability>("ButtonName");
+```
+```C#
+PushButtonData pushButtonData = splitButton.NewPushButtonData<IExternalCommand>();
+// splitButton.NewPushButtonData<IExternalCommand>("ButtonDataName");
+// splitButton.NewPushButtonData<IExternalCommand,IExternalCommandAvailability>();
+// splitButton.NewPushButtonData<IExternalCommand,IExternalCommandAvailability>("ButtonDataName");
+splitButton.AddPushButtons(PushButtonData, PushButtonData, ...);
 ```
 
 ### RibbonTextBox Extension

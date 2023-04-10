@@ -23,6 +23,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Update Obsolete ConsoleAttribute
 - Update Remove RibbonPanel from internal RibbonTabsDictionary
 - Update CreatePanel uses Add-Ins
+- Update `AddPushButtons` with <T>
 ### Tests
 - Add `IsTestProject` in csproj
 - Add Build LocalTest

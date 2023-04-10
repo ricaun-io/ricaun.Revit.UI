@@ -52,7 +52,7 @@ namespace ricaun.Revit.UI
         /// <param name="pulldownButton"></param>
         /// <param name="pushButtons"></param>
         /// <returns></returns>
-        public static PulldownButton AddPushButtons(this PulldownButton pulldownButton, params PushButtonData[] pushButtons)
+        public static T AddPushButtons<T>(this T pulldownButton, params PushButtonData[] pushButtons) where T : PulldownButton
         {
             var targetText = pulldownButton.ItemText;
             foreach (PushButtonData pushButton in pushButtons)
