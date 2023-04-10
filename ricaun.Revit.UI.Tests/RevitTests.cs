@@ -12,5 +12,12 @@ namespace ricaun.Revit.UI.Tests
             Assert.IsNotNull(uiapp);
             Console.WriteLine(uiapp.Application.Username);
         }
+
+        [Test]
+        public void RevitTests_VersionName(UIApplication uiapp)
+        {
+            Assert.IsNotNull(uiapp);
+            Console.WriteLine(uiapp.Application.VersionName);
+        }
     }
 }

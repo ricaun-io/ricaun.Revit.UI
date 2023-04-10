@@ -109,8 +109,6 @@ namespace ricaun.Revit.UI
             ribbonPanel.Enabled = false;
 
             ribbonPanel.GetRibbonTab().Remove(ribbonPanel.GetRibbonPanel());
-            //var panel = ribbonPanel.GetRibbonPanel();
-            //panel.Tab.Panels.Remove(panel);
             return ribbonPanel;
         }
 

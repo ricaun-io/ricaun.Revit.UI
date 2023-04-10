@@ -60,6 +60,7 @@ namespace ricaun.Revit.UI
         /// Remove RibbonPanel / Remove Revit Dictionary Name
         /// </summary>
         /// <param name="ribbonTab"></param>
+        /// <param name="ribbonPanel"></param>
         /// <returns></returns>
         public static bool Remove(this Autodesk.Windows.RibbonTab ribbonTab, Autodesk.Windows.RibbonPanel ribbonPanel)
         {

@@ -24,7 +24,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Update Remove RibbonPanel from internal RibbonTabsDictionary
 - Update CreatePanel uses Add-Ins
 ### Tests
-- Add TestCreatePanel
+- Add `IsTestProject` in csproj
+- Add Build LocalTest
+- Add RevitTests
+- Add Panels.RevitPanelTests
+- Add Panels.RevitTabPanelTests
 
 ## [0.4.0] / 2022-08-23
 ### Features

@@ -93,6 +93,9 @@
         "ReleaseBundle": {
           "type": "boolean"
         },
+        "ReleaseNameVersion": {
+          "type": "boolean"
+        },
         "ReleasePackageBuilder": {
           "type": "boolean"
         },
@@ -121,7 +124,8 @@
               "Pack",
               "PackageBuilder",
               "Release",
-              "Sign"
+              "Sign",
+              "TestLocal"
             ]
           }
         },
@@ -142,9 +146,19 @@
               "Pack",
               "PackageBuilder",
               "Release",
-              "Sign"
+              "Sign",
+              "TestLocal"
             ]
           }
+        },
+        "TestLocalBuildStopWhenFailed": {
+          "type": "boolean"
+        },
+        "TestLocalProjectName": {
+          "type": "string"
+        },
+        "TestLocalResults": {
+          "type": "boolean"
         },
         "VendorDescription": {
           "type": "string"

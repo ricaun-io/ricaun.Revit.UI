@@ -15,7 +15,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Build", "Build\Build.csproj
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ricaun.Revit.UI.Example", "ricaun.Revit.UI.Example\ricaun.Revit.UI.Example.csproj", "{F736F68F-7101-4640-9093-8715F88CCB95}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ricaun.Revit.UI.Tests", "ricaun.Revit.UI.Tests\ricaun.Revit.UI.Tests.csproj", "{B125918C-83C5-474A-9469-88262AC5BCE6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ricaun.Revit.UI.Tests", "ricaun.Revit.UI.Tests\ricaun.Revit.UI.Tests.csproj", "{B125918C-83C5-474A-9469-88262AC5BCE6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
