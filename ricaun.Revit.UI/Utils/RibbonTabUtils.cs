@@ -9,7 +9,7 @@ namespace ricaun.Revit.UI.Utils
     /// <summary>
     /// RibbonTabUtils
     /// </summary>
-    public static class RibbonTabUtils
+    internal static class RibbonTabUtils
     {
         #region Panel
         /// <summary>

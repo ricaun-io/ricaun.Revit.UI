@@ -7,7 +7,7 @@ namespace ricaun.Revit.UI.Utils
     /// <summary>
     /// RibbonModifyUtils
     /// </summary>
-    public static class RibbonModifyUtils
+    internal static class RibbonModifyUtils
     {
         private const string MODIFY_PANEL_ID = "Modify";
 
