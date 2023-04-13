@@ -4,6 +4,33 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [0.5.0] / 2023-04-08
+### Features
+- RibbonItem - CreateCopy
+- RibbonPanel - MoveToRibbonTab
+- RibbonSplit - CreatePushButton, NewPushButtonData
+- RibbonPulldown - CreatePushButton, NewPushButtonData
+### Utils
+- RibbonTabUtils - CreateRibbonPanel, RemoveRibbonPanel
+- RibbonModifyUtils - CreateRibbonPanel, RemoveRibbonPanel
+### Updated
+- Remove Obsolete AddPushButton/Close
+- Update RibbonButtonExtension - Add SetAvailability
+- Update RibbonSafeExtension - Base CreateButton/NewButton
+- Update all Ribbons with GenerateSafeButtonName
+- Update RibbonRadio - AddItems to AddToggleButtons
+- Update NewPushButtonData<T> to work with PushButtonData and ToggleButtonData
+- Update Obsolete ConsoleAttribute
+- Update Remove RibbonPanel from internal RibbonTabsDictionary
+- Update CreatePanel uses Add-Ins
+- Update `AddPushButtons` with <T>
+### Tests
+- Add `IsTestProject` in csproj
+- Add Build LocalTest
+- Add RevitTests
+- Add Panels.RevitPanelTests
+- Add Panels.RevitTabPanelTests
+
 ## [0.4.0] / 2022-08-23
 ### Features
 - Bitmap to BitmapSource perfect pixel
@@ -188,6 +215,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - First Release
 
 [vNext]: ../../compare/1.0.0...HEAD
+[0.5.0]: ../../compare/0.4.0...0.5.0
 [0.4.0]: ../../compare/0.3.2...0.4.0
 [0.3.2]: ../../compare/0.3.1...0.3.2
 [0.3.1]: ../../compare/0.3.0...0.3.1

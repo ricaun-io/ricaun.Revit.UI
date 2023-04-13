@@ -3,6 +3,7 @@ using Autodesk.Revit.DB;
 using Autodesk.Revit.UI;
 using ricaun.Revit.UI;
 using ricaun.Revit.UI.Example.Proprieties;
+using ricaun.Revit.UI.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,38 +13,7 @@ using System.Windows.Media;
 namespace ricaun.Revit.UI.Example.Revit
 {
     [AppLoader]
-    public class AppExample : IExternalApplication
-    {
-        private static RibbonPanel ribbonPanel;
-        public Result OnStartup(UIControlledApplication application)
-        {
-            ribbonPanel = application.CreatePanel("ricaun", "ricaun");
-
-            var ribbonItem = ribbonPanel.CreatePushButton<Commands.Command>()
-                .SetText("Command")
-                .SetToolTip("This is a tooltip.")
-                .SetLongDescription("This is a description.")
-                .SetLargeImage("/UIFrameworkRes;component/ribbon/images/revit.ico");
-
-            if (LanguageExtension.IsBrazilianPortuguese)
-            {
-                ribbonItem.SetText("Comando")
-                    .SetToolTip("Esta é uma dica de ferramenta.")
-                    .SetLongDescription("Esta é uma descrição.");
-            }
-
-            return Result.Succeeded;
-        }
-
-        public Result OnShutdown(UIControlledApplication application)
-        {
-            ribbonPanel?.Remove();
-            return Result.Succeeded;
-        }
-    }
-
-
-    [Console]
+    //[Obsolete]
     public class App : IExternalApplication
     {
         private const string TabName = "ricaun";
@@ -182,7 +152,7 @@ namespace ricaun.Revit.UI.Example.Revit
                     .SetLargeImage(Icons8.Trash)
             );
 
-            radio.AddItems(
+            radio.AddToggleButtons(
                 ribbonPanel.NewToggleButtonData("R5")
                 .SetLargeImage(Icons8.About)
                 );
@@ -270,23 +240,70 @@ namespace ricaun.Revit.UI.Example.Revit
         private void AddNewPanelToMove(UIControlledApplication application)
         {
             ribbonPanelMove = application.CreateOrSelectPanel(TabName, PanelName + "0");
-            ribbonPanelMove.CreatePushButton<Commands.Command>("Teste")
+            var button = ribbonPanelMove.CreatePushButton<Commands.Command>("Teste")
                 .SetLargeImage("/UIFrameworkRes;component/ribbon/images/revit.ico");
+
+            var splitButtonWithButton = ribbonPanelMove.CreateSplitButton(
+                ribbonPanelMove.NewPushButtonData<Commands.Command>("Split"),
+                ribbonPanelMove.NewPushButtonData<Commands.Command>("Split"),
+                ribbonPanelMove.NewPushButtonData<Commands.Command>("Split"),
+                ribbonPanelMove.NewPushButtonData<Commands.Command>(),
+                ribbonPanelMove.NewPushButtonData<Commands.Command>());
+
+            var splitButton = ribbonPanelMove.CreateSplitButton();
+            var split = ribbonPanelMove.CreateSplitButton("Split");
+
+            for (int i = 0; i < 5; i++)
+            {
+                split.CreatePushButton<Commands.Command>()
+                    .SetLargeImage("/UIFrameworkRes;component/ribbon/images/revit.ico");
+                split.CreatePushButton<Commands.Command, Commands.Availability.AvailableOnAnyDocument>()
+                    .SetLargeImage("/UIFrameworkRes;component/ribbon/images/revit.ico");
+            }
+
+
+
+
+            //Console.WriteLine($">> {split}");
+
+            //var ribbonItem = button.GetRibbonItem();
+            //var modifyName = "Test";
+
+            ////RibbonModifyUtils.CreatePanel(modifyName, button);
+            //RibbonModifyUtils.CreatePanel(modifyName,
+            //     ribbonItem,
+            //     ribbonItem.CreateCopy(),
+            //     ribbonItem.CreateCopy((i) => { i.Text = ""; }),
+            //     ribbonItem.CreateCopy((i) => { i.Size = Autodesk.Windows.RibbonItemSize.Standard; }));
+
+            //var task = Task.Run(async () =>
+            //{
+            //    for (int i = 0; i < 10; i++)
+            //    {
+            //        await Task.Delay(1000);
+            //    }
+            //    UIFramework.RevitRibbonControl.RibbonControl.Dispatcher.Invoke(() =>
+            //    {
+            //        //RibbonModifyUtils.RemovePanel(modifyName);
+            //        RibbonModifyUtils.RemovePanel(modifyName);
+            //    });
+            //});
 
             var task = Task.Run(async () =>
             {
                 for (int i = 0; i < 10; i++)
                 {
                     await Task.Delay(1000);
-                    ribbonPanelMove.Title = $"{PanelName}{i}";
+                    ribbonPanelMove.Title = $"{PanelName} {i}";
                 }
+                UIFramework.RevitRibbonControl.RibbonControl.Dispatcher.Invoke(() =>
+                {
+                    ribbonPanelMove.MoveToRibbonTab("Add-Ins");
+                });
             });
 
-            var ribbonPanelPanel = ribbonPanelMove.GetRibbonPanel();
-            ribbonPanelMove.Remove();
-            RibbonTabExtension.GetRibbonTab("Modify").Panels.Add(ribbonPanelPanel);
-            ribbonPanelMove.Visible = true;
-            ribbonPanelMove.Enabled = true;
+
+            ribbonPanelMove.MoveToRibbonTab("Modify");
         }
 
         private void UpdateRibbonDescription(RibbonPanel ribbonPanel)
@@ -591,7 +608,6 @@ namespace ricaun.Revit.UI.Example.Revit
             ribbonPanel?.Remove(true);
             return Result.Succeeded;
         }
-
 
         private void OrderPanelAndMove(RibbonPanel ribbonPanel)
         {

@@ -55,6 +55,9 @@ namespace ricaun.Revit.UI
         /// <returns></returns>
         public static RibbonPanel CreatePanel(this UIControlledApplication application, string tabName, string panelName)
         {
+            if (string.IsNullOrEmpty(tabName))
+                return application.CreatePanel(panelName);
+
             RibbonPanel ribbonPanel = null;
             try { application.CreateRibbonTab(tabName); } catch { }
             try
@@ -81,6 +84,9 @@ namespace ricaun.Revit.UI
         /// <returns></returns>
         public static RibbonPanel CreateOrSelectPanel(this UIControlledApplication application, string tabName, string panelName)
         {
+            if (string.IsNullOrEmpty(tabName))
+                return application.CreateOrSelectPanel(panelName);
+
             if (application.GetRibbonPanels(tabName).FirstOrDefault(p => p.IsSelect(panelName)) is RibbonPanel ribbonPanel)
                 return ribbonPanel;
 
@@ -102,20 +108,38 @@ namespace ricaun.Revit.UI
             ribbonPanel.Visible = false;
             ribbonPanel.Enabled = false;
 
-            var panel = ribbonPanel.GetRibbonPanel();
-            panel.Tab.Panels.Remove(panel);
+            ribbonPanel.GetRibbonTab().Remove(ribbonPanel.GetRibbonPanel());
             return ribbonPanel;
         }
 
         /// <summary>
-        /// Remove RibbonPanel from Tab
+        /// Move RibbonPanel to RibbonTab with <paramref name="ribbonTabId"/>
+        /// <code>'Modify' | 'Add-Ins'</code>
         /// </summary>
         /// <param name="ribbonPanel"></param>
+        /// <param name="ribbonTabId"></param>
         /// <returns></returns>
-        [Obsolete("Close is deprecated, please use Remove instead.")]
-        public static RibbonPanel Close(this RibbonPanel ribbonPanel)
+        public static RibbonPanel MoveToRibbonTab(this RibbonPanel ribbonPanel, string ribbonTabId)
         {
-            return ribbonPanel.Remove();
+            var ribbonTab = Autodesk.Windows.ComponentManager.Ribbon.FindTab(ribbonTabId);
+            return ribbonPanel.MoveToRibbonTab(ribbonTab);
+        }
+
+        /// <summary>
+        /// Move RibbonPanel to <paramref name="ribbonTab"/>
+        /// </summary>
+        /// <param name="ribbonPanel"></param>
+        /// <param name="ribbonTab"></param>
+        /// <returns></returns>
+        public static RibbonPanel MoveToRibbonTab(this RibbonPanel ribbonPanel, Autodesk.Windows.RibbonTab ribbonTab)
+        {
+            if (ribbonTab is not null)
+            {
+                var panel = ribbonPanel.GetRibbonPanel();
+                panel.Tab.Panels.Remove(panel);
+                ribbonTab.Panels.Add(panel);
+            }
+            return ribbonPanel;
         }
         #endregion
 
