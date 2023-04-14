@@ -1,4 +1,5 @@
 ﻿using Autodesk.Revit.UI;
+using System;
 
 namespace ricaun.Revit.UI
 {
@@ -14,7 +15,7 @@ namespace ricaun.Revit.UI
         /// <param name="ribbonPanel"></param>
         /// <param name="targetName"></param>
         /// <returns></returns>
-        public static TextBox CreateTextBox(this RibbonPanel ribbonPanel, string targetName)
+        public static TextBox CreateTextBox(this RibbonPanel ribbonPanel, string targetName = null)
         {
             return ribbonPanel.AddItem(ribbonPanel.NewTextBoxData(targetName)) as TextBox;
         }
@@ -66,6 +67,42 @@ namespace ricaun.Revit.UI
             textBox.Value = value;
             return textBox;
         }
+
+        /// <summary>
+        /// SetWidth
+        /// </summary>
+        /// <param name="textBox"></param>
+        /// <param name="width"></param>
+        /// <returns></returns>
+        public static TextBox SetWidth(this TextBox textBox, double width)
+        {
+            textBox.Width = width;
+            return textBox;
+        }
+
+        /// <summary>
+        /// AddEnterPressed
+        /// </summary>
+        /// <param name="textBox"></param>
+        /// <param name="enterPressed"></param>
+        /// <returns></returns>
+        public static TextBox AddEnterPressed(this TextBox textBox, EventHandler<Autodesk.Revit.UI.Events.TextBoxEnterPressedEventArgs> enterPressed)
+        {
+            textBox.EnterPressed += enterPressed;
+            return textBox;
+        }
+
+        /// <summary>
+        /// RemoveEnterPressed
+        /// </summary>
+        /// <param name="textBox"></param>
+        /// <param name="enterPressed"></param>
+        /// <returns></returns>
+        public static TextBox RemoveEnterPressed(this TextBox textBox, EventHandler<Autodesk.Revit.UI.Events.TextBoxEnterPressedEventArgs> enterPressed)
+        {
+            textBox.EnterPressed -= enterPressed;
+            return textBox;
+        }
         #endregion
 
         #region TextBoxData
@@ -75,8 +112,9 @@ namespace ricaun.Revit.UI
         /// <param name="ribbonPanel"></param>
         /// <param name="targetName"></param>
         /// <returns></returns>
-        public static TextBoxData NewTextBoxData(this RibbonPanel ribbonPanel, string targetName)
+        public static TextBoxData NewTextBoxData(this RibbonPanel ribbonPanel, string targetName = null)
         {
+            if (string.IsNullOrEmpty(targetName)) targetName = nameof(TextBox);
             targetName = RibbonSafeExtension.GenerateSafeButtonName(ribbonPanel, targetName, targetName);
 
             return new TextBoxData(targetName);

@@ -4,6 +4,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [0.5.1] / 2023-04-14
+### RibbonStackExtension
+- Add RowStackedItems
+- Add FlowStackedItems
+### TextBox
+- Add SetWidth
+- Add SetWidth
+- Add AddEnterPressed
+- Add RemoveEnterPressed
+### Updated
+- Remove CreateCopy - Use Clone insted
+
 ## [0.5.0] / 2023-04-08
 ### Features
 - RibbonItem - CreateCopy
@@ -215,6 +227,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - First Release
 
 [vNext]: ../../compare/1.0.0...HEAD
+[0.5.1]: ../../compare/0.5.0...0.5.1
 [0.5.0]: ../../compare/0.4.0...0.5.0
 [0.4.0]: ../../compare/0.3.2...0.4.0
 [0.3.2]: ../../compare/0.3.1...0.3.2
