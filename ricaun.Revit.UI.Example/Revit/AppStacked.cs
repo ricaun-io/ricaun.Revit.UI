@@ -21,13 +21,6 @@ namespace ricaun.Revit.UI.Example.Revit
 
             //ribbonPanel.AddStackedItems(ribbonPanel.NewPushButtonData<Commands.Command>(), ribbonPanel.NewPushButtonData<Commands.Command>(), ribbonPanel.NewPushButtonData<Commands.Command>());
 
-
-            var i = ribbonPanel.CreatePushButton<Commands.Command>()
-                .SetLargeImage("/UIFrameworkRes;component/ribbon/images/revit.ico");
-
-            System.Console.WriteLine(i.GetRibbonItem<Autodesk.Windows.RibbonItem>());
-
-
             RibbonItem[] CreateButtons(int number)
             {
                 var itens = Enumerable.Range(1, number).Select(i =>
