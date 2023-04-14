@@ -14,6 +14,16 @@ namespace ricaun.Revit.UI
         /// CreateRadioButtonGroup
         /// </summary>
         /// <param name="ribbonPanel"></param>
+        /// <param name="toggleButtonDatas"></param>
+        /// <returns></returns>
+        public static RadioButtonGroup CreateRadioButtonGroup(this RibbonPanel ribbonPanel, params ToggleButtonData[] toggleButtonDatas)
+        {
+            return ribbonPanel.CreateRadioButtonGroup(null, toggleButtonDatas);
+        }
+        /// <summary>
+        /// CreateRadioButtonGroup
+        /// </summary>
+        /// <param name="ribbonPanel"></param>
         /// <param name="targetText"></param>
         /// <param name="toggleButtonDatas"></param>
         /// <returns></returns>
@@ -21,8 +31,8 @@ namespace ricaun.Revit.UI
         {
             RadioButtonGroup radioButtonGroup = null;
 
-            if (targetText == null)
-                targetText = toggleButtonDatas.FirstOrDefault().Text ?? nameof(RadioButtonGroup);
+            if (string.IsNullOrWhiteSpace(targetText))
+                targetText = toggleButtonDatas.FirstOrDefault()?.Text ?? nameof(RadioButtonGroup);
 
             var targetName = targetText;
 
@@ -61,10 +71,10 @@ namespace ricaun.Revit.UI
         /// <param name="ribbonPanel"></param>
         /// <param name="targetName"></param>
         /// <returns></returns>
-        public static ToggleButtonData NewToggleButtonData(this RibbonPanel ribbonPanel, string targetName)
+        public static ToggleButtonData NewToggleButtonData(this RibbonPanel ribbonPanel, string targetName = null)
         {
-            if (targetName.Trim() == string.Empty)
-                targetName = "-";
+            if (string.IsNullOrWhiteSpace(targetName))
+                targetName = nameof(ToggleButtonData);
 
             targetName = RibbonSafeExtension.GenerateSafeButtonName(ribbonPanel, targetName, targetName);
 
@@ -120,10 +130,10 @@ namespace ricaun.Revit.UI
         /// <param name="ribbonPanel"></param>
         /// <param name="targetName"></param>
         /// <returns></returns>
-        public static RadioButtonGroupData NewRadioButtonGroupData(this RibbonPanel ribbonPanel, string targetName)
+        public static RadioButtonGroupData NewRadioButtonGroupData(this RibbonPanel ribbonPanel, string targetName = null)
         {
-            if (targetName.Trim() == string.Empty)
-                targetName = "-";
+            if (string.IsNullOrWhiteSpace(targetName))
+                targetName = nameof(RadioButtonGroupData);
 
             var radioButtonGroupData = new RadioButtonGroupData(targetName);
 

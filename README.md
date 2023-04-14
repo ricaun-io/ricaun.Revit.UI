@@ -148,15 +148,18 @@ var ribbonItemData = ribbonPanel
 ### RibbonComboBox Extension
 `RibbonComboBoxExtension` contains methods related to `ComboBox`, `ComboBoxData`, and `ComboBoxMemberData`.
 ```C#
-ComboBox comboBox = ribbonPanel.CreateComboBox("ComboBoxName");
+ComboBox comboBox = ribbonPanel.CreateComboBox();
+// ribbonPanel.CreateComboBox("ComboBoxName");
 // ribbonPanel.CreateComboBox("ComboBoxName", ComboBoxMemberData, ComboBoxMemberData, ...);
-comboBox.AddItems(ComboBoxMemberData, ComboBoxMemberData, ...);
+comboBox.AddComboBoxMembers(ComboBoxMemberData, ComboBoxMemberData, ...);
 ```
 ```C#
-ComboBoxData comboBoxData = ribbonPanel.NewComboBoxData("ComboBoxDataName");
+ComboBoxData comboBoxData = ribbonPanel.NewComboBoxData();
+// ribbonPanel.NewComboBoxData("ComboBoxDataName");
 ```
 ```C#
-ComboBoxMemberData comboBoxMemberData = ribbonPanel.NewComboBoxMemberData("ComboBoxMemberDataName");
+ComboBoxMemberData comboBoxMemberData = ribbonPanel.NewComboBoxMemberData();
+// ribbonPanel.NewComboBoxMemberData("ComboBoxMemberDataName");
 comboBoxMemberData.SetGroupName("GroupName");
 ```
 
@@ -185,7 +188,8 @@ pulldownButton.AddPushButtons(PushButtonData, PushButtonData, ...);
 ### RibbonRadio Extension
 `RibbonRadioExtension` contains methods related to `RadioButtonGroup`, `RadioButtonGroupData`, and `ToggleButtonData`
 ```C#
-RadioButtonGroup radioButtonGroup = ribbonPanel.CreateRadioButtonGroup("RadioButtonGroupName");
+RadioButtonGroup radioButtonGroup = ribbonPanel.CreateRadioButtonGroup();
+// ribbonPanel.CreateRadioButtonGroup("RadioButtonGroupName");
 // ribbonPanel.CreateRadioButtonGroup("RadioButtonGroupName", ToggleButtonData, ToggleButtonData, ...);
 radioButtonGroup.AddToggleButtons(ToggleButtonData, ToggleButtonData, ...);
 ```
@@ -193,7 +197,8 @@ radioButtonGroup.AddToggleButtons(ToggleButtonData, ToggleButtonData, ...);
 RadioButtonGroupData radioButtonGroupData = ribbonPanel.NewRadioButtonGroupData("RadioButtonGroupDataName");
 ```
 ```C#
-ToggleButtonData ToggleButtonData = ribbonPanel.NewToggleButtonData("ToggleButtonDataName");
+ToggleButtonData ToggleButtonData = ribbonPanel.NewToggleButtonData();
+// ribbonPanel.NewToggleButtonData("ToggleButtonDataName");
 // ribbonPanel.NewToggleButtonData<IExternalCommand>();
 // ribbonPanel.NewToggleButtonData<IExternalCommand>("ToggleButtonDataName");
 // ribbonPanel.NewToggleButtonData<IExternalCommand, IExternalCommandAvailability>();
@@ -225,14 +230,19 @@ splitButton.AddPushButtons(PushButtonData, PushButtonData, ...);
 ### RibbonTextBox Extension
 `RibbonTextBoxExtension` contains methods related to `TextBox` and `TextBoxData`
 ```C#
-TextBox textBox = ribbonPanel.CreateTextBox("TextBoxName");
+TextBox textBox = ribbonPanel.CreateTextBox();
+// ribbonPanel.CreateTextBox("TextBoxName");
 textBox.SetValue("Value");
 textBox.SetPromptText("PromptText");
 textBox.SetShowImageAsButton(true);
 textBox.SetSelectTextOnFocus(true);
+textBox.SetWidth(120);
+textBox.AddEnterPressed(OnEnterPressed);
+textBox.RemoveEnterPressed(OnEnterPressed);
 ```
 ```C#
-TextBoxData textBoxData = ribbonPanel.NewTextBoxData("TextBoxNameData");
+TextBoxData textBoxData = ribbonPanel.NewTextBoxData();
+// ribbonPanel.NewTextBoxData("TextBoxNameData");
 ```
 
 ### RibbonUtil Extension

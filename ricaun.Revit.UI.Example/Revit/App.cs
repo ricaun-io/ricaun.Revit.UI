@@ -517,7 +517,7 @@ namespace ricaun.Revit.UI.Example.Revit
                     {
                         if (ribbonItem is ComboBox combo)
                         {
-                            combo.AddItems(
+                            combo.AddComboBoxMembers(
                                ribbonPanel.NewComboBoxMemberData("1"),
                                ribbonPanel.NewComboBoxMemberData("2"),
                                ribbonPanel.NewComboBoxMemberData("3"),
@@ -536,7 +536,7 @@ namespace ricaun.Revit.UI.Example.Revit
                     {
                         if (ribbonItem is ComboBox combo)
                         {
-                            combo.AddItems(
+                            combo.AddComboBoxMembers(
                                 ribbonPanel.NewComboBoxMemberData("1")
                                     .SetText("One")
                                     .SetImage(Icons8.Document)
@@ -561,7 +561,7 @@ namespace ricaun.Revit.UI.Example.Revit
                     {
                         if (ribbonItem is ComboBox combo)
                         {
-                            combo.AddItems(
+                            combo.AddComboBoxMembers(
                                 ribbonPanel.NewComboBoxMemberData("A"),
                                 ribbonPanel.NewComboBoxMemberData("B"),
                                 ribbonPanel.NewComboBoxMemberData("C"),

@@ -44,6 +44,31 @@ namespace ricaun.Revit.UI
         }
 
         /// <summary>
+        /// Get <typeparamref name="T"/> from <paramref name="ribbonItem"/> using <see cref="GetRibbonItem"/>
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="ribbonItem"></param>
+        /// <returns></returns>
+        public static T GetRibbonItem<T>(this RibbonItem ribbonItem) where T : Autodesk.Windows.RibbonItem
+        {
+            return ribbonItem.GetRibbonItem() as T;
+        }
+
+        /// <summary>
+        /// Get <typeparamref name="T"/> from <paramref name="ribbonItem"/> using <see cref="GetRibbonItem"/>
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="ribbonItem"></param>
+        /// <param name="action"></param>
+        /// <returns></returns>
+        public static T GetRibbonItem<T>(this RibbonItem ribbonItem, Action<T> action) where T : Autodesk.Windows.RibbonItem
+        {
+            var ribbon = ribbonItem.GetRibbonItem<T>();
+            if (ribbon is not null) action?.Invoke(ribbon);
+            return ribbon;
+        }
+
+        /// <summary>
         /// Get <see cref="Autodesk.Windows.RibbonItem"/> from <paramref name="ribbonItem"/>
         /// </summary>
         /// <param name="ribbonItem"></param>
@@ -72,61 +97,6 @@ namespace ricaun.Revit.UI
                 BindingFlags.Instance | BindingFlags.NonPublic)
                 ?.GetValue(ribbonPanel) as Autodesk.Windows.RibbonPanel;
             return _ribbonPanel;
-        }
-        #endregion
-
-        #region CreateCopy
-        /// <summary>
-        /// Create a copy of the <paramref name="ribbonItemSource"/> with the same type <typeparamref name="TRibbonItem"/>
-        /// </summary>
-        /// <typeparam name="TRibbonItem"></typeparam>
-        /// <param name="ribbonItemSource"></param>
-        /// <returns></returns>
-        public static TRibbonItem CreateCopy<TRibbonItem>(this TRibbonItem ribbonItemSource) where TRibbonItem : Autodesk.Windows.RibbonItem
-        {
-            var copyRibbonItem = Activator.CreateInstance(ribbonItemSource.GetType()) as TRibbonItem;
-            copyRibbonItem.CopyFrom(ribbonItemSource);
-            return copyRibbonItem;
-        }
-
-        /// <summary>
-        /// Create a copy of the <paramref name="ribbonItemSource"/> and convert to type <typeparamref name="TRibbonItem"/>
-        /// </summary>
-        /// <typeparam name="TRibbonItem"></typeparam>
-        /// <param name="ribbonItemSource"></param>
-        /// <returns></returns>
-        public static TRibbonItem CreateCopy<TRibbonItem>(this Autodesk.Windows.RibbonItem ribbonItemSource) where TRibbonItem : Autodesk.Windows.RibbonItem
-        {
-            var copyRibbonItem = CreateCopy(ribbonItemSource);
-            return copyRibbonItem as TRibbonItem;
-        }
-
-        /// <summary>
-        /// Create a copy of the <paramref name="ribbonItemSource"/> with the same type <typeparamref name="TRibbonItem"/>
-        /// </summary>
-        /// <typeparam name="TRibbonItem"></typeparam>
-        /// <param name="ribbonItemSource"></param>
-        /// <param name="actionCopy"></param>
-        /// <returns></returns>
-        public static TRibbonItem CreateCopy<TRibbonItem>(this TRibbonItem ribbonItemSource, Action<TRibbonItem> actionCopy) where TRibbonItem : Autodesk.Windows.RibbonItem
-        {
-            var copyRibbonItem = CreateCopy(ribbonItemSource);
-            actionCopy?.Invoke(copyRibbonItem);
-            return copyRibbonItem;
-        }
-
-        /// <summary>
-        /// Create a copy of the <paramref name="ribbonItemSource"/> and convert to type <typeparamref name="TRibbonItem"/>
-        /// </summary>
-        /// <typeparam name="TRibbonItem"></typeparam>
-        /// <param name="ribbonItemSource"></param>
-        /// <param name="actionCopy"></param>
-        /// <returns></returns>
-        public static TRibbonItem CreateCopy<TRibbonItem>(this Autodesk.Windows.RibbonItem ribbonItemSource, Action<TRibbonItem> actionCopy) where TRibbonItem : Autodesk.Windows.RibbonItem
-        {
-            var copyRibbonItem = CreateCopy<TRibbonItem>(ribbonItemSource);
-            actionCopy?.Invoke(copyRibbonItem);
-            return copyRibbonItem;
         }
         #endregion
     }

@@ -3,7 +3,7 @@ using NUnit.Framework;
 using ricaun.Revit.UI;
 using System.Linq;
 
-namespace ricaun.Revit.UI.Tests
+namespace ricaun.Revit.UI.Tests.Panels
 {
     public class RevitPanelTests
     {
