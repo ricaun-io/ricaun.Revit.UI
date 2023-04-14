@@ -230,7 +230,8 @@ splitButton.AddPushButtons(PushButtonData, PushButtonData, ...);
 ### RibbonTextBox Extension
 `RibbonTextBoxExtension` contains methods related to `TextBox` and `TextBoxData`
 ```C#
-TextBox textBox = ribbonPanel.CreateTextBox("TextBoxName");
+TextBox textBox = ribbonPanel.CreateTextBox();
+// ribbonPanel.CreateTextBox("TextBoxName");
 textBox.SetValue("Value");
 textBox.SetPromptText("PromptText");
 textBox.SetShowImageAsButton(true);
@@ -240,7 +241,8 @@ textBox.AddEnterPressed(OnEnterPressed);
 textBox.RemoveEnterPressed(OnEnterPressed);
 ```
 ```C#
-TextBoxData textBoxData = ribbonPanel.NewTextBoxData("TextBoxNameData");
+TextBoxData textBoxData = ribbonPanel.NewTextBoxData();
+// ribbonPanel.NewTextBoxData("TextBoxNameData");
 ```
 
 ### RibbonUtil Extension
