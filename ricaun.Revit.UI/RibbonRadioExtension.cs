@@ -71,7 +71,7 @@ namespace ricaun.Revit.UI
         /// <param name="ribbonPanel"></param>
         /// <param name="targetName"></param>
         /// <returns></returns>
-        public static ToggleButtonData NewToggleButtonData(this RibbonPanel ribbonPanel, string targetName)
+        public static ToggleButtonData NewToggleButtonData(this RibbonPanel ribbonPanel, string targetName = null)
         {
             if (string.IsNullOrWhiteSpace(targetName))
                 targetName = nameof(ToggleButtonData);
@@ -130,7 +130,7 @@ namespace ricaun.Revit.UI
         /// <param name="ribbonPanel"></param>
         /// <param name="targetName"></param>
         /// <returns></returns>
-        public static RadioButtonGroupData NewRadioButtonGroupData(this RibbonPanel ribbonPanel, string targetName)
+        public static RadioButtonGroupData NewRadioButtonGroupData(this RibbonPanel ribbonPanel, string targetName = null)
         {
             if (string.IsNullOrWhiteSpace(targetName))
                 targetName = nameof(RadioButtonGroupData);

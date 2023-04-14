@@ -67,8 +67,11 @@ namespace ricaun.Revit.UI
         /// <param name="ribbonPanel"></param>
         /// <param name="targetName"></param>
         /// <returns></returns>
-        public static ComboBoxData NewComboBoxData(this RibbonPanel ribbonPanel, string targetName)
+        public static ComboBoxData NewComboBoxData(this RibbonPanel ribbonPanel, string targetName = null)
         {
+            if (string.IsNullOrWhiteSpace(targetName))
+                targetName = nameof(ComboBoxData);
+
             targetName = RibbonSafeExtension.GenerateSafeButtonName(ribbonPanel, targetName, targetName);
 
             return new ComboBoxData(targetName);
@@ -93,7 +96,7 @@ namespace ricaun.Revit.UI
         /// <param name="ribbonPanel"></param>
         /// <param name="targetName"></param>
         /// <returns></returns>
-        public static ComboBoxMemberData NewComboBoxMemberData(this RibbonPanel ribbonPanel, string targetName)
+        public static ComboBoxMemberData NewComboBoxMemberData(this RibbonPanel ribbonPanel, string targetName = null)
         {
             if (string.IsNullOrWhiteSpace(targetName))
                 targetName = nameof(ComboBoxMemberData);

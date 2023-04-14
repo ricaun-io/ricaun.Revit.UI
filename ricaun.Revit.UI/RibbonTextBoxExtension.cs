@@ -115,7 +115,7 @@ namespace ricaun.Revit.UI
         public static TextBoxData NewTextBoxData(this RibbonPanel ribbonPanel, string targetName = null)
         {
             if (string.IsNullOrWhiteSpace(targetName))
-                targetName = nameof(TextBox);
+                targetName = nameof(TextBoxData);
 
             targetName = RibbonSafeExtension.GenerateSafeButtonName(ribbonPanel, targetName, targetName);
 
