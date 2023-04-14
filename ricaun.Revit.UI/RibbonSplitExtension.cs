@@ -32,7 +32,7 @@ namespace ricaun.Revit.UI
         {
             SplitButton splitButton = null;
 
-            if (targetText is null)
+            if (string.IsNullOrWhiteSpace(targetText))
                 targetText = pushButtons.FirstOrDefault()?.Text ?? nameof(SplitButton);
 
             var targetName = targetText;

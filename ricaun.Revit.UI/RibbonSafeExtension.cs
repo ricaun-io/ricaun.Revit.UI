@@ -30,6 +30,11 @@ namespace ricaun.Revit.UI
         }
 
         /// <summary>
+        /// Safe Minimal Button Text
+        /// </summary>
+        internal const string SafeMinimalText = "-";
+
+        /// <summary>
         /// _TickNumber
         /// </summary>
         private static long _TickNumber;
@@ -106,7 +111,8 @@ namespace ricaun.Revit.UI
             var assemblyName = commandType.Assembly.Location;
             var className = commandType.FullName;
 
-            if (text != null && text != "") targetText = text;
+            if (!string.IsNullOrWhiteSpace(text))
+                targetText = text;
 
             targetName = RibbonSafeExtension.GenerateSafeButtonName(ribbonItem, targetName, targetText);
 
@@ -117,7 +123,8 @@ namespace ricaun.Revit.UI
             if (typeof(IExternalCommandAvailability).IsAssignableFrom(commandType))
                 buttonData.AvailabilityClassName = commandType.FullName;
 
-            if (text == "") buttonData.Text = "-";
+            if (string.IsNullOrWhiteSpace(text))
+                buttonData.Text = SafeMinimalText;
 
             return buttonData;
         }

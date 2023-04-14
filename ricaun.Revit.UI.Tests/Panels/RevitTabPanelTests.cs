@@ -1,7 +1,7 @@
 ﻿using Autodesk.Revit.UI;
 using NUnit.Framework;
 
-namespace ricaun.Revit.UI.Tests
+namespace ricaun.Revit.UI.Tests.Panels
 {
     public class RevitTabPanelTests
     {

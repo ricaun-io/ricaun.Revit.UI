@@ -13,30 +13,43 @@ namespace ricaun.Revit.UI
         /// CreateComboBox
         /// </summary>
         /// <param name="ribbonPanel"></param>
+        /// <param name="comboBoxMemberDatas"></param>
+        /// <returns></returns>
+        public static ComboBox CreateComboBox(this RibbonPanel ribbonPanel, params ComboBoxMemberData[] comboBoxMemberDatas)
+        {
+            return ribbonPanel.CreateComboBox(null, comboBoxMemberDatas);
+        }
+
+        /// <summary>
+        /// CreateComboBox
+        /// </summary>
+        /// <param name="ribbonPanel"></param>
         /// <param name="targetText"></param>
         /// <param name="comboBoxMemberDatas"></param>
         /// <returns></returns>
         public static ComboBox CreateComboBox(this RibbonPanel ribbonPanel, string targetText, params ComboBoxMemberData[] comboBoxMemberDatas)
         {
             ComboBox comboBox = null;
-            if (comboBoxMemberDatas.Any())
-            {
-                if (targetText == null) targetText = comboBoxMemberDatas.FirstOrDefault().Text;
-                var targetName = targetText;
 
-                comboBox = ribbonPanel.AddItem(ribbonPanel.NewComboBoxData(targetName)) as ComboBox;
-                AddItems(comboBox, comboBoxMemberDatas);
-            }
+            if (string.IsNullOrWhiteSpace(targetText))
+                targetText = comboBoxMemberDatas.FirstOrDefault()?.Text ?? nameof(ComboBox);
+
+            var targetName = targetText;
+
+            comboBox = ribbonPanel.AddItem(ribbonPanel.NewComboBoxData(targetName)) as ComboBox;
+
+            comboBox.AddComboBoxMembers(comboBoxMemberDatas);
+
             return comboBox;
         }
 
         /// <summary>
-        /// AddItems
+        /// AddComboBoxMembers
         /// </summary>
         /// <param name="comboBox"></param>
         /// <param name="comboBoxMemberDatas"></param>
         /// <returns></returns>
-        public static ComboBox AddItems(this ComboBox comboBox, params ComboBoxMemberData[] comboBoxMemberDatas)
+        public static ComboBox AddComboBoxMembers(this ComboBox comboBox, params ComboBoxMemberData[] comboBoxMemberDatas)
         {
             foreach (var comboBoxMemberData in comboBoxMemberDatas)
             {
@@ -82,8 +95,8 @@ namespace ricaun.Revit.UI
         /// <returns></returns>
         public static ComboBoxMemberData NewComboBoxMemberData(this RibbonPanel ribbonPanel, string targetName)
         {
-            if (targetName.Trim() == string.Empty)
-                targetName = "-";
+            if (string.IsNullOrWhiteSpace(targetName))
+                targetName = nameof(ComboBoxMemberData);
 
             var comboBoxMemberData = new ComboBoxMemberData(targetName, targetName);
 

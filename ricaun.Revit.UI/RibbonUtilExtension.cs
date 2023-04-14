@@ -44,6 +44,31 @@ namespace ricaun.Revit.UI
         }
 
         /// <summary>
+        /// Get <typeparamref name="T"/> from <paramref name="ribbonItem"/> using <see cref="GetRibbonItem"/>
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="ribbonItem"></param>
+        /// <returns></returns>
+        public static T GetRibbonItem<T>(this RibbonItem ribbonItem) where T : Autodesk.Windows.RibbonItem
+        {
+            return ribbonItem.GetRibbonItem() as T;
+        }
+
+        /// <summary>
+        /// Get <typeparamref name="T"/> from <paramref name="ribbonItem"/> using <see cref="GetRibbonItem"/>
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="ribbonItem"></param>
+        /// <param name="action"></param>
+        /// <returns></returns>
+        public static T GetRibbonItem<T>(this RibbonItem ribbonItem, Action<T> action) where T : Autodesk.Windows.RibbonItem
+        {
+            var ribbon = ribbonItem.GetRibbonItem<T>();
+            if (ribbon is not null) action?.Invoke(ribbon);
+            return ribbon;
+        }
+
+        /// <summary>
         /// Get <see cref="Autodesk.Windows.RibbonItem"/> from <paramref name="ribbonItem"/>
         /// </summary>
         /// <param name="ribbonItem"></param>

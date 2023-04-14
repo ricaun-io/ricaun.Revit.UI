@@ -10,11 +10,16 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Add FlowStackedItems
 ### TextBox
 - Add SetWidth
-- Add SetWidth
 - Add AddEnterPressed
 - Add RemoveEnterPressed
+### ComboBox
+- Update AddComboBoxMembers
 ### Updated
+- Update Name in creation of Item with `IsNullOrWhiteSpace`
 - Remove CreateCopy - Use Clone insted
+### Tests
+- Add RevitCreateItemsTests
+- Add RevitGetRibbonItemsTests
 
 ## [0.5.0] / 2023-04-08
 ### Features

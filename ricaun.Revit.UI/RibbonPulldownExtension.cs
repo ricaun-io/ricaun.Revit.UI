@@ -32,7 +32,7 @@ namespace ricaun.Revit.UI
         {
             PulldownButton pulldownButton = null;
 
-            if (targetText is null)
+            if (string.IsNullOrWhiteSpace(targetText))
                 targetText = pushButtons.FirstOrDefault()?.Text ?? nameof(PulldownButton);
 
             var targetName = targetText;
