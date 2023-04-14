@@ -19,6 +19,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Remove CreateCopy - Use Clone insted
 ### Tests
 - Add RevitCreateItemsTests
+- Add RevitCreateItemsWithNameTests
 - Add RevitGetRibbonItemsTests
 
 ## [0.5.0] / 2023-04-08
