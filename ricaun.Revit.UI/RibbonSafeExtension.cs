@@ -124,7 +124,7 @@ namespace ricaun.Revit.UI
                 buttonData.AvailabilityClassName = commandType.FullName;
 
             if (string.IsNullOrWhiteSpace(text))
-                buttonData.Text = SafeMinimalText;
+                buttonData.Text = targetName;
 
             return buttonData;
         }
