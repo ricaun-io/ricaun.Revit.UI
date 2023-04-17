@@ -4,6 +4,7 @@ namespace ricaun.Revit.UI.Tests.Items
 {
     public class RevitCreateItemsWithNameTests : BaseCreatePanelTests
     {
+        [TestCase(null)]
         [TestCase("")]
         [TestCase(" ")]
         [TestCase("Name")]
@@ -12,6 +13,7 @@ namespace ricaun.Revit.UI.Tests.Items
             ribbonPanel.CreateComboBox(name);
         }
 
+        [TestCase(null)]
         [TestCase("")]
         [TestCase(" ")]
         [TestCase("Name")]
@@ -20,6 +22,7 @@ namespace ricaun.Revit.UI.Tests.Items
             ribbonPanel.CreatePulldownButton(name);
         }
 
+        [TestCase(null)]
         [TestCase("")]
         [TestCase(" ")]
         [TestCase("Name")]
@@ -28,6 +31,7 @@ namespace ricaun.Revit.UI.Tests.Items
             ribbonPanel.CreatePushButton<BaseCommand>(name);
         }
 
+        [TestCase(null)]
         [TestCase("")]
         [TestCase(" ")]
         [TestCase("Name")]
@@ -36,6 +40,7 @@ namespace ricaun.Revit.UI.Tests.Items
             ribbonPanel.CreateRadioButtonGroup(name);
         }
 
+        [TestCase(null)]
         [TestCase("")]
         [TestCase(" ")]
         [TestCase("Name")]
@@ -44,6 +49,7 @@ namespace ricaun.Revit.UI.Tests.Items
             ribbonPanel.CreateSplitButton(name);
         }
 
+        [TestCase(null)]
         [TestCase("")]
         [TestCase(" ")]
         [TestCase("Name")]
@@ -52,7 +58,4 @@ namespace ricaun.Revit.UI.Tests.Items
             ribbonPanel.CreateTextBox(name);
         }
     }
-
-
-
 }
