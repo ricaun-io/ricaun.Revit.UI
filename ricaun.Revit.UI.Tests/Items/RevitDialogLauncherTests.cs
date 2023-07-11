@@ -1,7 +1,7 @@
 ﻿using NUnit.Framework;
 using System;
 
-namespace ricaun.Revit.UI.Tests.Panels
+namespace ricaun.Revit.UI.Tests.Items
 {
     public class RevitDialogLauncherTests : BaseCreatePanelTests
     {

@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Add `RibbonDialogLauncherExtension`
 ### Tests
 - Add `RevitDialogLauncherTests`
+- Add `RevitStackedItemsTests` for `RowStackedItems` and `FlowStackedItems`
 
 ## [0.5.2] / 2023-04-17
 ### UI
