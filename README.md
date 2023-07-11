@@ -331,6 +331,35 @@ LanguageType languageType = LanguageExtension.GetLanguageType();
 // LanguageExtension.IsBrazilianPortuguese;
 ```
 
+### Ribbon Stacked Extension
+Create `Autodesk.Windows.RibbonFlowPanel` and `Autodesk.Windows.RibbonRowPanel` using `Autodesk.Revit.UI.RibbonItem` array.
+```C#
+Autodesk.Revit.UI.RibbonItem[] ribbonItems;
+Autodesk.Windows.RibbonFlowPanel awRibbonFlowPanel = ribbonPanel.FlowStackedItems(ribbonItems);
+```
+```C#
+Autodesk.Revit.UI.RibbonItem[] ribbonItems;
+Autodesk.Windows.RibbonRowPanel[] awRibbonRowPanels = ribbonPanel.RowStackedItems(ribbonItems);
+```
+
+### Ribbon DialogLauncher Extension
+Create `DialogLauncher` in a `Autodesk.Revit.UI.RibbonPanel` using `Autodesk.Revit.UI.PushButton`.
+```C#
+Autodesk.Revit.UI.PushButton pushButton;
+ribbonPanel.SetDialogLauncher(pushButton);
+```
+
+```C#
+Autodesk.Windows.RibbonPanel awRibbonPanel;
+Autodesk.Windows.RibbonCommandItem ribbonCommandItem = awRibbonPanel.GetDialogLauncher();
+```
+
+```C#
+Autodesk.Windows.RibbonCommandItem ribbonCommandItem;
+Autodesk.Windows.RibbonPanel awRibbonPanel;
+awRibbonPanel.SetDialogLauncher(ribbonCommandItem);
+```
+
 ### Ribbon Description Extension
 ... Todo
 
