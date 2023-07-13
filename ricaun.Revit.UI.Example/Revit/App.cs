@@ -185,42 +185,59 @@ namespace ricaun.Revit.UI.Example.Revit
             ribbonPanel.CreatePushButton<Commands.Command<Point>>()
                 .SetLargeImage(Pack.Power)
                 .SetText("Power")
+                .SetToolTip("ToolTip")
+                .SetLongDescription("LongDescription")
                 .AddQuickAccessToolBar();
 
             ribbonPanel.CreatePushButton<Commands.Command<Point>>()
                     .SetLargeImage(Pack.Data)
                     .SetText("Data")
+                    .SetToolTip("ToolTip")
+                    .SetLongDescription("LongDescription")
                     .AddQuickAccessToolBar();
 
             ribbonPanel.CreatePushButton<Commands.Command<Point>>()
                     .SetLargeImage(Pack.Communication)
                     .SetText("Communication")
+                    .SetToolTip("ToolTip")
+                    .SetLongDescription("LongDescription")
                     .AddQuickAccessToolBar();
 
             ribbonPanel.CreatePushButton<Commands.Command<Point>>()
                     .SetLargeImage(Pack.Alarm)
                     .SetText("Alarm")
+                    .SetToolTip("ToolTip")
+                    .SetLongDescription("LongDescription")
                     .AddQuickAccessToolBar();
 
             ribbonPanel.CreatePushButton<Commands.Command<Point>>()
                     .SetLargeImage(Pack.Nurce)
                     .SetText("Nurce")
+                    .SetToolTip("ToolTip")
+                    .SetLongDescription("LongDescription")
                     .AddQuickAccessToolBar();
 
             ribbonPanel.CreatePushButton<Commands.Command<Point>>()
                     .SetLargeImage(Pack.Security)
                     .SetText("Security")
+                    .SetToolTip("ToolTip")
+                    .SetLongDescription("LongDescription")
                     .AddQuickAccessToolBar();
 
             ribbonPanel.CreatePushButton<Commands.Command<Point>>()
                     .SetLargeImage(Pack.Telephone)
                     .SetText("Telephone")
+                    .SetToolTip("ToolTip")
+                    .SetLongDescription("LongDescription")
                     .AddQuickAccessToolBar();
 
             var sw = ribbonPanel.CreatePushButton<Commands.Command<Point>, Commands.Availability.AvailableOnAnyDocument>()
                     .SetLargeImage(Pack.Switch)
                     .SetText("Switch")
+                    .SetToolTip("ToolTip")
+                    .SetLongDescription("LongDescription")
                     .AddQuickAccessToolBar();
+
             #endregion
 
             OrderPanelAndMove(ribbonPanel);

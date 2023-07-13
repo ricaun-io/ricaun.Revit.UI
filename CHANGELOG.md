@@ -4,12 +4,19 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-## [0.5.3] / 2023-07-10
+## [0.5.3] / 2023-07-13
+## Updated
+- Update Image/LargeImage extension code.
+- Update `UpdateRibbonDescription` Image code.
 ### UI
 - Add `RibbonDialogLauncherExtension`
 ### Tests
 - Add `RevitDialogLauncherTests`
 - Add `RevitStackedItemsTests` for `RowStackedItems` and `FlowStackedItems`
+- Add `RevitCreateItemsExtensionTests`
+- Add `RevitNewItemsExtensionTests`
+- Add `RevitCreateItemsImageTests`
+- Add `RevitNewItemsImageTests`
 
 ## [0.5.2] / 2023-04-17
 ### UI
