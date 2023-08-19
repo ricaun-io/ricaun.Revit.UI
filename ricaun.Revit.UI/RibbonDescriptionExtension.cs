@@ -237,11 +237,16 @@ namespace ricaun.Revit.UI
             ribbonItem.SetText(description.Text);
             ribbonItem.SetToolTip(description.ToolTip);
             ribbonItem.SetLongDescription(description.LongDescription);
-            ribbonItem.SetToolTipImage(description.ToolTipImage);
             ribbonItem.SetContextualHelp(description.Help);
 
-            ribbonItem.SetImage(description.Image);
-            ribbonItem.SetLargeImage(description.LargeImage);
+            if (description.ToolTipImage is not null)
+                ribbonItem.SetToolTipImage(description.ToolTipImage);
+
+            if (description.LargeImage is not null)
+                ribbonItem.SetLargeImage(description.LargeImage);
+
+            if (description.Image is not null)
+                ribbonItem.SetImage(description.Image);
 
             description.Action?.Invoke(ribbonItem);
 

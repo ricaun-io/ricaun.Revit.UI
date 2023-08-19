@@ -4,6 +4,20 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [0.5.3] / 2023-07-13
+## Updated
+- Update Image/LargeImage extension code.
+- Update `UpdateRibbonDescription` Image code.
+### UI
+- Add `RibbonDialogLauncherExtension`
+### Tests
+- Add `RevitDialogLauncherTests`
+- Add `RevitStackedItemsTests` for `RowStackedItems` and `FlowStackedItems`
+- Add `RevitCreateItemsExtensionTests`
+- Add `RevitNewItemsExtensionTests`
+- Add `RevitCreateItemsImageTests`
+- Add `RevitNewItemsImageTests`
+
 ## [0.5.2] / 2023-04-17
 ### UI
 - Update `NewPushButtonData` the default `Text` equals to `targetName`.
@@ -241,6 +255,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - First Release
 
 [vNext]: ../../compare/1.0.0...HEAD
+[0.5.3]: ../../compare/0.5.2...0.5.3
+[0.5.2]: ../../compare/0.5.1...0.5.2
 [0.5.1]: ../../compare/0.5.0...0.5.1
 [0.5.0]: ../../compare/0.4.0...0.5.0
 [0.4.0]: ../../compare/0.3.2...0.4.0
