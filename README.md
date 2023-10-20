@@ -152,6 +152,14 @@ ComboBox comboBox = ribbonPanel.CreateComboBox();
 // ribbonPanel.CreateComboBox("ComboBoxName");
 // ribbonPanel.CreateComboBox("ComboBoxName", ComboBoxMemberData, ComboBoxMemberData, ...);
 comboBox.AddComboBoxMembers(ComboBoxMemberData, ComboBoxMemberData, ...);
+comboBox.SetWidth(120);
+comboBox.SetCurrent(comboBox.Current);
+comboBox.AddCurrentChanged(OnCurrentChanged);
+comboBox.RemoveCurrentChanged(OnCurrentChanged);
+comboBox.AddDropDownOpened(OnDropDownOpened);
+comboBox.RemoveDropDownOpened(OnDropDownOpened);
+comboBox.AddDropDownClosed(OnDropDownClosed);
+comboBox.RemoveDropDownClosed(OnDropDownClosed);
 ```
 ```C#
 ComboBoxData comboBoxData = ribbonPanel.NewComboBoxData();

@@ -1,4 +1,5 @@
 ﻿using Autodesk.Revit.UI;
+using System;
 using System.Linq;
 
 namespace ricaun.Revit.UI
@@ -57,6 +58,102 @@ namespace ricaun.Revit.UI
 
                 comboBox.AddItem(comboBoxMemberData);
             }
+            return comboBox;
+        }
+
+        /// <summary>
+        /// SetWidth
+        /// </summary>
+        /// <param name="comboBox"></param>
+        /// <param name="width"></param>
+        /// <returns></returns>
+        public static ComboBox SetWidth(this ComboBox comboBox, double width)
+        {
+            comboBox.GetRibbonItem().Width = width;
+            return comboBox;
+        }
+
+        /// <summary>
+        /// SetCurrent
+        /// </summary>
+        /// <param name="comboBox"></param>
+        /// <param name="current"></param>
+        /// <returns></returns>
+        public static ComboBox SetCurrent(this ComboBox comboBox, ComboBoxMember current)
+        {
+            comboBox.Current = current;
+            return comboBox;
+        }
+
+        /// <summary>
+        /// AddCurrentChanged
+        /// </summary>
+        /// <param name="comboBox"></param>
+        /// <param name="currentChanged"></param>
+        /// <returns></returns>
+        public static ComboBox AddCurrentChanged(this ComboBox comboBox, EventHandler<Autodesk.Revit.UI.Events.ComboBoxCurrentChangedEventArgs> currentChanged)
+        {
+            comboBox.CurrentChanged += currentChanged;
+            return comboBox;
+        }
+
+        /// <summary>
+        /// RemoveCurrentChanged
+        /// </summary>
+        /// <param name="comboBox"></param>
+        /// <param name="currentChanged"></param>
+        /// <returns></returns>
+        public static ComboBox RemoveCurrentChanged(this ComboBox comboBox, EventHandler<Autodesk.Revit.UI.Events.ComboBoxCurrentChangedEventArgs> currentChanged)
+        {
+            comboBox.CurrentChanged -= currentChanged;
+            return comboBox;
+        }
+
+        /// <summary>
+        /// AddDropDownOpened
+        /// </summary>
+        /// <param name="comboBox"></param>
+        /// <param name="dropDownOpened"></param>
+        /// <returns></returns>
+        public static ComboBox AddDropDownOpened(this ComboBox comboBox, EventHandler<Autodesk.Revit.UI.Events.ComboBoxDropDownOpenedEventArgs> dropDownOpened)
+        {
+            comboBox.DropDownOpened += dropDownOpened;
+            return comboBox;
+        }
+
+        /// <summary>
+        /// RemoveDropDownOpened
+        /// </summary>
+        /// <param name="comboBox"></param>
+        /// <param name="dropDownOpened"></param>
+        /// <returns></returns>
+        public static ComboBox RemoveDropDownOpened(this ComboBox comboBox, EventHandler<Autodesk.Revit.UI.Events.ComboBoxDropDownOpenedEventArgs> dropDownOpened)
+        {
+            comboBox.DropDownOpened -= dropDownOpened;
+            return comboBox;
+        }
+
+        /// <summary>
+        /// AddDropDownClosed
+        /// </summary>
+        /// <param name="comboBox"></param>
+        /// <param name="dropDownClosed"></param>
+        /// <returns></returns>
+        public static ComboBox AddDropDownClosed(this ComboBox comboBox, EventHandler<Autodesk.Revit.UI.Events.ComboBoxDropDownClosedEventArgs> dropDownClosed)
+        {
+            comboBox.DropDownClosed += dropDownClosed;
+            return comboBox;
+        }
+
+        /// <summary>
+        /// RemoveDropDownClosed
+        /// </summary>
+        /// <param name="comboBox"></param>
+        /// <param name="dropDownClosed"></param>
+        /// <returns></returns>
+        public static ComboBox RemoveDropDownClosed(this ComboBox comboBox, EventHandler<Autodesk.Revit.UI.Events.ComboBoxDropDownClosedEventArgs> dropDownClosed)
+        {
+            comboBox.DropDownClosed -= dropDownClosed;
             return comboBox;
         }
 

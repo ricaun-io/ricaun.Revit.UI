@@ -4,6 +4,23 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [0.5.4] / 2023-10-19
+## Features
+- Add `ComboBox` methods extension
+## Updated
+- Update `RibbonItemPanelExtension` and remove `Clone`.
+### ComboBox
+- Add SetWidth
+- Add SetCurrent
+- Add AddCurrentChanged
+- Add RemoveCurrentChanged
+- Add AddDropDownOpened
+- Add RemoveDropDownOpened
+- Add AddDropDownClosed
+- Add RemoveDropDownClosed
+## Fixed
+- Clone `RibbonItem` not clone events and break `TextBox`.
+
 ## [0.5.3] / 2023-07-13
 ## Updated
 - Update Image/LargeImage extension code.
