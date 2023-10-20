@@ -48,7 +48,7 @@ namespace ricaun.Revit.UI.Utils
             var ribbonItemLast = ribbonItems.LastOrDefault();
             foreach (var ribbonItem in ribbonItems)
             {
-                var awRibbonItem = ribbonItem.GetRibbonItem().Clone();
+                var awRibbonItem = ribbonItem.GetRibbonItem();
                 ribbonPanel.Remove(ribbonItem);
                 ribbonFlowPanel.AddRibbonItem(awRibbonItem);
 
@@ -98,7 +98,7 @@ namespace ricaun.Revit.UI.Utils
             var ribbonFlowPanel = new Autodesk.Windows.RibbonFlowPanel();
             foreach (var ribbonItem in ribbonItems)
             {
-                var awRibbonItem = ribbonItem.GetRibbonItem().Clone();
+                var awRibbonItem = ribbonItem.GetRibbonItem();
                 ribbonPanel.Remove(ribbonItem);
                 ribbonFlowPanel.AddRibbonItem(awRibbonItem);
             }

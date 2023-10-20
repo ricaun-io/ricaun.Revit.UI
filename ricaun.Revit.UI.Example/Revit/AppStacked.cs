@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace ricaun.Revit.UI.Example.Revit
 {
-    //[AppLoader]
+    [AppLoader]
     public class AppStacked : IExternalApplication
     {
         private static RibbonPanel ribbonPanel;
@@ -56,12 +56,48 @@ namespace ricaun.Revit.UI.Example.Revit
             ribbonPanel.AddSeparator();
             ribbonPanel.RowStackedItems(
                 ribbonPanel.CreatePushButton<Commands.Command>(),
-                ribbonPanel.CreateTextBox().SetShowImageAsButton().SetWidth(100),
-                ribbonPanel.CreateTextBox().SetShowImageAsButton().SetWidth(100));
+                ribbonPanel.CreateTextBox().AddEnterPressed(AppStacked_EnterPressed).SetShowImageAsButton().SetWidth(100),
+                ribbonPanel.CreateTextBox().AddEnterPressed(AppStacked_EnterPressedNull).SetShowImageAsButton().SetWidth(100)
+                );
 
+            var textBox = ribbonPanel.CreateTextBox().SetShowImageAsButton().SetWidth(100);
+            textBox.Enabled = false;
+            TextBox = textBox;
+            var comboBox1 = ribbonPanel.CreateComboBox(ribbonPanel.NewComboBoxMemberData("1"), ribbonPanel.NewComboBoxMemberData("2"), ribbonPanel.NewComboBoxMemberData("3"))
+                .SetWidth(100)
+                .AddCurrentChanged(ComboBox_CurrentChanged);
 
+            var comboBoxA = ribbonPanel.CreateComboBox(ribbonPanel.NewComboBoxMemberData("A"), ribbonPanel.NewComboBoxMemberData("B"), ribbonPanel.NewComboBoxMemberData("C"))
+                .SetWidth(100)
+                .AddCurrentChanged(ComboBox_CurrentChanged);
+
+            comboBoxA.SetCurrent(comboBoxA.GetItems().Last());
+
+            ribbonPanel.AddSeparator();
+            ribbonPanel.FlowStackedItems(textBox, comboBox1, comboBoxA);
 
             return Result.Succeeded;
+        }
+
+        static TextBox TextBox;
+
+        private void ComboBox_CurrentChanged(object sender, Autodesk.Revit.UI.Events.ComboBoxCurrentChangedEventArgs e)
+        {
+            var comboBox = sender as Autodesk.Revit.UI.ComboBox;
+            TextBox.Value = comboBox.Current.Name;
+        }
+
+        private static void AppStacked_EnterPressed(object sender, Autodesk.Revit.UI.Events.TextBoxEnterPressedEventArgs e)
+        {
+            var textBox = sender as Autodesk.Revit.UI.TextBox;
+            System.Console.WriteLine(textBox.Value);
+        }
+
+        private static void AppStacked_EnterPressedNull(object sender, Autodesk.Revit.UI.Events.TextBoxEnterPressedEventArgs e)
+        {
+            var textBox = sender as Autodesk.Revit.UI.TextBox;
+            System.Console.WriteLine(textBox.Value);
+            textBox.Value = null;
         }
 
         public Result OnShutdown(UIControlledApplication application)
