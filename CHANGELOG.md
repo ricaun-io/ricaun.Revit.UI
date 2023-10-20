@@ -5,9 +5,9 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [0.5.4] / 2023-10-19
-## Features
+### Features
 - Add `ComboBox` methods extension
-## Updated
+### Updated
 - Update `RibbonItemPanelExtension` and remove `Clone`.
 ### ComboBox
 - Add SetWidth
@@ -18,8 +18,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Add RemoveDropDownOpened
 - Add AddDropDownClosed
 - Add RemoveDropDownClosed
-## Fixed
+### Fixed
 - Clone `RibbonItem` not clone events and break `TextBox`.
+### Tests
+- Add `RevitTextBoxTests`
+- Add `RevitComboBoxTests`
 
 ## [0.5.3] / 2023-07-13
 ## Updated
