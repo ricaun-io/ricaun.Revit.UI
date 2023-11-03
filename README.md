@@ -325,20 +325,18 @@ BitmapSource bitmapSource = base64orUri.GetBitmapSource();
 ```C#
 LanguageType languageType = LanguageExtension.GetLanguageType();
 // LanguageExtension.IsEnglish;
-// LanguageExtension.IsSpanish;
-// LanguageExtension.IsRussian;
-// LanguageExtension.IsHungarian;
-// LanguageExtension.IsDutch;
 // LanguageExtension.IsFrench;
 // LanguageExtension.IsGerman;
-// LanguageExtension.IsSpanish;
-// LanguageExtension.IsRussian;
-// LanguageExtension.IsPolish;
+// LanguageExtension.IsItalian;
+// LanguageExtension.IsJapanese
 // LanguageExtension.IsKorean;
-// LanguageExtension.IsCzech;
+// LanguageExtension.IsPolish;
+// LanguageExtension.IsSpanish;
 // LanguageExtension.IsChineseSimplified;
 // LanguageExtension.IsChineseTraditional;
 // LanguageExtension.IsBrazilianPortuguese;
+// LanguageExtension.IsRussian;
+// LanguageExtension.IsCzech;
 ```
 
 ### Ribbon Stacked Extension
