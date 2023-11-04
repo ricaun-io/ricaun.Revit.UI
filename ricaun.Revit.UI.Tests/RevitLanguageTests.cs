@@ -55,8 +55,8 @@ namespace ricaun.Revit.UI.Tests
             {
                 LanguageType.Unknown,
                 LanguageType.English_GB,    // Does not exist in Revit Api 2017
-                LanguageType.Dutch,         // Not supported
-                LanguageType.Hungarian,     // Not supported
+                LanguageType.Dutch,         // Not supported, how to start Revit in Dutch?
+                LanguageType.Hungarian,     // Not supported, how to start Revit in Hungarian?
             };
 
             foreach (var language in languages)
@@ -64,6 +64,25 @@ namespace ricaun.Revit.UI.Tests
                 var name = language.GetCultureInfoName();
                 Assert.IsNull(name);
             }
+        }
+
+        [Test]
+        public void Languages_IsLanguage()
+        {
+            var language = application.Language;
+            Assert.AreEqual(LanguageExtension.IsEnglish, language == LanguageType.English_USA);
+            Assert.AreEqual(LanguageExtension.IsFrench, language == LanguageType.French);
+            Assert.AreEqual(LanguageExtension.IsGerman, language == LanguageType.German);
+            Assert.AreEqual(LanguageExtension.IsItalian, language == LanguageType.Italian);
+            Assert.AreEqual(LanguageExtension.IsJapanese, language == LanguageType.Japanese);
+            Assert.AreEqual(LanguageExtension.IsKorean, language == LanguageType.Korean);
+            Assert.AreEqual(LanguageExtension.IsPolish, language == LanguageType.Polish);
+            Assert.AreEqual(LanguageExtension.IsSpanish, language == LanguageType.Spanish);
+            Assert.AreEqual(LanguageExtension.IsChineseSimplified, language == LanguageType.Chinese_Simplified);
+            Assert.AreEqual(LanguageExtension.IsChineseTraditional, language == LanguageType.Chinese_Traditional);
+            Assert.AreEqual(LanguageExtension.IsBrazilianPortuguese, language == LanguageType.Brazilian_Portuguese);
+            Assert.AreEqual(LanguageExtension.IsRussian, language == LanguageType.Russian);
+            Assert.AreEqual(LanguageExtension.IsCzech, language == LanguageType.Czech);
         }
     }
 

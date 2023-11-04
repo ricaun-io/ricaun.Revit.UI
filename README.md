@@ -328,7 +328,7 @@ LanguageType languageType = LanguageExtension.GetLanguageType();
 // LanguageExtension.IsFrench;
 // LanguageExtension.IsGerman;
 // LanguageExtension.IsItalian;
-// LanguageExtension.IsJapanese
+// LanguageExtension.IsJapanese;
 // LanguageExtension.IsKorean;
 // LanguageExtension.IsPolish;
 // LanguageExtension.IsSpanish;
