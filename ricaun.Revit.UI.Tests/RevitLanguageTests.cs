@@ -67,6 +67,13 @@ namespace ricaun.Revit.UI.Tests
         }
 
         [Test]
+        public void Languages_GetLanguageType()
+        {
+            var language = application.Language;
+            Assert.AreEqual(LanguageExtension.GetLanguageType(), language);
+        }
+
+        [Test]
         public void Languages_IsLanguage()
         {
             var language = application.Language;
