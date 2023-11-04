@@ -11,7 +11,7 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <RevitVersion>2024</RevitVersion>
+    <RevitVersion>2021</RevitVersion>
     <TargetFramework>net48</TargetFramework>
   </PropertyGroup>
 
