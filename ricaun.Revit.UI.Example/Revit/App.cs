@@ -278,9 +278,6 @@ namespace ricaun.Revit.UI.Example.Revit
                     .SetLargeImage("/UIFrameworkRes;component/ribbon/images/revit.ico");
             }
 
-
-
-
             //Console.WriteLine($">> {split}");
 
             //var ribbonItem = button.GetRibbonItem();

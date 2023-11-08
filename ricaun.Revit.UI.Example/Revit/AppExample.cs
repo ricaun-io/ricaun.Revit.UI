@@ -25,6 +25,8 @@ namespace ricaun.Revit.UI.Example.Revit
                     .SetLongDescription("Esta é uma descrição.");
             }
 
+            //ribbonPanel.MoveToRibbonTab();
+
             return Result.Succeeded;
         }
 

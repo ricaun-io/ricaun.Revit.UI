@@ -9,11 +9,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Update Remove and QuickAccess
 ### Updated
 - Update `QuickAccessToolBarExtension` with internal methods.
+- Update `MoveToRibbonTab` to move to `Modify` tab.
 ### Tests
 - Add Tests for `QuickAccessToolBarExtension`
 - Add Tests for `RibbonHelp` and `RibbonItem`
 - Add Tests for `AppLoader`
-
+- Add Tests for `MoveToRibbonTab`
 
 ## [0.5.5] / 2023-11-03
 ### Features

@@ -129,6 +129,16 @@ namespace ricaun.Revit.UI
         }
 
         /// <summary>
+        /// Move RibbonPanel to RibbonTab 'Modify'/>
+        /// </summary>
+        /// <param name="ribbonPanel"></param>
+        /// <returns></returns>
+        public static RibbonPanel MoveToRibbonTab(this RibbonPanel ribbonPanel)
+        {
+            return ribbonPanel.MoveToRibbonTab("Modify");
+        }
+
+        /// <summary>
         /// Move RibbonPanel to RibbonTab with <paramref name="ribbonTabId"/>
         /// <code>'Modify' | 'Add-Ins'</code>
         /// </summary>

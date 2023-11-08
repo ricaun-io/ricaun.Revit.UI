@@ -17,7 +17,7 @@ namespace ricaun.Revit.UI.Tests.Extensions
 
         [TestCase("file")]
         [TestCase("help.pdf")]
-        [TestCase("C:\\help.pdf")]
+        [TestCase("ricaun.com")]
         public void ContextualHelp_ShouldBe_ChmFile(string helpPath)
         {
             var contextualHelp = RibbonHelpExtension.GetContextualHelp(helpPath);
