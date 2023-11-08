@@ -19,8 +19,7 @@ namespace ricaun.Revit.UI
             if (ribbonItem == null)
                 return ribbonItem;
 
-            var ri = ComponentManager.QuickAccessToolBar.Items
-                .FirstOrDefault(e => e.Id == ribbonItem.Id);
+            var ri = ribbonItem.GetQuickAccessToolBar();
 
             if (ri != null)
                 ComponentManager.QuickAccessToolBar.Items.Remove(ri);
@@ -39,13 +38,35 @@ namespace ricaun.Revit.UI
             if (ribbonItem == null)
                 return ribbonItem;
 
-            var ri = ComponentManager.QuickAccessToolBar.Items
-                .FirstOrDefault(e => e.Id == ribbonItem.Id);
+            var ri = ribbonItem.GetQuickAccessToolBar();
 
             if (ri == null)
                 ComponentManager.QuickAccessToolBar.Items.Add(ribbonItem);
 
             return ribbonItem;
+        }
+
+        /// <summary>
+        /// Get RibbonItem from QuickAccessToolBar with same Id
+        /// </summary>
+        /// <param name="ribbonItem"></param>
+        /// <returns></returns>
+        internal static RibbonItem GetQuickAccessToolBar(this RibbonItem ribbonItem)
+        {
+            var ri = ComponentManager.QuickAccessToolBar.Items
+                .FirstOrDefault(e => e.Id == ribbonItem?.Id);
+
+            return ri;
+        }
+
+        /// <summary>
+        /// Get RibbonItem from QuickAccessToolBar with same Id
+        /// </summary>
+        /// <param name="ribbonItem"></param>
+        /// <returns></returns>
+        internal static bool HasQuickAccessToolBar(this RibbonItem ribbonItem)
+        {
+            return ribbonItem.GetQuickAccessToolBar() is not null;
         }
     }
 }

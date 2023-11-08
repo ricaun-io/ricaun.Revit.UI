@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [0.5.6] / 2023-11-08
 ### Features
 - Update Remove and QuickAccess
+### Updated
+- Update `QuickAccessToolBarExtension` with internal methods.
+### Tests
+- Add Tests for `QuickAccessToolBarExtension`
+
 
 ## [0.5.5] / 2023-11-03
 ### Features
