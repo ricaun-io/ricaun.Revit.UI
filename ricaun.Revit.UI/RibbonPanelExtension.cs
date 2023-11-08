@@ -99,14 +99,30 @@ namespace ricaun.Revit.UI
         /// <param name="ribbonPanel"></param>
         /// <param name="removeQuickAccessToolBar"></param>
         /// <returns></returns>
-        public static RibbonPanel Remove(this RibbonPanel ribbonPanel, bool removeQuickAccessToolBar = false)
+        public static RibbonPanel Remove(this RibbonPanel ribbonPanel, bool removeQuickAccessToolBar)
         {
             if (removeQuickAccessToolBar)
                 foreach (var ribbonItem in ribbonPanel.GetRibbonItems())
                     ribbonItem.GetRibbonItem().RemoveQuickAccessToolBar();
 
+            return ribbonPanel.Remove();
+        }
+
+        /// <summary>
+        /// Remove RibbonPanel from Tab
+        /// </summary>
+        /// <param name="ribbonPanel"></param>
+        /// <returns></returns>
+        public static RibbonPanel Remove(this RibbonPanel ribbonPanel)
+        {
+            if (ribbonPanel is null)
+                return ribbonPanel;
+
             ribbonPanel.Visible = false;
             ribbonPanel.Enabled = false;
+
+            // Disable Floating
+            ribbonPanel.GetRibbonPanel().IsFloating = false;
 
             ribbonPanel.GetRibbonTab().Remove(ribbonPanel.GetRibbonPanel());
             return ribbonPanel;
@@ -153,6 +169,10 @@ namespace ricaun.Revit.UI
         public static IList<RibbonItem> GetRibbonItems(this RibbonPanel ribbonPanel)
         {
             var ribbonItems = new List<RibbonItem>();
+
+            if (ribbonPanel is null)
+                return ribbonItems;
+
             foreach (var ribbonItem in ribbonPanel.GetItems())
             {
                 ribbonItems.Add(ribbonItem);
