@@ -11,6 +11,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Update `QuickAccessToolBarExtension` with internal methods.
 ### Tests
 - Add Tests for `QuickAccessToolBarExtension`
+- Add Tests for `RibbonHelp` and `RibbonItem`
+- Add Tests for `AppLoader`
 
 
 ## [0.5.5] / 2023-11-03
