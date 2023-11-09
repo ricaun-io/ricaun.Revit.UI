@@ -16,7 +16,7 @@ namespace ricaun.Revit.UI.Tests
         }
 
         [TearDown]
-        public void TearDown(UIControlledApplication application)
+        public void TearDown()
         {
             ribbonPanel?.Remove(true);
         }

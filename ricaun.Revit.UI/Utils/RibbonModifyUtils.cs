@@ -12,6 +12,15 @@ namespace ricaun.Revit.UI.Utils
         private const string MODIFY_PANEL_ID = "Modify";
 
         /// <summary>
+        /// Get RibbonTab of Modify
+        /// </summary>
+        /// <returns></returns>
+        public static Autodesk.Windows.RibbonTab RibbonTab()
+        {
+            return RibbonTabExtension.GetRibbonTab(MODIFY_PANEL_ID);
+        }
+
+        /// <summary>
         /// Create Panel with <paramref name="panelName"/> to Modify Tab. And add the <paramref name="ribbonItems"/> to the Panel.
         /// </summary>
         /// <param name="panelName"></param>
@@ -46,7 +55,7 @@ namespace ricaun.Revit.UI.Utils
         /// <returns></returns>
         public static Autodesk.Windows.RibbonPanel CreateRibbonPanel(string panelName)
         {
-            var modifyTab = Autodesk.Windows.ComponentManager.Ribbon.FindTab(MODIFY_PANEL_ID);
+            var modifyTab = RibbonTab();
             var modifyPanel = modifyTab.CreateRibbonPanel(panelName);
             return modifyPanel;
         }
@@ -58,7 +67,7 @@ namespace ricaun.Revit.UI.Utils
         /// <returns></returns>
         public static Autodesk.Windows.RibbonPanel RemoveRibbonPanel(string panelName)
         {
-            var modifyTab = Autodesk.Windows.ComponentManager.Ribbon.FindTab(MODIFY_PANEL_ID);
+            var modifyTab = RibbonTab();
             var modifyPanel = modifyTab.RemoveRibbonPanel(panelName);
             return modifyPanel;
         }

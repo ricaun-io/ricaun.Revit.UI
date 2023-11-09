@@ -1,7 +1,7 @@
 ﻿using Autodesk.Revit.ApplicationServices;
 using NUnit.Framework;
 
-namespace ricaun.Revit.UI.Tests
+namespace ricaun.Revit.UI.Tests.Extensions
 {
     public class RevitLanguageTests
     {
