@@ -29,6 +29,13 @@ namespace ricaun.Revit.UI.Tests.Panels
         }
 
         [Test]
+        public void MovePanelWithId_Empty()
+        {
+            ribbonPanel.MoveToRibbonTab(string.Empty);
+            Assert.AreEqual(TabIdAddIns, ribbonPanel.GetRibbonTab().Id);
+        }
+
+        [Test]
         public void MovePanelWithId_AddIns()
         {
             ribbonPanel.MoveToRibbonTab(TabIdModify);
