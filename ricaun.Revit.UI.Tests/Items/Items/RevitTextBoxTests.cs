@@ -14,6 +14,22 @@ namespace ricaun.Revit.UI.Tests.Items.Items
             textBox = ribbonPanel.CreateTextBox();
         }
 
+        [Test]
+        public void SetImage_ShouldBe_Image()
+        {
+            Assert.IsNull(textBox.Image);
+            textBox.SetImage(BaseImage.Revit);
+            Assert.IsNotNull(textBox.Image);
+        }
+
+        [Test]
+        public void SetLargeImage_ShouldBe_Image()
+        {
+            Assert.IsNull(textBox.Image);
+            textBox.SetLargeImage(BaseImage.Revit);
+            Assert.IsNotNull(textBox.Image);
+        }
+
         [TestCase(true)]
         [TestCase(false)]
         public void SetShowImageAsButton_Should_Be(bool show)

@@ -15,6 +15,22 @@ namespace ricaun.Revit.UI.Tests.Items.Items
             comboBox = ribbonPanel.CreateComboBox();
         }
 
+        [Test]
+        public void SetImage_ShouldBe_Image()
+        {
+            Assert.IsNull(comboBox.Image);
+            comboBox.SetImage(BaseImage.Revit);
+            Assert.IsNotNull(comboBox.Image);
+        }
+
+        [Test]
+        public void SetLargeImage_ShouldBe_Image()
+        {
+            Assert.IsNull(comboBox.Image);
+            comboBox.SetLargeImage(BaseImage.Revit);
+            Assert.IsNotNull(comboBox.Image);
+        }
+
         [TestCase(1)]
         [TestCase(2)]
         [TestCase(3)]

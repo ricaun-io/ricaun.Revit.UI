@@ -9,6 +9,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - LargeImage changes `TextBox` Image
 ### Updated
 - Update Example `Icons` to get random icon using `UIFrameworkRes`
+### Tests
+- Test `ComboBox` and `TextBox` Image/LargeImage
 
 ## [0.5.6] / 2023-11-08
 ### Features
