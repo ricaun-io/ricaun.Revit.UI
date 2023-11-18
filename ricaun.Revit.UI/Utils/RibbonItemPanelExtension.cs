@@ -69,6 +69,40 @@ namespace ricaun.Revit.UI.Utils
             ribbonRowPanel.Items.Add(UpdateForRibbonRowPanel(ribbonItem));
             return ribbonRowPanel;
         }
+        /// <summary>
+        /// Set each <paramref name="ribbonRowPanels"/> items to <paramref name="ribbonItemSize"/>
+        /// </summary>
+        /// <param name="ribbonRowPanels"></param>
+        /// <param name="ribbonItemSize"></param>
+        /// <returns></returns>
+        public static Autodesk.Windows.RibbonRowPanel[] SetRibbonItemSize(
+            this Autodesk.Windows.RibbonRowPanel[] ribbonRowPanels,
+            Autodesk.Windows.RibbonItemSize ribbonItemSize = Autodesk.Windows.RibbonItemSize.Large)
+        {
+            foreach (var ribbonRowPanel in ribbonRowPanels)
+            {
+                ribbonRowPanel.SetRibbonItemSize(ribbonItemSize);
+            }
+            return ribbonRowPanels;
+        }
+
+        /// <summary>
+        /// Set <paramref name="ribbonRowPanel"/> items to <paramref name="ribbonItemSize"/>
+        /// </summary>
+        /// <param name="ribbonRowPanel"></param>
+        /// <param name="ribbonItemSize"></param>
+        /// <returns></returns>
+        public static Autodesk.Windows.RibbonRowPanel SetRibbonItemSize(
+            this Autodesk.Windows.RibbonRowPanel ribbonRowPanel,
+            Autodesk.Windows.RibbonItemSize ribbonItemSize = Autodesk.Windows.RibbonItemSize.Large)
+        {
+            foreach (var ribbonItem in ribbonRowPanel.Items)
+            {
+                ribbonItem.Size = ribbonItemSize;
+            }
+            return ribbonRowPanel;
+        }
+
         internal static Autodesk.Windows.RibbonItem UpdateForRibbonRowPanel(this Autodesk.Windows.RibbonItem ribbonItem)
         {
             ribbonItem.Size = Autodesk.Windows.RibbonItemSize.Standard;

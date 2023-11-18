@@ -379,8 +379,6 @@ awRibbonPanel.SetDialogLauncher(ribbonCommandItem);
 
 This Project is [licensed](LICENSE) under the [MIT Licence](https://en.wikipedia.org/wiki/MIT_License).
 
-Credit to [icons8.com](https://icons8.com/) for the icons on the Example.
-
 ---
 
 Do you like this package? Please [star this project on GitHub](../../stargazers)!

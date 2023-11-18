@@ -25,7 +25,7 @@ namespace ricaun.Revit.UI.Example.Revit
             ribbonPanel = application.CreatePanel(TabName, PanelName);
 
             ribbonPanel.CreatePushButton<Commands.CommandWithAvailability>("Revit")
-                .SetLargeImage("/UIFrameworkRes;component/ribbon/images/revit.ico");
+                .SetLargeImage(Pack.Revit);
 
             var button = ribbonPanel.CreatePushButton<Commands.Command>();
 
@@ -99,17 +99,17 @@ namespace ricaun.Revit.UI.Example.Revit
                     .SetText("1")
                     .SetToolTip("One")
                     .SetLongDescription("The One")
-                    .SetLargeImage(Icons8.Document.Scale(0.5))
-                    .SetToolTipImage(Icons8.Document),
+                    .SetLargeImage(Icons.Icon.Scale(0.5))
+                    .SetToolTipImage(Icons.Icon),
                 ribbonPanel.NewPushButtonData<Commands.Command<EdgeArray>>()
                     .SetText("2")
-                    .SetLargeImage(Icons8.Document.Scale(0.5)),
+                    .SetLargeImage(Icons.Icon.Scale(0.5)),
                 ribbonPanel.NewPushButtonData<Commands.Command<EdgeArrayArray>>()
                     .SetText("3")
-                    .SetLargeImage(Icons8.Document.Scale(0.5)),
+                    .SetLargeImage(Icons.Icon.Scale(0.5)),
                 ribbonPanel.NewPushButtonData<Commands.Command<EdgeArrayArrayIterator>>()
                     .SetText("4")
-                    .SetLargeImage(Icons8.Document.Scale(0.5))
+                    .SetLargeImage(Icons.Icon.Scale(0.5))
             )
             .SetToolTip("T");
 
@@ -123,7 +123,7 @@ namespace ricaun.Revit.UI.Example.Revit
                 .SetShowImageAsButton()
                 .SetPromptText("Search")
                 .SetValue("Search")
-                .SetImage(Icons8.Search);
+                .SetImage(Icons.Icon);
 
             textBox.EnterPressed += (s, e) =>
             {
@@ -132,9 +132,9 @@ namespace ricaun.Revit.UI.Example.Revit
 
             ribbonPanel.AddStackedItems(
                 ribbonPanel.NewTextBoxData("T1")
-                    .SetImage(Icons8.Search),
+                    .SetImage(Icons.Icon),
                 ribbonPanel.NewTextBoxData("T2")
-                    .SetImage(Icons8.Search)
+                    .SetImage(Icons.Icon)
                 );
 
             #endregion
@@ -142,19 +142,19 @@ namespace ricaun.Revit.UI.Example.Revit
             #region CreateRadioButtonGroup
             var radio = ribbonPanel.CreateRadioButtonGroup("Radio",
                 ribbonPanel.NewToggleButtonData("R1")
-                    .SetLargeImage(Icons8.Circled),
+                    .SetLargeImage(Icons.Icon),
                 ribbonPanel.NewToggleButtonData("R2")
-                    .SetLargeImage(Icons8.Checked),
+                    .SetLargeImage(Icons.Icon),
                 ribbonPanel.NewToggleButtonData("R3")
-                    .SetLargeImage(Icons8.Cancel),
+                    .SetLargeImage(Icons.Icon),
                 ribbonPanel.NewToggleButtonData<Commands.Command<ToggleButtonData>>()
                     .SetText("R4")
-                    .SetLargeImage(Icons8.Trash)
+                    .SetLargeImage(Icons.Icon)
             );
 
             radio.AddToggleButtons(
                 ribbonPanel.NewToggleButtonData("R5")
-                .SetLargeImage(Icons8.About)
+                .SetLargeImage(Icons.Icon)
                 );
             #endregion
 
@@ -162,11 +162,11 @@ namespace ricaun.Revit.UI.Example.Revit
 
             var comboBox = ribbonPanel.CreateComboBox("ComboBox",
                 ribbonPanel.NewComboBoxMemberData("C1")
-                    .SetImage(Icons8.Restart),
+                    .SetImage(Icons.Icon),
                 ribbonPanel.NewComboBoxMemberData("C2")
-                    .SetImage(Icons8.Restart),
+                    .SetImage(Icons.Icon),
                 ribbonPanel.NewComboBoxMemberData("C3")
-                    .SetImage(Icons8.Restart)
+                    .SetImage(Icons.Icon)
                 );
 
             comboBox.CurrentChanged += (s, e) =>
@@ -258,10 +258,10 @@ namespace ricaun.Revit.UI.Example.Revit
         {
             ribbonPanelMove = application.CreateOrSelectPanel(TabName, PanelName + "0");
             var button = ribbonPanelMove.CreatePushButton<Commands.Command>("Teste")
-                .SetLargeImage("/UIFrameworkRes;component/ribbon/images/revit.ico");
+                .SetLargeImage(Icons.Icon);
 
             var splitButtonWithButton = ribbonPanelMove.CreateSplitButton(
-                ribbonPanelMove.NewPushButtonData<Commands.Command>("Split"),
+                ribbonPanelMove.NewPushButtonData<Commands.Command>("Split").SetLargeImage(Icons.Icon),
                 ribbonPanelMove.NewPushButtonData<Commands.Command>("Split"),
                 ribbonPanelMove.NewPushButtonData<Commands.Command>("Split"),
                 ribbonPanelMove.NewPushButtonData<Commands.Command>(),
@@ -272,10 +272,10 @@ namespace ricaun.Revit.UI.Example.Revit
 
             for (int i = 0; i < 5; i++)
             {
-                split.CreatePushButton<Commands.Command>()
-                    .SetLargeImage("/UIFrameworkRes;component/ribbon/images/revit.ico");
+                splitButton.CreatePushButton<Commands.Command>()
+                    .SetLargeImage(Icons.Icon);
                 split.CreatePushButton<Commands.Command, Commands.Availability.AvailableOnAnyDocument>()
-                    .SetLargeImage("/UIFrameworkRes;component/ribbon/images/revit.ico");
+                    .SetLargeImage(Icons.Icon);
             }
 
             //Console.WriteLine($">> {split}");
@@ -369,7 +369,7 @@ namespace ricaun.Revit.UI.Example.Revit
                     {
                         Text = "Ok",
                         ToolTip = "This Button gonna be Removed",
-                        LargeImage = Icons8.Ok,
+                        LargeImage = Icons.Icon,
                         Action = (ribbonItem) =>
                         {
                             var ri = ribbonItem.GetRibbonItem() as Autodesk.Windows.RibbonButton;
@@ -382,7 +382,7 @@ namespace ricaun.Revit.UI.Example.Revit
                     new RibbonDescription()
                     {
                         Text = "int",
-                        LargeImage = Icons8.Document
+                        LargeImage = Icons.Icon
                     }
                 );
 
@@ -390,7 +390,7 @@ namespace ricaun.Revit.UI.Example.Revit
                     new RibbonDescription()
                     {
                         Text = "double",
-                        LargeImage = Icons8.File
+                        LargeImage = Icons.Icon
                     }
                 );
 
@@ -398,7 +398,7 @@ namespace ricaun.Revit.UI.Example.Revit
                     new RibbonDescription()
                     {
                         Text = "bool",
-                        LargeImage = Icons8.Support
+                        LargeImage = Icons.Icon
                     }
                 );
 
@@ -406,21 +406,21 @@ namespace ricaun.Revit.UI.Example.Revit
                     new RibbonDescription()
                     {
                         Text = "text",
-                        LargeImage = Icons8.Settings
+                        LargeImage = Icons.Icon
                     }
                 );
 
                 setting.Add("PulldownButton", new RibbonDescription()
                 {
                     Text = "Menu",
-                    LargeImage = Icons8.About
+                    LargeImage = Icons.Icon
                 });
 
 
                 setting.Add<Commands.Command<UIApplication>>(new RibbonDescription()
                 {
                     Text = "UIApplication",
-                    LargeImage = Icons8.Restart,
+                    LargeImage = Icons.Icon,
                     Action = (ribbonItem) =>
                     {
                         ribbonItem.SetItemSize();
@@ -431,7 +431,7 @@ namespace ricaun.Revit.UI.Example.Revit
                 setting.Add<Commands.Command<UIDocument>>(new RibbonDescription()
                 {
                     Text = "UIDocument",
-                    LargeImage = Icons8.Filter,
+                    LargeImage = Icons.Icon,
                     Action = (ribbonItem) =>
                     {
                         ribbonItem.SetItemSize();
@@ -442,7 +442,7 @@ namespace ricaun.Revit.UI.Example.Revit
                 setting.Add<Commands.Command<Application>>(new RibbonDescription()
                 {
                     Text = "Application",
-                    LargeImage = Icons8.Search,
+                    LargeImage = Icons.Icon,
                     Action = (ribbonItem) =>
                     {
                         ribbonItem.SetItemSize();
@@ -453,7 +453,7 @@ namespace ricaun.Revit.UI.Example.Revit
                 setting.Add<Commands.Command<Document>>(new RibbonDescription()
                 {
                     Text = "Document",
-                    LargeImage = Icons8.Trash,
+                    LargeImage = Icons.Icon,
                     Action = (ribbonItem) =>
                     {
                         ribbonItem.SetItemSize();
@@ -464,7 +464,7 @@ namespace ricaun.Revit.UI.Example.Revit
                 setting.Add<Commands.Command<RibbonItem>>(new RibbonDescription()
                 {
                     Text = "RibbonItem",
-                    LargeImage = Icons8.Home,
+                    LargeImage = Icons.Icon,
                     Action = (ribbonItem) =>
                     {
                         ribbonItem.GetRibbonItem().AddQuickAccessToolBar();
@@ -475,7 +475,7 @@ namespace ricaun.Revit.UI.Example.Revit
                 setting.Add<Commands.Command<RibbonButton>>(new RibbonDescription()
                 {
                     Text = "RibbonButton",
-                    LargeImage = Icons8.Menu,
+                    LargeImage = Icons.Icon,
                     Action = (ribbonItem) =>
                     {
                         ribbonItem.GetRibbonItem().AddQuickAccessToolBar();
@@ -486,7 +486,7 @@ namespace ricaun.Revit.UI.Example.Revit
                 setting.Add<Commands.Command<RibbonPanel>>(new RibbonDescription()
                 {
                     Text = "RibbonPanel",
-                    LargeImage = Icons8.Info,
+                    LargeImage = Icons.Icon,
                     Action = (ribbonItem) =>
                     {
                         ribbonItem.GetRibbonItem().AddQuickAccessToolBar();
@@ -497,7 +497,7 @@ namespace ricaun.Revit.UI.Example.Revit
                 setting.Add<Commands.Command<Element>>(new RibbonDescription()
                 {
                     Text = "Element",
-                    LargeImage = Icons8.Circled,
+                    LargeImage = Icons.Icon,
                     Action = (ribbonItem) =>
                     {
                         ribbonItem.SetShowText();
@@ -507,7 +507,7 @@ namespace ricaun.Revit.UI.Example.Revit
                 setting.Add<Commands.Command<ElementType>>(new RibbonDescription()
                 {
                     Text = "ElementType",
-                    LargeImage = Icons8.Checked,
+                    LargeImage = Icons.Icon,
                     Action = (ribbonItem) =>
                     {
                         ribbonItem.SetShowText();
@@ -517,7 +517,7 @@ namespace ricaun.Revit.UI.Example.Revit
                 setting.Add<Commands.Command<ElementArray>>(new RibbonDescription()
                 {
                     Text = "ElementArray",
-                    LargeImage = Icons8.Cancel,
+                    LargeImage = Icons.Icon,
                     Action = (ribbonItem) =>
                     {
                         ribbonItem.SetShowText();
@@ -553,16 +553,16 @@ namespace ricaun.Revit.UI.Example.Revit
                             combo.AddComboBoxMembers(
                                 ribbonPanel.NewComboBoxMemberData("1")
                                     .SetText("One")
-                                    .SetImage(Icons8.Document)
+                                    .SetImage(Icons.Icon)
                                     .SetToolTip("One")
-                                    .SetToolTipImage(Icons8.Document)
+                                    .SetToolTipImage(Icons.Icon)
                                     .SetLongDescription("One"),
                                 ribbonPanel.NewComboBoxMemberData("2")
                                     .SetGroupName("G1")
-                                    .SetImage(Icons8.Document),
+                                    .SetImage(Icons.Icon),
                                 ribbonPanel.NewComboBoxMemberData("3")
                                     .SetGroupName("G2")
-                                    .SetImage(Icons8.Document)
+                                    .SetImage(Icons.Icon)
                             );
                         }
                     }

@@ -10,6 +10,7 @@ namespace ricaun.Revit.UI.Example.Proprieties
         private static string BaseUri => @"pack://application:,,,/{0};component/Ribbon/images/{1}.ico";
         #endregion
         public static string Icon([CallerMemberName] string name = null) => string.Format(BaseUri, Assembly, name.ToLower());
+        public static string Revit => Icon();
         public static string Power => Icon("system_electrical_circuit_power_create");
         public static string Communication => Icon("system_electrical_circuit_communication_create");
         public static string Control => Icon("system_electrical_circuit_control_create");
@@ -19,6 +20,5 @@ namespace ricaun.Revit.UI.Example.Proprieties
         public static string Security => Icon("system_electrical_circuit_security_create");
         public static string Telephone => Icon("system_electrical_circuit_telephone_create");
         public static string Switch => Icon("system_switch_create");
-
     }
 }
