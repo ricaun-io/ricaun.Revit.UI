@@ -2,6 +2,7 @@
 using Autodesk.Revit.UI;
 using ricaun.Revit.UI;
 using ricaun.Revit.UI.Example.Proprieties;
+using ricaun.Revit.UI.Utils;
 using System.Linq;
 
 namespace ricaun.Revit.UI.Example.Revit
@@ -29,6 +30,7 @@ namespace ricaun.Revit.UI.Example.Revit
                         .SetToolTip($"{i}")
                         .SetShowText(false)
                         .SetItemSize()
+                        .SetToolTip(Icons.Icon.ToString())
                         .SetLargeImage(Icons.Icon)
                 );
                 return itens.ToArray();
@@ -36,6 +38,9 @@ namespace ricaun.Revit.UI.Example.Revit
             ribbonPanel.FlowStackedItems(CreateButtons(9));
             ribbonPanel.AddSeparator();
             ribbonPanel.RowStackedItems(CreateButtons(9));
+
+            ribbonPanel.AddSeparator();
+            ribbonPanel.RowLargeStackedItems(CreateButtons(4));
 
             ribbonPanel.AddSlideOut();
             ribbonPanel.RowStackedItems(CreateButtons(8));

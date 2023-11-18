@@ -7,10 +7,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [0.5.7] / 2023-11-17
 ### Features
 - LargeImage changes `TextBox` Image
+- Create `RowLargeStackedItems` with large image and two itens
 ### Updated
 - Update Example `Icons` to get random icon using `UIFrameworkRes`
 ### Tests
 - Test `ComboBox` and `TextBox` Image/LargeImage
+- Test `RowLargeStackedItems` with large image and two itens
 
 ## [0.5.6] / 2023-11-08
 ### Features

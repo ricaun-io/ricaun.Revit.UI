@@ -31,6 +31,33 @@ namespace ricaun.Revit.UI.Tests.Items
         [TestCase(6)]
         [TestCase(9)]
         [TestCase(20)]
+        public void CreateRowLarge(int numberOfCommands)
+        {
+            var pushButtons = Enumerable.Range(0, numberOfCommands)
+                .Select(e => ribbonPanel.CreatePushButton<BaseCommand>())
+                .ToArray();
+
+            var ribbonRowPanel = ribbonPanel.RowLargeStackedItems(pushButtons);
+
+            var expectadRowPanels = Math.Ceiling(numberOfCommands / 2.0);
+
+            Assert.AreEqual(expectadRowPanels, ribbonRowPanel.Length);
+
+            foreach (var rowPanel in ribbonRowPanel)
+            {
+                foreach (var item in rowPanel.Items)
+                {
+                    Assert.AreEqual(item.Size, Autodesk.Windows.RibbonItemSize.Large);
+                }
+            }
+        }
+
+        [TestCase(2)]
+        [TestCase(3)]
+        [TestCase(4)]
+        [TestCase(6)]
+        [TestCase(9)]
+        [TestCase(20)]
         public void CreateFlow(int numberOfCommands)
         {
             var pushButtons = Enumerable.Range(0, numberOfCommands)
