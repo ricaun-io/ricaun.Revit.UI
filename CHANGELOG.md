@@ -6,6 +6,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [0.5.7] / 2023-11-17
 ### Features
+- LargeImage changes `TextBox` Image
 ### Updated
 - Update Example `Icons` to get random icon using `UIFrameworkRes`
 
