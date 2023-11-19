@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Update to support `net7.0-windows`
 ### Updated
 - Update `Build` project
+- Update `Example` project
 
 ## [0.5.7] / 2023-11-17
 ### Features
