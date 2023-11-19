@@ -76,7 +76,7 @@
 
   <PropertyGroup>
     <PackageId>ricaun.Revit.UI.Example</PackageId>
-    <Version>0.5.7</Version>
+    <Version Condition="'$(Version)' == ''">0.6.0</Version>
     <ProjectGuid>{f736f68f-7101-4640-9093-8715f88ccb95}</ProjectGuid>
   </PropertyGroup>
 
@@ -119,7 +119,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Newtonsoft.Json" Version="*" IncludeAssets="build; compile" PrivateAssets="All" />
+    <PackageReference Include="Newtonsoft.Json" Version="9.*" IncludeAssets="build; compile" PrivateAssets="All" />
     <PackageReference Include="Revit_All_Main_Versions_API_x64" Version="$(RevitVersion).*" IncludeAssets="build; compile" PrivateAssets="All" />
   </ItemGroup>
 
@@ -127,9 +127,6 @@
     <ProjectReference Include="..\ricaun.Revit.UI\ricaun.Revit.UI.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Reference Include="System.Windows.Forms" />
-  </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\icon.png" />
   </ItemGroup>
