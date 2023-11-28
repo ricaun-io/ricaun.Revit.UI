@@ -39,7 +39,6 @@
       </PropertyGroup>
     </Otherwise>
   </Choose>
-  
 
   <ItemGroup>
     <PackageReference Include="NUnit" Version="3.13.3" />
@@ -48,6 +47,10 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ricaun.Revit.UI\ricaun.Revit.UI.csproj" />
+  </ItemGroup>
+
+  <ItemGroup Condition="$(TargetFramework.StartsWith('net7'))">
+    <PackageReference Include="System.Drawing.Common" Version="7.*" IncludeAssets="build; compile" PrivateAssets="All" />
   </ItemGroup>
 
   <ItemGroup>
@@ -64,6 +67,10 @@
       <_Parameter2>true</_Parameter2>
     </AssemblyAttribute>
   </ItemGroup>
+  
+  <ItemGroup>
+    <Resource Include="Resources\Images\Revit.ico" />
+  </ItemGroup>  
   <!--
   -->
 

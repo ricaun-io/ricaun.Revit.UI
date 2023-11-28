@@ -7,12 +7,17 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [0.6.0] / 2023-11-19 - 2023-11-28
 ### Features
 - Update to support `net7.0-windows`
+- SetImage works with `Resources` without assembly name.
 ### Updated
 - Update `Build` project
 - Update `Example` project
 - Fix `MovePanelTo` remove panel from `RibbonTabsDictionary`
+- Add `StackTraceUtils` to find the caller assembly.
+- Update `BitmapExtension` to enable `Resources` without assembly name.
 ### Tests
 - Test `MovePanelTo_Modify_CreatePanel_SameName`
+- Test `StackTraceUtils`
+- Test `Resources` without assembly name.
 
 ## [0.5.7] / 2023-11-17
 ### Features

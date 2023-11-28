@@ -58,6 +58,20 @@ namespace ricaun.Revit.UI
             return bitmap.GetBitmapSource();
         }
 
+        internal static BitmapSource Base64ToBitmapSource(string base64)
+        {
+            var convert = Convert.FromBase64String(base64);
+            var image = System.Drawing.Bitmap.FromStream(new MemoryStream(convert));
+            return image.GetBitmapSource();
+        }
+
+        internal static BitmapFrame UriToBitmapFrame(string uriString)
+        {
+            var uri = new Uri(uriString, UriKind.RelativeOrAbsolute);
+            var decoder = BitmapDecoder.Create(uri, BitmapCreateOptions.None, BitmapCacheOption.Default);
+            return decoder.Frames[0];
+        }
+
         /// <summary>
         /// Transform string base64 or Uri to BitmapSource
         /// </summary>
@@ -67,25 +81,29 @@ namespace ricaun.Revit.UI
         {
             try
             {
-                var uri = new Uri(base64orUri, UriKind.RelativeOrAbsolute);
-                var decoder = BitmapDecoder.Create(uri, BitmapCreateOptions.None, BitmapCacheOption.Default);
-                return decoder.Frames[0];
+                return UriToBitmapFrame(base64orUri);
             }
             catch { }
 
             try
             {
-                var uri = new Uri("pack://application:,,," + base64orUri, UriKind.RelativeOrAbsolute);
-                var decoder = BitmapDecoder.Create(uri, BitmapCreateOptions.None, BitmapCacheOption.Default);
-                return decoder.Frames[0];
+                var componentUri = "pack://application:,,,/" + base64orUri.TrimStart('/');
+                return UriToBitmapFrame(componentUri);
             }
             catch { }
 
             try
             {
-                var convert = Convert.FromBase64String(base64orUri);
-                var image = System.Drawing.Bitmap.FromStream(new MemoryStream(convert));
-                return image.GetBitmapSource();
+                var executingAssembly = Utils.StackTraceUtils.GetCallingAssembly();
+                var assemblyName = executingAssembly.GetName().Name;
+                var componentUri = $"pack://application:,,,/{assemblyName};component/" + base64orUri.TrimStart('/');
+                return UriToBitmapFrame(componentUri);
+            }
+            catch { }
+
+            try
+            {
+                return Base64ToBitmapSource(base64orUri);
             }
             catch { }
 
