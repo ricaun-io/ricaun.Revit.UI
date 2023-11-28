@@ -7,7 +7,7 @@ namespace ricaun.Revit.UI.Tests
     public class BaseCreatePanelTests
     {
         protected RibbonPanel ribbonPanel;
-        private const string PanelName = "Example";
+        protected virtual string PanelName => "Example";
 
         [SetUp]
         public void SetUp(UIControlledApplication application)

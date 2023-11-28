@@ -5,19 +5,45 @@
     <PlatformTarget>AnyCPU</PlatformTarget>
     <UseWPF>true</UseWPF>
     <LangVersion>latest</LangVersion>
-    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <AppendTargetFrameworkToOutputPath>true</AppendTargetFrameworkToOutputPath>
     <ResolveAssemblyWarnOrErrorOnTargetArchitectureMismatch>None</ResolveAssemblyWarnOrErrorOnTargetArchitectureMismatch>
     <IsTestProject>true</IsTestProject>
   </PropertyGroup>
 
+  <!--
   <PropertyGroup>
     <RevitVersion>2021</RevitVersion>
     <TargetFramework>net48</TargetFramework>
   </PropertyGroup>
+  -->
+
+  <!-- RevitVersion -->
+  <PropertyGroup>
+    <TargetFrameworks>net48;net7.0-windows</TargetFrameworks>
+    <TargetFrameworks Condition="!$(Configuration.Contains('Debug'))">net48</TargetFrameworks>
+  </PropertyGroup>
+  <PropertyGroup Condition="$(TargetFramework.StartsWith('net7'))">
+    <EnableDynamicLoading>true</EnableDynamicLoading>
+    <GenerateRuntimeConfigurationFiles>true</GenerateRuntimeConfigurationFiles>
+    <GenerateDependencyFile>false</GenerateDependencyFile>
+  </PropertyGroup>
+  <Choose>
+    <When Condition="$(TargetFramework.StartsWith('net4'))">
+      <PropertyGroup>
+        <RevitVersion>2021</RevitVersion>
+      </PropertyGroup>
+    </When>
+    <Otherwise>
+      <PropertyGroup>
+        <RevitVersion>2025</RevitVersion>
+      </PropertyGroup>
+    </Otherwise>
+  </Choose>
+  
 
   <ItemGroup>
     <PackageReference Include="NUnit" Version="3.13.3" />
-    <PackageReference Include="ricaun.RevitTest.TestAdapter" Version="*" />
+    <PackageReference Include="ricaun.RevitTest.TestAdapter" Version="1.2.1-beta" />
   </ItemGroup>
 
   <ItemGroup>

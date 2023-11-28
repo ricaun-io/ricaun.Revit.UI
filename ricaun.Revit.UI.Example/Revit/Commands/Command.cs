@@ -63,4 +63,19 @@ namespace ricaun.Revit.UI.Example.Revit.Commands
         }
     }
 
+    [Transaction(TransactionMode.Manual)]
+    public class CommandAvailable : IExternalCommand, IExternalCommandAvailability
+    {
+        public Result Execute(ExternalCommandData commandData, ref string message, ElementSet elementSet)
+        {
+            UIApplication uiapp = commandData.Application;
+            return Result.Succeeded;
+        }
+
+        public bool IsCommandAvailable(UIApplication applicationData, CategorySet selectedCategories)
+        {
+            return true;
+        }
+    }
+
 }

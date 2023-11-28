@@ -10,9 +10,9 @@ namespace ricaun.Revit.UI.Example.Revit
         private static RibbonPanel ribbonPanel;
         public Result OnStartup(UIControlledApplication application)
         {
-            ribbonPanel = application.CreatePanel("ricaun", "ricaun");
+            ribbonPanel = application.CreatePanel("Example");
 
-            var ribbonItem = ribbonPanel.CreatePushButton<Commands.Command>()
+            var ribbonItem = ribbonPanel.CreatePushButton<Commands.CommandAvailable>()
                 .SetText("Command")
                 .SetToolTip("This is a tooltip.")
                 .SetLongDescription("This is a description.")
@@ -25,7 +25,7 @@ namespace ricaun.Revit.UI.Example.Revit
                     .SetLongDescription("Esta é uma descrição.");
             }
 
-            //ribbonPanel.MoveToRibbonTab();
+            ribbonPanel.MoveToRibbonTab();
 
             return Result.Succeeded;
         }

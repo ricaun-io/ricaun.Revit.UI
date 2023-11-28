@@ -69,6 +69,18 @@ namespace ricaun.Revit.UI
             return removed;
         }
 
+        /// <summary>
+        /// MoveToRibbonTab
+        /// </summary>
+        /// <param name="ribbonTab"></param>
+        /// <param name="ribbonPanel"></param>
+        /// <returns></returns>
+        internal static bool MoveToRibbonTab(this Autodesk.Windows.RibbonTab ribbonTab, Autodesk.Windows.RibbonPanel ribbonPanel)
+        {
+            var removed = ribbonPanel.Tab.Remove(ribbonPanel);
+            ribbonTab.Panels.Add(ribbonPanel);
+            return removed;
+        }
         #endregion
 
         #region Order

@@ -10,6 +10,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Updated
 - Update `Build` project
 - Update `Example` project
+- Fix `MovePanelTo` remove panel from `RibbonTabsDictionary`
+### Tests
+- Test `MovePanelTo_Modify_CreatePanel_SameName`
 
 ## [0.5.7] / 2023-11-17
 ### Features
