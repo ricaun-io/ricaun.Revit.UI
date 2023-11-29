@@ -312,7 +312,7 @@ BitmapSource bitmapSource = imageAsResourceString.GetBitmapSource();
 ```
 
 ### Drawing Bitmap Extension
-The `GetBitmapSource()` method transform `Bitmap`, `Icon`, `Image` in `BitmapSource`. The extension is located in the namespace `ricaun.Revit.Ui.Drawing`.
+The `GetBitmapSource()` method transform `Bitmap`, `Icon`, `Image` in `BitmapSource`. The extension is located in the namespace `ricaun.Revit.UI.Drawing`.
 
 ```C#
 System.Drawing.Bitmap bitmap;
