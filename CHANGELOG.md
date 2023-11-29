@@ -4,10 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-## [0.6.0] / 2023-11-19 - 2023-11-28
+## [0.6.0] / 2023-11-19 - 2023-11-29
 ### Features
-- Update to support `net7.0-windows`
+- Update to support `net7.0-windows` and `net8.0-windows`
 - SetImage works with `Resources` without assembly name.
+- Change `System.Drawing` to a separate namespace and class.
 ### Updated
 - Update `Build` project
 - Update `Example` project
@@ -18,6 +19,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Test `MovePanelTo_Modify_CreatePanel_SameName`
 - Test `StackTraceUtils`
 - Test `Resources` without assembly name.
+- Test `Drawing` Resources.
 
 ## [0.5.7] / 2023-11-17
 ### Features
