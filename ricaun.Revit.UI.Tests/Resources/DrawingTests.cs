@@ -28,5 +28,13 @@ namespace ricaun.Revit.UI.Tests.Resources
             Assert.IsNotNull(image.GetBitmapSource());
         }
 
+        [TestCase(32)]
+        public void GetBitmapSource_Icon_Width(int width)
+        {
+            Icon image = Images.Resources.Revit;
+            var source = image.GetBitmapSource();
+            Assert.AreEqual(width, source.Width);
+        }
+
     }
 }

@@ -17,7 +17,7 @@ namespace ricaun.Revit.UI
         {
             var uri = new Uri(uriString, UriKind.RelativeOrAbsolute);
             var decoder = BitmapDecoder.Create(uri, BitmapCreateOptions.None, BitmapCacheOption.Default);
-            return decoder.Frames[0];
+            return decoder.Frames.OrderBy(e => e.Width).LastOrDefault();
         }
 
         /// <summary>
@@ -87,38 +87,52 @@ namespace ricaun.Revit.UI
         /// </summary>
         /// <param name="imageSource"></param>
         /// <param name="width"></param>
-        /// <param name="action"></param>
+        /// <param name="downloadCompleted"></param>
         /// <returns></returns>
-        public static TImageSource GetBitmapFrame<TImageSource>(this TImageSource imageSource, int width = 16, Action<TImageSource> action = null) where TImageSource : ImageSource
+        /// <remarks>When <paramref name="width"/> is zero, return the smallest width frame.</remarks>
+        public static TImageSource GetBitmapFrame<TImageSource>(this TImageSource imageSource, int width = 0, Action<TImageSource> downloadCompleted = null) where TImageSource : ImageSource
         {
+            TImageSource ScaleDownIfWidthIsGreater(TImageSource imageSource, int width)
+            {
+                if (width <= 0)
+                    return imageSource;
+
+                if (imageSource.Width > width)
+                    imageSource = imageSource.Scale(width / imageSource.Width) as TImageSource;
+
+                return imageSource;
+            }
+
             if (imageSource is BitmapFrame bitmapFrame)
             {
+                BitmapFrame GetBitmapFrameByWidth(BitmapFrame bitmapFrame, int width)
+                {
+                    var frames = bitmapFrame.Decoder.Frames;
+                    var frame = frames
+                        .OrderBy(e => e.Width)
+                        .FirstOrDefault(e => e.Width >= width);
+
+                    return frame;
+                }
+
                 if (bitmapFrame.IsDownloading)
                 {
                     bitmapFrame.DownloadCompleted += (s, e) =>
                     {
-                        var frames = bitmapFrame.Decoder.Frames;
-                        var frame = frames.FirstOrDefault(e => e.Width == width);
+                        if (GetBitmapFrameByWidth(bitmapFrame, width) is TImageSource frame)
+                            imageSource = frame;
 
-                        if (frame != null)
-                            imageSource = frame as TImageSource;
+                        imageSource = ScaleDownIfWidthIsGreater(imageSource, width);
 
-                        if (imageSource.Width > width)
-                            imageSource = imageSource.Scale(width / imageSource.Width) as TImageSource;
-
-                        action?.Invoke(imageSource);
+                        downloadCompleted?.Invoke(imageSource);
                     };
                 }
 
-                var frames = bitmapFrame.Decoder.Frames;
-                var frame = frames.FirstOrDefault(e => e.Width == width);
-
-                if (frame != null)
-                    imageSource = frame as TImageSource;
+                if (GetBitmapFrameByWidth(bitmapFrame, width) is TImageSource frame)
+                    imageSource = frame;
             }
 
-            if (imageSource.Width > width)
-                imageSource = imageSource.Scale(width / imageSource.Width) as TImageSource;
+            imageSource = ScaleDownIfWidthIsGreater(imageSource, width);
 
             return imageSource;
         }

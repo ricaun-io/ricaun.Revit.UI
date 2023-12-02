@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Linq;
 using System.Windows.Media.Imaging;
 
 namespace ricaun.Revit.UI.Drawing
@@ -40,7 +41,7 @@ namespace ricaun.Revit.UI.Drawing
             var stream = new MemoryStream();
             icon.Save(stream);
             var decoder = BitmapDecoder.Create(stream, BitmapCreateOptions.None, BitmapCacheOption.Default);
-            return decoder.Frames[0];
+            return decoder.Frames.OrderBy(e => e.Width).LastOrDefault();
         }
 
         /// <summary>

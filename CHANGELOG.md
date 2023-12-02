@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Update to support `net7.0-windows` and `net8.0-windows`
 - SetImage works with `Resources` without assembly name.
 - Change `System.Drawing` to a separate namespace and class.
+- Icons `GetBitmapSource` return the biggest frame.
 ### Updated
 - Update `Build` project
 - Update `Example` project
@@ -20,6 +21,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Test `StackTraceUtils`
 - Test `Resources` without assembly name.
 - Test `Drawing` Resources.
+- Test `ResourceTests`, `ResourcePngTests` and `ResourcesFramesTests`
 
 ## [0.5.7] / 2023-11-17
 ### Features

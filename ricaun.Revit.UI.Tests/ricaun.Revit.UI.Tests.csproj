@@ -40,6 +40,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <None Remove="Resources\Images\Revit21Frames.ico" />
     <None Remove="Resources\Images\Revit32.png" />
   </ItemGroup>
 
@@ -73,6 +74,7 @@
   
   <ItemGroup>
     <Resource Include="Resources\Images\Revit.ico" />
+    <Resource Include="Resources\Images\Revit21Frames.ico" />
     <Resource Include="Resources\Images\Revit32.png" />
   </ItemGroup>
   
