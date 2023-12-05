@@ -133,6 +133,7 @@ namespace ricaun.Revit.UI
         /// </summary>
         /// <param name="ribbonPanel"></param>
         /// <returns></returns>
+        /// <remarks>The <paramref name="ribbonPanel"/> is removed from the original RibbonTab using <see cref="RibbonTabExtension.Remove(Autodesk.Windows.RibbonTab, Autodesk.Windows.RibbonPanel)"/></remarks>
         public static RibbonPanel MoveToRibbonTab(this RibbonPanel ribbonPanel)
         {
             return ribbonPanel.MoveToRibbonTab("Modify");
@@ -145,6 +146,7 @@ namespace ricaun.Revit.UI
         /// <param name="ribbonPanel"></param>
         /// <param name="ribbonTabId"></param>
         /// <returns></returns>
+        /// <remarks>The <paramref name="ribbonPanel"/> is removed from the original RibbonTab using <see cref="RibbonTabExtension.Remove(Autodesk.Windows.RibbonTab, Autodesk.Windows.RibbonPanel)"/></remarks>
         public static RibbonPanel MoveToRibbonTab(this RibbonPanel ribbonPanel, string ribbonTabId)
         {
             var ribbonTab = Autodesk.Windows.ComponentManager.Ribbon.FindTab(ribbonTabId);
@@ -157,13 +159,13 @@ namespace ricaun.Revit.UI
         /// <param name="ribbonPanel"></param>
         /// <param name="ribbonTab"></param>
         /// <returns></returns>
+        /// <remarks>The <paramref name="ribbonPanel"/> is removed from the original RibbonTab using <see cref="RibbonTabExtension.Remove(Autodesk.Windows.RibbonTab, Autodesk.Windows.RibbonPanel)"/></remarks>
         public static RibbonPanel MoveToRibbonTab(this RibbonPanel ribbonPanel, Autodesk.Windows.RibbonTab ribbonTab)
         {
             if (ribbonTab is not null)
             {
                 var panel = ribbonPanel.GetRibbonPanel();
-                panel.Tab.Panels.Remove(panel);
-                ribbonTab.Panels.Add(panel);
+                ribbonTab.MoveToRibbonTab(panel);
             }
             return ribbonPanel;
         }

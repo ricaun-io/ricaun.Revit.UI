@@ -13,49 +13,11 @@ namespace ricaun.Revit.UI
     /// </summary>
     public static class BitmapExtension
     {
-        /// <summary>
-        /// Convert <paramref name="bitmap"/> to <seealso cref="BitmapSource"/>
-        /// </summary>
-        /// <param name="bitmap"></param>
-        /// <returns></returns>
-        public static BitmapSource GetBitmapSource(this System.Drawing.Bitmap bitmap)
+        internal static BitmapFrame UriToBitmapFrame(string uriString)
         {
-            var data = bitmap.LockBits(
-                new System.Drawing.Rectangle(0, 0, bitmap.Width, bitmap.Height),
-                System.Drawing.Imaging.ImageLockMode.ReadOnly, bitmap.PixelFormat);
-
-            var bitmapSource = BitmapSource.Create(
-                data.Width, data.Height, 96.0, 96.0,
-                System.Windows.Media.PixelFormats.Bgra32, null,
-                data.Scan0, data.Stride * data.Height, data.Stride);
-
-            bitmap.UnlockBits(data);
-
-            return bitmapSource;
-        }
-
-        /// <summary>
-        /// Convert <paramref name="icon"/> to <seealso cref="BitmapSource"/>
-        /// </summary>
-        /// <param name="icon"></param>
-        /// <returns></returns>
-        public static BitmapSource GetBitmapSource(this System.Drawing.Icon icon)
-        {
-            var stream = new MemoryStream();
-            icon.Save(stream);
-            var decoder = BitmapDecoder.Create(stream, BitmapCreateOptions.None, BitmapCacheOption.Default);
-            return decoder.Frames[0];
-        }
-
-        /// <summary>
-        /// Convert <paramref name="image"/> to <seealso cref="BitmapSource"/>
-        /// </summary>
-        /// <param name="image"></param>
-        /// <returns></returns>
-        public static BitmapSource GetBitmapSource(this System.Drawing.Image image)
-        {
-            var bitmap = new System.Drawing.Bitmap(image);
-            return bitmap.GetBitmapSource();
+            var uri = new Uri(uriString, UriKind.RelativeOrAbsolute);
+            var decoder = BitmapDecoder.Create(uri, BitmapCreateOptions.None, BitmapCacheOption.Default);
+            return decoder.Frames.OrderBy(e => e.Width).LastOrDefault();
         }
 
         /// <summary>
@@ -67,25 +29,29 @@ namespace ricaun.Revit.UI
         {
             try
             {
-                var uri = new Uri(base64orUri, UriKind.RelativeOrAbsolute);
-                var decoder = BitmapDecoder.Create(uri, BitmapCreateOptions.None, BitmapCacheOption.Default);
-                return decoder.Frames[0];
+                return UriToBitmapFrame(base64orUri);
             }
             catch { }
 
             try
             {
-                var uri = new Uri("pack://application:,,," + base64orUri, UriKind.RelativeOrAbsolute);
-                var decoder = BitmapDecoder.Create(uri, BitmapCreateOptions.None, BitmapCacheOption.Default);
-                return decoder.Frames[0];
+                var componentUri = "pack://application:,,,/" + base64orUri.TrimStart('/');
+                return UriToBitmapFrame(componentUri);
             }
             catch { }
 
             try
             {
-                var convert = Convert.FromBase64String(base64orUri);
-                var image = System.Drawing.Bitmap.FromStream(new MemoryStream(convert));
-                return image.GetBitmapSource();
+                var executingAssembly = Utils.StackTraceUtils.GetCallingAssembly();
+                var assemblyName = executingAssembly.GetName().Name;
+                var componentUri = $"pack://application:,,,/{assemblyName};component/" + base64orUri.TrimStart('/');
+                return UriToBitmapFrame(componentUri);
+            }
+            catch { }
+
+            try
+            {
+                return Drawing.BitmapDrawingExtension.Base64ToBitmapSource(base64orUri);
             }
             catch { }
 
@@ -121,38 +87,52 @@ namespace ricaun.Revit.UI
         /// </summary>
         /// <param name="imageSource"></param>
         /// <param name="width"></param>
-        /// <param name="action"></param>
+        /// <param name="downloadCompleted"></param>
         /// <returns></returns>
-        public static TImageSource GetBitmapFrame<TImageSource>(this TImageSource imageSource, int width = 16, Action<TImageSource> action = null) where TImageSource : ImageSource
+        /// <remarks>When <paramref name="width"/> is zero, return the smallest width frame.</remarks>
+        public static TImageSource GetBitmapFrame<TImageSource>(this TImageSource imageSource, int width = 0, Action<TImageSource> downloadCompleted = null) where TImageSource : ImageSource
         {
+            TImageSource ScaleDownIfWidthIsGreater(TImageSource imageSource, int width)
+            {
+                if (width <= 0)
+                    return imageSource;
+
+                if (imageSource.Width > width)
+                    imageSource = imageSource.Scale(width / imageSource.Width) as TImageSource;
+
+                return imageSource;
+            }
+
             if (imageSource is BitmapFrame bitmapFrame)
             {
+                BitmapFrame GetBitmapFrameByWidth(BitmapFrame bitmapFrame, int width)
+                {
+                    var frames = bitmapFrame.Decoder.Frames;
+                    var frame = frames
+                        .OrderBy(e => e.Width)
+                        .FirstOrDefault(e => e.Width >= width);
+
+                    return frame;
+                }
+
                 if (bitmapFrame.IsDownloading)
                 {
                     bitmapFrame.DownloadCompleted += (s, e) =>
                     {
-                        var frames = bitmapFrame.Decoder.Frames;
-                        var frame = frames.FirstOrDefault(e => e.Width == width);
+                        if (GetBitmapFrameByWidth(bitmapFrame, width) is TImageSource frame)
+                            imageSource = frame;
 
-                        if (frame != null)
-                            imageSource = frame as TImageSource;
+                        imageSource = ScaleDownIfWidthIsGreater(imageSource, width);
 
-                        if (imageSource.Width > width)
-                            imageSource = imageSource.Scale(width / imageSource.Width) as TImageSource;
-
-                        action?.Invoke(imageSource);
+                        downloadCompleted?.Invoke(imageSource);
                     };
                 }
 
-                var frames = bitmapFrame.Decoder.Frames;
-                var frame = frames.FirstOrDefault(e => e.Width == width);
-
-                if (frame != null)
-                    imageSource = frame as TImageSource;
+                if (GetBitmapFrameByWidth(bitmapFrame, width) is TImageSource frame)
+                    imageSource = frame;
             }
 
-            if (imageSource.Width > width)
-                imageSource = imageSource.Scale(width / imageSource.Width) as TImageSource;
+            imageSource = ScaleDownIfWidthIsGreater(imageSource, width);
 
             return imageSource;
         }
