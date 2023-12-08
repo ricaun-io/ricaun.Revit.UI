@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - `SetLargeImage` always set small image when `ico`.
 ### Updated
 - Update `SetLargeImage` to change small image when `BitmapFrame`.
+- Update `RibbonDescription` images to `object` to support `string`.
 ### Tests
 - Add Test to `ReSetImage` when `ico`.
 
