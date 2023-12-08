@@ -25,6 +25,9 @@ namespace ricaun.Revit.UI.Example.Revit
                     .SetLongDescription("Esta é uma descrição.");
             }
 
+            ribbonItem.SetLargeImage("/Resources/revit.ico");
+            //ribbonPanel.RowStackedItems(ribbonItem);
+
             ribbonPanel.MoveToRibbonTab();
 
             return Result.Succeeded;

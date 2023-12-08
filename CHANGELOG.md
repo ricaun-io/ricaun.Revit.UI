@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [0.6.1] / 2023-12-08
+### Features
+- `SetLargeImage` always set small image when `ico`.
+### Updated
+- Update `SetLargeImage` to change small image when `BitmapFrame`.
+
 ## [0.6.0] / 2023-11-19 - 2023-11-29
 ### Features
 - Update to support `net7.0-windows` and `net8.0-windows`
@@ -320,6 +326,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - First Release
 
 [vNext]: ../../compare/1.0.0...HEAD
+[0.6.1]: ../../compare/0.6.0...0.6.1
 [0.6.0]: ../../compare/0.5.7...0.6.0
 [0.5.7]: ../../compare/0.5.6...0.5.7
 [0.5.6]: ../../compare/0.5.5...0.5.6
