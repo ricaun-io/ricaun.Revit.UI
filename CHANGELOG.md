@@ -9,6 +9,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - `SetLargeImage` always set small image when `ico`.
 ### Updated
 - Update `SetLargeImage` to change small image when `BitmapFrame`.
+### Tests
+- Add Test to `ReSetImage` when `ico`.
 
 ## [0.6.0] / 2023-11-19 - 2023-11-29
 ### Features
