@@ -177,7 +177,7 @@ namespace ricaun.Revit.UI
             if (ribbonItem is ButtonData ribbonButton)
             {
                 ribbonButton.LargeImage = largeImage?.GetBitmapFrame(32, (frame) => { ribbonButton.LargeImage = frame; });
-                if (ribbonButton.Image == null || ribbonButton.LargeImage == null)
+                if (ribbonButton.Image == null || ribbonButton.LargeImage == null || ribbonButton.LargeImage is System.Windows.Media.Imaging.BitmapFrame)
                     ribbonButton.SetImage(ribbonButton.LargeImage);
             }
 

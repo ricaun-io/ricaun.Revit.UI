@@ -13,7 +13,7 @@ using System.Windows.Media;
 
 namespace ricaun.Revit.UI.Example.Revit
 {
-    //[AppLoader]
+    [AppLoader]
     //[Obsolete]
     public class App : IExternalApplication
     {
@@ -328,7 +328,7 @@ namespace ricaun.Revit.UI.Example.Revit
                 setting.AddDefault(
                     new RibbonDescription()
                     {
-                        Help = "https://ricaun.com"
+                        Help = "https://ricaun.com",
                     }
                 );
 

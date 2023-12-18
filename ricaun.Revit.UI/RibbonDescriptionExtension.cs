@@ -168,15 +168,15 @@ namespace ricaun.Revit.UI
         /// <summary>
         /// Image
         /// </summary>
-        public ImageSource Image { get; set; }
+        public object Image { get; set; }
         /// <summary>
         /// LargeImage
         /// </summary>
-        public ImageSource LargeImage { get; set; }
+        public object LargeImage { get; set; }
         /// <summary>
         /// ToolTipImage
         /// </summary>
-        public ImageSource ToolTipImage { get; set; }
+        public object ToolTipImage { get; set; }
         /// <summary>
         /// Action
         /// </summary>
@@ -239,14 +239,29 @@ namespace ricaun.Revit.UI
             ribbonItem.SetLongDescription(description.LongDescription);
             ribbonItem.SetContextualHelp(description.Help);
 
-            if (description.ToolTipImage is not null)
-                ribbonItem.SetToolTipImage(description.ToolTipImage);
+            //if (description.ToolTipImage is not null)
+            //    ribbonItem.SetToolTipImage(description.ToolTipImage);
 
-            if (description.LargeImage is not null)
-                ribbonItem.SetLargeImage(description.LargeImage);
+            //if (description.LargeImage is not null)
+            //    ribbonItem.SetLargeImage(description.LargeImage);
 
-            if (description.Image is not null)
-                ribbonItem.SetImage(description.Image);
+            //if (description.Image is not null)
+            //    ribbonItem.SetImage(description.Image);
+
+            if (description.ToolTipImage is string stringToolTipImage)
+                ribbonItem.SetToolTipImage(stringToolTipImage);
+            if (description.ToolTipImage is ImageSource sourceToolTipImage)
+                ribbonItem.SetToolTipImage(sourceToolTipImage);
+
+            if (description.LargeImage is string stringLargeImage)
+                ribbonItem.SetLargeImage(stringLargeImage);
+            if (description.LargeImage is ImageSource sourceLargeImage)
+                ribbonItem.SetLargeImage(sourceLargeImage);
+
+            if (description.Image is string stringImage)
+                ribbonItem.SetImage(stringImage);
+            if (description.Image is ImageSource sourceImage)
+                ribbonItem.SetImage(sourceImage);
 
             description.Action?.Invoke(ribbonItem);
 

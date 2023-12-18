@@ -78,10 +78,26 @@ namespace ricaun.Revit.UI.Tests.Items.Extensions
         }
 
         [Test]
-        public void SetLargeImage_Should_NotSetImage()
+        public void SetLargeImage_Should_ReSetImage()
         {
             var image = Base64Image;
             var largeImage = ComponentImage;
+            pushButton.SetImage(image);
+
+            var lastImageSource = pushButton.Image;
+            pushButton.SetLargeImage(largeImage);
+
+            Assert.AreNotEqual(lastImageSource, pushButton.Image);
+
+            Assert.AreEqual(16, pushButton.Image.Width);
+            Assert.AreEqual(32, pushButton.LargeImage.Width);
+        }
+
+        [Test]
+        public void SetLargeImage_Should_NotSetImage()
+        {
+            var image = ComponentImage;
+            var largeImage = Base64Image;
             pushButton.SetImage(image);
 
             var lastImageSource = pushButton.Image;
