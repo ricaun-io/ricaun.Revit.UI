@@ -183,6 +183,9 @@ PulldownButton pulldownButton = ribbonPanel.CreatePulldownButton();
 // ribbonPanel.CreatePulldownButton("PulldownButtonName", PushButtonData, PushButtonData, ...);
 ```
 ```C#
+pulldownButton.SetListImageSize();
+```
+```C#
 PushButton pushButton = pulldownButton.CreatePushButton<IExternalCommand>();
 // pulldownButton.CreatePushButton<IExternalCommand>("ButtonName");
 // pulldownButton.CreatePushButton<IExternalCommand,IExternalCommandAvailability>();

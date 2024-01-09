@@ -231,6 +231,27 @@ namespace ricaun.Revit.UI
         }
         #endregion
 
+        #region Set PulldownButton/SplitButton
+
+        /// <summary>
+        /// Set ListImageSize in PulldownButton or SplitButton
+        /// </summary>
+        /// <typeparam name="TPulldownButton">PulldownButton</typeparam>
+        /// <param name="pulldownButton"></param>
+        /// <param name="listImageSize"></param>
+        /// <returns></returns>
+        public static TPulldownButton SetListImageSize<TPulldownButton>(
+            this TPulldownButton pulldownButton,
+            Autodesk.Windows.RibbonImageSize listImageSize = Autodesk.Windows.RibbonImageSize.Standard) where TPulldownButton : PulldownButton
+        {
+            if (pulldownButton.GetRibbonItem() is Autodesk.Windows.RibbonSplitButton ribbonSplitButton)
+                ribbonSplitButton.ListImageSize = listImageSize;
+
+            return pulldownButton;
+        }
+
+        #endregion
+
         #region QuickAccessToolBar
         /// <summary>
         /// Add RibbonItem to QuickAccessToolBar

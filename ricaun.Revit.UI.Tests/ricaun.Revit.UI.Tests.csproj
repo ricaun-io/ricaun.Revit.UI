@@ -18,9 +18,11 @@
   -->
 
   <!-- RevitVersion -->
-  <PropertyGroup>
+  <PropertyGroup Condition="$(Configuration.Contains('Debug'))">
     <TargetFrameworks>net48;net7.0-windows</TargetFrameworks>
-    <TargetFrameworks Condition="!$(Configuration.Contains('Debug'))">net48</TargetFrameworks>
+  </PropertyGroup>
+  <PropertyGroup Condition="!$(Configuration.Contains('Debug'))">
+    <TargetFrameworks>net48</TargetFrameworks>
   </PropertyGroup>
   <PropertyGroup Condition="$(TargetFramework.StartsWith('net7'))">
     <EnableDynamicLoading>true</EnableDynamicLoading>
