@@ -19,16 +19,19 @@
 
   <!-- RevitVersion -->
   <PropertyGroup Condition="$(Configuration.Contains('Debug'))">
-    <TargetFrameworks>net48;net7.0-windows</TargetFrameworks>
+    <TargetFrameworks>net48;net8.0-windows</TargetFrameworks>
   </PropertyGroup>
   <PropertyGroup Condition="!$(Configuration.Contains('Debug'))">
     <TargetFrameworks>net48</TargetFrameworks>
   </PropertyGroup>
-  <PropertyGroup Condition="$(TargetFramework.StartsWith('net7'))">
+
+  <!-- Net Core -->
+  <PropertyGroup Condition="!$(TargetFramework.StartsWith('net4'))">
     <EnableDynamicLoading>true</EnableDynamicLoading>
     <GenerateRuntimeConfigurationFiles>true</GenerateRuntimeConfigurationFiles>
     <GenerateDependencyFile>false</GenerateDependencyFile>
   </PropertyGroup>
+  
   <Choose>
     <When Condition="$(TargetFramework.StartsWith('net4'))">
       <PropertyGroup>
