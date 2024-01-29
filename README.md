@@ -7,7 +7,7 @@
 [![Build](https://github.com/ricaun-io/ricaun.Revit.UI/actions/workflows/Build.yml/badge.svg)](https://github.com/ricaun-io/ricaun.Revit.UI/actions)
 [![Release](https://img.shields.io/nuget/v/ricaun.Revit.UI?logo=nuget&label=release&color=blue)](https://www.nuget.org/packages/ricaun.Revit.UI)
 
-[![ricaun Revit UI](https://github.com/ricaun-io/ricaun.Revit.UI/assets/12437519/802f17be-a452-46bf-9171-f0eb21e83c96)](https://github.com/ricaun-io/ricaun.Revit.UI)
+[![ricaun Revit UI](https://raw.githubusercontent.com/ricaun/test-assets/main/assets/ricaun.Revit.UI.png)](https://github.com/ricaun-io/ricaun.Revit.UI)
 
 `ricaun.Revit.UI` package makes it easier to work with UI and RevitApi, especially with RibbonPanel, RibbonTab, RibbonButton, and RibbonItem in general.
 
