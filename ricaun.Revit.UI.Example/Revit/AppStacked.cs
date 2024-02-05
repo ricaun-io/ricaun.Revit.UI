@@ -35,6 +35,7 @@ namespace ricaun.Revit.UI.Example.Revit
                 );
                 return itens.ToArray();
             }
+
             ribbonPanel.FlowStackedItems(CreateButtons(9));
             ribbonPanel.AddSeparator();
             ribbonPanel.RowStackedItems(CreateButtons(9));

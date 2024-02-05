@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [0.6.2] / 2024-01-09 - 2024-02-05
+### Features
+- `SetListImageSize` to change the size of the image in the `PulldownButton` and `SplitButton`.
+### Removed
+- Remove support `net7.0-windows`.
+### Tests
+- Add Test to `SetListImageSize` in `PulldownButton`.
+
 ## [0.6.1] / 2023-12-08 - 2023-12-18
 ### Features
 - `SetLargeImage` always set small image when `ico`.
@@ -329,6 +337,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - First Release
 
 [vNext]: ../../compare/1.0.0...HEAD
+[0.6.2]: ../../compare/0.6.1...0.6.2
 [0.6.1]: ../../compare/0.6.0...0.6.1
 [0.6.0]: ../../compare/0.5.7...0.6.0
 [0.5.7]: ../../compare/0.5.6...0.5.7

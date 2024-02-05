@@ -13,7 +13,7 @@
 
   <!-- RevitVersion -->
   <PropertyGroup>
-    <TargetFrameworks>net46;net7.0-windows</TargetFrameworks>
+    <TargetFrameworks>net46;net8.0-windows</TargetFrameworks>
   </PropertyGroup>
   <Choose>
     <When Condition="$(TargetFramework.StartsWith('net4'))">
@@ -28,9 +28,16 @@
     </Otherwise>
   </Choose>
 
-  <ItemGroup Condition="$(TargetFramework.StartsWith('net7'))">
+  <ItemGroup Condition="!$(TargetFramework.StartsWith('net4'))">
     <PackageReference Include="System.Drawing.Common" Version="7.*" IncludeAssets="build; compile" PrivateAssets="All" />
   </ItemGroup>
+
+  <!-- Net Core -->
+  <PropertyGroup Condition="!$(TargetFramework.StartsWith('net4'))">
+    <EnableDynamicLoading>true</EnableDynamicLoading>
+    <GenerateRuntimeConfigurationFiles>true</GenerateRuntimeConfigurationFiles>
+    <GenerateDependencyFile>false</GenerateDependencyFile>
+  </PropertyGroup>
 
   <!-- Release -->
   <PropertyGroup Condition="!$(Configuration.Contains('Debug'))">
