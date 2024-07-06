@@ -165,6 +165,11 @@ comboBox.AddDropDownClosed(OnDropDownClosed);
 comboBox.RemoveDropDownClosed(OnDropDownClosed);
 ```
 ```C#
+ComboBoxMember comboBoxMember = comboBox.CreateComboBoxMember();
+// comboBox.CreateComboBoxMember("Name");
+// comboBox.CreateComboBoxMember("Name", "GroupName");
+```
+```C#
 ComboBoxData comboBoxData = ribbonPanel.NewComboBoxData();
 // ribbonPanel.NewComboBoxData("ComboBoxDataName");
 ```
