@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Set project configuration to support `net47` and `net48`.
 ### Updated
 - Change `GetRibbonItem` to `GetRibbonItem_Alternative` to fix null when panel is removed.
+- Update `SetImage` to work with `ComboBoxMember`
 ### Tests
 - Add `RibbonThemeUtilsTests` to test the theme change event.
 
