@@ -13,12 +13,12 @@
 
   <!-- RevitVersion -->
   <PropertyGroup>
-    <TargetFrameworks>net46;net8.0-windows</TargetFrameworks>
+    <TargetFrameworks>net48;net8.0-windows</TargetFrameworks>
   </PropertyGroup>
   <Choose>
     <When Condition="$(TargetFramework.StartsWith('net4'))">
       <PropertyGroup>
-        <RevitVersion>2017</RevitVersion>
+        <RevitVersion>2021</RevitVersion>
       </PropertyGroup>
     </When>
     <Otherwise>

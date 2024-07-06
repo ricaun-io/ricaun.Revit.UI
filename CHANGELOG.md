@@ -6,8 +6,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [0.6.3] / 2024-07-06
 ### Features
+- `RibbonThemeUtils` to change the theme of the Ribbon. (Revit 2019+)
+- Set project configuration to support `net47` and `net48`.
 ### Updated
 - Change `GetRibbonItem` to `GetRibbonItem_Alternative` to fix null when panel is removed.
+### Tests
+- Add `RibbonThemeUtilsTests` to test the theme change event.
 
 ## [0.6.2] / 2024-01-09 - 2024-02-05
 ### Features
@@ -342,6 +346,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - First Release
 
 [vNext]: ../../compare/1.0.0...HEAD
+[0.6.3]: ../../compare/0.6.2...0.6.3
 [0.6.2]: ../../compare/0.6.1...0.6.2
 [0.6.1]: ../../compare/0.6.0...0.6.1
 [0.6.0]: ../../compare/0.5.7...0.6.0
