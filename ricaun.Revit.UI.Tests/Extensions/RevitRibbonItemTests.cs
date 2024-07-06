@@ -52,6 +52,7 @@ namespace ricaun.Revit.UI.Tests.Extensions
             var pushButton = ribbonPanel.CreatePushButton<BaseCommand>();
             ribbonPanel.Remove();
             var ribbonItemRibbonControl = pushButton.GetRibbonItem_RibbonControl();
+            // if the panel is removed, the ribbonItem will be null
             Assert.IsNull(ribbonItemRibbonControl);
         }
 
