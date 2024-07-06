@@ -1,12 +1,11 @@
-﻿
-using System;
+﻿using System;
 
 namespace ricaun.Revit.UI.Utils
 {
     /// <summary>
     /// ThemeChangedEventArgs
     /// </summary>
-    public sealed class ThemeChangedEventArgs : System.EventArgs
+    public sealed class ThemeChangedEventArgs : EventArgs
     {
         internal ThemeChangedEventArgs(bool isLight)
         {
