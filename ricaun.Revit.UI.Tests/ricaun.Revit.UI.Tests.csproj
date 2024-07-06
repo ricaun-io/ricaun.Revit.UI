@@ -41,7 +41,7 @@
 
   <ItemGroup>
     <PackageReference Include="NUnit" Version="3.13.3" />
-    <PackageReference Include="ricaun.RevitTest.TestAdapter" Version="*-*" />
+    <PackageReference Include="ricaun.RevitTest.TestAdapter" Version="*" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.5.0" Condition="!$(TargetFramework.StartsWith('net4'))" />
   </ItemGroup>
 
@@ -51,6 +51,10 @@
 
   <ItemGroup Condition="!$(TargetFramework.StartsWith('net4'))">
     <PackageReference Include="System.Drawing.Common" Version="*" IncludeAssets="build; compile" PrivateAssets="All" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="ricaun.Revision.Build.Tasks" Version="*-*" Condition="$(Configuration.Contains('Debug'))"/>
   </ItemGroup>
 
   <ItemGroup>

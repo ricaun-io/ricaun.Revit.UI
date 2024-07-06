@@ -11,8 +11,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Updated
 - Change `GetRibbonItem` to `GetRibbonItem_Alternative` to fix null when panel is removed.
 - Update `SetImage` to work with `ComboBoxMember`
+- Add `CreateComboBoxMember` to create `ComboBoxMember`.
 ### Tests
 - Add `RibbonThemeUtilsTests` to test the theme change event.
+- Add `ComboBoxMember` tests for `Image`, `Group` and `Current`.
 
 ## [0.6.2] / 2024-01-09 - 2024-02-05
 ### Features

@@ -157,6 +157,32 @@ namespace ricaun.Revit.UI
             return comboBox;
         }
 
+        #region ComboBoxMember
+        /// <summary>
+        /// CreateComboBoxMember
+        /// </summary>
+        /// <param name="comboBox"></param>
+        /// <param name="targetName"></param>
+        /// <param name="groupName"></param>
+        /// <returns></returns>
+        public static ComboBoxMember CreateComboBoxMember(this ComboBox comboBox, string targetName = null, string groupName = null)
+        {
+            if (string.IsNullOrWhiteSpace(targetName))
+                targetName = nameof(ComboBoxMemberData);
+
+            var comboBoxMemberData = new ComboBoxMemberData(targetName, targetName);
+
+            if (!string.IsNullOrWhiteSpace(groupName))
+                comboBoxMemberData.SetGroupName(groupName);
+            
+            var targetText = targetName;
+
+            comboBoxMemberData.Name = RibbonSafeExtension.GenerateSafeButtonName(comboBox, comboBoxMemberData.Name, targetText);
+
+            return comboBox.AddItem(comboBoxMemberData);
+        }
+        #endregion
+
         #region ComboBoxData
         /// <summary>
         /// NewComboBoxData
