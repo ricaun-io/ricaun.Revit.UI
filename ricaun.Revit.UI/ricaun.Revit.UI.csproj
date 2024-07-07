@@ -133,6 +133,7 @@
 
   <ItemGroup>
     <InternalsVisibleTo Include="$(PackageId).Tests" />
+    <InternalsVisibleTo Include="$(PackageId).Example" />
   </ItemGroup>
 
 </Project>

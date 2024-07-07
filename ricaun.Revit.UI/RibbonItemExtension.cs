@@ -1,4 +1,5 @@
 ﻿using Autodesk.Revit.UI;
+using ricaun.Revit.UI.Utils;
 using System.Windows.Media;
 
 namespace ricaun.Revit.UI
@@ -192,6 +193,8 @@ namespace ricaun.Revit.UI
         /// <returns></returns>
         public static TRibbonItem SetImage<TRibbonItem>(this TRibbonItem ribbonItem, ImageSource image) where TRibbonItem : RibbonItem
         {
+            image = image.GetThemeImageSource(RibbonThemeUtils.IsLight);
+
             if (ribbonItem is RibbonButton ribbonButton)
                 ribbonButton.Image = image?.GetBitmapFrame(16, (frame) => { ribbonButton.Image = frame; });
 
@@ -217,6 +220,8 @@ namespace ricaun.Revit.UI
         /// <remarks>When <see cref="ComboBox"/>, <see cref="ComboBoxMember"/> or <see cref="TextBox"/> does not have LargeImage, the Image is changed instead.</remarks>
         public static TRibbonItem SetLargeImage<TRibbonItem>(this TRibbonItem ribbonItem, ImageSource largeImage) where TRibbonItem : RibbonItem
         {
+            largeImage = largeImage.GetThemeImageSource(RibbonThemeUtils.IsLight);
+
             if (ribbonItem is RibbonButton ribbonButton)
             {
                 ribbonButton.LargeImage = largeImage?.GetBitmapFrame(32, (frame) => { ribbonButton.LargeImage = frame; });

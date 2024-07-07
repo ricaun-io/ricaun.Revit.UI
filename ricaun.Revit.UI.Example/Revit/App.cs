@@ -13,7 +13,7 @@ using System.Windows.Media;
 
 namespace ricaun.Revit.UI.Example.Revit
 {
-    [AppLoader]
+    //[AppLoader]
     //[Obsolete]
     public class App : IExternalApplication
     {
