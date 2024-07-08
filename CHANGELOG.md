@@ -13,6 +13,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Update `SetImage` to work with `ComboBoxMember`
 - Add `CreateComboBoxMember` to create `ComboBoxMember`.
 - Add `RibbonThemeBitmapUtils` to change theme for `BitmapSource`.
+- Add `RibbonThemePanelUtils` to update the theme for itens in the `RibbonPanel`.
+- Update `RibbonPanel` create and remove to update the theme of the itens.
 ### Tests
 - Add `RibbonThemeUtilsTests` to test the theme change event.
 - Add `ComboBoxMember` tests for `Image`, `Group` and `Current`.
