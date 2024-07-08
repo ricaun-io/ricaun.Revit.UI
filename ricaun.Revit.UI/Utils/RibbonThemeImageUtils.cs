@@ -3,12 +3,24 @@ using System.Windows.Media.Imaging;
 
 namespace ricaun.Revit.UI.Utils
 {
-    internal static class RibbonThemeBitmapUtils
+    /// <summary>
+    /// RibbonThemeImageUtils
+    /// </summary>
+    public static class RibbonThemeImageUtils
     {
         private const string NAME_DARK = "dark";
         private const string NAME_LIGHT = "light";
 
-        internal static TImageSource GetThemeImageSource<TImageSource>(this TImageSource imageSource, bool isLight = true) where TImageSource : ImageSource
+        /// <summary>
+        /// GetThemeImageSource
+        /// </summary>
+        /// <typeparam name="TImageSource"></typeparam>
+        /// <param name="imageSource"></param>
+        /// <param name="isLight"></param>
+        /// <remarks>
+        /// Replace 'light' to 'dark' or 'dark' to 'light' in the image source name.
+        /// </remarks>
+        public static TImageSource GetThemeImageSource<TImageSource>(this TImageSource imageSource, bool isLight = true) where TImageSource : ImageSource
         {
             if (imageSource.GetSourceName().TryThemeImage(isLight, out string imageTheme))
             {
