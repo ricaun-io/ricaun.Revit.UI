@@ -46,7 +46,7 @@ namespace ricaun.Revit.UI.Utils
         /// <summary>
         /// Theme is Dark
         /// </summary>
-        public bool IsDark => !IsLight;
+        public static bool IsDark => !IsLight;
 
 #if NET47_OR_GREATER || NET
         static RibbonThemeUtils()
