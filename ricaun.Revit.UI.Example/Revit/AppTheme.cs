@@ -8,14 +8,14 @@ namespace ricaun.Revit.UI.Example.Revit
     [AppLoader]
     public class AppTheme : IExternalApplication
     {
-        const string LIGHT = "https://github.com/ricaun-io/Autodesk.Icon.Example/releases/download/1.0.1-alpha/Box-Grey-Light.ico";
-        const string DARK = "https://github.com/ricaun-io/Autodesk.Icon.Example/releases/download/1.0.1-alpha/Box-Grey-Dark.ico";
-        const string LIGHT_RED = "https://github.com/ricaun-io/Autodesk.Icon.Example/releases/download/1.0.1-alpha/Box-Red-Light.ico";
-        const string DARK_RED = "https://github.com/ricaun-io/Autodesk.Icon.Example/releases/download/1.0.1-alpha/Box-Red-Dark.ico";
-        const string LIGHT_GREEN = "https://github.com/ricaun-io/Autodesk.Icon.Example/releases/download/1.0.1-alpha/Box-Green-Light.ico";
-        const string DARK_GREEN = "https://github.com/ricaun-io/Autodesk.Icon.Example/releases/download/1.0.1-alpha/Box-Green-Dark.ico";
-        const string LIGHT_BLUE = "https://github.com/ricaun-io/Autodesk.Icon.Example/releases/download/1.0.1-alpha/Box-Blue-Light.ico";
-        const string DARK_BLUE = "https://github.com/ricaun-io/Autodesk.Icon.Example/releases/download/1.0.1-alpha/Box-Blue-Dark.ico";
+        static string LIGHT = "https://github.com/ricaun-io/Autodesk.Icon.Example/releases/download/1.1.0/Box-Grey-Dark.ico";
+        static string DARK = "https://github.com/ricaun-io/Autodesk.Icon.Example/releases/download/1.1.0/Box-Grey-Dark.ico";
+        static string LIGHT_RED = "https://github.com/ricaun-io/Autodesk.Icon.Example/releases/download/1.1.0/Box-Red-Light.ico";
+        static string DARK_RED = "https://github.com/ricaun-io/Autodesk.Icon.Example/releases/download/1.1.0/Box-Red-Dark.ico";
+        static string LIGHT_GREEN = "https://github.com/ricaun-io/Autodesk.Icon.Example/releases/download/1.1.0/Box-Green-Light.ico";
+        static string DARK_GREEN = "https://github.com/ricaun-io/Autodesk.Icon.Example/releases/download/1.1.0/Box-Green-Dark.ico";
+        static string LIGHT_BLUE = "https://github.com/ricaun-io/Autodesk.Icon.Example/releases/download/1.1.0/Box-Blue-Light.ico";
+        static string DARK_BLUE = "https://github.com/ricaun-io/Autodesk.Icon.Example/releases/download/1.1.0/Box-Blue-Dark.ico";
         const string REVIT = "/UIFrameworkRes;component/ribbon/images/revit.ico";
         const string Base64Image = "iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAIAAAD8GO2jAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAAHYcAAB2HAY/l8WUAAABOSURBVEhLtccxDQAwDMCw8odRdIWxP7cn+fHM3l8913M913M913M913M913M913M913M913M913M913M913M913M913M913M913O9tfcAG98oW3bd33wAAAAASUVORK5CYII=";
 
