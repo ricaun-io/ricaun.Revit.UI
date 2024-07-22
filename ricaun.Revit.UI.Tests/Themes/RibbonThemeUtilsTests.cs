@@ -35,5 +35,20 @@ namespace ricaun.Revit.UI.Tests.Themes
             Assert.IsTrue(themeChangedEventArgs.IsLight);
             Assert.IsFalse(themeChangedEventArgs.IsDark);
         }
+
+        [Test]
+        public void RibbonThemeUtils_LightDark()
+        {
+            var isLight = false;
+            var isDark = false;
+
+            RibbonThemeUtils.ThemeChangedTest(
+                () => { isLight = RibbonThemeUtils.IsLight; },
+                () => { isDark = RibbonThemeUtils.IsDark; }
+            );
+
+            Assert.IsTrue(isLight);
+            Assert.IsTrue(isDark);
+        }
     }
 }

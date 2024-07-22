@@ -35,10 +35,12 @@ namespace ricaun.Revit.UI.Utils
     /// </remarks>
     public class RibbonThemeUtils
     {
+#pragma warning disable CS0067
         /// <summary>
         /// ThemeChanged
         /// </summary>
         public static event ThemeChangedEventHandler ThemeChanged;
+#pragma warning restore CS0067
         /// <summary>
         /// Theme is Light
         /// </summary>
@@ -61,13 +63,15 @@ namespace ricaun.Revit.UI.Utils
             ThemeChanged = null;
         }
 
-        internal static void ThemeChangedTest()
+        internal static void ThemeChangedTest(Action actionLight = null, Action actionDark = null)
         {
             UIFramework.RevitRibbonControl.RibbonControl.Dispatcher.Invoke(() =>
             {
                 var color = UIFramework.ApplicationTheme.CurrentTheme.ActiveTabBackgroundColor;
                 UIFramework.ApplicationTheme.CurrentTheme.ActiveTabBackgroundColor = System.Windows.Media.Colors.White;
+                actionLight?.Invoke();
                 UIFramework.ApplicationTheme.CurrentTheme.ActiveTabBackgroundColor = System.Windows.Media.Colors.Black;
+                actionDark?.Invoke();
                 UIFramework.ApplicationTheme.CurrentTheme.ActiveTabBackgroundColor = color;
             });
         }
