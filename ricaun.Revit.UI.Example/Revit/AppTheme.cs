@@ -33,7 +33,7 @@ namespace ricaun.Revit.UI.Example.Revit
             ribbonPanel.CreatePushButton<CommandTheme>("Light")
                 .SetLargeImage(LIGHT);
             ribbonPanel.CreatePushButton<CommandTheme>("Dark")
-                .SetLargeImage(LIGHT);
+                .SetLargeImage(DARK);
 
             ribbonPanel.CreatePushButton<CommandTheme>(".")
                 .SetLargeImage(LIGHT_GREEN)
