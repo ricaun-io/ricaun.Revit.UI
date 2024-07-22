@@ -16,8 +16,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Update `RibbonThemeImageUtils` with public `GetThemeImageSource`.
 - Add `RibbonThemePanelUtils` to update the theme for itens in the `RibbonPanel`.
 - Update `RibbonPanel` create and remove to update the theme of the itens.
+- Update `TryThemeImage` to not change assembly name if is a resource component.
 ### Tests
 - Add `RibbonThemeUtilsTests` to test the theme change event.
+- Add `TryThemeImage` tests to replace image with theme.
 - Add `ComboBoxMember` tests for `Image`, `Group` and `Current`.
 ### Example
 - Add `AppTheme` to test theme change features for `RibbonItem`. 

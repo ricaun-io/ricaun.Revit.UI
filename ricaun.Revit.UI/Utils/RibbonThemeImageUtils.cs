@@ -43,6 +43,18 @@ namespace ricaun.Revit.UI.Utils
 
             if (image.IndexOf(findThemeName, System.StringComparison.InvariantCultureIgnoreCase) != -1)
             {
+                image = image.ToLowerInvariant();
+
+                if (image.StartsWith("pack://application:,,,/"))
+                {
+                    // split to not change the assembly name if contains 'findThemeName'.
+                    var components = image.Split(';');
+                    components[components.Length - 1] = components[components.Length - 1].Replace(findThemeName, replaceThemeName);
+
+                    imageTheme = string.Join(";", components);
+                    return true;
+                }
+
                 imageTheme = image.Replace(findThemeName, replaceThemeName);
                 return true;
             }
