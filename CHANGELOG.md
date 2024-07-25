@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-## [0.6.3] / 2024-07-06
+## [0.7.0] / 2024-07-06 - 2024-07-25
 ### Features
 - `RibbonThemeUtils` to change the theme of the Ribbon. (Revit 2019+)
 - Set project configuration to support `net47` and `net48`.
@@ -357,7 +357,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - First Release
 
 [vNext]: ../../compare/1.0.0...HEAD
-[0.6.3]: ../../compare/0.6.2...0.6.3
+[0.7.0]: ../../compare/0.6.2...0.7.0
 [0.6.2]: ../../compare/0.6.1...0.6.2
 [0.6.1]: ../../compare/0.6.0...0.6.1
 [0.6.0]: ../../compare/0.5.7...0.6.0
