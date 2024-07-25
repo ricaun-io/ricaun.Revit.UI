@@ -6,6 +6,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [0.7.0] / 2024-07-06 - 2024-07-25
 ### Features
+- Auto set image based on the theme of the Ribbon using `light` and `dark` image pattern.
 - `RibbonThemeUtils` to change the theme of the Ribbon. (Revit 2019+)
 - Set project configuration to support `net47` and `net48`.
 ### Updated
