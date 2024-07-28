@@ -18,6 +18,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Add `RibbonThemePanelUtils` to update the theme for itens in the `RibbonPanel`.
 - Update `RibbonPanel` create and remove to update the theme of the itens.
 - Update `TryThemeImage` to not change assembly name if is a resource component.
+- Remove `ConsoleAttribute` and `SetOrderPanels` obsolete methods.
+- Update `GetAutodeskOwner` to obsolete only in `net46`.
 ### Tests
 - Add `RibbonThemeUtilsTests` to test the theme change event.
 - Add `TryThemeImage` tests to replace image with theme.
