@@ -1,4 +1,5 @@
 ﻿using Autodesk.Revit.UI;
+using ricaun.Revit.UI.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,7 +30,7 @@ namespace ricaun.Revit.UI
                 ribbonPanel = application.CreateRibbonPanel(RibbonSafeExtension.SafeRibbonPanelName(panelName));
                 ribbonPanel.Title = panelName;
             }
-            return ribbonPanel;
+            return ribbonPanel.ThemeChangeEnable();
         }
 
         /// <summary>
@@ -72,7 +73,7 @@ namespace ricaun.Revit.UI
                     ribbonPanel.Title = panelName;
                 }
             }
-            return ribbonPanel;
+            return ribbonPanel.ThemeChangeEnable();
         }
 
         /// <summary>
@@ -118,6 +119,7 @@ namespace ricaun.Revit.UI
             if (ribbonPanel is null)
                 return ribbonPanel;
 
+            ribbonPanel.ThemeChangeDisable();
             ribbonPanel.Visible = false;
             ribbonPanel.Enabled = false;
 

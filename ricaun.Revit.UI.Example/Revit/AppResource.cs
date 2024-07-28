@@ -2,7 +2,7 @@
 
 namespace ricaun.Revit.UI.Example.Revit
 {
-    [AppLoader]
+    //[AppLoader]
     public class AppResource : IExternalApplication
     {
         private static RibbonPanel ribbonPanel;

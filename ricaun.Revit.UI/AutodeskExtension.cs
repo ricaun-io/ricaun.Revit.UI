@@ -34,7 +34,9 @@ namespace ricaun.Revit.UI
         /// Get Autodesk.Windows as the Owner Window
         /// </summary>
         /// <returns></returns>
-        [Obsolete("This funciton does not work with Revit 2018 and 2017, gonna be removed.")]
+#if NET46
+        [Obsolete("This funciton does not work with Revit 2018 and 2017, Revit Application is not a Window.")]
+#endif
         public static Window GetAutodeskOwner()
         {
             var owner = ComponentManager.ApplicationWindow;

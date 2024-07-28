@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace ricaun.Revit.UI.Example.Revit
 {
-    [AppLoader]
+    //[AppLoader]
     public class AppList : IExternalApplication
     {
         private static RibbonPanel ribbonPanel;

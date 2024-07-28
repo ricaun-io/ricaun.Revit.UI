@@ -13,12 +13,22 @@
 
   <!-- RevitVersion -->
   <PropertyGroup>
-    <TargetFrameworks>net46;net8.0-windows</TargetFrameworks>
+    <TargetFrameworks>net46;net47;net48;net8.0-windows</TargetFrameworks>
   </PropertyGroup>
   <Choose>
-    <When Condition="$(TargetFramework.StartsWith('net4'))">
+    <When Condition="$(TargetFramework.StartsWith('net46'))">
       <PropertyGroup>
         <RevitVersion>2017</RevitVersion>
+      </PropertyGroup>
+    </When>
+    <When Condition="$(TargetFramework.StartsWith('net47'))">
+      <PropertyGroup>
+        <RevitVersion>2019</RevitVersion>
+      </PropertyGroup>
+    </When>
+    <When Condition="$(TargetFramework.StartsWith('net48'))">
+      <PropertyGroup>
+        <RevitVersion>2021</RevitVersion>
       </PropertyGroup>
     </When>
     <Otherwise>
@@ -32,7 +42,7 @@
   <PropertyGroup Condition="!$(Configuration.Contains('Debug'))">
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>Revit$(RevitVersion)</DefineConstants>
+    <DefineConstants>REVIT$(RevitVersion)</DefineConstants>
     <NoWarn>MSB3052</NoWarn>
     <DebugType>None</DebugType>
   </PropertyGroup>
@@ -41,7 +51,7 @@
   <PropertyGroup Condition="$(Configuration.Contains('Debug'))">
     <DebugSymbols>true</DebugSymbols>
     <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE;Revit$(RevitVersion)</DefineConstants>
+    <DefineConstants>DEBUG;TRACE;REVIT$(RevitVersion)</DefineConstants>
     <DebugType>Full</DebugType>
   </PropertyGroup>
 
@@ -56,8 +66,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="$(Configuration.Contains('Debug'))">
     <Revision>$([MSBuild]::Divide($([System.DateTime]::get_Now().get_TimeOfDay().get_TotalSeconds()), 4).ToString('F0'))</Revision>
-    <Version>$(Version).$(Revision)</Version>
-    <PackageAssemblyVersion>.Dev.$(Version)</PackageAssemblyVersion>
+    <PackageAssemblyVersion>.Dev.$(Version).$(Revision)</PackageAssemblyVersion>
   </PropertyGroup>
 
   <PropertyGroup>
@@ -124,6 +133,7 @@
 
   <ItemGroup>
     <InternalsVisibleTo Include="$(PackageId).Tests" />
+    <InternalsVisibleTo Include="$(PackageId).Example" />
   </ItemGroup>
 
 </Project>

@@ -1,4 +1,5 @@
 ﻿using Autodesk.Revit.UI;
+using ricaun.Revit.UI.Utils;
 using System.Windows.Media;
 
 namespace ricaun.Revit.UI
@@ -149,7 +150,7 @@ namespace ricaun.Revit.UI
 
         #region Set RibbonButton
         /// <summary>
-        /// Set RibbonButton/ComboBox/TextBox Image
+        /// Set RibbonButton/ComboBox/ComboBoxMember/TextBox Image
         /// </summary>
         /// <typeparam name="TRibbonItem"></typeparam>
         /// <param name="ribbonItem"></param>
@@ -166,13 +167,13 @@ namespace ricaun.Revit.UI
         }
 
         /// <summary>
-        /// Set RibbonButton/ComboBox/TextBox LargeImage
+        /// Set RibbonButton/ComboBox/ComboBoxMember/TextBox LargeImage
         /// </summary>
         /// <typeparam name="TRibbonItem"></typeparam>
         /// <param name="ribbonItem"></param>
         /// <param name="largeImage"></param>
         /// <returns></returns>
-        /// <remarks>When <see cref="ComboBox"/> or <see cref="TextBox"/> does not have LargeImage, the Image is changed instead.</remarks>
+        /// <remarks>When <see cref="ComboBox"/>, <see cref="ComboBoxMember"/> or <see cref="TextBox"/> does not have LargeImage, the Image is changed instead.</remarks>
         public static TRibbonItem SetLargeImage<TRibbonItem>(this TRibbonItem ribbonItem, string largeImage) where TRibbonItem : RibbonItem
         {
             var bitmapSource = largeImage?.GetBitmapSource();
@@ -184,7 +185,7 @@ namespace ricaun.Revit.UI
         }
 
         /// <summary>
-        /// Set RibbonButton/ComboBox/TextBox Image
+        /// Set RibbonButton/ComboBox/ComboBoxMember/TextBox Image
         /// </summary>
         /// <typeparam name="TRibbonItem">RibbonButton</typeparam>
         /// <param name="ribbonItem"></param>
@@ -192,11 +193,16 @@ namespace ricaun.Revit.UI
         /// <returns></returns>
         public static TRibbonItem SetImage<TRibbonItem>(this TRibbonItem ribbonItem, ImageSource image) where TRibbonItem : RibbonItem
         {
+            image = image.GetThemeImageSource(RibbonThemeUtils.IsLight);
+
             if (ribbonItem is RibbonButton ribbonButton)
                 ribbonButton.Image = image?.GetBitmapFrame(16, (frame) => { ribbonButton.Image = frame; });
 
             else if (ribbonItem is ComboBox comboBox)
                 comboBox.Image = image?.GetBitmapFrame(16, (frame) => { comboBox.Image = frame; });
+
+            else if (ribbonItem is ComboBoxMember comboBoxMember)
+                comboBoxMember.Image = image?.GetBitmapFrame(16, (frame) => { comboBoxMember.Image = frame; });
 
             else if (ribbonItem is TextBox textBox)
                 textBox.Image = image?.GetBitmapFrame(16, (frame) => { textBox.Image = frame; });
@@ -205,15 +211,17 @@ namespace ricaun.Revit.UI
         }
 
         /// <summary>
-        /// Set RibbonButton/ComboBox/TextBox LargeImage
+        /// Set RibbonButton/ComboBox/ComboBoxMember/TextBox LargeImage
         /// </summary>
         /// <typeparam name="TRibbonItem">RibbonButton</typeparam>
         /// <param name="ribbonItem"></param>
         /// <param name="largeImage"></param>
         /// <returns></returns>
-        /// <remarks>When <see cref="ComboBox"/> or <see cref="TextBox"/> does not have LargeImage, the Image is changed instead.</remarks>
+        /// <remarks>When <see cref="ComboBox"/>, <see cref="ComboBoxMember"/> or <see cref="TextBox"/> does not have LargeImage, the Image is changed instead.</remarks>
         public static TRibbonItem SetLargeImage<TRibbonItem>(this TRibbonItem ribbonItem, ImageSource largeImage) where TRibbonItem : RibbonItem
         {
+            largeImage = largeImage.GetThemeImageSource(RibbonThemeUtils.IsLight);
+
             if (ribbonItem is RibbonButton ribbonButton)
             {
                 ribbonButton.LargeImage = largeImage?.GetBitmapFrame(32, (frame) => { ribbonButton.LargeImage = frame; });
@@ -223,6 +231,9 @@ namespace ricaun.Revit.UI
 
             else if (ribbonItem is ComboBox comboBox)
                 comboBox.SetImage(largeImage);
+
+            else if (ribbonItem is ComboBoxMember comboBoxMember)
+                comboBoxMember.SetImage(largeImage);
 
             else if (ribbonItem is TextBox textBox)
                 textBox.SetImage(largeImage);

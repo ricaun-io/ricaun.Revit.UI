@@ -111,16 +111,6 @@ namespace ricaun.Revit.UI
             return ribbonTab.SetPanelsOrderBy(ComparationOrderByTitle);
         }
 
-        /// <summary>
-        /// Set Order of Panels by Title
-        /// </summary>
-        /// <param name="ribbonTab"></param>
-        [Obsolete("This method gonna be removed, use SetPanelsOrderByTitle")]
-        public static void SetOrderPanels(this Autodesk.Windows.RibbonTab ribbonTab)
-        {
-            ribbonTab.SetPanelsOrderByTitle();
-        }
-
         private static string ComparationOrderByTitle(Autodesk.Windows.RibbonPanel ribbonPanel)
         {
             return ribbonPanel.Source.Title;

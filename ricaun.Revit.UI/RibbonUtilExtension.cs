@@ -32,15 +32,25 @@ namespace ricaun.Revit.UI
         }
 
         /// <summary>
+        /// Get <see cref="Autodesk.Windows.RibbonItem"/> from <paramref name="ribbonItem"/> using RibbonControl
+        /// </summary>
+        /// <param name="ribbonItem"></param>
+        /// <returns></returns>
+        internal static Autodesk.Windows.RibbonItem GetRibbonItem_RibbonControl(this RibbonItem ribbonItem)
+        {
+            var revitRibbonItem = RevitRibbonControl
+                .RibbonControl.findRibbonItemById(ribbonItem.GetId());
+            return revitRibbonItem;
+        }
+
+        /// <summary>
         /// Get <see cref="Autodesk.Windows.RibbonItem"/> from <paramref name="ribbonItem"/>
         /// </summary>
         /// <param name="ribbonItem"></param>
         /// <returns></returns>
         public static Autodesk.Windows.RibbonItem GetRibbonItem(this RibbonItem ribbonItem)
         {
-            var revitRibbonItem = RevitRibbonControl
-                .RibbonControl.findRibbonItemById(ribbonItem.GetId());
-            return revitRibbonItem;
+            return ribbonItem.GetRibbonItem_Alternative();
         }
 
         /// <summary>

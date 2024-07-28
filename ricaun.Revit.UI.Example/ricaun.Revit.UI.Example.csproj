@@ -13,12 +13,12 @@
 
   <!-- RevitVersion -->
   <PropertyGroup>
-    <TargetFrameworks>net46;net8.0-windows</TargetFrameworks>
+    <TargetFrameworks>net48;net8.0-windows</TargetFrameworks>
   </PropertyGroup>
   <Choose>
     <When Condition="$(TargetFramework.StartsWith('net4'))">
       <PropertyGroup>
-        <RevitVersion>2017</RevitVersion>
+        <RevitVersion>2021</RevitVersion>
       </PropertyGroup>
     </When>
     <Otherwise>
@@ -67,8 +67,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="$(Configuration.Contains('Debug'))">
     <Revision>$([MSBuild]::Divide($([System.DateTime]::get_Now().get_TimeOfDay().get_TotalSeconds()), 4).ToString('F0'))</Revision>
-    <Version>$(Version).$(Revision)</Version>
-    <PackageAssemblyVersion>.Dev.$(Version)</PackageAssemblyVersion>
+    <PackageAssemblyVersion>.Dev.$(Version).$(Revision)</PackageAssemblyVersion>
   </PropertyGroup>
 
   <PropertyGroup>
@@ -85,6 +84,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Resources\Box-Grey-Dark.ico" />
+    <None Remove="Resources\Box-Grey-Light.ico" />
     <None Remove="Resources\icon.png" />
     <None Remove="Resources\Revit.ico" />
   </ItemGroup>
@@ -113,6 +114,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Resources\Box-Grey-Dark.ico" />
+    <Resource Include="Resources\Box-Grey-Light.ico" />
     <Resource Include="Resources\icon.png" />
     <Resource Include="Resources\Revit.ico" />
   </ItemGroup>

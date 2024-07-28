@@ -4,6 +4,29 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [0.7.0] / 2024-07-06 - 2024-07-25
+### Features
+- Auto set image based on the theme of the Ribbon using `light` and `dark` image pattern.
+- `RibbonThemeUtils` to change the theme of the Ribbon. (Revit 2019+)
+- Set project configuration to support `net47` and `net48`.
+### Updated
+- Change `GetRibbonItem` to `GetRibbonItem_Alternative` to fix null when panel is removed.
+- Update `SetImage` to work with `ComboBoxMember`
+- Add `CreateComboBoxMember` to create `ComboBoxMember`.
+- Add `RibbonThemeImageUtils` to change theme for `ImageSource`.
+- Update `RibbonThemeImageUtils` with public `GetThemeImageSource`.
+- Add `RibbonThemePanelUtils` to update the theme for itens in the `RibbonPanel`.
+- Update `RibbonPanel` create and remove to update the theme of the itens.
+- Update `TryThemeImage` to not change assembly name if is a resource component.
+- Remove `ConsoleAttribute` and `SetOrderPanels` obsolete methods.
+- Update `GetAutodeskOwner` to obsolete only in `net46`.
+### Tests
+- Add `RibbonThemeUtilsTests` to test the theme change event.
+- Add `TryThemeImage` tests to replace image with theme.
+- Add `ComboBoxMember` tests for `Image`, `Group` and `Current`.
+### Example
+- Add `AppTheme` to test theme change features for `RibbonItem`. 
+
 ## [0.6.2] / 2024-01-09 - 2024-02-05
 ### Features
 - `SetListImageSize` to change the size of the image in the `PulldownButton` and `SplitButton`.
@@ -337,6 +360,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - First Release
 
 [vNext]: ../../compare/1.0.0...HEAD
+[0.7.0]: ../../compare/0.6.2...0.7.0
 [0.6.2]: ../../compare/0.6.1...0.6.2
 [0.6.1]: ../../compare/0.6.0...0.6.1
 [0.6.0]: ../../compare/0.5.7...0.6.0
