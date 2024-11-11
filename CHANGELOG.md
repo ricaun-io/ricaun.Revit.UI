@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [0.7.1] / 2024-11-11
+### Features
+- Support `tiff` files for icon.
+### Updated
+- Update `GetBitmapFrame` to round `width` that is changed by `dpi`.
+### Example
+- Add `Cube-Grey-Light.tiff` and `Cube-Grey-Dark.tiff` in `AppTheme`.
+
 ## [0.7.0] / 2024-07-06 - 2024-07-25
 ### Features
 - Auto set image based on the theme of the Ribbon using `light` and `dark` image pattern.
@@ -360,6 +368,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - First Release
 
 [vNext]: ../../compare/1.0.0...HEAD
+[0.7.1]: ../../compare/0.7.0...0.7.1
 [0.7.0]: ../../compare/0.6.2...0.7.0
 [0.6.2]: ../../compare/0.6.1...0.6.2
 [0.6.1]: ../../compare/0.6.0...0.6.1

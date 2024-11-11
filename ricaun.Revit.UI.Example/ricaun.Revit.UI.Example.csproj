@@ -96,6 +96,8 @@
   <ItemGroup>
     <None Remove="Resources\Box-Grey-Dark.ico" />
     <None Remove="Resources\Box-Grey-Light.ico" />
+    <None Remove="Resources\Cube-Grey-Dark.tiff" />
+    <None Remove="Resources\Cube-Grey-Light.tiff" />
     <None Remove="Resources\icon.png" />
     <None Remove="Resources\Revit.ico" />
   </ItemGroup>
@@ -126,6 +128,8 @@
   <ItemGroup>
     <Resource Include="Resources\Box-Grey-Dark.ico" />
     <Resource Include="Resources\Box-Grey-Light.ico" />
+    <Resource Include="Resources\Cube-Grey-Dark.tiff" />
+    <Resource Include="Resources\Cube-Grey-Light.tiff" />
     <Resource Include="Resources\icon.png" />
     <Resource Include="Resources\Revit.ico" />
   </ItemGroup>

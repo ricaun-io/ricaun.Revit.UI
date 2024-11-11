@@ -97,8 +97,9 @@ namespace ricaun.Revit.UI
                 if (width <= 0)
                     return imageSource;
 
-                if (imageSource.Width > width)
-                    imageSource = imageSource.Scale(width / imageSource.Width) as TImageSource;
+                var imageRoundWidth = Math.Round(imageSource.Width);
+                if (imageRoundWidth > width)
+                    imageSource = imageSource.Scale(width / imageRoundWidth) as TImageSource;
 
                 return imageSource;
             }
@@ -110,7 +111,7 @@ namespace ricaun.Revit.UI
                     var frames = bitmapFrame.Decoder.Frames;
                     var frame = frames
                         .OrderBy(e => e.Width)
-                        .FirstOrDefault(e => e.Width >= width);
+                        .FirstOrDefault(e => Math.Round(e.Width) >= width);
 
                     return frame;
                 }
