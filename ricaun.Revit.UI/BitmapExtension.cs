@@ -83,6 +83,30 @@ namespace ricaun.Revit.UI
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="bitmapDecoder"></param>
+        /// <param name="width"></param>
+        /// <returns></returns>
+        internal static BitmapFrame GetBitmapFrameByDpiAndWidth(this BitmapDecoder bitmapDecoder, int width = 0)
+        {
+            double systemDpi = 96;
+
+#if NET47_OR_GREATER || NET
+            var imageScaleInfo = VisualTreeHelper.GetDpi(new System.Windows.Controls.Image());
+            systemDpi = imageScaleInfo.PixelsPerInchX;
+#endif
+
+            var frames = bitmapDecoder.Frames;
+            var frame = frames
+                .OrderBy(e => e.DpiX >= systemDpi ? -systemDpi / e.DpiX : systemDpi / e.DpiX)
+                .ThenBy(e => e.Width)
+                .FirstOrDefault(e => Math.Round(e.Width) >= width);
+
+            return frame;
+        }
+
+        /// <summary>
         /// GetBitmapFrame with Width Equal or Scale
         /// </summary>
         /// <param name="imageSource"></param>
@@ -106,21 +130,11 @@ namespace ricaun.Revit.UI
 
             if (imageSource is BitmapFrame bitmapFrame)
             {
-                BitmapFrame GetBitmapFrameByWidth(BitmapFrame bitmapFrame, int width)
-                {
-                    var frames = bitmapFrame.Decoder.Frames;
-                    var frame = frames
-                        .OrderBy(e => e.Width)
-                        .FirstOrDefault(e => Math.Round(e.Width) >= width);
-
-                    return frame;
-                }
-
                 if (bitmapFrame.IsDownloading)
                 {
                     bitmapFrame.DownloadCompleted += (s, e) =>
                     {
-                        if (GetBitmapFrameByWidth(bitmapFrame, width) is TImageSource frame)
+                        if (bitmapFrame.Decoder.GetBitmapFrameByDpiAndWidth(width) is TImageSource frame)
                             imageSource = frame;
 
                         imageSource = ScaleDownIfWidthIsGreater(imageSource, width);
@@ -129,7 +143,7 @@ namespace ricaun.Revit.UI
                     };
                 }
 
-                if (GetBitmapFrameByWidth(bitmapFrame, width) is TImageSource frame)
+                if (bitmapFrame.Decoder.GetBitmapFrameByDpiAndWidth(width) is TImageSource frame)
                     imageSource = frame;
             }
 
