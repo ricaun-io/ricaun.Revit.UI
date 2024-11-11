@@ -9,7 +9,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Support `tiff` files for icon.
 ### Updated
 - Update `GetBitmapFrame` to round `width` that is changed by `dpi`.
-- Add `GetBitmapFrameByDpiAndWidth` to get optimal frame by `dpi` and `width`.
+- Add `GetBitmapFrameByWidthAndDpi` to get optimal frame by `dpi` and `width`.
+- Add `GetSystemDpi` to get the system `dpi` on the fly.
 ### Example
 - Add `Cube-Grey-Light.tiff` and `Cube-Grey-Dark.tiff` in `AppTheme`.
 
