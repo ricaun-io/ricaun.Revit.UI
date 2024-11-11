@@ -83,11 +83,11 @@ namespace ricaun.Revit.UI
         }
 
         /// <summary>
-        /// 
+        /// Get the bitmap frame from the <paramref name="bitmapDecoder"/> based on the DPI and width.
         /// </summary>
-        /// <param name="bitmapDecoder"></param>
-        /// <param name="width"></param>
-        /// <returns></returns>
+        /// <param name="bitmapDecoder">The bitmap decoder.</param>
+        /// <param name="width">The desired width of the bitmap frame. When set to zero, the smallest width frame is returned.</param>
+        /// <returns>The bitmap frame with the specified width or the smallest width frame.</returns>
         internal static BitmapFrame GetBitmapFrameByDpiAndWidth(this BitmapDecoder bitmapDecoder, int width = 0)
         {
             double systemDpi = 96;
@@ -109,11 +109,11 @@ namespace ricaun.Revit.UI
         /// <summary>
         /// GetBitmapFrame with Width Equal or Scale
         /// </summary>
-        /// <param name="imageSource"></param>
-        /// <param name="width"></param>
-        /// <param name="downloadCompleted"></param>
-        /// <returns></returns>
-        /// <remarks>When <paramref name="width"/> is zero, return the smallest width frame.</remarks>
+        /// <param name="imageSource">The image source.</param>
+        /// <param name="width">The desired width of the bitmap frame. When set to zero, the smallest width frame is returned.</param>
+        /// <param name="downloadCompleted">An optional action to be executed when the download of the bitmap frame is completed.</param>
+        /// <returns>The bitmap frame with the specified width or the scaled bitmap frame.</returns>
+        /// <remarks>When <paramref name="width"/> is zero, the smallest width frame is returned.</remarks>
         public static TImageSource GetBitmapFrame<TImageSource>(this TImageSource imageSource, int width = 0, Action<TImageSource> downloadCompleted = null) where TImageSource : ImageSource
         {
             TImageSource ScaleDownIfWidthIsGreater(TImageSource imageSource, int width)
