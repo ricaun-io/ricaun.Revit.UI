@@ -88,12 +88,22 @@ namespace ricaun.Revit.UI
         internal static double GetSystemDpi()
         {
             double systemDpi = 96;
+            try
+            {
 #if NET47_OR_GREATER || NET
-            var imageScaleInfo = VisualTreeHelper.GetDpi(new System.Windows.Controls.Image());
-            systemDpi = imageScaleInfo.PixelsPerInchX;
+                var imageScaleInfo = VisualTreeHelper.GetDpi(new System.Windows.Controls.Image());
+                systemDpi = imageScaleInfo.PixelsPerInchX;
+#else
+                using (var g = System.Drawing.Graphics.FromHwnd(IntPtr.Zero))
+                {
+                    systemDpi = g.DpiX;
+                }
 #endif
+            }
+            catch { }
             return systemDpi;
         }
+        internal readonly static double SystemDpi = GetSystemDpi();
 
         /// <summary>
         /// Get the bitmap frame from the <paramref name="bitmapDecoder"/> based on the DPI and width.
@@ -104,11 +114,17 @@ namespace ricaun.Revit.UI
         /// <returns>The bitmap frame with the specified width or the smallest width frame.</returns>
         internal static BitmapFrame GetBitmapFrameByWidthAndDpi(this BitmapDecoder bitmapDecoder, int width = 0, int dpi = 0)
         {
-            double systemDpi = dpi > 0 ? dpi : GetSystemDpi();
+            double systemDpi = dpi > 0 ? dpi : SystemDpi;
+
+            double OrderDpiX(BitmapFrame frame)
+            {
+                var dpiX = Math.Round(frame.DpiX);
+                return dpiX >= systemDpi ? -systemDpi / dpiX : systemDpi / dpiX;
+            }
 
             var frames = bitmapDecoder.Frames;
             var frame = frames
-                .OrderBy(e => e.DpiX >= systemDpi ? -systemDpi / e.DpiX : systemDpi / e.DpiX)
+                .OrderBy(OrderDpiX)
                 .ThenBy(e => e.Width)
                 .FirstOrDefault(e => Math.Round(e.Width) >= width);
 
