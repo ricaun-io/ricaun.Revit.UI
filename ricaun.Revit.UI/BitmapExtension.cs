@@ -109,16 +109,20 @@ namespace ricaun.Revit.UI
             catch { }
             return systemDpi;
         }
-        internal readonly static double SystemDpi = GetSystemDpi();
+
+        /// <summary>
+        /// System Dpi
+        /// </summary>
+        public readonly static double SystemDpi = GetSystemDpi();
 
         /// <summary>
         /// Get the bitmap frame from the <paramref name="bitmapDecoder"/> based on the DPI and width.
         /// </summary>
         /// <param name="bitmapDecoder">The bitmap decoder.</param>
         /// <param name="width">The desired width of the bitmap frame. When set to zero, the smallest width frame is returned.</param>
-        /// <param name="dpi">The optimal dpi for the frame.</param>
+        /// <param name="dpi">The optimal dpi for the frame. When set to zero, <see cref="SystemDpi"/> is used.</param>
         /// <returns>The bitmap frame with the specified width or the smallest width frame.</returns>
-        internal static BitmapFrame GetBitmapFrameByWidthAndDpi(this BitmapDecoder bitmapDecoder, int width = 0, int dpi = 0)
+        public static BitmapFrame GetBitmapFrameByWidthAndDpi(this BitmapDecoder bitmapDecoder, int width, int dpi = 0)
         {
             double systemDpi = dpi > 0 ? dpi : SystemDpi;
 
