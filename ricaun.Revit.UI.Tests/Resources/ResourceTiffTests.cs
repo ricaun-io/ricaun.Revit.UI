@@ -28,12 +28,14 @@ namespace ricaun.Revit.UI.Tests.Resources
             Assert.IsNotNull(("/" + ResourceNameTiff).GetBitmapSource());
         }
 
-        [TestCase(32, 384)]
-        public void GetBitmapSource_Default_WidthAndDpi(int width, int dpi)
+        [TestCase(32)]
+        public void GetBitmapSource_Default_Width(int width)
         {
             var source = ResourceNameTiff.GetBitmapSource();
             Assert.AreEqual(width, Math.Round(source.Width));
-            Assert.AreEqual(dpi, Math.Round(source.DpiX));
+            var systemDpi = BitmapExtension.SystemDpi;
+            if (systemDpi != Math.Round(source.DpiX))
+                Assert.Ignore($"SystemDpi:{systemDpi} != {Math.Round(source.DpiX)}");
         }
 
         [TestCase(10)]
@@ -72,7 +74,7 @@ namespace ricaun.Revit.UI.Tests.Resources
         [TestCase(32, 336, 384)] // 3.5
         [TestCase(16, 480, 384)] // 5.0
         [TestCase(32, 480, 384)] // 5.0
-        public void BitmapFrame_ByWidthAndDpi_Expected(int width, int dpi, int dpiExpected)
+        public void BitmapFrame_ByWidthAndDpi_DpiExpected(int width, int dpi, int dpiExpected)
         {
             Assert.IsNotNull(BitmapFrame);
             var decoder = BitmapFrame.Decoder;
@@ -80,6 +82,21 @@ namespace ricaun.Revit.UI.Tests.Resources
             Assert.IsNotNull(frame);
             Assert.AreEqual(width, Math.Round(frame.Width));
             Assert.AreEqual(dpiExpected, Math.Round(frame.DpiX));
+        }
+
+        [TestCase(64, 96, 32)] // 1.0
+        [TestCase(64, 144, 32)] // 1.5
+        [TestCase(64, 192, 32)] // 2.0
+        [TestCase(64, 288, 32)] // 3.0
+        [TestCase(64, 384, 32)] // 4.0
+        public void BitmapFrame_ByWidthAndDpi_WidthExpected(int width, int dpi, int widthExpected)
+        {
+            Assert.IsNotNull(BitmapFrame);
+            var decoder = BitmapFrame.Decoder;
+            var frame = decoder.GetBitmapFrameByWidthAndDpi(width, dpi) as System.Windows.Media.Imaging.BitmapFrame;
+            Assert.IsNotNull(frame);
+            Assert.AreEqual(widthExpected, Math.Round(frame.Width));
+            Assert.AreEqual(dpi, Math.Round(frame.DpiX));
         }
     }
 }

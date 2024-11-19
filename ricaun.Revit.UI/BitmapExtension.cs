@@ -17,7 +17,7 @@ namespace ricaun.Revit.UI
         {
             var uri = new Uri(uriString, UriKind.RelativeOrAbsolute);
             var decoder = BitmapDecoder.Create(uri, BitmapCreateOptions.None, BitmapCacheOption.Default);
-            return decoder.Frames.OrderBy(e => Math.Round(e.Width)).LastOrDefault();
+            return decoder.GetBitmapFrameByWidthAndDpi(int.MaxValue);
         }
 
         /// <summary>
@@ -133,11 +133,15 @@ namespace ricaun.Revit.UI
             }
 
             var frames = bitmapDecoder.Frames;
-            var frame = frames
+            var framesOrder = frames
                 .OrderBy(OrderDpiX)
-                .ThenBy(e => Math.Round(e.Width))
-                .FirstOrDefault(e => Math.Round(e.Width) >= width);
+                .ThenBy(e => Math.Round(e.Width));
 
+            var widthMax = (int)Math.Round(framesOrder.LastOrDefault().Width);
+            if (width > widthMax)
+                width = widthMax;
+
+            var frame = framesOrder.FirstOrDefault(e => Math.Round(e.Width) >= width);
             return frame;
         }
 
