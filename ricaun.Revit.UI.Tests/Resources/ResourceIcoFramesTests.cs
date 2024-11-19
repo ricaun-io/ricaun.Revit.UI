@@ -3,7 +3,7 @@ using System;
 
 namespace ricaun.Revit.UI.Tests.Resources
 {
-    public class ResourcesFramesTests
+    public class ResourceIcoFramesTests
     {
         const string ResourceNameIcoFrames = "Resources/Images/Revit21Frames.ico";
 

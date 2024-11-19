@@ -389,9 +389,6 @@ Autodesk.Windows.RibbonPanel awRibbonPanel;
 awRibbonPanel.SetDialogLauncher(ribbonCommandItem);
 ```
 
-### Ribbon Description Extension
-... Todo
-
 ## Release
 
 * [Latest release](https://github.com/ricaun-io/ricaun.Revit.UI/releases/latest)

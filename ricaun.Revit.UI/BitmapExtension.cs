@@ -17,7 +17,7 @@ namespace ricaun.Revit.UI
         {
             var uri = new Uri(uriString, UriKind.RelativeOrAbsolute);
             var decoder = BitmapDecoder.Create(uri, BitmapCreateOptions.None, BitmapCacheOption.Default);
-            return decoder.Frames.OrderBy(e => e.Width).LastOrDefault();
+            return decoder.GetBitmapFrameByWidthAndDpi(int.MaxValue);
         }
 
         /// <summary>
@@ -82,14 +82,77 @@ namespace ricaun.Revit.UI
             return imageSource;
         }
 
+#if NET47_OR_GREATER || NET
+        /// <summary>
+        /// Get the system DPI based on the <see cref="System.Windows.Media.VisualTreeHelper.GetDpi"/> using a new <see cref="System.Windows.Controls.Image"/>.
+        /// </summary>
+#else
+        /// <summary>
+        /// Get the system DPI based on the <see cref="System.Drawing.Graphics.DpiX"/> using a new <see cref="System.Drawing.Graphics"/> from <see cref="IntPtr.Zero"/>.
+        /// </summary>
+#endif
+        internal static double GetSystemDpi()
+        {
+            double systemDpi = 96;
+            try
+            {
+#if NET47_OR_GREATER || NET
+                var imageScaleInfo = VisualTreeHelper.GetDpi(new System.Windows.Controls.Image());
+                systemDpi = imageScaleInfo.PixelsPerInchX;
+#else
+                using (var g = System.Drawing.Graphics.FromHwnd(IntPtr.Zero))
+                {
+                    systemDpi = g.DpiX;
+                }
+#endif
+            }
+            catch { }
+            return systemDpi;
+        }
+
+        /// <summary>
+        /// System Dpi
+        /// </summary>
+        public readonly static double SystemDpi = GetSystemDpi();
+
+        /// <summary>
+        /// Get the bitmap frame from the <paramref name="bitmapDecoder"/> based on the DPI and width.
+        /// </summary>
+        /// <param name="bitmapDecoder">The bitmap decoder.</param>
+        /// <param name="width">The desired width of the bitmap frame. When set to zero, the smallest width frame is returned.</param>
+        /// <param name="dpi">The optimal dpi for the frame. When set to zero, <see cref="SystemDpi"/> is used.</param>
+        /// <returns>The bitmap frame with the specified width or the smallest width frame.</returns>
+        public static BitmapFrame GetBitmapFrameByWidthAndDpi(this BitmapDecoder bitmapDecoder, int width, int dpi = 0)
+        {
+            double systemDpi = dpi > 0 ? dpi : SystemDpi;
+
+            double OrderDpiX(BitmapFrame frame)
+            {
+                var dpiX = Math.Round(frame.DpiX);
+                return dpiX >= systemDpi ? -systemDpi / dpiX : systemDpi / dpiX;
+            }
+
+            var frames = bitmapDecoder.Frames;
+            var framesOrder = frames
+                .OrderBy(OrderDpiX)
+                .ThenBy(e => Math.Round(e.Width));
+
+            var widthMax = (int)Math.Round(framesOrder.LastOrDefault().Width);
+            if (width > widthMax)
+                width = widthMax;
+
+            var frame = framesOrder.FirstOrDefault(e => Math.Round(e.Width) >= width);
+            return frame;
+        }
+
         /// <summary>
         /// GetBitmapFrame with Width Equal or Scale
         /// </summary>
-        /// <param name="imageSource"></param>
-        /// <param name="width"></param>
-        /// <param name="downloadCompleted"></param>
-        /// <returns></returns>
-        /// <remarks>When <paramref name="width"/> is zero, return the smallest width frame.</remarks>
+        /// <param name="imageSource">The image source.</param>
+        /// <param name="width">The desired width of the bitmap frame. When set to zero, the smallest width frame is returned.</param>
+        /// <param name="downloadCompleted">An optional action to be executed when the download of the bitmap frame is completed.</param>
+        /// <returns>The bitmap frame with the specified width or the scaled bitmap frame.</returns>
+        /// <remarks>When <paramref name="width"/> is zero, the smallest width frame is returned.</remarks>
         public static TImageSource GetBitmapFrame<TImageSource>(this TImageSource imageSource, int width = 0, Action<TImageSource> downloadCompleted = null) where TImageSource : ImageSource
         {
             TImageSource ScaleDownIfWidthIsGreater(TImageSource imageSource, int width)
@@ -97,29 +160,20 @@ namespace ricaun.Revit.UI
                 if (width <= 0)
                     return imageSource;
 
-                if (imageSource.Width > width)
-                    imageSource = imageSource.Scale(width / imageSource.Width) as TImageSource;
+                var imageRoundWidth = Math.Round(imageSource.Width);
+                if (imageRoundWidth > width)
+                    imageSource = imageSource.Scale(width / imageRoundWidth) as TImageSource;
 
                 return imageSource;
             }
 
             if (imageSource is BitmapFrame bitmapFrame)
             {
-                BitmapFrame GetBitmapFrameByWidth(BitmapFrame bitmapFrame, int width)
-                {
-                    var frames = bitmapFrame.Decoder.Frames;
-                    var frame = frames
-                        .OrderBy(e => e.Width)
-                        .FirstOrDefault(e => e.Width >= width);
-
-                    return frame;
-                }
-
                 if (bitmapFrame.IsDownloading)
                 {
                     bitmapFrame.DownloadCompleted += (s, e) =>
                     {
-                        if (GetBitmapFrameByWidth(bitmapFrame, width) is TImageSource frame)
+                        if (bitmapFrame.Decoder.GetBitmapFrameByWidthAndDpi(width) is TImageSource frame)
                             imageSource = frame;
 
                         imageSource = ScaleDownIfWidthIsGreater(imageSource, width);
@@ -128,7 +182,7 @@ namespace ricaun.Revit.UI
                     };
                 }
 
-                if (GetBitmapFrameByWidth(bitmapFrame, width) is TImageSource frame)
+                if (bitmapFrame.Decoder.GetBitmapFrameByWidthAndDpi(width) is TImageSource frame)
                     imageSource = frame;
             }
 
