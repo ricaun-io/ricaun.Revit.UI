@@ -17,7 +17,7 @@ namespace ricaun.Revit.UI
         {
             var uri = new Uri(uriString, UriKind.RelativeOrAbsolute);
             var decoder = BitmapDecoder.Create(uri, BitmapCreateOptions.None, BitmapCacheOption.Default);
-            return decoder.Frames.OrderBy(e => e.Width).LastOrDefault();
+            return decoder.Frames.OrderBy(e => Math.Round(e.Width)).LastOrDefault();
         }
 
         /// <summary>
@@ -82,9 +82,15 @@ namespace ricaun.Revit.UI
             return imageSource;
         }
 
+#if NET47_OR_GREATER || NET
         /// <summary>
         /// Get the system DPI based on the <see cref="System.Windows.Media.VisualTreeHelper.GetDpi"/> using a new <see cref="System.Windows.Controls.Image"/>.
         /// </summary>
+#else
+        /// <summary>
+        /// Get the system DPI based on the <see cref="System.Drawing.Graphics.DpiX"/> using a new <see cref="System.Drawing.Graphics"/> from <see cref="IntPtr.Zero"/>.
+        /// </summary>
+#endif
         internal static double GetSystemDpi()
         {
             double systemDpi = 96;
@@ -125,7 +131,7 @@ namespace ricaun.Revit.UI
             var frames = bitmapDecoder.Frames;
             var frame = frames
                 .OrderBy(OrderDpiX)
-                .ThenBy(e => e.Width)
+                .ThenBy(e => Math.Round(e.Width))
                 .FirstOrDefault(e => Math.Round(e.Width) >= width);
 
             return frame;

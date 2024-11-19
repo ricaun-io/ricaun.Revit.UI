@@ -13,8 +13,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Add `GetSystemDpi` to get the system `dpi` on the fly.
 - Add `SystemDpi` to store the system `dpi` value.
 - Update `GetBitmapFrameByWidthAndDpi` to round `dpi` frame value.
+- Update `Width` to `Math.Round` to improve order by `Width`.
 ### Example
 - Add `Cube-Grey-Light.tiff` and `Cube-Grey-Dark.tiff` in `AppTheme`.
+### Tests
+- Add `ResourceTiffTests` with `Cube.tiff` with multiple dpi and scales.
 
 ## [0.7.0] / 2024-07-06 - 2024-07-25
 ### Features

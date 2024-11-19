@@ -34,11 +34,7 @@
       </PropertyGroup>
     </Otherwise>
   </Choose>
-  <ItemGroup>
-    <None Remove="Resources\Images\Revit21Frames.ico" />
-    <None Remove="Resources\Images\Revit32.png" />
-  </ItemGroup>
-
+  
   <ItemGroup>
     <PackageReference Include="NUnit" Version="3.13.3" />
     <PackageReference Include="ricaun.RevitTest.TestAdapter" Version="*-*" />
@@ -69,6 +65,7 @@
   </ItemGroup>
   
   <ItemGroup>
+    <Resource Include="Resources\Images\Cube.tiff" />
     <Resource Include="Resources\Images\Revit.ico" />
     <Resource Include="Resources\Images\Revit21Frames.ico" />
     <Resource Include="Resources\Images\Revit32.png" />
