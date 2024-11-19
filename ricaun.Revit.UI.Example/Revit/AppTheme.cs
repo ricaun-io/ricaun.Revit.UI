@@ -65,14 +65,14 @@ namespace ricaun.Revit.UI.Example.Revit
             {
                 var buttonTiff = ribbonPanel.CreatePushButton<CommandTheme>("Grey")
                     .SetLargeImage("Resources/Cube-Grey-Light.tiff");
-                if (buttonTiff.LargeImage is System.Windows.Media.Imaging.BitmapSource largeImage)
-                {
-                    System.Console.WriteLine($"{largeImage.GetType().Name} | {largeImage.Width:0}x{largeImage.Height:0} ({largeImage.PixelWidth}x{largeImage.PixelHeight}) {largeImage.DpiX:0}:{largeImage.DpiY:0}");
-                }
-                if (buttonTiff.Image is System.Windows.Media.Imaging.BitmapSource smallImage)
-                {
-                    System.Console.WriteLine($"{smallImage.GetType().Name} | {smallImage.Width:0}x{smallImage.Height:0} ({smallImage.PixelWidth}x{smallImage.PixelHeight}) {smallImage.DpiX:0}:{smallImage.DpiY:0}");
-                }
+                //if (buttonTiff.LargeImage is System.Windows.Media.Imaging.BitmapSource largeImage)
+                //{
+                //    System.Console.WriteLine($"{largeImage.GetType().Name} | {largeImage.Width:0}x{largeImage.Height:0} ({largeImage.PixelWidth}x{largeImage.PixelHeight}) {largeImage.DpiX:0}:{largeImage.DpiY:0}");
+                //}
+                //if (buttonTiff.Image is System.Windows.Media.Imaging.BitmapSource smallImage)
+                //{
+                //    System.Console.WriteLine($"{smallImage.GetType().Name} | {smallImage.Width:0}x{smallImage.Height:0} ({smallImage.PixelWidth}x{smallImage.PixelHeight}) {smallImage.DpiX:0}:{smallImage.DpiY:0}");
+                //}
             }
 
             ribbonPanel.RowStackedItems(
