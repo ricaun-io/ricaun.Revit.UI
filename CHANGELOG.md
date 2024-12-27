@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [0.8.0] / 2024-12-27
+### Features
+- Remove support for `Revit 2017` and `Revit 2018`, remove `net46` target framework.
+
 ## [0.7.1] / 2024-11-11 - 2024-11-19
 ### Features
 - Support `tiff` files for icon.
@@ -378,6 +382,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - First Release
 
 [vNext]: ../../compare/1.0.0...HEAD
+[0.8.0]: ../../compare/0.7.1...0.8.0
 [0.7.1]: ../../compare/0.7.0...0.7.1
 [0.7.0]: ../../compare/0.6.2...0.7.0
 [0.6.2]: ../../compare/0.6.1...0.6.2
