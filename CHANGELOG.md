@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [0.8.0] / 2024-12-27
 ### Features
 - Remove support for `Revit 2017` and `Revit 2018`, remove `net46` target framework.
+### Updated
+- Update `StackTraceUtils` to support repack using `IsAssemblyRepack`.
 
 ## [0.7.1] / 2024-11-11 - 2024-11-19
 ### Features
