@@ -25,14 +25,14 @@ namespace ricaun.Revit.UI.Tests
         [Test]
         public void RevitApplicationTests_IsAddInContext()
         {
-            var isAddInContext = RevitApplication.IsAddInContext;
+            var isAddInContext = RevitApplication.IsInAddInContext;
             Assert.IsTrue(isAddInContext);
         }
 
         [Test]
         public void RevitApplicationTests_IsAddInContext_Task_IsFalse()
         {
-            var isAddInContext = Task.Run(() => RevitApplication.IsAddInContext).GetAwaiter().GetResult();
+            var isAddInContext = Task.Run(() => RevitApplication.IsInAddInContext).GetAwaiter().GetResult();
             Assert.IsFalse(isAddInContext);
         }
     }

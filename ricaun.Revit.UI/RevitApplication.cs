@@ -21,7 +21,7 @@ namespace ricaun.Revit.UI
         /// <summary>
         /// Gets a value indicating whether the current context is within an add-in.
         /// </summary>
-        public static bool IsAddInContext => InAddInContext(UIApplication);
+        public static bool IsInAddInContext => InAddInContext(UIApplication);
 
         #region Private
         /// <summary>
