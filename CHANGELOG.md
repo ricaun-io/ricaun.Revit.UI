@@ -6,9 +6,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [0.8.0] / 2024-12-27 - 2025-02-18
 ### Features
-- Support`RevitApplication` static class.
+- Support `RevitApplication` static class.
+- Support `RevitApplicationPreview` static class.
 ### Updated
 - Add `RevitApplication` with static `UIApplication`, `UIControlledApplication` and `IsInAddInContext`.
+- Add `RevitApplicationPreview` with static `IsPreviewRelease`.
 - Update `StackTraceUtils` to support repack using `IsAssemblyRepack`.
 ### Tests
 - Test `RevitApplication` static class.
