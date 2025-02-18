@@ -20,6 +20,7 @@ namespace ricaun.Revit.UI
         /// Determines if the current release of Revit is a preview release.
         /// </summary>
         /// <returns>True if the current release is a preview release; otherwise, false.</returns>
+        /// <remarks><see cref="Application"/> have an internal static IsPreviewRelease method.</remarks>
         private static bool ApplicationIsPreviewRelease()
         {
             var type = typeof(Application);
