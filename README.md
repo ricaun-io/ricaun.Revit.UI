@@ -399,10 +399,11 @@ bool isInAddInContext = RevitApplication.IsInAddInContext;
 ```
 
 ### RevitApplicationPreview
-`RevitApplicationPreview` is a static class that contains proprieties to get the `IsPreviewRelease` and `IsPreviewReleaseNotLoggedIn`.
+`RevitApplicationPreview` is a static class that contains proprieties to get the `IsPreviewRelease`, `IsPreviewReleaseNotLoggedIn` and `IsPreviewReleaseOrLoggedIn`.
 ```C#
 bool isPreviewRelease = RevitApplicationPreview.IsPreviewRelease;
 bool isPreviewReleaseNotLoggedIn = RevitApplicationPreview.IsPreviewReleaseNotLoggedIn;
+bool isPreviewReleaseOrLoggedIn = RevitApplicationPreview.IsPreviewReleaseOrLoggedIn;
 ```
 
 ## Release
