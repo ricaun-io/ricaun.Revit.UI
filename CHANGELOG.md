@@ -4,11 +4,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-## [0.8.0] / 2024-12-27
+## [0.8.0] / 2024-12-27 - 2025-02-18
 ### Features
+- Support`RevitApplication` static class.
 - Remove support for `Revit 2017` and `Revit 2018`, remove `net46` target framework.
 ### Updated
+- Add `RevitApplication` with static `UIApplication`, `UIControlledApplication` and `IsAddInContext`.
 - Update `StackTraceUtils` to support repack using `IsAssemblyRepack`.
+### Tests
+- Test `RevitApplication` static class.
 
 ## [0.7.1] / 2024-11-11 - 2024-11-19
 ### Features
