@@ -389,6 +389,23 @@ Autodesk.Windows.RibbonPanel awRibbonPanel;
 awRibbonPanel.SetDialogLauncher(ribbonCommandItem);
 ```
 
+### RevitApplication
+`RevitApplication` is a static class that contains proprieties to get the `UIApplication`, `UIControlledApplication` and `IsInAddInContext`.
+
+```C#
+UIApplication uiapp = RevitApplication.UIApplication;
+UIControlledApplication application = RevitApplication.UIControlledApplication;
+bool isInAddInContext = RevitApplication.IsInAddInContext;
+```
+
+### RevitApplicationPreview
+`RevitApplicationPreview` is a static class that contains proprieties to get the `IsPreviewRelease`, `IsPreviewReleaseNotLoggedIn` and `IsPreviewReleaseOrLoggedIn`.
+```C#
+bool isPreviewRelease = RevitApplicationPreview.IsPreviewRelease;
+bool isPreviewReleaseNotLoggedIn = RevitApplicationPreview.IsPreviewReleaseNotLoggedIn;
+bool isPreviewReleaseOrLoggedIn = RevitApplicationPreview.IsPreviewReleaseOrLoggedIn;
+```
+
 ## Release
 
 * [Latest release](https://github.com/ricaun-io/ricaun.Revit.UI/releases/latest)
