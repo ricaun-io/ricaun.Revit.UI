@@ -11,6 +11,28 @@ namespace ricaun.Revit.UI.Drawing
     public static class BitmapDrawingExtension
     {
         /// <summary>
+        /// Converts the specified byte array to a <see cref="System.Drawing.Bitmap"/>.
+        /// </summary>
+        /// <param name="bytes">The byte array representing the image data.</param>
+        /// <returns>A <see cref="System.Drawing.Bitmap"/> created from the byte array.</returns>
+        public static System.Drawing.Bitmap ToBitmap(this byte[] bytes)
+        {
+            using var ms = new MemoryStream(bytes);
+            return new System.Drawing.Bitmap(ms);
+        }
+
+        /// <summary>
+        /// Converts the specified byte array to a <see cref="System.Drawing.Icon"/>.
+        /// </summary>
+        /// <param name="bytes">The byte array representing the icon data.</param>
+        /// <returns>A <see cref="System.Drawing.Icon"/> created from the byte array.</returns>
+        public static System.Drawing.Icon ToIcon(this byte[] bytes)
+        {
+            using var ms = new MemoryStream(bytes);
+            return new System.Drawing.Icon(ms);
+        }
+
+        /// <summary>
         /// Convert <paramref name="bitmap"/> to <seealso cref="BitmapSource"/>
         /// </summary>
         /// <param name="bitmap"></param>

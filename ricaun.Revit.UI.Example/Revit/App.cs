@@ -351,7 +351,7 @@ namespace ricaun.Revit.UI.Example.Revit
                 setting.Add<Commands.Command>(
                     (ribbon) =>
                     {
-                        ribbon.LargeImage = Resource.LargeImage.GetBitmapSource();
+                        ribbon.LargeImage = Resource.LargeImage.ToBitmap().GetBitmapSource();
                         ribbon.Text = "ricaun";
                         ribbon.ToolTip = "This is a Tool Tip";
                         ribbon.LongDescription = "This is a Long Description";

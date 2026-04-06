@@ -12,6 +12,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Update `IsInAddInContext` to support `Revit 2027`, change to `InAddInEventContext`. (Fix #39)
 - Update `RibbonTabExtension` to support `Revit Preview`, internal `RibbonTabsDictionary` change to `List`.
 - Update `csproj` with `net10.0-windows` framework, `UseWindowsForms` and license configuration.
+- Update `BitmapDrawingExtension` with `ToBitmap` and `ToIcon` to convert `byte[]` to `Bitmap` and `Icon`.
+### Tests
+- Update `Resources.resx` to use `byte[]` instead of `Bitmap` and `Icon`.
 
 ## [0.8.0] / 2024-12-27 - 2025-02-18
 ### Features
