@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Support `Revit 2027` and `Revit Preview`.
 ### Updated
 - Update `IsInAddInContext` to support `Revit 2027`, change to `InAddInEventContext`. (Fix #39)
+- Update `RibbonTabExtension` to support `Revit Preview`, internal `RibbonTabsDictionary` change to `List`.
 
 ## [0.8.0] / 2024-12-27 - 2025-02-18
 ### Features

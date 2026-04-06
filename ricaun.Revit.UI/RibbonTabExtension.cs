@@ -1,7 +1,7 @@
 ﻿using Autodesk.Revit.UI;
 using System;
+using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace ricaun.Revit.UI
 {
@@ -65,7 +65,7 @@ namespace ricaun.Revit.UI
         public static bool Remove(this Autodesk.Windows.RibbonTab ribbonTab, Autodesk.Windows.RibbonPanel ribbonPanel)
         {
             var removed = ribbonTab.Panels.Remove(ribbonPanel);
-            GetRibbonTabsDictionary(ribbonTab)?.Remove(ribbonPanel.Source.Name);
+            RibbonTabsDictionaryRemove(ribbonTab.Id, ribbonPanel.Source.Name);
             return removed;
         }
 
@@ -123,7 +123,7 @@ namespace ricaun.Revit.UI
         /// </summary>
         /// <param name="ribbonTab"></param>
         /// <returns></returns>
-        internal static Dictionary<string, RibbonPanel> GetRibbonTabsDictionary(Autodesk.Windows.RibbonTab ribbonTab)
+        internal static ICollection GetRibbonTabsDictionary(Autodesk.Windows.RibbonTab ribbonTab)
         {
             return GetRibbonTabsDictionary(ribbonTab.Id);
         }
@@ -132,10 +132,14 @@ namespace ricaun.Revit.UI
         /// </summary>
         /// <param name="ribbonTabId"></param>
         /// <returns></returns>
-        internal static Dictionary<string, RibbonPanel> GetRibbonTabsDictionary(string ribbonTabId)
+        internal static ICollection GetRibbonTabsDictionary(string ribbonTabId)
         {
-            if (GetRibbonTabsDictionary().TryGetValue(ribbonTabId, out Dictionary<string, RibbonPanel> value))
-                return value;
+            var ribbonTabsDictionary = GetRibbonTabsDictionary();
+            if (ribbonTabsDictionary is null)
+                return null;
+
+            if (ribbonTabsDictionary.Contains(ribbonTabId))
+                return ribbonTabsDictionary[ribbonTabId] as ICollection;
 
             return null;
         }
@@ -143,7 +147,7 @@ namespace ricaun.Revit.UI
         /// GetRibbonTabsDictionary
         /// </summary>
         /// <returns></returns>
-        internal static Dictionary<string, Dictionary<string, RibbonPanel>> GetRibbonTabsDictionary()
+        internal static IDictionary GetRibbonTabsDictionary()
         {
             var type = typeof(UIApplication);
 
@@ -151,7 +155,36 @@ namespace ricaun.Revit.UI
                 System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.NonPublic)
                 ?.GetValue(null);
 
+            if (ribbonItemDictionary is Dictionary<string, List<RibbonPanel>> revit2028)
+                return revit2028;
+
             return ribbonItemDictionary as Dictionary<string, Dictionary<string, RibbonPanel>>;
+        }
+        internal static bool RibbonTabsDictionaryRemove(string ribbonTabId, string ribbonPanelName)
+        {
+            var ribbonTabsDictionary = GetRibbonTabsDictionary(ribbonTabId);
+            if (ribbonTabsDictionary is null)
+                return false;
+
+            if (ribbonTabsDictionary is IList list) // Revit 2028+
+            {
+                for (int i = 0; i < list.Count; i++)
+                {
+                    var item = list[i] as Autodesk.Revit.UI.RibbonPanel;
+                    if (!string.IsNullOrEmpty(item.Name) && string.Equals(item.Name, ribbonPanelName, StringComparison.OrdinalIgnoreCase))
+                    {
+                        list.RemoveAt(i);
+                        return true;
+                    }
+                }
+            }
+            else if (ribbonTabsDictionary is IDictionary dictionary)
+            {
+                dictionary.Remove(ribbonPanelName);
+                return true;
+            }
+
+            return false;
         }
         #endregion
     }
