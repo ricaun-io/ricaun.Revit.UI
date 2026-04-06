@@ -7,9 +7,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [0.9.0] / 2026-04-06
 ### Features
 - Support `Revit 2027` and `Revit Preview`.
+- Support `net10.0-windows` framework.
 ### Updated
 - Update `IsInAddInContext` to support `Revit 2027`, change to `InAddInEventContext`. (Fix #39)
 - Update `RibbonTabExtension` to support `Revit Preview`, internal `RibbonTabsDictionary` change to `List`.
+- Update `csproj` with `net10.0-windows` framework, `UseWindowsForms` and license configuration.
 
 ## [0.8.0] / 2024-12-27 - 2025-02-18
 ### Features
