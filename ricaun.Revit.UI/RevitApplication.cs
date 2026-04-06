@@ -2,6 +2,7 @@
 using Autodesk.Revit.UI.Events;
 using System;
 using System.Reflection;
+using System.Threading.Tasks;
 
 namespace ricaun.Revit.UI
 {
@@ -21,7 +22,7 @@ namespace ricaun.Revit.UI
         /// <summary>
         /// Gets a value indicating whether the current context is within an add-in.
         /// </summary>
-        public static bool IsInAddInContext => InAddInContext(UIApplication);
+        public static bool IsInAddInContext => InAddInEventContext(UIApplication);
 
         #region Private
         /// <summary>
@@ -37,8 +38,30 @@ namespace ricaun.Revit.UI
 
             return constructor?.Invoke(new object[] { application }) as UIControlledApplication;
         }
+        private static bool InAddInEventContext(UIApplication uiapp)
+        {
+            try
+            {
+                uiapp.Idling += Application_Idling;
+                uiapp.Idling -= Application_Idling;
+                return true;
+            }
+            catch { } // Invalid call to Revit API! Revit is currently not within an API context.
+            return false;
+        }
+        static void Application_Idling(object sender, IdlingEventArgs e) { }
+        [Obsolete("This fails to work in Revit 2027, the Addin 'Revit' with id 'e42ff806-491d-4b17-9afb-ea051d5ebb76'.")]
         private static bool InAddInContext(UIApplication uiapp)
         {
+
+
+
+            Task.Run(async () =>
+            {
+                await Task.Delay(1);
+                Console.WriteLine(uiapp.ActiveAddInId?.GetAddInName());
+                Console.WriteLine(uiapp.ActiveAddInId?.GetGUID());
+            });
             // ActiveAddInId is only available when Revit is within an API context.
             return uiapp.ActiveAddInId is not null;
         }
