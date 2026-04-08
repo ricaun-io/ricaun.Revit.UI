@@ -53,15 +53,6 @@ namespace ricaun.Revit.UI
         [Obsolete("This fails to work in Revit 2027, the Addin 'Revit' with id 'e42ff806-491d-4b17-9afb-ea051d5ebb76'.")]
         private static bool InAddInContext(UIApplication uiapp)
         {
-
-
-
-            Task.Run(async () =>
-            {
-                await Task.Delay(1);
-                Console.WriteLine(uiapp.ActiveAddInId?.GetAddInName());
-                Console.WriteLine(uiapp.ActiveAddInId?.GetGUID());
-            });
             // ActiveAddInId is only available when Revit is within an API context.
             return uiapp.ActiveAddInId is not null;
         }
