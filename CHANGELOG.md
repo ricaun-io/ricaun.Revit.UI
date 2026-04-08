@@ -15,6 +15,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Update `BitmapDrawingExtension` with `ToBitmap` and `ToIcon` to convert `byte[]` to `Bitmap` and `Icon`.
 ### Tests
 - Update `Resources.resx` to use `byte[]` instead of `Bitmap` and `Icon`.
+- Update `Tests` to support `net10.0-windows` using `Revit 2027`.
 
 ## [0.8.0] / 2024-12-27 - 2025-02-18
 ### Features
