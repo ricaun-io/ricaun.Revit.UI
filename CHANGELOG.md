@@ -13,9 +13,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Update `RibbonTabExtension` to support `Revit Preview`, internal `RibbonTabsDictionary` change to `List`.
 - Update `csproj` with `net10.0-windows` framework, `UseWindowsForms` and license configuration.
 - Update `BitmapDrawingExtension` with `ToBitmap` and `ToIcon` to convert `byte[]` to `Bitmap` and `Icon`.
+- Update `RibbonSafeExtension` to have separated methods for each type.
 ### Tests
 - Update `Resources.resx` to use `byte[]` instead of `Bitmap` and `Icon`.
 - Update `Tests` to support `net10.0-windows` using `Revit 2027`.
+- Add `RevitRibbonSafeTests` to check if method exists in the types.
 
 ## [0.8.0] / 2024-12-27 - 2025-02-18
 ### Features

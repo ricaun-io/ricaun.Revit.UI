@@ -64,6 +64,26 @@ namespace ricaun.Revit.UI
             return true;
         }
 
+        internal static string GenerateSafeButtonName(RibbonPanel ribbonItem, string targetName, string targetText = null)
+        {
+            return GenerateSafeButtonName<RibbonPanel>(ribbonItem, targetName, targetText);
+        }
+
+        internal static string GenerateSafeButtonName(ComboBox ribbonItem, string targetName, string targetText = null)
+        {
+            return GenerateSafeButtonName<ComboBox>(ribbonItem, targetName, targetText);
+        }
+
+        internal static string GenerateSafeButtonName(PulldownButton ribbonItem, string targetName, string targetText = null)
+        {
+            return GenerateSafeButtonName<PulldownButton>(ribbonItem, targetName, targetText);
+        }
+
+        internal static string GenerateSafeButtonName(RadioButtonGroup ribbonItem, string targetName, string targetText = null)
+        {
+            return GenerateSafeButtonName<RadioButtonGroup>(ribbonItem, targetName, targetText);
+        }
+
         /// <summary>
         /// Generate Safe Button Name
         /// </summary>
@@ -72,7 +92,7 @@ namespace ricaun.Revit.UI
         /// <param name="targetName"></param>
         /// <param name="targetText"></param>
         /// <returns></returns>
-        internal static string GenerateSafeButtonName<T>(T ribbonItem, string targetName, string targetText = null) where T : class
+        private static string GenerateSafeButtonName<T>(T ribbonItem, string targetName, string targetText = null) where T : class
         {
             if (targetText == null)
                 targetText = targetName;
