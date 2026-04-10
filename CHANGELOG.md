@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Features
 - Support `Revit 2027` and `Revit Preview`.
 - Support `net10.0-windows` framework.
+- Remove `RibbonPanel` also remove `RibbonTab` when empty.
 ### Updated
 - Update `IsInAddInContext` to support `Revit 2027`, change to `InAddInEventContext`. (Fix #39)
 - Update `RibbonTabExtension` to support `Revit Preview`, internal `RibbonTabsDictionary` change to `List`.
@@ -16,10 +17,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Update `RibbonSafeExtension` to have separated methods for each type.
 - Add `RibbonPanelAllowInToolBarExtension` to support `RibbonPanel.SetAllowInToolBar`.
 - Add `PackUri` and update `StackTraceUtils` with `BitmapExtension`.
+- Update `RibbonTabExtension` with `RemoveWhenEmpty` to remove the `RibbonTab` when empty.
 ### Tests
 - Update `Resources.resx` to use `byte[]` instead of `Bitmap` and `Icon`.
 - Update `Tests` to support `net10.0-windows` using `Revit 2027`.
 - Add `RevitRibbonSafeTests` to check if method exists in the types.
+- Update `RevitTabPanelTests` to check if the `RibbonTab` is removed when empty.
 
 ## [0.8.0] / 2024-12-27 - 2025-02-18
 ### Features

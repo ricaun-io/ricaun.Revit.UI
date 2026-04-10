@@ -57,6 +57,19 @@ namespace ricaun.Revit.UI
         }
 
         /// <summary>
+        /// Remove Tab When Empty / Remove Revit Dictionary Name
+        /// </summary>
+        /// <param name="ribbonTab"></param>
+        internal static void RemoveWhenEmpty(this Autodesk.Windows.RibbonTab ribbonTab)
+        {
+            if (ribbonTab is null) return;
+            if (ribbonTab.Panels.Count == 0)
+            {
+                ribbonTab.Remove();
+            }
+        }
+
+        /// <summary>
         /// Remove RibbonPanel / Remove Revit Dictionary Name
         /// </summary>
         /// <param name="ribbonTab"></param>
@@ -66,6 +79,7 @@ namespace ricaun.Revit.UI
         {
             var removed = ribbonTab.Panels.Remove(ribbonPanel);
             RibbonTabsDictionaryRemove(ribbonTab.Id, ribbonPanel.Source.Name);
+            ribbonTab.RemoveWhenEmpty();
             return removed;
         }
 

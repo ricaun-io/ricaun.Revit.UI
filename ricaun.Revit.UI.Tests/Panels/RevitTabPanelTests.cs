@@ -19,10 +19,35 @@ namespace ricaun.Revit.UI.Tests.Panels
             System.Console.WriteLine($"RibbonTab: {ribbonPanel.GetRibbonTab().Id}");
         }
 
+        private bool TabPanelExists(RibbonPanel panel)
+        {
+            var tabName = panel.GetRibbonTab().Id;
+            // GetRibbonPanels thrown when the tab is not exist, so try catch is used to determine whether the tab exist or not.
+            try
+            {
+                return application.GetRibbonPanels(tabName) is not null;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
         private bool ContainPanel(RibbonPanel panel)
         {
             var tabName = panel.GetRibbonTab().Id;
+            if (!TabPanelExists(panel))
+                return false;
+
             return application.GetRibbonPanels(tabName).Contains(panel);
+        }
+
+        [Test]
+        public void AfterRemovePanel_RemoveEmptyTab()
+        {
+            System.Console.WriteLine($"RibbonTab: {ribbonPanel.GetRibbonTab().Id}");
+            Assert.IsEmpty(ribbonPanel.GetRibbonTab().Panels);
+            Assert.IsFalse(TabPanelExists(ribbonPanel), "Not Exist Tab");
         }
 
         [Test]
