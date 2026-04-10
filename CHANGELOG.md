@@ -15,6 +15,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Update `BitmapDrawingExtension` with `ToBitmap` and `ToIcon` to convert `byte[]` to `Bitmap` and `Icon`.
 - Update `RibbonSafeExtension` to have separated methods for each type.
 - Add `RibbonPanelAllowInToolBarExtension` to support `RibbonPanel.SetAllowInToolBar`.
+- Add `PackUri` and update `StackTraceUtils` with `BitmapExtension`.
 ### Tests
 - Update `Resources.resx` to use `byte[]` instead of `Bitmap` and `Icon`.
 - Update `Tests` to support `net10.0-windows` using `Revit 2027`.
