@@ -4,6 +4,7 @@
     <OutputType>Library</OutputType>
     <PlatformTarget>AnyCPU</PlatformTarget>
     <UseWPF>true</UseWPF>
+    <UseWindowsForms>true</UseWindowsForms>
     <LangVersion>latest</LangVersion>
     <AppendTargetFrameworkToOutputPath>true</AppendTargetFrameworkToOutputPath>
     <ResolveAssemblyWarnOrErrorOnTargetArchitectureMismatch>None</ResolveAssemblyWarnOrErrorOnTargetArchitectureMismatch>
@@ -12,7 +13,7 @@
 
   <!-- RevitVersion -->
   <PropertyGroup>
-    <TargetFrameworks>net48;net8.0-windows</TargetFrameworks>
+    <TargetFrameworks>net48;net8.0-windows;net10.0-windows</TargetFrameworks>
   </PropertyGroup>
 
   <!-- Net Core -->
@@ -28,6 +29,16 @@
         <RevitVersion>2021</RevitVersion>
       </PropertyGroup>
     </When>
+    <When Condition="$(TargetFramework.StartsWith('net8'))">
+      <PropertyGroup>
+        <RevitVersion>2025</RevitVersion>
+      </PropertyGroup>
+    </When>
+    <When Condition="$(TargetFramework.StartsWith('net10'))">
+      <PropertyGroup>
+        <RevitVersion>2027</RevitVersion>
+      </PropertyGroup>
+    </When>
     <Otherwise>
       <PropertyGroup>
         <RevitVersion>2025</RevitVersion>
@@ -38,15 +49,11 @@
   <ItemGroup>
     <PackageReference Include="NUnit" Version="3.13.3" />
     <PackageReference Include="ricaun.RevitTest.TestAdapter" Version="*-*" />
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.5.0" Condition="!$(TargetFramework.StartsWith('net4'))" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.*" Condition="!$(TargetFramework.StartsWith('net4'))" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\ricaun.Revit.UI\ricaun.Revit.UI.csproj" />
-  </ItemGroup>
-
-  <ItemGroup Condition="!$(TargetFramework.StartsWith('net4'))">
-    <PackageReference Include="System.Drawing.Common" Version="*" IncludeAssets="build; compile" PrivateAssets="All" />
   </ItemGroup>
 
   <ItemGroup>
@@ -85,7 +92,5 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>  
-  <!--
-  -->
 
 </Project>

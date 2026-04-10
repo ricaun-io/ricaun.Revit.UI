@@ -1,8 +1,7 @@
-﻿using System;
+﻿using ricaun.Revit.UI.Utils;
+using System;
 using System.IO;
 using System.Linq;
-using System.Windows;
-using System.Windows.Interop;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
@@ -20,6 +19,12 @@ namespace ricaun.Revit.UI
             return decoder.GetBitmapFrameByWidthAndDpi(int.MaxValue);
         }
 
+        private static bool CheckURLValid(this string source)
+        {
+            Uri uriResult;
+            return Uri.TryCreate(source, UriKind.Absolute, out uriResult) && (uriResult.Scheme == Uri.UriSchemeHttp || uriResult.Scheme == Uri.UriSchemeHttps);
+        }
+
         /// <summary>
         /// Transform string base64 or Uri to BitmapSource
         /// </summary>
@@ -29,25 +34,35 @@ namespace ricaun.Revit.UI
         {
             try
             {
-                return UriToBitmapFrame(base64orUri);
+                if (File.Exists(base64orUri))
+                    return UriToBitmapFrame(base64orUri);
+
+                if (base64orUri.CheckURLValid())
+                    return UriToBitmapFrame(base64orUri);
+
+                if (PackUri.TryParse(base64orUri, out var packUri))
+                {
+                    if (packUri.IsResourceExists())
+                    {
+                        return UriToBitmapFrame(packUri.PackPath);
+                    }
+                }
             }
             catch { }
 
-            try
+            foreach (var executingAssembly in StackTraceUtils.GetResourceAssemblies())
             {
-                var componentUri = "pack://application:,,,/" + base64orUri.TrimStart('/');
-                return UriToBitmapFrame(componentUri);
+                try
+                {
+                    var assemblyName = executingAssembly.GetName().Name;
+                    var packUri = new PackUri(assemblyName, base64orUri);
+                    if (packUri.IsResourceExists())
+                    {
+                        return UriToBitmapFrame(packUri.PackPath);
+                    }
+                }
+                catch { }
             }
-            catch { }
-
-            try
-            {
-                var executingAssembly = Utils.StackTraceUtils.GetCallingAssembly();
-                var assemblyName = executingAssembly.GetName().Name;
-                var componentUri = $"pack://application:,,,/{assemblyName};component/" + base64orUri.TrimStart('/');
-                return UriToBitmapFrame(componentUri);
-            }
-            catch { }
 
             try
             {

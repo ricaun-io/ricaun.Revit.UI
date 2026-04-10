@@ -4,6 +4,26 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [0.9.0] / 2026-04-06 - 2026-04-10
+### Features
+- Support `Revit 2027` and `Revit Preview`.
+- Support `net10.0-windows` framework.
+- Remove `RibbonPanel` also remove `RibbonTab` when empty.
+### Updated
+- Update `IsInAddInContext` to support `Revit 2027`, change to `InAddInEventContext`. (Fix #39)
+- Update `RibbonTabExtension` to support `Revit Preview`, internal `RibbonTabsDictionary` change to `List`.
+- Update `csproj` with `net10.0-windows` framework, `UseWindowsForms` and license configuration.
+- Update `BitmapDrawingExtension` with `ToBitmap` and `ToIcon` to convert `byte[]` to `Bitmap` and `Icon`.
+- Update `RibbonSafeExtension` to have separated methods for each type.
+- Add `RibbonPanelAllowInToolBarExtension` to support `RibbonPanel.SetAllowInToolBar`.
+- Add `PackUri` and update `StackTraceUtils` with `BitmapExtension`.
+- Update `RibbonTabExtension` with `RemoveWhenEmpty` to remove the `RibbonTab` when empty.
+### Tests
+- Update `Resources.resx` to use `byte[]` instead of `Bitmap` and `Icon`.
+- Update `Tests` to support `net10.0-windows` using `Revit 2027`.
+- Add `RevitRibbonSafeTests` to check if method exists in the types.
+- Update `RevitTabPanelTests` to check if the `RibbonTab` is removed when empty.
+
 ## [0.8.0] / 2024-12-27 - 2025-02-18
 ### Features
 - Support `RevitApplication` static class.
@@ -389,6 +409,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - First Release
 
 [vNext]: ../../compare/1.0.0...HEAD
+[0.9.0]: ../../compare/0.8.0...0.9.0
 [0.8.0]: ../../compare/0.7.1...0.8.0
 [0.7.1]: ../../compare/0.7.0...0.7.1
 [0.7.0]: ../../compare/0.6.2...0.7.0

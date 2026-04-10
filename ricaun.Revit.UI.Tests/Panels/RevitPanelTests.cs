@@ -25,6 +25,13 @@ namespace ricaun.Revit.UI.Tests.Panels
         }
 
         [Test]
+        public void GetRibbonTabsDictionary_IsNotNull()
+        {
+            var ribbonTabsDictionary = RibbonTabExtension.GetRibbonTabsDictionary();
+            Assert.IsNotNull(ribbonTabsDictionary);
+        }
+
+        [Test]
         public void CreatePanel()
         {
             var panel = application.CreatePanel(PanelName);

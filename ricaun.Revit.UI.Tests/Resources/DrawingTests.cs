@@ -10,28 +10,28 @@ namespace ricaun.Revit.UI.Tests.Resources
         [Test]
         public void GetBitmapSource_Image()
         {
-            Image image = Images.Resources.Revit32;
+            Image image = Images.Resources.Revit32_png.ToBitmap();
             Assert.IsNotNull(image.GetBitmapSource());
         }
 
         [Test]
         public void GetBitmapSource_Bitmap()
         {
-            Bitmap image = Images.Resources.Revit32;
+            Bitmap image = Images.Resources.Revit32_png.ToBitmap();
             Assert.IsNotNull(image.GetBitmapSource());
         }
 
         [Test]
         public void GetBitmapSource_Icon()
         {
-            Icon image = Images.Resources.Revit;
+            Icon image = Images.Resources.Revit_ico.ToIcon();
             Assert.IsNotNull(image.GetBitmapSource());
         }
 
         [TestCase(32)]
         public void GetBitmapSource_Icon_Width(int width)
         {
-            Icon image = Images.Resources.Revit;
+            Icon image = Images.Resources.Revit_ico.ToIcon();
             var source = image.GetBitmapSource();
             Assert.AreEqual(width, source.Width);
         }
