@@ -4,6 +4,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [0.9.1] / 2026-06-18
+### Features
+- Support `RibbonControl` when Revit is closing.
+### Updates
+- Update `RibbonTabExtension` to use `RibbonControl` property.
+- Update `RibbonTabExtension` to check if `RibbonControl` is null before accessing it. (Fix: #41)
+- Update `RibbonTabExtension` to `RemoveWhenEmptyAndNotActiveTab` when `RibbonTab` is empty.
+- Update `RibbonPanelExtension` to use `RibbonTabExtension.RibbonControl` to find `RibbonTab`.
+- Update `RibbonControl` to fallback to `UIFramework.RevitRibbonControl.RibbonControl`.
+- Update `SetAutodeskOwner` to check if `Window` is valid before setting owner.
+
 ## [0.9.0] / 2026-04-06 - 2026-04-10
 ### Features
 - Support `Revit 2027` and `Revit Preview`.
@@ -409,6 +420,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - First Release
 
 [vNext]: ../../compare/1.0.0...HEAD
+[0.9.1]: ../../compare/0.9.0...0.9.1
 [0.9.0]: ../../compare/0.8.0...0.9.0
 [0.8.0]: ../../compare/0.7.1...0.8.0
 [0.7.1]: ../../compare/0.7.0...0.7.1

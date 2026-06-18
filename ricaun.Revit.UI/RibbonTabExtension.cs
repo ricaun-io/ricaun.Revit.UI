@@ -10,6 +10,14 @@ namespace ricaun.Revit.UI
     /// </summary>
     public static class RibbonTabExtension
     {
+        /// <summary>
+        /// Get RibbonControl in Revit
+        /// </summary>
+        /// <remarks>
+        /// <see cref="Autodesk.Windows.ComponentManager.Ribbon"/> can be null when Revit is closing and 
+        /// <see cref="UIFramework.RevitRibbonControl.RibbonControl"/> could be used as a fallback.
+        /// </remarks>
+        internal static Autodesk.Windows.RibbonControl RibbonControl => Autodesk.Windows.ComponentManager.Ribbon ?? UIFramework.RevitRibbonControl.RibbonControl;
         #region Select
         /// <summary>
         /// GetRibbonTab
@@ -28,8 +36,7 @@ namespace ricaun.Revit.UI
         /// <returns></returns>
         public static Autodesk.Windows.RibbonTab GetRibbonTab(string ribbonTabId)
         {
-            var ribbon = Autodesk.Windows.ComponentManager.Ribbon;
-            return ribbon.FindTab(ribbonTabId);
+            return RibbonControl?.FindTab(ribbonTabId);
         }
 
         /// <summary>
@@ -38,8 +45,7 @@ namespace ricaun.Revit.UI
         /// <returns></returns>
         public static IList<Autodesk.Windows.RibbonTab> GetRibbonTabs()
         {
-            var ribbon = Autodesk.Windows.ComponentManager.Ribbon;
-            return ribbon.Tabs;
+            return RibbonControl?.Tabs;
         }
         #endregion
 
@@ -51,18 +57,25 @@ namespace ricaun.Revit.UI
         /// <returns></returns>
         public static bool Remove(this Autodesk.Windows.RibbonTab ribbonTab)
         {
-            var ribbon = Autodesk.Windows.ComponentManager.Ribbon;
             GetRibbonTabsDictionary()?.Remove(ribbonTab.Id);
-            return ribbon.Tabs.Remove(ribbonTab);
+
+            if (RibbonControl is null)
+                return false;
+
+            return RibbonControl.Tabs.Remove(ribbonTab);
         }
 
         /// <summary>
         /// Remove Tab When Empty / Remove Revit Dictionary Name
         /// </summary>
         /// <param name="ribbonTab"></param>
-        internal static void RemoveWhenEmpty(this Autodesk.Windows.RibbonTab ribbonTab)
+        internal static void RemoveWhenEmptyAndNotActiveTab(this Autodesk.Windows.RibbonTab ribbonTab)
         {
             if (ribbonTab is null) return;
+
+            if (RibbonControl?.ActiveTab == ribbonTab)
+                return;
+
             if (ribbonTab.Panels.Count == 0)
             {
                 ribbonTab.Remove();
@@ -79,7 +92,7 @@ namespace ricaun.Revit.UI
         {
             var removed = ribbonTab.Panels.Remove(ribbonPanel);
             RibbonTabsDictionaryRemove(ribbonTab.Id, ribbonPanel.Source.Name);
-            ribbonTab.RemoveWhenEmpty();
+            ribbonTab.RemoveWhenEmptyAndNotActiveTab();
             return removed;
         }
 

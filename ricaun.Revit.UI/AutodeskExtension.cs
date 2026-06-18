@@ -24,8 +24,14 @@ namespace ricaun.Revit.UI
         /// Set Autodesk.Windows as the Owner of the Window and Active Autodesk.Windows when Closed
         /// </summary>
         /// <param name="window"></param>
+#if NET46
+        [Obsolete("This function does not work with Revit 2018 and 2017, Revit Application is not a Window.")]
+#endif
         public static void SetAutodeskOwner(this Window window)
         {
+            if (GetAutodeskOwner() is null)
+                return;
+
             new WindowInteropHelper(window) { Owner = ComponentManager.ApplicationWindow };
             window.Closed += (s, e) => { SetForegroundWindow(ComponentManager.ApplicationWindow); };
         }
@@ -35,7 +41,7 @@ namespace ricaun.Revit.UI
         /// </summary>
         /// <returns></returns>
 #if NET46
-        [Obsolete("This funciton does not work with Revit 2018 and 2017, Revit Application is not a Window.")]
+        [Obsolete("This function does not work with Revit 2018 and 2017, Revit Application is not a Window.")]
 #endif
         public static Window GetAutodeskOwner()
         {
