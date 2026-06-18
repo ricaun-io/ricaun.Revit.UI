@@ -10,6 +10,13 @@ namespace ricaun.Revit.UI
     /// </summary>
     public static class RibbonTabExtension
     {
+        /// <summary>
+        /// Get RibbonControl in Revit
+        /// </summary>
+        /// <remarks>
+        /// RibbonControl can be null when Revit is closing.
+        /// </remarks>
+        internal static Autodesk.Windows.RibbonControl RibbonControl => Autodesk.Windows.ComponentManager.Ribbon;
         #region Select
         /// <summary>
         /// GetRibbonTab
@@ -28,8 +35,7 @@ namespace ricaun.Revit.UI
         /// <returns></returns>
         public static Autodesk.Windows.RibbonTab GetRibbonTab(string ribbonTabId)
         {
-            var ribbon = Autodesk.Windows.ComponentManager.Ribbon;
-            return ribbon.FindTab(ribbonTabId);
+            return RibbonControl?.FindTab(ribbonTabId);
         }
 
         /// <summary>
@@ -38,8 +44,7 @@ namespace ricaun.Revit.UI
         /// <returns></returns>
         public static IList<Autodesk.Windows.RibbonTab> GetRibbonTabs()
         {
-            var ribbon = Autodesk.Windows.ComponentManager.Ribbon;
-            return ribbon.Tabs;
+            return RibbonControl?.Tabs;
         }
         #endregion
 
@@ -51,9 +56,12 @@ namespace ricaun.Revit.UI
         /// <returns></returns>
         public static bool Remove(this Autodesk.Windows.RibbonTab ribbonTab)
         {
-            var ribbon = Autodesk.Windows.ComponentManager.Ribbon;
             GetRibbonTabsDictionary()?.Remove(ribbonTab.Id);
-            return ribbon.Tabs.Remove(ribbonTab);
+
+            if (RibbonControl is null)
+                return false;
+
+            return RibbonControl.Tabs.Remove(ribbonTab);
         }
 
         /// <summary>

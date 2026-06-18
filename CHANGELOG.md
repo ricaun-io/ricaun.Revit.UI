@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [0.9.1] / 2026-06-18
 ### Features
 ### Updates
+- Update `RibbonTabExtension` to use `RibbonControl` property.
+- Update `RibbonTabExtension` to check if `RibbonControl` is null before accessing it.
 - Update `RibbonTabExtension` to `RemoveWhenEmptyAndNotActiveTab` when `RibbonTab` is empty.
 
 ## [0.9.0] / 2026-04-06 - 2026-04-10
