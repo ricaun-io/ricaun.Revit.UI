@@ -151,8 +151,8 @@ namespace ricaun.Revit.UI
         /// <remarks>The <paramref name="ribbonPanel"/> is removed from the original RibbonTab using <see cref="RibbonTabExtension.Remove(Autodesk.Windows.RibbonTab, Autodesk.Windows.RibbonPanel)"/></remarks>
         public static RibbonPanel MoveToRibbonTab(this RibbonPanel ribbonPanel, string ribbonTabId)
         {
-            var ribbonTab = Autodesk.Windows.ComponentManager.Ribbon.FindTab(ribbonTabId);
-            return ribbonPanel.MoveToRibbonTab(ribbonTab);
+            var ribbonTab = RibbonTabExtension.RibbonControl?.FindTab(ribbonTabId);
+            return ribbonPanel?.MoveToRibbonTab(ribbonTab);
         }
 
         /// <summary>

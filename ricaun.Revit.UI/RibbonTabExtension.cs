@@ -14,9 +14,10 @@ namespace ricaun.Revit.UI
         /// Get RibbonControl in Revit
         /// </summary>
         /// <remarks>
-        /// RibbonControl can be null when Revit is closing.
+        /// <see cref="Autodesk.Windows.ComponentManager.Ribbon"/> can be null when Revit is closing and 
+        /// <see cref="UIFramework.RevitRibbonControl.RibbonControl"/> could be used as a fallback.
         /// </remarks>
-        internal static Autodesk.Windows.RibbonControl RibbonControl => Autodesk.Windows.ComponentManager.Ribbon;
+        internal static Autodesk.Windows.RibbonControl RibbonControl => Autodesk.Windows.ComponentManager.Ribbon ?? UIFramework.RevitRibbonControl.RibbonControl;
         #region Select
         /// <summary>
         /// GetRibbonTab

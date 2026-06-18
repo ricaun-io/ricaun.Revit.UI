@@ -6,10 +6,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [0.9.1] / 2026-06-18
 ### Features
+- Support `RibbonControl` when Revit is closing.
 ### Updates
 - Update `RibbonTabExtension` to use `RibbonControl` property.
 - Update `RibbonTabExtension` to check if `RibbonControl` is null before accessing it. (Fix: #41)
 - Update `RibbonTabExtension` to `RemoveWhenEmptyAndNotActiveTab` when `RibbonTab` is empty.
+- Update `RibbonPanelExtension` to use `RibbonTabExtension.RibbonControl` to find `RibbonTab`.
+- Update `RibbonControl` to fallback to `UIFramework.RevitRibbonControl.RibbonControl`.
 
 ## [0.9.0] / 2026-04-06 - 2026-04-10
 ### Features
