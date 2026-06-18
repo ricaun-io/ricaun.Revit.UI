@@ -61,6 +61,13 @@
     <DebugType>Full</DebugType>
   </PropertyGroup>
 
+  <!-- DebugRevitVersion -->
+  <PropertyGroup Condition="$(Configuration.Contains('Debug'))">
+    <DebugRevitVersion>$(RevitVersion)</DebugRevitVersion>
+    <StartAction>Program</StartAction>
+    <StartProgram>C:\Program Files\Autodesk\Revit $(DebugRevitVersion)\Revit.exe</StartProgram>
+  </PropertyGroup>
+
   <PropertyGroup>
     <PackageId>ricaun.Revit.UI.Example</PackageId>
     <Version Condition="'$(Version)' == ''">0.6.0</Version>
