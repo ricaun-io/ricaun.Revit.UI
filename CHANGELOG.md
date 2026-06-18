@@ -13,6 +13,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Update `RibbonTabExtension` to `RemoveWhenEmptyAndNotActiveTab` when `RibbonTab` is empty.
 - Update `RibbonPanelExtension` to use `RibbonTabExtension.RibbonControl` to find `RibbonTab`.
 - Update `RibbonControl` to fallback to `UIFramework.RevitRibbonControl.RibbonControl`.
+- Update `SetAutodeskOwner` to check if `Window` is valid before setting owner.
 
 ## [0.9.0] / 2026-04-06 - 2026-04-10
 ### Features
